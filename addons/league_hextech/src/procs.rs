@@ -4,24 +4,31 @@
 //! 看的是这几样（每样都只和上一次比，同一条命）：
 //!
 //! - **打中英雄**：他的伤害统计 `deal` 涨了，同时他身边（[`REACH`]）有敌方英雄的生命 + 护盾掉了（大小龙的龙魂同一个做法）；读不到
-//!   统计时看他刚出没出手。被打的人按远近排，最多算 3 个。本包替他打出的伤害下一次不算（不然自己触发自己）。
-//! - **放技能 / 普攻**：四个冷却（普攻、技能、技能 2、大招）一下子涨上去。
+//!   统计时看他刚出没出手。被打的人按远近排，最多算 3 个。本包替他打出的伤害下一次不算（不然自己触发自己）。0.4.0 起还分
+//!   **普攻命中**（刚出过普攻）和**技能命中**（刚放过技能，记着是哪个格子），统计涨了多少也记下（玻璃大炮、巨人杀手按它算）。
+//! - **放技能 / 普攻**：四个冷却（普攻、技能、技能 2、大招）一下子涨上去；涨到的数就是这个格子的总冷却（0.4.0 记下来）。
 //! - **参与击杀**：游戏的击杀记录（击杀者、助攻按队伍 + 分路认座位）。
-//! - **残血**：生命从线上掉到线下的那一次（35%、40%、15%）。
+//! - **残血**：生命从线上掉到线下的那一次（50%、40%、35%、15%、10%）。
 //! - **控住敌人**：他刚放过技能（[`CC_WINDOW`] 以内），身边的敌方英雄刚挂上眩晕、击飞、定身、嘲讽、恐惧、魅惑（自己的施法动作、
 //!   位移不算；本包的雪球击飞也不算）。同一时刻队友也控了人的话分不清是谁，按都算。
 //! - **定时**：冷却到了、射程里有目标就放。
+//! - 0.4.0：**阵亡、复活**（同一个座位这一步刚死 / 换了一条命）、**位移**（这一步挪得比走路快得多，而且刚放过技能：冲刺、
+//!   闪现，被别人击退的不算）、**获得护盾、回复生命、受到伤害**（和上一步比护盾多了、生命多了、生命 + 护盾少了多少）。
 //!
 //! 伤害走游戏自己的结算（`deal_damage_typed`：护甲魔抗、统计、击杀都算他的）；回血、护盾、减速、击飞也都是游戏的接口。限时的效果是
 //! 带名字的限时 buff（`league_hextech_e:<名字>`），叠层的是 `league_hextech_s:<名字>`（坦克引擎、惊世邪恶：层数跟着人走，复活后
-//! 补回），体型的档是 `league_hextech_g:<名字>`（高清帧引擎按 buff 名放大身体，[`super::hd`]）。
+//! 补回），体型的档是 `league_hextech_g:<名字>`（高清帧引擎按 buff 名放大身体，[`super::hd`]）；0.4.0 随场上情况变的属性是
+//! `league_hextech_d:<名字>`（变了才重挂）。0.4.0 的 37 个触发类在 [`b2`]。
 //!
 //! 屏幕放的那场模拟里每次触发记一条特效（[`Out`]，lib.rs 放进 [`super::feed`]），客户端按屏幕时钟画（[`super::fx`]）；预演、后台
 //! 比赛不记，模拟从来不读它。
 
 use mod_api_stable::*;
 
-use super::augments::{Ev, EV_N};
+use super::augments::{Ev, EvSet, EV_N};
+
+pub mod b2;
+pub mod b3;
 
 /// 每这么多 tick 看一次。
 pub const EVERY: usize = 2;
@@ -31,18 +38,51 @@ pub const REACH: u64 = 85_000;
 pub const CC_WINDOW: usize = 45;
 /// 读不到伤害统计时：出手后这么久以内身边敌方英雄掉血算他打的。
 const ACTION_WINDOW: usize = 45;
+/// 0.4.0：刚出过普攻这么久以内的命中算普攻命中（普攻的弹道最多飞这么久）。
+pub const BASIC_WINDOW: usize = 30;
 /// 冷却涨这么多算放了（普攻、技能、技能 2、大招）。
 const JUMP: [usize; 4] = [4, 20, 20, 60];
 /// 一次命中最多算几个被打的人。
 const VICTIMS: usize = 3;
 
+/// 每种触发效果一个数（0.4.0 起超过 32 种，数组没有默认值，包一层）。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct PerEv<T>(pub [T; EV_N]);
+
+impl<T: Default + Copy> Default for PerEv<T> {
+    fn default() -> Self {
+        PerEv([T::default(); EV_N])
+    }
+}
+
+impl<T> std::ops::Index<usize> for PerEv<T> {
+    type Output = T;
+    fn index(&self, i: usize) -> &T {
+        &self.0[i]
+    }
+}
+
+impl<T> std::ops::IndexMut<usize> for PerEv<T> {
+    fn index_mut(&mut self, i: usize) -> &mut T {
+        &mut self.0[i]
+    }
+}
+
+/// 按等级从 `lo` 涨到 `hi`（1 级到 12 级，英雄联盟的「X～Y」本游戏按 12 级换算）。
+pub fn by_level(lo: usize, hi: usize, level: usize) -> usize {
+    lo + (hi.saturating_sub(lo)) * (level.clamp(1, 12) - 1) / 11
+}
+
 // ===================== 数值（海克斯的说明照这些写） =====================
 
 // 银
-pub const FIREBRAND_PULSES: u8 = 6;
+/// 烈焰烙印（0.4.0 对齐英雄联盟：金，普攻叠燃烧）：每 [`FIREBRAND_EVERY`] tick 烧一下，一共 [`FIREBRAND_PULSES`] 下（5 秒），
+/// 每层每秒目标最大生命 0.4%，最多 [`FIREBRAND_STACKS`] 层。
+pub const FIREBRAND_PULSES: u8 = 10;
 pub const FIREBRAND_EVERY: usize = 30;
-pub fn firebrand_total(vmax: usize, ad: usize, ap: usize) -> usize {
-    30 + vmax * 3 / 100 + ad * 10 / 100 + ap * 10 / 100
+pub const FIREBRAND_STACKS: u8 = 5;
+pub fn firebrand_per(vmax: usize, stacks: u8) -> usize {
+    vmax * 2 * stacks as usize / 1000
 }
 pub const ICE_SLOW: i32 = 20;
 pub const ICE_T: usize = 90;
@@ -60,22 +100,29 @@ pub const ESCAPE_CD: usize = 2_700;
 pub fn escape_shield(max: usize) -> usize {
     100 + max * 12 / 100
 }
-pub const TANK_MOST: u8 = 12;
-pub const TANK_HP: i32 = 30;
-pub const TANK_RES: i32 = 3;
-/// 这么多层起体型大一档、两档。
-pub const TANK_BIG: [u8; 2] = [6, 12];
-pub const PUNCH_TICKS: usize = 24;
+/// 坦克引擎（0.4.0 对齐：金，每层最大生命 +5%、每 2 层大一档，阵亡留 35%）。英雄联盟不封顶，这里到 [`TANK_MOST`] 为止。
+pub const TANK_MOST: u8 = 20;
+pub const TANK_HP_PCT: i32 = 5;
+/// 这么多层起体型大一档、两档、三档、四档。
+pub const TANK_BIG: [u8; 4] = [2, 4, 6, 8];
+/// 阵亡时留下这么多（%）。
+pub const TANK_KEEP_PCT: u8 = 35;
+/// 秘术冲拳（0.4.0 对齐：棱彩，每次普攻所有技能 -1.25 秒）。
+pub const PUNCH_TICKS: usize = 75;
 pub const HEAVY_PCT: usize = 3;
 pub const HEAVY_GAP: usize = 30;
-pub const MISSILE_CD: usize = 120;
-pub const MISSILE_RANGE: u64 = 75_000;
+/// 魔法飞弹（0.4.0 对齐：金）：技能命中英雄时 [`MISSILE_N`] 枚，每枚目标最大生命的千分之 4～10（随等级）真实伤害，
+/// 每个技能格 [`MISSILE_SLOT_CD`] tick 一次。
+pub const MISSILE_N: usize = 3;
+pub const MISSILE_SLOT_CD: usize = 360;
+/// 三枚之间隔这么多 tick。
+pub const MISSILE_GAP: usize = 4;
+pub fn missile_permille(level: usize) -> usize {
+    by_level(4, 10, level)
+}
 /// 飞弹一 tick 飞多远（最少飞 [`MISSILE_MIN_T`] tick）。
 pub const MISSILE_SPEED: u64 = 4_000;
 pub const MISSILE_MIN_T: usize = 8;
-pub fn missile_damage(ap: usize, ad: usize) -> usize {
-    30 + ap * 25 / 100 + ad * 10 / 100
-}
 
 // 金
 pub const CHAIN_CD: usize = 180;
@@ -92,11 +139,12 @@ pub const ETHER_T: usize = 180;
 pub fn ether_damage(ap: usize, ad: usize) -> usize {
     40 + ap * 35 / 100 + ad * 25 / 100
 }
-pub const COLOSSUS_T: usize = 150;
+/// 巨像的勇气（0.4.0 对齐：棱彩，150～450 + 4% 最大生命，3 秒）。
+pub const COLOSSUS_T: usize = 180;
 pub const COLOSSUS_CD: usize = 300;
 pub const CC_REACH: u64 = 90_000;
-pub fn colossus_shield(max: usize) -> usize {
-    80 + max * 10 / 100
+pub fn colossus_shield(max: usize, level: usize) -> usize {
+    by_level(150, 450, level) + max * 4 / 100
 }
 pub const EXEC_PCT: usize = 30;
 pub const EXEC_DMG_PCT: usize = 5;
@@ -167,11 +215,12 @@ pub const IMMOLATE_R: u64 = 22_000;
 pub fn immolate_damage(holder_max: usize) -> usize {
     15 + holder_max * 15 / 1000
 }
+/// 台风（0.4.0 对齐：银，普攻多一个目标，30% 攻击力）。
 pub const TYPHOON_CD: usize = 40;
 pub const TYPHOON_R: u64 = 50_000;
-pub const TYPHOON_TARGETS: usize = 2;
-pub fn typhoon_damage(ad: usize, ap: usize) -> usize {
-    ad * 25 / 100 + ap * 10 / 100
+pub const TYPHOON_TARGETS: usize = 1;
+pub fn typhoon_damage(ad: usize) -> usize {
+    ad * 30 / 100
 }
 pub const WARD_CD: usize = 480;
 pub const WARD_R: u64 = 70_000;
@@ -196,7 +245,8 @@ pub const E_UNDYING: &str = "league_hextech_e:undying_will";
 pub const E_WARD: &str = "league_hextech_e:sacred_ward";
 pub const S_TANK: &str = "league_hextech_s:tank_engine";
 pub const S_EVIL: &str = "league_hextech_s:phenomenal_evil";
-pub const G_TANK: [&str; 2] = ["league_hextech_g:tank_engine_1", "league_hextech_g:tank_engine_2"];
+pub const G_TANK: [&str; 4] = ["league_hextech_g:tank_engine_1", "league_hextech_g:tank_engine_2",
+                               "league_hextech_g:tank_engine_3", "league_hextech_g:tank_engine_4"];
 
 fn timed(name: &str, ticks: usize, f: impl FnOnce(&mut BuffV1)) -> BuffV1 {
     let mut b = BuffV1::timed(name, ticks);
@@ -239,9 +289,7 @@ pub fn ward_speed() -> BuffV1 {
 }
 pub fn tank_stacks(n: u8) -> BuffV1 {
     let mut b = BuffV1::named(S_TANK);
-    b.hp = TANK_HP * n as i32;
-    b.defence = TANK_RES * n as i32;
-    b.magic_resistance = TANK_RES * n as i32;
+    b.hp_mult = TANK_HP_PCT * n as i32;
     b
 }
 /// 坦克引擎这么多层时体型是第几档（None：还没变大）。
@@ -256,7 +304,7 @@ pub fn evil_stacks(n: u16) -> BuffV1 {
 
 // ===================== 特效 =====================
 
-/// 屏幕上画的一种特效（[`super::fx`] 里每种一段动画）。
+/// 屏幕上画的一种特效（[`super::fx`] 里每种一段动画，或者画的线）。
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
 pub enum Show {
     Burn,
@@ -297,6 +345,31 @@ pub enum Show {
     Ward,
     /// 本包给的护盾还在时身上的一圈光（0.3.3）：每一步记一次他这时在哪，放 `dur` tick，所以跟着人走
     ShieldGlow,
+    // ---- 0.4.0：画的线
+    /// 在 `at` 往外扩的一圈（`to[0].0` 是最大半径，模拟单位；没有就是 30000），`dur` tick：红（爆炸）、金（神圣、冲击波）、
+    /// 蓝（治疗、鲨鱼）、紫（死亡印记、减速）、青（加速、急速）
+    RingRed,
+    RingGold,
+    RingBlue,
+    RingPurple,
+    RingCyan,
+    /// 回旋刃：从 `at` 飞到 `to[0]` 再飞回 `at`，`dur` tick
+    Boomerang,
+    /// 牵住：`at`（放的人）到 `to[0]`（被牵的人）一条线，放 `dur` tick（每一步记一次，跟着人走）
+    Tether,
+    /// 裂痕：`at` 到 `to[0]` 一道线，`dur` tick 后爆开
+    Trail,
+    /// 无敌时身上的一圈金光（和护盾的光一个做法）
+    HolyGlow,
+    // ---- 0.4.0 第二批
+    /// 蜂巢：从 `at` 抛到 `to[0]`，`dur` tick（和雪球一样带弧线）
+    Hive,
+    /// 蜂群：绕着 `at` 那个人飞，`dur` tick
+    Bees,
+    /// 绿色的外扩光圈（史莱姆）
+    RingGreen,
+    /// 地上的一团黏液（每一步记一次，跟着它在哪）
+    Blob,
 }
 
 /// 屏幕那一场的一次特效：模拟的哪个 tick、在哪（模拟坐标）。
@@ -311,12 +384,16 @@ pub struct Out {
 
 // ===================== 状态 =====================
 
-/// 一个座位：哪个玩家、哪一队、哪一路（击杀记录按队伍 + 分路认人）。
+/// 一个座位：哪个玩家、哪一队、哪一路（击杀记录按队伍 + 分路认人）。`ranged`：远程英雄（0.4.0：玻璃大炮、事不过三按近战 /
+/// 远程给不同的数）。
 #[derive(Clone, Copy, Debug)]
 pub struct Who {
     pub player: usize,
     pub team: usize,
     pub lane: u8,
+    pub ranged: bool,
+    /// 英雄的特性（0.5.0：属性铁砧挑合适的那项）
+    pub traits: super::augments::Traits,
 }
 
 /// 一个座位这边记着的。换了实体（复活）就是新的一条命，带 `*` 的从头来。
@@ -337,9 +414,10 @@ struct Pp {
     /// 身上的硬控（按种类的位）、这一次新挂上的
     cc: u16,
     cc_new: u16,
-    // * 上一次的四个冷却、每个格子最后一次放出来的 tick
+    // * 上一次的四个冷却、每个格子最后一次放出来的 tick、那时涨到的数（这个格子的总冷却）
     cds: Option<(usize, [usize; 4])>,
     cast: [Option<usize>; 4],
+    full: [usize; 4],
     // * 以太武器：(哪次放的技能, 到哪个 tick)
     ether: Option<(usize, usize)>,
     /// 伤害统计上次读到的数和那个 tick（跟着玩家）
@@ -347,7 +425,7 @@ struct Pp {
     /// 本包替他打的伤害在这一次的统计里：这一次不算他打中
     quiet_at: Option<usize>,
     /// 每种效果下次能触发的 tick
-    ready: [usize; EV_N],
+    ready: PerEv<usize>,
     /// 点亮他们：命中了几次、上一次
     hits: u32,
     last_hit: Option<usize>,
@@ -357,12 +435,35 @@ struct Pp {
     applied: Option<(usize, u8, u16)>,
     /// (种类, 对哪个座位, 到这个 tick 前不再)：每个目标各算的间隔、特效间隔
     gates: Vec<(Ev, usize, usize)>,
+    // ---- 0.4.0：这一步看到的（[`Procs::look`] 填）
+    /// 这一步刚死了：死前在哪
+    died_at: Option<(u64, u64)>,
+    /// 这一步换了一条命（复活）
+    respawned: bool,
+    /// 上一步在哪（这一步挪了多远：位移）
+    prev_pos: Option<(u64, u64)>,
+    /// 这一步多出来的护盾、回复的生命、受到的伤害（生命 + 护盾少了的）
+    shield_gain: usize,
+    healed: usize,
+    taken: usize,
+    /// 最后一次受到伤害的 tick
+    last_hurt: Option<usize>,
+    /// 现在几级、移动速度（读不到：0）
+    level: usize,
+    speed: usize,
+    /// 0.4.0 的触发类的状态（[`b2`]）
+    b2: b2::Seat,
+    /// 0.5.0 的（[`b3`]）
+    b3: b3::Seat,
 }
 
 const LOW_35: u8 = 1;
 const LOW_40: u8 = 2;
 const LOW_15: u8 = 4;
-const LINES: [(u8, usize); 3] = [(LOW_35, ESCAPE_PCT), (LOW_40, DAWN_PCT), (LOW_15, UNDYING_PCT)];
+const LOW_50: u8 = 8;
+const LOW_10: u8 = 16;
+const LINES: [(u8, usize); 5] =
+    [(LOW_35, ESCAPE_PCT), (LOW_40, DAWN_PCT), (LOW_15, UNDYING_PCT), (LOW_50, 50), (LOW_10, 10)];
 
 /// 算「控住」的控制：击飞、眩晕、定身、嘲讽、恐惧、魅惑（施法动作、位移、沉默不算）。
 const HARD: [CcKindV1; 6] =
@@ -374,7 +475,8 @@ struct Burn {
     hent: usize,
     victim: usize,
     vent: usize,
-    per: usize,
+    /// 叠了几层（每层每下目标最大生命千分之 2）
+    stacks: u8,
     left: u8,
     next: usize,
 }
@@ -390,22 +492,29 @@ struct Hot {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 enum Kind {
-    Missile,
     Laser,
     Comet,
     Snowball,
+    /// 0.4.0 的魔法飞弹：`base` 是目标最大生命的千分之几（真实伤害）
+    TrueMissile,
+    /// 0.4.0 的狐火：魔法伤害
+    Fox,
+    /// 0.4.0 双持的第二发：物理伤害
+    Bolt,
 }
 
-/// 本包给的一层护盾（只记屏幕那一场的，画光用）：给了哪个座位的哪个实体、哪个 tick 给的、到哪个 tick。
+/// 本包给的一层护盾、一次无敌（只记屏幕那一场的，画光用）：给了哪个座位的哪个实体、哪个 tick 给的、到哪个 tick。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 struct Aura {
     seat: usize,
     ent: usize,
     from: usize,
     until: usize,
+    /// 无敌（金光，到时间才灭）；不是：护盾（盾打没了就灭）
+    holy: bool,
 }
 
-/// 还在路上的：飞弹、激光、彗星、雪球。`base` 是放出去那一刻算好的伤害（不含按目标最大生命的那部分）。
+/// 还在路上的：飞弹、狐火、第二发、激光、彗星、雪球。`base` 是放出去那一刻算好的伤害（不含按目标最大生命的那部分）。
 #[derive(Clone, Debug)]
 struct Shot {
     kind: Kind,
@@ -433,6 +542,16 @@ struct L {
     cc_new: u16,
 }
 
+/// 0.4.0：一个人这一步打中了英雄：被打的（按远近）、伤害统计涨了多少（读不到统计：0）、是不是普攻、是哪个技能格（1 技能、
+/// 2 技能 2、3 大招）。
+#[derive(Clone, Debug, PartialEq, Eq)]
+pub struct Hit {
+    victims: Vec<usize>,
+    delta: u64,
+    basic: bool,
+    skill: Option<usize>,
+}
+
 /// 一份模拟的触发类海克斯。
 #[derive(Clone, Debug, Default)]
 pub struct Procs {
@@ -441,12 +560,17 @@ pub struct Procs {
     hots: Vec<Hot>,
     shots: Vec<Shot>,
     kills_seen: usize,
+    /// 0.4.0：这一步的击杀：(参与的座位, 死的是谁)
+    kills_now: Vec<(Vec<usize>, Option<usize>)>,
+    /// 0.4.0：过一会儿才发生的（[`b2`]）
+    later: Vec<b2::Later>,
+    later3: Vec<b3::Late>,
     /// 本包给的控制（雪球的击飞）：(实体, 到这个 tick)，这期间他新挂上的控制不算谁控住的
     own_cc: Vec<(usize, usize)>,
-    /// 本包给的护盾还亮着的（屏幕那一场才记）
+    /// 本包给的护盾、无敌还亮着的（屏幕那一场才记）
     auras: Vec<Aura>,
     /// 每种触发了几次（END 一行）
-    pub count: [u32; EV_N],
+    pub count: PerEv<u32>,
     /// 屏幕那一场这一步要画的（lib.rs 拿走放进 feed）
     pub out: Vec<Out>,
     /// 这一步的日志（lib.rs 拿走）
@@ -489,16 +613,17 @@ fn put_timed(sim: &mut StableSim<'_>, ent: usize, b: &BuffV1) {
 }
 
 /// 这些种类里他有没有。
-pub fn holds(set: u64, evs: &[Ev]) -> bool {
+pub fn holds(set: EvSet, evs: &[Ev]) -> bool {
     evs.iter().any(|e| set & e.bit() != 0)
 }
 
-const ON_HIT: [Ev; 10] = [Ev::Firebrand, Ev::IceCold, Ev::LightEmUp, Ev::HeavyHitter, Ev::ChainLightning,
-                          Ev::Vulnerability, Ev::EtherealWeapon, Ev::Executioner, Ev::PhenomenalEvil, Ev::Typhoon];
+const ON_HIT: [Ev; 11] = [Ev::Firebrand, Ev::IceCold, Ev::LightEmUp, Ev::HeavyHitter, Ev::ChainLightning,
+                          Ev::Vulnerability, Ev::EtherealWeapon, Ev::Executioner, Ev::PhenomenalEvil, Ev::Typhoon,
+                          Ev::MagicMissile];
 const ON_CC: [Ev; 2] = [Ev::Colossus, Ev::Cruelty];
 
 /// 一份模拟里用到了哪些（`held` 每个座位一个位集）。
-fn union(held: &[u64]) -> u64 {
+fn union(held: &[EvSet]) -> EvSet {
     held.iter().fold(0, |a, h| a | h)
 }
 
@@ -521,17 +646,26 @@ impl Procs {
     /// 给了 `ent` 一层 `t` tick 的护盾：屏幕那一场记下来，护盾还在就在他身上画一圈光（用户：「现在有些海克斯比如什么加护盾
     /// 我是看不到特效的」「或者是不明显？」——给盾那一下的动画只有半秒，盾要挂两三秒）。同一个人又给了一层：亮到晚的那个。
     fn guarded(&mut self, screen: bool, seat: usize, ent: usize, now: usize, t: usize) {
+        self.aura(screen, seat, ent, now, t, false);
+    }
+
+    /// 无敌 `t` tick（0.4.0）：身上一圈金光，到时间才灭。
+    fn holy(&mut self, screen: bool, seat: usize, ent: usize, now: usize, t: usize) {
+        self.aura(screen, seat, ent, now, t, true);
+    }
+
+    fn aura(&mut self, screen: bool, seat: usize, ent: usize, now: usize, t: usize, holy: bool) {
         if !screen {
             return;
         }
         let until = now + t;
-        match self.auras.iter_mut().find(|a| a.ent == ent) {
+        match self.auras.iter_mut().find(|a| a.ent == ent && a.holy == holy) {
             Some(a) => a.until = a.until.max(until),
-            None => self.auras.push(Aura { seat, ent, from: now, until }),
+            None => self.auras.push(Aura { seat, ent, from: now, until, holy }),
         }
     }
 
-    /// 每一步给还亮着的护盾记一次光（在他这一步的位置）。时间到了、盾打没了（给的那一步之后护盾读到 0）、人死了、
+    /// 每一步给还亮着的护盾、无敌记一次光（在他这一步的位置）。时间到了、盾打没了（给的那一步之后护盾读到 0）、人死了、
     /// 换了一条命：不再亮。
     fn auras_tick(&mut self, now: usize, looks: &[L], screen: bool) {
         if !screen {
@@ -541,11 +675,12 @@ impl Procs {
         let auras = std::mem::take(&mut self.auras);
         for a in auras {
             let Some(l) = looks.get(a.seat).filter(|l| l.alive && l.ent == a.ent) else { continue };
-            let broken = now > a.from && self.pls[a.seat].shield == 0;
+            let broken = !a.holy && now > a.from && self.pls[a.seat].shield == 0;
             if now >= a.until || broken {
                 continue;
             }
-            self.show(true, now, Show::ShieldGlow, l.pos, Vec::new(), EVERY);
+            let show = if a.holy { Show::HolyGlow } else { Show::ShieldGlow };
+            self.show(true, now, show, l.pos, Vec::new(), EVERY);
             self.auras.push(a);
         }
     }
@@ -575,23 +710,50 @@ impl Procs {
         self.count[ev as usize] += 1;
     }
 
+    /// 这个座位不再有 `ev`（0.5.0 潘朵拉的盒子换掉了）：它随场上变的属性、叠层、标记摘掉、清零（海克斯本身的 buff 由选的地方摘）。
+    pub fn forget(&mut self, sim: &mut StableSim<'_>, seat: usize, ent: Option<usize>, ev: Ev) {
+        if let Some(p) = self.pls.get_mut(seat) {
+            match ev {
+                Ev::TankEngine => p.tank = 0,
+                Ev::PhenomenalEvil => p.evil = 0,
+                _ => {}
+            }
+        }
+        if let Some(e) = ent {
+            match ev {
+                Ev::TankEngine => {
+                    sim.entity_remove_buff(e, S_TANK);
+                    for g in G_TANK {
+                        sim.entity_remove_buff(e, g);
+                    }
+                }
+                Ev::PhenomenalEvil => {
+                    sim.entity_remove_buff(e, S_EVIL);
+                }
+                _ => {}
+            }
+        }
+        self.b2_forget(sim, seat, ent, ev);
+        self.b3_forget(sim, seat, ent, ev);
+    }
+
     /// 叠层的 buff 现在挂着几层（复活了、层数变了：重挂）。
     fn keep_stacks(&mut self, sim: &mut StableSim<'_>, looks: &[L]) {
         for (i, look) in looks.iter().enumerate().take(self.pls.len()) {
             let (tank, evil) = (self.pls[i].tank, self.pls[i].evil);
-            if (tank == 0 && evil == 0) || !look.alive {
+            if !look.alive {
                 continue;
             }
             let ent = look.ent;
-            if self.pls[i].applied == Some((ent, tank, evil)) {
+            if self.pls[i].applied == Some((ent, tank, evil)) || (tank == 0 && evil == 0 && self.pls[i].applied.is_none()) {
                 continue;
             }
+            sim.entity_remove_buff(ent, S_TANK);
+            for g in G_TANK {
+                sim.entity_remove_buff(ent, g);
+            }
             if tank > 0 {
-                sim.entity_remove_buff(ent, S_TANK);
                 sim.add_buff(ent, &tank_stacks(tank));
-                for g in G_TANK {
-                    sim.entity_remove_buff(ent, g);
-                }
                 if let Some(k) = tank_size(tank) {
                     sim.add_buff(ent, &BuffV1::named(G_TANK[k]));
                 }
@@ -604,14 +766,24 @@ impl Procs {
         }
     }
 
-    /// 每个座位这一次的样子：生命、护盾、位置，掉没掉血、掉没掉到线下、新挂上的控制。
-    fn look(&mut self, sim: &StableSim<'_>, now: usize, who: &[Who], any: u64) -> Vec<L> {
-        let want_cc = holds(any, &ON_CC);
+    /// 每个座位这一次的样子：生命、护盾、位置，掉没掉血、掉没掉到线下、新挂上的控制；0.4.0 起还有刚死、刚复活、多了的护盾、
+    /// 回复的生命、受到的伤害、等级和移动速度。
+    fn look(&mut self, sim: &StableSim<'_>, now: usize, who: &[Who], any: EvSet) -> Vec<L> {
+        let want_cc = holds(any, &ON_CC) || holds(any, &b2::ON_CC) || holds(any, &b3::ON_CC);
         self.own_cc.retain(|x| x.1 > now);
         let mut looks = vec![L::default(); who.len()];
         for (i, w) in who.iter().enumerate() {
             let p = &mut self.pls[i];
+            p.died_at = None;
+            p.respawned = false;
+            p.shield_gain = 0;
+            p.healed = 0;
+            p.taken = 0;
+            p.level = sim.get_player(w.player).map_or(p.level, |pl| pl.level());
             let Some(e) = sim.get_player(w.player).and_then(|pl| pl.champion()) else {
+                if p.alive {
+                    p.died_at = Some(p.pos);
+                }
                 p.alive = false;
                 p.seen = None;
                 continue;
@@ -619,14 +791,23 @@ impl Procs {
             let ent = e.id();
             if p.ent != Some(ent) {
                 // 新的一条命
+                if p.alive {
+                    p.died_at = Some(p.pos);
+                }
+                p.respawned = p.ent.is_some();
                 p.ent = Some(ent);
                 p.seen = None;
                 p.cds = None;
                 p.cast = [None; 4];
                 p.ether = None;
                 p.cc = 0;
+                p.alive = false;
+                p.prev_pos = None;
             }
             if !e.is_alive() {
+                if p.alive {
+                    p.died_at = Some(p.pos);
+                }
                 p.alive = false;
                 p.seen = None;
                 continue;
@@ -641,7 +822,18 @@ impl Procs {
                         p.crossed |= bit;
                     }
                 }
+                p.shield_gain = shield.saturating_sub(p.shield);
+                // 最大生命变大时生命跟着涨的那一截不算回复
+                p.healed = hp.saturating_sub(p.hp).saturating_sub(max.saturating_sub(p.max));
+                p.taken = (p.hp + p.shield).saturating_sub(hp + shield);
+                if p.taken > 0 {
+                    p.last_hurt = Some(now);
+                }
+                p.prev_pos = Some(p.pos);
+            } else {
+                p.prev_pos = None;
             }
+            p.speed = e.stat().move_speed;
             if want_cc {
                 let mut cc = 0u16;
                 for k in 0..e.cc_count() {
@@ -665,8 +857,8 @@ impl Procs {
         looks
     }
 
-    /// 四个冷却一下子涨上去：放了（普攻、技能、技能 2、大招）。
-    fn read_casts(&mut self, sim: &StableSim<'_>, now: usize, who: &[Who], held: &[u64], looks: &[L]) {
+    /// 四个冷却一下子涨上去：放了（普攻、技能、技能 2、大招）；涨到的数记成这个格子的总冷却。
+    fn read_casts(&mut self, sim: &StableSim<'_>, now: usize, who: &[Who], held: &[EvSet], looks: &[L]) {
         for i in 0..who.len() {
             if held[i] == 0 || !looks[i].alive {
                 continue;
@@ -679,6 +871,7 @@ impl Procs {
                     for k in 0..4 {
                         if c[k] > prev[k] + JUMP[k] {
                             p.cast[k] = Some(now);
+                            p.full[k] = c[k];
                         }
                     }
                 }
@@ -687,8 +880,9 @@ impl Procs {
         }
     }
 
-    /// 他这一次打中英雄没有：伤害统计涨了（上一次也读过，不是本包替他打的那一次）；读不到统计就看他刚出没出手。
-    fn dealt(&mut self, sim: &StableSim<'_>, h: usize, player: usize, now: usize) -> bool {
+    /// 他这一次打中英雄没有：伤害统计涨了（上一次也读过，不是本包替他打的那一次）-> 涨了多少；读不到统计就看他刚出没出手
+    /// （打中了：0）。
+    fn dealt(&mut self, sim: &StableSim<'_>, h: usize, player: usize, now: usize) -> Option<u64> {
         let v = sim.get_player(player).and_then(|p| p.statistics_json("deal")).as_deref().and_then(parse_num);
         let p = &mut self.pls[h];
         let quiet = p.quiet_at == Some(now);
@@ -696,70 +890,130 @@ impl Procs {
             Some(v) => {
                 let before = p.deal;
                 p.deal = Some((v, now));
-                !quiet && matches!(before, Some((b, at)) if at.checked_add(EVERY) == Some(now) && v > b)
+                match before {
+                    Some((b, at)) if !quiet && at.checked_add(EVERY) == Some(now) && v > b => Some(v - b),
+                    _ => None,
+                }
             }
-            None => !quiet && p.cast.iter().flatten().any(|&t| now <= t + ACTION_WINDOW),
+            None => (!quiet && p.cast.iter().flatten().any(|&t| now <= t + ACTION_WINDOW)).then_some(0),
         }
     }
 
-    pub fn step(&mut self, sim: &mut StableSim<'_>, now: usize, who: &[Who], held: &[u64], names: &[String],
+    /// 他这一步打中了哪些英雄（没打中：None）。身边没有敌方英雄时统计不读，上次的作废（下次靠近时重新读）。
+    fn hit_info(&mut self, sim: &StableSim<'_>, now: usize, h: usize, who: &[Who], looks: &[L]) -> Option<Hit> {
+        let me = looks[h];
+        let mut near: Vec<(u64, usize)> = (0..looks.len())
+            .filter(|&v| looks[v].alive && looks[v].team != me.team)
+            .map(|v| (d2(me.pos, looks[v].pos), v))
+            .filter(|&(d, _)| d <= REACH * REACH)
+            .collect();
+        if near.is_empty() {
+            let p = &mut self.pls[h];
+            p.deal = p.deal.map(|(v, _)| (v, usize::MAX));
+            return None;
+        }
+        let delta = self.dealt(sim, h, who[h].player, now)?;
+        near.retain(|&(_, v)| looks[v].hurt);
+        if near.is_empty() {
+            return None;
+        }
+        near.sort();
+        let cast = self.pls[h].cast;
+        let basic = cast[0].is_some_and(|t| now <= t + BASIC_WINDOW);
+        let skill = (1..4).filter(|&k| cast[k].is_some_and(|t| now <= t + ACTION_WINDOW)).max_by_key(|&k| cast[k]);
+        Some(Hit { victims: near.iter().take(VICTIMS).map(|x| x.1).collect(), delta, basic, skill })
+    }
+
+    /// 他刚放过技能、身边有敌方英雄刚被控住：那个人（没有：None）。
+    fn cc_victim(&self, now: usize, h: usize, looks: &[L]) -> Option<usize> {
+        let me = looks[h];
+        let cast = self.pls[h].cast[1..].iter().flatten().any(|&t| now <= t + CC_WINDOW);
+        if !cast {
+            return None;
+        }
+        (0..looks.len()).find(|&v| {
+            looks[v].alive && looks[v].team != me.team && looks[v].cc_new != 0 && within(looks[v].pos, me.pos, CC_REACH)
+        })
+    }
+
+    pub fn step(&mut self, sim: &mut StableSim<'_>, now: usize, who: &[Who], held: &[EvSet], names: &[String],
                 screen: bool) {
         let any = union(held);
         if any == 0 || who.is_empty() || held.len() != who.len() {
             return;
         }
-        if self.pls.len() != who.len() {
-            self.pls = vec![Pp::default(); who.len()];
+        // 0.5.0：选的时候可能先登记了（[`Procs::picked`]），只补不清
+        if self.pls.len() < who.len() {
+            self.pls.resize(who.len(), Pp::default());
         }
         let looks = self.look(sim, now, who, any);
         self.takedowns(sim, now, who, held, &looks, names, screen);
         self.read_casts(sim, now, who, held, &looks);
+        self.b2_deaths(sim, now, who, held, &looks, names, screen);
         for h in 0..who.len() {
             if held[h] == 0 || !looks[h].alive {
                 continue;
             }
-            if holds(held[h], &ON_HIT) {
-                self.on_hit(sim, now, h, who, held[h], &looks, names, screen);
+            let hit = if holds(held[h], &ON_HIT) || holds(held[h], &b2::ON_HIT) || holds(held[h], &b3::ON_HIT) {
+                self.hit_info(sim, now, h, who, &looks)
+            } else {
+                None
+            };
+            if let Some(hit) = &hit {
+                self.on_hit(sim, now, h, held[h], &looks, hit, names, screen);
             }
             self.on_low(sim, now, h, held[h], &looks, names, screen);
-            if holds(held[h], &ON_CC) {
-                self.on_cc(sim, now, h, held[h], &looks, names, screen);
+            let cc = if holds(held[h], &ON_CC) || holds(held[h], &b2::ON_CC) || holds(held[h], &b3::ON_CC) {
+                self.cc_victim(now, h, &looks)
+            } else {
+                None
+            };
+            if let Some(v) = cc {
+                self.on_cc(sim, now, h, held[h], &looks, v, names, screen);
             }
             self.on_cast(sim, now, h, held[h], &looks, names, screen);
             self.timers(sim, now, h, held[h], &looks, names, screen);
+            self.b2_seat(sim, now, h, who, held[h], &looks, hit.as_ref(), cc, names, screen);
+            self.b3_seat(sim, now, h, who, held[h], &looks, hit.as_ref(), cc, names, screen);
         }
         self.burns_tick(sim, now, &looks, screen);
         self.hots_tick(sim, now, &looks);
         self.shots_tick(sim, now, &looks, names, screen);
+        self.b2_later(sim, now, who, &looks, names, screen);
+        self.b3_later(sim, now, who, &looks, names, screen);
         self.keep_stacks(sim, &looks);
+        self.b2_keep(sim, now, who, held, &looks);
+        self.b3_keep(sim, now, who, held, &looks);
         self.auras_tick(now, &looks, screen);
+        self.kills_now.clear();
     }
 
     // ---------- 参与击杀 ----------
 
     #[allow(clippy::too_many_arguments)]
-    fn takedowns(&mut self, sim: &mut StableSim<'_>, now: usize, who: &[Who], held: &[u64], looks: &[L], names: &[String],
-                 screen: bool) {
+    fn takedowns(&mut self, sim: &mut StableSim<'_>, now: usize, who: &[Who], held: &[EvSet], looks: &[L],
+                 names: &[String], screen: bool) {
         let n = sim.kill_log_count();
         while self.kills_seen < n {
             let Some(k) = sim.kill_log_at(self.kills_seen) else { break };
             self.kills_seen += 1;
-            let seat = |lane: u32| who.iter().position(|w| w.team == k.killer_team && w.lane as u32 == lane);
-            let mut takers: Vec<usize> = seat(k.killer_position).into_iter().collect();
+            let seat = |team: usize, lane: u32| who.iter().position(|w| w.team == team && w.lane as u32 == lane);
+            let mut takers: Vec<usize> = seat(k.killer_team, k.killer_position).into_iter().collect();
             for &a in &k.assist_positions[..(k.assist_count as usize).min(4)] {
-                if let Some(s) = seat(a) {
+                if let Some(s) = seat(k.killer_team, a) {
                     if !takers.contains(&s) {
                         takers.push(s);
                     }
                 }
             }
-            for s in takers {
+            let victim = seat(1 - k.killer_team.min(1), k.killed_position);
+            for &s in &takers {
                 if held[s] & Ev::TankEngine.bit() != 0 && self.pls[s].tank < TANK_MOST {
                     self.pls[s].tank += 1;
                     self.fire(Ev::TankEngine);
                     let t = self.pls[s].tank;
-                    self.say(screen, || format!("PROC tank_engine {}: takedown - {t} stacks (+{} max health)", names[s],
-                                                TANK_HP * t as i32));
+                    self.say(screen, || format!("PROC tank_engine {}: takedown - {t} stacks (+{}% max health)", names[s],
+                                                TANK_HP_PCT * t as i32));
                     if looks[s].alive {
                         self.show(screen, now, Show::Grow, looks[s].pos, Vec::new(), 0);
                     }
@@ -772,51 +1026,31 @@ impl Procs {
                     self.show(screen, now, Show::Excited, looks[s].pos, Vec::new(), 0);
                 }
             }
+            self.kills_now.push((takers, victim));
         }
     }
 
     // ---------- 打中英雄 ----------
 
     #[allow(clippy::too_many_arguments)]
-    fn on_hit(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, who: &[Who], set: u64, looks: &[L],
+    fn on_hit(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: EvSet, looks: &[L], hit: &Hit,
               names: &[String], screen: bool) {
         let me = looks[h];
-        let mut near: Vec<(u64, usize)> = (0..looks.len())
-            .filter(|&v| looks[v].alive && looks[v].team != me.team)
-            .map(|v| (d2(me.pos, looks[v].pos), v))
-            .filter(|&(d, _)| d <= REACH * REACH)
-            .collect();
-        if near.is_empty() {
-            // 身边没有敌方英雄：统计不读，上次的作废（下次靠近时重新读）
-            let p = &mut self.pls[h];
-            p.deal = p.deal.map(|(v, _)| (v, usize::MAX));
-            return;
-        }
-        if !self.dealt(sim, h, who[h].player, now) {
-            return;
-        }
-        near.retain(|&(_, v)| looks[v].hurt);
-        if near.is_empty() {
-            return;
-        }
-        near.sort();
-        let victims: Vec<usize> = near.iter().take(VICTIMS).map(|x| x.1).collect();
+        let victims = hit.victims.clone();
         let first = victims[0];
         let (ad, ap) = ad_ap(sim, me.ent);
-        if set & Ev::Firebrand.bit() != 0 {
+        if set & Ev::Firebrand.bit() != 0 && hit.basic {
             for &v in &victims {
-                let per = (firebrand_total(looks[v].max, ad, ap) / FIREBRAND_PULSES as usize).max(1);
                 match self.burns.iter_mut().find(|b| b.holder == h && b.vent == looks[v].ent) {
                     Some(b) => {
-                        b.per = per;
+                        b.stacks = (b.stacks + 1).min(FIREBRAND_STACKS);
                         b.left = FIREBRAND_PULSES;
                     }
                     None => {
-                        self.burns.push(Burn { holder: h, hent: me.ent, victim: v, vent: looks[v].ent, per,
+                        self.burns.push(Burn { holder: h, hent: me.ent, victim: v, vent: looks[v].ent, stacks: 1,
                                                left: FIREBRAND_PULSES, next: now });
                         self.fire(Ev::Firebrand);
-                        self.say(screen, || format!("PROC firebrand {} ignites {}: {per} x {FIREBRAND_PULSES}", names[h],
-                                                    names[v]));
+                        self.say(screen, || format!("PROC firebrand {} ignites {}", names[h], names[v]));
                     }
                 }
             }
@@ -907,7 +1141,7 @@ impl Procs {
             });
             self.show(screen, now, Show::Chain, me.pos, chain.iter().map(|&x| looks[x].pos).collect(), 0);
         }
-        if set & Ev::Typhoon.bit() != 0 && now >= self.pls[h].ready[Ev::Typhoon as usize] {
+        if set & Ev::Typhoon.bit() != 0 && hit.basic && now >= self.pls[h].ready[Ev::Typhoon as usize] {
             let mut others: Vec<(u64, usize)> = (0..looks.len())
                 .filter(|&x| x != first && looks[x].alive && looks[x].team != me.team && looks[x].targetable)
                 .map(|x| (d2(looks[x].pos, me.pos), x))
@@ -916,7 +1150,7 @@ impl Procs {
             if !others.is_empty() {
                 others.sort();
                 self.pls[h].ready[Ev::Typhoon as usize] = now + TYPHOON_CD;
-                let amount = typhoon_damage(ad, ap).max(1);
+                let amount = typhoon_damage(ad).max(1);
                 let blades: Vec<usize> = others.iter().take(TYPHOON_TARGETS).map(|o| o.1).collect();
                 for &x in &blades {
                     self.hit(sim, now, h, me.ent, looks[x].ent, amount, DamageTypeV1::Ad, AttackTypeV1::Skill);
@@ -925,12 +1159,31 @@ impl Procs {
                 self.show(screen, now, Show::Typhoon, me.pos, blades.iter().map(|&x| looks[x].pos).collect(), 0);
             }
         }
+        if set & Ev::MagicMissile.bit() != 0 {
+            if let Some(k) = hit.skill {
+                if self.gate(h, Ev::MagicMissile, k, now, MISSILE_SLOT_CD) {
+                    let v = first;
+                    let d = (d2(me.pos, looks[v].pos) as f64).sqrt() as u64;
+                    let t = ((d / MISSILE_SPEED) as usize).max(MISSILE_MIN_T);
+                    let pm = missile_permille(self.pls[h].level);
+                    for j in 0..MISSILE_N {
+                        self.shots.push(Shot { kind: Kind::TrueMissile, holder: h, hent: me.ent, team: me.team,
+                                               target: Some((v, looks[v].ent)), at: looks[v].pos,
+                                               land: now + t + j * MISSILE_GAP, base: pm });
+                        self.show(screen, now + j * MISSILE_GAP, Show::Missile, me.pos, vec![looks[v].pos], t);
+                    }
+                    self.fire(Ev::MagicMissile);
+                    self.say(screen, || format!("PROC magic_missile {} -> {}: {MISSILE_N} x {pm}/1000 of max health", names[h],
+                                                names[v]));
+                }
+            }
+        }
     }
 
     // ---------- 残血 ----------
 
     #[allow(clippy::too_many_arguments)]
-    fn on_low(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: u64, looks: &[L], names: &[String],
+    fn on_low(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: EvSet, looks: &[L], names: &[String],
               screen: bool) {
         let me = looks[h];
         let ready = |s: &Self, ev: Ev| now >= s.pls[h].ready[ev as usize];
@@ -986,21 +1239,12 @@ impl Procs {
     // ---------- 控住敌人 ----------
 
     #[allow(clippy::too_many_arguments)]
-    fn on_cc(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: u64, looks: &[L], names: &[String],
-             screen: bool) {
+    fn on_cc(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: EvSet, looks: &[L], v: usize,
+             names: &[String], screen: bool) {
         let me = looks[h];
-        let cast = self.pls[h].cast[1..].iter().flatten().any(|&t| now <= t + CC_WINDOW);
-        if !cast {
-            return;
-        }
-        let Some(v) = (0..looks.len()).find(|&v| {
-            looks[v].alive && looks[v].team != me.team && looks[v].cc_new != 0 && within(looks[v].pos, me.pos, CC_REACH)
-        }) else {
-            return;
-        };
         if set & Ev::Colossus.bit() != 0 && now >= self.pls[h].ready[Ev::Colossus as usize] {
             self.pls[h].ready[Ev::Colossus as usize] = now + COLOSSUS_CD;
-            let amount = colossus_shield(me.max);
+            let amount = colossus_shield(me.max, self.pls[h].level);
             sim.entity_add_shield(me.ent, amount, COLOSSUS_T);
             self.guarded(screen, h, me.ent, now, COLOSSUS_T);
             self.fire(Ev::Colossus);
@@ -1022,14 +1266,15 @@ impl Procs {
     // ---------- 放技能 / 普攻 ----------
 
     #[allow(clippy::too_many_arguments)]
-    fn on_cast(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: u64, looks: &[L], names: &[String],
+    fn on_cast(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: EvSet, looks: &[L], names: &[String],
                screen: bool) {
         let me = looks[h];
         let cast = self.pls[h].cast;
         let at_now = |k: usize| cast[k] == Some(now);
         if set & Ev::MysticPunch.bit() != 0 && at_now(0) {
-            sim.entity_reduce_cooldown(me.ent, SkillSlotV1::Skill, PUNCH_TICKS);
-            sim.entity_reduce_cooldown(me.ent, SkillSlotV1::Skill2, PUNCH_TICKS);
+            for slot in [SkillSlotV1::Skill, SkillSlotV1::Skill2, SkillSlotV1::Ult] {
+                sim.entity_reduce_cooldown(me.ent, slot, PUNCH_TICKS);
+            }
             self.fire(Ev::MysticPunch);
             if self.gate(h, Ev::MysticPunch, h, now, 60) {
                 self.show(screen, now, Show::Punch, me.pos, Vec::new(), 0);
@@ -1037,20 +1282,6 @@ impl Procs {
         }
         if set & Ev::EtherealWeapon.bit() != 0 && (1..4).any(at_now) {
             self.pls[h].ether = Some((now, now + ETHER_T));
-        }
-        if set & Ev::MagicMissile.bit() != 0 && (at_now(1) || at_now(2))
-            && now >= self.pls[h].ready[Ev::MagicMissile as usize] {
-            if let Some((d, v)) = nearest(looks, h, MISSILE_RANGE) {
-                self.pls[h].ready[Ev::MagicMissile as usize] = now + MISSILE_CD;
-                let t = ((d as f64).sqrt() as u64 / MISSILE_SPEED) as usize;
-                let t = t.max(MISSILE_MIN_T);
-                let (ad, ap) = ad_ap(sim, me.ent);
-                self.shots.push(Shot { kind: Kind::Missile, holder: h, hent: me.ent, team: me.team,
-                                       target: Some((v, looks[v].ent)), at: looks[v].pos, land: now + t,
-                                       base: missile_damage(ap, ad) });
-                self.fire(Ev::MagicMissile);
-                self.show(screen, now, Show::Missile, me.pos, vec![looks[v].pos], t);
-            }
         }
         if set & Ev::FinalForm.bit() != 0 && at_now(3) {
             put_timed(sim, me.ent, &final_form());
@@ -1063,7 +1294,7 @@ impl Procs {
     // ---------- 定时 ----------
 
     #[allow(clippy::too_many_arguments)]
-    fn timers(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: u64, looks: &[L], names: &[String],
+    fn timers(&mut self, sim: &mut StableSim<'_>, now: usize, h: usize, set: EvSet, looks: &[L], names: &[String],
               screen: bool) {
         let me = looks[h];
         let ready = |s: &Self, ev: Ev| now >= s.pls[h].ready[ev as usize];
@@ -1145,7 +1376,8 @@ impl Procs {
                 continue;
             }
             if now >= b.next {
-                self.hit(sim, now, b.holder, b.hent, b.vent, b.per, DamageTypeV1::Ap, AttackTypeV1::Dot);
+                let per = firebrand_per(looks[b.victim].max, b.stacks).max(1);
+                self.hit(sim, now, b.holder, b.hent, b.vent, per, DamageTypeV1::Ap, AttackTypeV1::Dot);
                 b.left -= 1;
                 b.next = now + FIREBRAND_EVERY;
                 self.show(screen, now, Show::Burn, looks[b.victim].pos, Vec::new(), 0);
@@ -1185,12 +1417,17 @@ impl Procs {
                 continue;
             }
             match s.kind {
-                Kind::Missile => {
+                Kind::TrueMissile | Kind::Fox | Kind::Bolt => {
                     let Some((v, vent)) = s.target else { continue };
                     if !looks.get(v).is_some_and(|l| l.alive && l.ent == vent) {
                         continue;
                     }
-                    self.hit(sim, now, s.holder, s.hent, vent, s.base, DamageTypeV1::Ap, AttackTypeV1::Skill);
+                    let (amount, ty) = match s.kind {
+                        Kind::TrueMissile => (looks[v].max * s.base / 1000, DamageTypeV1::Fixed),
+                        Kind::Bolt => (s.base, DamageTypeV1::Ad),
+                        _ => (s.base, DamageTypeV1::Ap),
+                    };
+                    self.hit(sim, now, s.holder, s.hent, vent, amount.max(1), ty, AttackTypeV1::Skill);
                     self.show(screen, now, Show::MissilePop, looks[v].pos, Vec::new(), 0);
                 }
                 Kind::Laser | Kind::Comet | Kind::Snowball => {
@@ -1266,6 +1503,12 @@ fn enemies_near(looks: &[L], h: usize, at: (u64, u64), r: u64) -> Vec<usize> {
     (0..looks.len()).filter(|&v| looks[v].alive && looks[v].team != team && within(looks[v].pos, at, r)).collect()
 }
 
+/// `at` 周围 `r` 以内 `h` 的友方英雄（含他自己）。
+fn allies_near(looks: &[L], h: usize, at: (u64, u64), r: u64) -> Vec<usize> {
+    let team = looks[h].team;
+    (0..looks.len()).filter(|&v| looks[v].alive && looks[v].team == team && within(looks[v].pos, at, r)).collect()
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -1273,18 +1516,22 @@ mod tests {
     #[test]
     fn the_numbers_follow_the_cards() {
         // a 2000-health target, 200 attack damage, 300 ability power
-        assert_eq!(firebrand_total(2000, 200, 300), 30 + 60 + 20 + 30);
+        assert_eq!(firebrand_per(2000, 1), 4, "0.4% a second = 0.2% a half second, one stack");
+        assert_eq!(firebrand_per(2000, FIREBRAND_STACKS), 20);
         assert_eq!(light_damage(200), 105);
         assert_eq!(escape_shield(2000), 340);
-        assert_eq!(missile_damage(300, 200), 30 + 75 + 20);
+        assert_eq!((missile_permille(1), missile_permille(12)), (4, 10));
         assert_eq!(chain_damage(200, 300), 40 + 50 + 90);
         assert_eq!(immolate_damage(4000), 75);
         assert_eq!(ward_shield(300, 2000), 100 + 75 + 160);
-        assert_eq!(tank_size(5), None);
-        assert_eq!(tank_size(6), Some(0));
-        assert_eq!(tank_size(12), Some(1));
-        let b = tank_stacks(12);
-        assert_eq!((b.hp, b.defence, b.magic_resistance), (360, 36, 36));
+        assert_eq!((colossus_shield(2000, 1), colossus_shield(2000, 12)), (150 + 80, 450 + 80));
+        assert_eq!(typhoon_damage(200), 60);
+        assert_eq!((by_level(30, 80, 1), by_level(30, 80, 12), by_level(30, 80, 0), by_level(30, 80, 20)), (30, 80, 30, 80));
+        assert_eq!(tank_size(1), None);
+        assert_eq!(tank_size(2), Some(0));
+        assert_eq!(tank_size(8), Some(3));
+        assert_eq!(tank_size(TANK_MOST), Some(3));
+        assert_eq!(tank_stacks(6).hp_mult, 30);
         assert_eq!(evil_stacks(EVIL_MOST).magic_power, 150);
         let f = final_form();
         assert_eq!((f.attack_speed_mult, f.damaged_reduce, f.toughness, f.cc_immune), (30, 20, 80, false));
@@ -1295,8 +1542,11 @@ mod tests {
 
     #[test]
     fn every_buff_name_fits() {
-        for n in [E_ICE, E_CHAIN, E_VULN, E_ESCAPE, E_EXCITED, E_FINAL, E_UNDYING, E_WARD, S_TANK, S_EVIL, G_TANK[0],
-                  G_TANK[1]] {
+        let mut names = vec![E_ICE, E_CHAIN, E_VULN, E_ESCAPE, E_EXCITED, E_FINAL, E_UNDYING, E_WARD, S_TANK, S_EVIL];
+        names.extend(G_TANK);
+        names.extend(b2::BUFFS);
+        names.extend(b3::BUFFS);
+        for n in names {
             assert!(n.len() <= BUFF_NAME_CAP && n.starts_with("league_hextech_"), "{n}");
             assert!(super::super::augments::of_buff(n).is_none(), "{n} is no augment's marker");
         }

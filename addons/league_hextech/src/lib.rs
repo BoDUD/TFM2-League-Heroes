@@ -409,7 +409,7 @@ struct Sim {
     /// 触发类海克斯（0.3.0）：每个座位是谁、日志里的名字、拿着哪几种（[`Ev::bit`] 的位）、它们的状态
     whos: Vec<procs::Who>,
     names: Vec<String>,
-    held: Vec<u64>,
+    held: Vec<augments::EvSet>,
     procs: procs::Procs,
 }
 
@@ -457,7 +457,9 @@ impl Sim {
         }
         self.pls = vec![Pl::default(); seats.len()];
         self.seats = seats;
-        self.whos = self.seats.iter().map(|s| procs::Who { player: s.player, team: s.team, lane: s.lane }).collect();
+        self.whos = self.seats.iter()
+            .map(|s| procs::Who { player: s.player, team: s.team, lane: s.lane, ranged: !melee(&s.traits), traits: s.traits })
+            .collect();
         self.names = (0..self.seats.len()).map(|i| self.who(i)).collect();
         self.held = vec![0; self.seats.len()];
         // 玩家在 BP 阶段选过的：按两边的英雄认这一局（预演只知道比赛，屏幕上的知道第几局）
@@ -498,6 +500,14 @@ impl Sim {
                 (0..e.buff_count()).filter_map(|j| e.buff_at(j).and_then(|b| augments::of_buff(b.name()))).collect();
             self.pls[i].done = taken.len().min(SCREENS);
             self.held[i] = taken.iter().fold(0, |h, &a| h | ev_bit(a));
+            // 0.5.0：技能海克斯选的技能（玩家选过的照记录，别的 AI 默认）
+            for (k, &a) in taken.iter().enumerate() {
+                let slot = self.user.as_ref()
+                    .and_then(|r| r.mine_of(&seat.name))
+                    .and_then(|m| m.picks.iter().find(|c| c.chosen as usize == a))
+                    .map_or(0, |c| c.slot);
+                self.procs.picked(i, AUGS[a].ev, k.min(SCREENS - 1), slot);
+            }
             self.pls[i].taken = taken;
         }
     }
@@ -547,13 +557,13 @@ impl Sim {
             let blue = sim.score_diff(0);
             let mood = rules::mood(if team == 0 { blue } else { -blue });
             // 玩家在 BP 阶段选的就用它（by：2 玩家点的或按了确定的、1 面板上没动的 AI 推荐），不然 AI 在这一刻选（by 0）
-            let (pick, by) = match self.user_pick(i, k) {
+            let (pick, by, slot) = match self.user_pick(i, k) {
                 Some((c, confirmed)) => {
                     let u = |a: [u16; 3]| [a[0] as usize, a[1] as usize, a[2] as usize];
                     let rerolled = [c.cards[0] != c.first[0], c.cards[1] != c.first[1], c.cards[2] != c.first[2]];
                     (Screen { tier: self.tiers[k], first: u(c.first), rerolled, cards: u(c.cards), scores: [0.0; 3],
                               chosen: c.chosen as usize },
-                     if c.by_user || confirmed { 2 } else { 1 })
+                     if c.by_user || confirmed { 2 } else { 1 }, c.slot)
                 }
                 None => {
                     let mut rng = Rng::new(rules::pick_seed(self.seed, i, k));
@@ -562,12 +572,15 @@ impl Sim {
                         say(screen.is_some(), "dry", format!("{} DRY {}: no card left to deal", head(sim), self.who(i)));
                         return;
                     };
-                    (p, 0)
+                    (p, 0, 0)
                 }
             };
             self.pls[i].taken.push(pick.chosen);
             self.pls[i].done += 1;
             self.held[i] |= ev_bit(pick.chosen);
+            let ev = AUGS[pick.chosen].ev;
+            self.procs.picked(i, ev, k, slot);
+            let shown_slot = if augments::skill_aug(ev) { self.procs.slot_of(i, ev) } else { 0 };
             let on = self.put_on(sim, i, pick.chosen);
             // 歌利亚巨人一拿到就变大：脚下放一圈「长大」
             if on && AUGS[pick.chosen].ev == Ev::Goliath {
@@ -584,8 +597,69 @@ impl Sim {
                     tick: now,
                     pick: feed::Pick { team, lane: self.seats[i].lane, hero: self.seats[i].name.clone(), screen: k as u8,
                                        level: level.min(255) as u8, tier: pick.tier, cards: c(pick.cards),
-                                       first: c(pick.first), chosen: pick.chosen as u16, by },
+                                       first: c(pick.first), chosen: pick.chosen as u16, by, slot: shown_slot },
                 });
+            }
+            if augments::meta_aug(ev) {
+                self.transmute(sim, i, k, &pick, level, screen);
+            }
+        }
+    }
+
+    /// 质变：混沌 / 质变：棱彩阶 / 潘朵拉的盒子（0.5.0）：拿到的那一刻按种子随机给海克斯（不给这一次的另外两张、拿过的、它们自己
+    /// 这几种）；潘朵拉还把之前的换成随机的棱彩（摘掉 buff、清掉状态）。屏幕上：得到的记 by 3，换掉的记 by 4。
+    #[allow(clippy::too_many_arguments)]
+    fn transmute(&mut self, sim: &mut StableSim<'_>, i: usize, k: usize, pick: &Screen, level: usize,
+                 screen: Option<(u64, u64)>) {
+        let ev = AUGS[pick.chosen].ev;
+        let mut rng = Rng::new(rules::splitmix(self.seed ^ TRANSMUTE_SALT ^ ((i as u64) << 8) ^ k as u64));
+        let mut avoid: Vec<usize> = self.pls[i].taken.clone();
+        avoid.extend(pick.cards);
+        let old: Vec<usize> = self.pls[i].taken.iter().copied().filter(|&a| a != pick.chosen).collect();
+        let (n, tier, lost) = match ev {
+            Ev::TransmuteChaos => (2, None, Vec::new()),
+            Ev::TransmutePrismatic => (1, Some(Tier::Prismatic), Vec::new()),
+            _ => (old.len() + 1, Some(Tier::Prismatic), old),
+        };
+        let mut gained = Vec::new();
+        for _ in 0..n {
+            if let Some(a) = rules::random_aug(&mut rng, tier, &avoid) {
+                avoid.push(a);
+                gained.push(a);
+            }
+        }
+        let ent = sim.get_player(self.seats[i].player).and_then(|p| p.champion()).map(|e| e.id());
+        for &a in &lost {
+            self.pls[i].taken.retain(|&x| x != a);
+            if let Some(e) = ent {
+                sim.entity_remove_buff(e, &augments::buff_name(a));
+            }
+            self.procs.forget(sim, i, ent, AUGS[a].ev);
+        }
+        for &a in &gained {
+            self.pls[i].taken.push(a);
+            self.put_on(sim, i, a);
+            self.procs.picked(i, AUGS[a].ev, k, 0);
+        }
+        self.held[i] = self.pls[i].taken.iter().fold(0, |h, &a| h | ev_bit(a));
+        let keys = |v: &[usize]| v.iter().map(|&a| AUGS[a].key).collect::<Vec<_>>().join(", ");
+        say(screen.is_some(), "pick", format!("{} TRANSMUTE {} {}: gained [{}], lost [{}]", head(sim), self.who(i),
+                                              AUGS[pick.chosen].key, keys(&gained), keys(&lost)));
+        if let Some((m, sx)) = screen {
+            let (team, lane, hero) = (self.seats[i].team, self.seats[i].lane, self.seats[i].name.clone());
+            let now = sim.tick();
+            for (list, by) in [(&lost, 4u8), (&gained, 3u8)] {
+                for &a in list.iter() {
+                    let slot = if augments::skill_aug(AUGS[a].ev) { self.procs.slot_of(i, AUGS[a].ev) } else { 0 };
+                    feed::push(feed::Event {
+                        m,
+                        s: sx,
+                        tick: now,
+                        pick: feed::Pick { team, lane, hero: hero.clone(), screen: k as u8, level: level.min(255) as u8,
+                                           tier: AUGS[a].tier, cards: [a as u16; 3], first: [a as u16; 3], chosen: a as u16, by,
+                                           slot },
+                    });
+                }
             }
         }
     }
@@ -600,7 +674,7 @@ impl Sim {
         let name = augments::buff_name(aug);
         let have = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| b.name() == name).count();
         if have == 0 {
-            sim.add_buff(id, &augments::buff(aug));
+            sim.add_buff(id, &augments::buff_for(aug, melee(&self.seats[i].traits)));
         }
         self.pls[i].ent = Some(id);
         true
@@ -647,7 +721,7 @@ impl Sim {
                 if n > 1 {
                     sim.entity_remove_buff(id, &name);
                 }
-                sim.add_buff(id, &augments::buff(a));
+                sim.add_buff(id, &augments::buff_for(a, melee(&self.seats[i].traits)));
                 added.push(AUGS[a].key);
             }
             let moved = self.pls[i].ent.is_some_and(|old| old != id);
@@ -675,8 +749,16 @@ impl Sim {
     }
 }
 
+/// 近战英雄（0.4.0：射程类海克斯给近战的那个数；玻璃大炮、事不过三按近战 / 远程）。
+fn melee(t: &augments::Traits) -> bool {
+    t.melee >= t.ranged
+}
+
 /// 这个海克斯是不是触发类：是的话它那一种的位（[`Ev::bit`]），不是 0。
-fn ev_bit(aug: usize) -> u64 {
+/// 质变、潘朵拉随机给海克斯的种子。
+const TRANSMUTE_SALT: u64 = 0x7472_616e_736d_0005;
+
+fn ev_bit(aug: usize) -> augments::EvSet {
     AUGS.get(aug).filter(|a| a.ev != Ev::Stat).map_or(0, |a| a.ev.bit())
 }
 

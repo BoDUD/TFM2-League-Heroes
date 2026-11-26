@@ -3,9 +3,9 @@
 //!
 //! 随机全从模拟的种子来（splitmix64，大小龙 rules.rs 的做法）：档位按 (种子)，每个人的卡按 (种子, 座位, 第几次)，同一小局的
 //! 每一份模拟都一样。AI 怎么选（[`choose`]）：每张卡打分（[`score`]：英雄特性 × 海克斯的权重、和拿过的同类加一点、落后时偏保命、
-//! 领先时偏输出，再加一点按种子的抖动），分低的（[`reroll_bar`]）先刷新一次，最后拿分最高的。
+//! 领先时偏输出，再加一点按种子的抖动），分低的（[`reroll_bar`]、[`worth_reroll`]）先刷新一次，最后拿分最高的。
 
-use super::augments::{pool, Tier, Traits, AUGS};
+use super::augments::{meta_aug, pool, Tier, Traits, AUGS};
 
 /// 一局几次选择。
 pub const SCREENS: usize = 4;
@@ -116,6 +116,14 @@ pub fn draw_card(rng: &mut Rng, tier: Tier, seen: &[usize], banned: &[usize], bo
     None
 }
 
+/// 质变、潘朵拉的盒子随机给的一个（0.5.0）：`tier` 这一档（None：哪一档都行），不在 `avoid` 里，也不是会再随机给海克斯的那几种。
+pub fn random_aug(rng: &mut Rng, tier: Option<Tier>, avoid: &[usize]) -> Option<usize> {
+    let left: Vec<usize> = (0..AUGS.len())
+        .filter(|&a| tier.is_none_or(|t| AUGS[a].tier == t) && !avoid.contains(&a) && !meta_aug(AUGS[a].ev))
+        .collect();
+    (!left.is_empty()).then(|| left[rng.below(left.len())])
+}
+
 /// 海克斯的权重和英雄特性的吻合度：逐项相乘的和除以权重绝对值之和（-1..=1）。
 pub fn fit(weights: &Traits, t: &Traits) -> f32 {
     let (w, t) = (weights.arr(), t.arr());
@@ -167,17 +175,36 @@ pub fn deal(rng: &mut Rng, tier: Tier, banned: &[usize]) -> Option<[usize; 3]> {
     Some([cards[0], cards[1], cards[2]])
 }
 
-/// 刷新的门槛：[`REROLL_BELOW`]，或这一档（没拿过的）里对他最好的那张的 [`REROLL_SHARE`]，取高的；但不高过这一档的平均分
-/// （0.3.0：刷出来的那张平均就这么好，比它好的卡留着。47 个里一类英雄合适的只有几张，法师把 0.47 分的烈焰烙印刷成灵巧的时候比
-/// 刷出奥术卡多）。
+/// 刷新线：[`REROLL_BELOW`]，或这一档（没拿过的）里对他最好的那张的 [`REROLL_SHARE`]，取高的。低于它的才考虑刷新，刷不刷
+/// 看 [`worth_reroll`]。
 pub fn reroll_bar(t: &Traits, taken: &[usize], mood: f32, tier: Tier) -> f32 {
-    let scores: Vec<f32> = pool(tier).into_iter().filter(|a| !taken.contains(a)).map(|a| score(a, t, taken, mood)).collect();
-    let best = scores.iter().copied().fold(f32::MIN, f32::max);
-    let mean = if scores.is_empty() { 0.0 } else { scores.iter().sum::<f32>() / scores.len() as f32 };
-    REROLL_BELOW.max(best * REROLL_SHARE).min(mean)
+    let best = pool(tier).into_iter().filter(|a| !taken.contains(a)).map(|a| score(a, t, taken, mood)).fold(f32::MIN, f32::max);
+    REROLL_BELOW.max(best * REROLL_SHARE)
 }
 
-/// AI 的一次选择：发三张，分低的（[`reroll_bar`]）各刷新一次（换成这一次没出现过的同档卡），拿分最高的（一样高拿靠前的）。
+/// 刷新能刷出来的卡的分：`tier` 这一档里不在 `avoid`、没拿过的。
+pub fn left_scores(t: &Traits, taken: &[usize], mood: f32, tier: Tier, avoid: &[usize]) -> Vec<f32> {
+    pool(tier).into_iter().filter(|c| !avoid.contains(c) && !taken.contains(c)).map(|c| score(c, t, taken, mood)).collect()
+}
+
+/// 分 `s` 的这张刷不刷：先得低于刷新线 `bar`。桌上另外两张里有比它高的（`other`），刷了拿到的也不会更差，刷；它是桌上最高的，
+/// 刷出来的（`left`，[`left_scores`]）和 `other` 取高的，平均比它好才刷。
+///
+/// 0.4.0：0.3.0 是低于这一档的平均分才刷（法师把 0.47 分的烈焰烙印刷成灵巧的时候比刷出奥术卡多）。100 个海克斯以后银档 31 个里
+/// 适合法师的只有 8 个，平均分只有 0.22，法师拿着 0.28 分的左右开弓不刷、桌上第二张不合适的也不刷；其实刷第二张不吃亏，刷最高的
+/// 那张也还有另外两张垫着。
+pub fn worth_reroll(s: f32, other: f32, bar: f32, left: &[f32]) -> bool {
+    if s >= bar || left.is_empty() {
+        return false;
+    }
+    if s < other {
+        return true;
+    }
+    left.iter().map(|&x| x.max(other)).sum::<f32>() / left.len() as f32 > s
+}
+
+/// AI 的一次选择：发三张，分低的（[`reroll_bar`]、[`worth_reroll`]）各刷新一次（换成这一次没出现过的同档卡；先刷分最低的，
+/// 桌上最高的那张最后决定），拿分最高的（一样高拿靠前的）。
 pub fn choose(t: &Traits, taken: &[usize], mood: f32, rng: &mut Rng, tier: Tier) -> Option<Screen> {
     let first = deal(rng, tier, taken)?;
     let bar = reroll_bar(t, taken, mood, tier);
@@ -187,10 +214,14 @@ pub fn choose(t: &Traits, taken: &[usize], mood: f32, rng: &mut Rng, tier: Tier)
     let mut scores = [0f32; 3];
     for i in 0..3 {
         scores[i] = score(cards[i], t, taken, mood) + rng.unit() * JITTER;
-        if scores[i] < bar {
-            let mut avoid = seen.clone();
-            avoid.extend(cards.iter().copied());
-            if let Some(c) = draw_card(rng, AUGS[cards[i]].tier, &avoid, taken, false) {
+    }
+    let mut order = [0usize, 1, 2];
+    order.sort_by(|&a, &b| scores[a].total_cmp(&scores[b]));
+    for i in order {
+        let other = (0..3).filter(|&j| j != i).map(|j| scores[j]).fold(f32::MIN, f32::max);
+        let ctier = AUGS[cards[i]].tier;
+        if worth_reroll(scores[i], other, bar, &left_scores(t, taken, mood, ctier, &seen)) {
+            if let Some(c) = draw_card(rng, ctier, &seen, taken, false) {
                 cards[i] = c;
                 seen.push(c);
                 rerolled[i] = true;
@@ -292,24 +323,60 @@ pub(crate) mod tests {
     }
 
     // 0.3.0 起每一类也算上合适的触发类
-    pub(crate) const DAMAGE: [&str; 18] = ["blunt_force", "deft", "bloodthirst", "lethal_precision", "giant_slayer", "slayer",
+    pub(crate) const DAMAGE: [&str; 53] = ["blunt_force", "deft", "bloodthirst", "lethal_precision", "giant_slayer", "slayer",
                                            "storm_fury", "glass_cannon", "thread_the_needle", "light_em_up", "mystic_punch",
                                            "chain_lightning", "get_excited", "typhoon", "executioner", "firebrand", "ice_cold",
-                                           "orbital_laser"];
-    pub(crate) const TANKY: [&str; 21] = ["hearty", "ironclad", "celestial_body", "unwavering", "immortal_colossus",
+                                           "orbital_laser",
+                                           // 0.4.0
+                                           "zealot", "scoped_weapons", "erosion", "its_critical", "scopier_weapons",
+                                           "scopiest_weapons", "still_here", "sap_magic", "take_em_down", "third_times_the_harm",
+                                           "dual_wield", "ok_boomerang", "master_of_duality", "its_killing_time", "arcane_axiom",
+                                           // 控住人加攻击力 / 法强，带控制的英雄拿
+                                           "slap_around",
+                                           // 第二批
+                                           "goredrink", "escapade", "heavy_is_the_crown", "twin_fire",
+                                           // 脆皮射手的保命海克斯，英雄联盟里射手也常拿
+                                           "escape_plan",
+                                          // 0.5.0
+                                          "donation", "goldrend", "stats", "stats_on_stats", "stats_on_stats_on_stats", "infernal_soul", "hextech_soul", "omni_soul", "hand_of_baron", "crimson_cobalt", "flow_of_spirit", "mercys_strike", "trusty_weapon", "pursuit_of_power"];
+    pub(crate) const TANKY: [&str; 62] = ["hearty", "ironclad", "celestial_body", "unwavering", "immortal_colossus",
                                           "swift_feet", "ultimate_awakening", "mind_focus", "tank_engine", "heavy_hitter",
                                           "dawnbringers_resolve", "guardian", "goliath", "immolate", "undying_will",
                                           "quantum_computing", "sacred_ward", "courage_of_the_colossus", "giant_snowball",
-                                          "ice_cold", "vulnerability"];
-    pub(crate) const MAGIC: [&str; 17] = ["witchful_thinking", "mind_focus", "arcane_surge", "archmage", "thread_the_needle",
+                                          "ice_cold", "vulnerability",
+                                          // 0.4.0
+                                          "fortified", "mystic_guard", "steadfaster_presence", "porcupine", "soul_eater",
+                                          "guilty_pleasure", "salvation", "mosh_monster", "titans_resolve", "divine_intervention",
+                                          "mighty_shield", "ultimate_unstoppable", "squishy_slappy_grab", "prom_queen",
+                                          "lonely_warrior", "dive_bomber", "circle_of_death", "sonata", "slap_around",
+                                          "cant_touch_this", "recursion", "outlaws_grit", "shark_bait",
+                                          // 第二批
+                                          "goredrink", "slime_time", "endless_decimation", "hellbent",
+                                          // 0.5.0
+                                          "donation", "stats", "stats_on_stats", "stats_on_stats_on_stats", "pressure_cooker", "mountain_soul", "ocean_soul", "omni_soul", "adaptive_ward", "ravenous_bind", "rejuvenation", "siphon", "stay_resolute", "terror"];
+    pub(crate) const MAGIC: [&str; 55] = ["witchful_thinking", "mind_focus", "arcane_surge", "archmage", "thread_the_needle",
                                           "glass_cannon", "ultimate_awakening", "magic_missile", "firebrand", "chain_lightning",
                                           "ethereal_weapon", "phenomenal_evil", "orbital_laser", "sacred_ward", "escape_plan",
-                                          "cruelty", "ice_cold"];
+                                          "cruelty", "ice_cold",
+                                          // 0.4.0
+                                          "lich_brain", "firefox", "recursion", "arcane_axiom", "big_brain", "skilled_sniper",
+                                          "eureka", "infinite_recursion", "fey_magic", "ultimate_revolution", "sonata",
+                                          "master_of_duality", "erosion", "its_killing_time", "twin_fire", "slap_around",
+                                          // 普攻带法强伤害：这个游戏里法师技能转好之前一直在普攻
+                                          "marksmage",
+                                          // 第二批
+                                          "adapt", "heavy_is_the_crown", "bees",
+                                          // 0.5.0
+                                          "donation", "goldrend", "stats", "stats_on_stats", "stats_on_stats_on_stats", "from_downtown", "infernal_soul", "hextech_soul", "omni_soul", "hand_of_baron", "crimson_cobalt", "overloaded", "siphon", "trusty_weapon", "bread_and_butter", "bread_and_jam", "pursuit_of_haste", "pursuit_of_power"];
 
-    /// The AI takes what fits the kit: a marksman attack damage / speed / crit, a tank health and resists, a mage ability
-    /// power and cooldowns. Not every time - three cards and their rerolls may hold nothing that fits, and then the best
-    /// of what is there is taken - but nearly: at least 9 picks in 10; of the 15 prismatic ones only 4 fit a marksman
-    /// (since 0.3.0), and six draws miss all four about one time in eleven, so there 85 in 100.
+    /// 三张加三次刷新一共见到六张，一档 `n` 张里合适的有 `g` 张时六张全不合适的概率（C(n-g, 6) / C(n, 6)）。
+    fn miss_all_six(n: usize, g: usize) -> f64 {
+        (0..6).map(|i| ((n - g) as f64 - i as f64).max(0.0) / (n - i) as f64).product()
+    }
+
+    /// AI 拿合适的：射手拿攻击力 / 攻速 / 暴击，坦克拿生命和抗性，法师拿法强和冷却。三张和刷新出来的也可能一张合适的都没有
+    /// （那就拿桌上最好的），所以要求的是离「见到合适的就拿」（1 - [`miss_all_six`]）差不到 5 个百分点，最多要九成。0.4.0 的
+    /// 银档 31 张里适合法师的只有 8 张，六张都不合适有 14%，那一档要 81%；以前棱彩 15 张里适合射手的 4 张，那时是 85%。
     #[test]
     fn the_ai_takes_what_fits() {
         for (who, t, good) in [("marksman", marksman(), &DAMAGE[..]), ("tank", tank(), &TANKY[..]), ("mage", mage(), &MAGIC[..])] {
@@ -334,9 +401,10 @@ pub(crate) mod tests {
                         _ => seen.push((m, 1)),
                     }
                 }
-                let least = if tier == Tier::Prismatic { 0.85 } else { 0.9 };
+                let g = pool(tier).into_iter().filter(|&a| good.contains(&AUGS[a].key)).count();
+                let least = (1.0 - miss_all_six(pool(tier).len(), g) - 0.05).min(0.9);
                 assert!(hits as f64 >= least * n as f64,
-                        "{who} took a fitting {tier:?} augment {hits} times in {n}, else {seen:?}");
+                        "{who} took a fitting {tier:?} augment {hits} times in {n} (least {least:.3}), else {seen:?}");
             }
         }
     }

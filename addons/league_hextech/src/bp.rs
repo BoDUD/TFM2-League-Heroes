@@ -69,6 +69,12 @@ pub fn reroll(k: usize, j: usize) -> Box4 {
     (x + w - 92, y + h - 30, 84, 24)
 }
 
+/// 第 `k` 次拿的是技能海克斯时，左边那一栏（「6 级」下面）的三个按钮：技能 / 技能 2 / 大招（0.5.0）。
+pub fn slot_btn(k: usize, i: usize) -> Box4 {
+    let (_, y, _, _) = card(k, 0);
+    (20 + i as i32 * 52, y + 60, 48, 30)
+}
+
 /// 本包挂在 `main` 下的节点（`.ui` 源码）：入口按钮、面板（一开始不显示）、面板里的每个按钮——都是透明的，字和框自己画。
 pub fn source() -> String {
     let btn = |id: &str, (x, y, w, h): Box4| {
@@ -90,6 +96,11 @@ pub fn source() -> String {
             inner.push_str(&btn(&format!("r{k}{j}"), reroll(k, j)));
         }
     }
+    for k in 0..rules::SCREENS {
+        for i in 0..3 {
+            inner.push_str(&btn(&format!("s{k}{i}"), slot_btn(k, i)));
+        }
+    }
     inner.push_str(&btn("ai", AI_BTN));
     inner.push_str(&btn("okall", ALL_BTN));
     inner.push_str(&btn("ok", OK_BTN));
@@ -108,6 +119,8 @@ pub enum Click {
     Tab(usize),
     Card(usize, usize),
     Reroll(usize, usize),
+    /// 第几次的技能海克斯放在第几个技能上（0 技能、1 技能 2、2 大招）
+    Slot(usize, usize),
     Ai,
     /// 确定这个英雄（跳到下一个没确定的）、全部确定（关掉面板）
     Confirm,
@@ -121,6 +134,7 @@ pub fn clickables() -> Vec<String> {
         for j in 0..3 {
             v.push(format!("c{k}{j}"));
             v.push(format!("r{k}{j}"));
+            v.push(format!("s{k}{j}"));
         }
     }
     v
@@ -153,6 +167,7 @@ pub fn parse_click(id: &str) -> Option<Click> {
                 "t" => rest.parse::<usize>().ok().filter(|&i| i < TABS).map(Click::Tab),
                 "c" => digits(rest).map(|(k, j)| Click::Card(k, j)),
                 "r" => digits(rest).map(|(k, j)| Click::Reroll(k, j)),
+                "s" => digits(rest).map(|(k, i)| Click::Slot(k, i)),
                 _ => None,
             }
         }
@@ -396,6 +411,11 @@ fn apply(st: &mut Bp, c: Click) {
                 pending::edit(id, |r| r.reroll(&h, k, j, &t));
             }
         }
+        Click::Slot(k, i) => {
+            if let Some(h) = hero {
+                pending::edit(id, |r| r.set_slot(&h, k, i as u8 + 1));
+            }
+        }
         Click::Ai => {
             if let Some(h) = hero {
                 let t = traits_of(&h);
@@ -502,9 +522,28 @@ pub fn draw(ctx: &mut StableClient<'_>) {
             let name = words::screen_name(lang, k, levels);
             shadowed(ctx, &name, BOLD, (label.0, label.1 + label.3 * 0.18, label.2, label.3 * 0.32), z, label.3 * 0.24, 0xff,
                      0xf4_ee_dc_00, TextAlignXV1::Left);
-            let t = words::tier(lang, rec.tiers[k]);
-            shadowed(ctx, t, BOLD, (label.0, label.1 + label.3 * 0.52, label.2, label.3 * 0.3), z, label.3 * 0.2, 0xff,
-                     tier_colour(rec.tiers[k]), TextAlignXV1::Left);
+            // 拿的是技能海克斯：档位那一行换成三个选技能的按钮（档位标题栏上也有）
+            let ev = AUGS[c.chosen as usize].ev;
+            if super::augments::skill_aug(ev) {
+                let now = if c.slot > 0 { c.slot } else { super::augments::ai_slot(ev) };
+                for i in 0..3 {
+                    let Some(b) = rect(ctx, &format!("{ROOT}.{NODE}.panel.s{k}{i}")) else { continue };
+                    let on = now == i as u8 + 1;
+                    let gold = tier_colour(AUGS[c.chosen as usize].tier);
+                    ctx.draw_rect(UI, b.0, b.1, b.2, b.3, z + 1, 4.0 * unit,
+                                  if on { 0x34_2c_14_ff } else if inside(cursor, b) && !rec.used { 0x26_2a_3a_ff } else { 0x18_1b_26_ff });
+                    if on {
+                        ctx.draw_rect(UI, b.0, b.1 + b.3 - 2.0 * unit, b.2, 2.0 * unit, z + 2, 1.0, gold | 0xff);
+                    }
+                    let t = words::slot_name(lang, i as u8 + 1);
+                    draw_text_in(ctx, t, BOLD, b, z + 2, fit(t, b.2 - 4.0, b.3 * 0.5, 7.0),
+                                 if on { 0xff_f0_c8_ff } else { 0xa8_ac_b8_ff }, TextAlignXV1::Center);
+                }
+            } else {
+                let t = words::tier(lang, rec.tiers[k]);
+                shadowed(ctx, t, BOLD, (label.0, label.1 + label.3 * 0.52, label.2, label.3 * 0.3), z, label.3 * 0.2, 0xff,
+                         tier_colour(rec.tiers[k]), TextAlignXV1::Left);
+            }
         }
         for j in 0..3 {
             let Some(r) = rect(ctx, &format!("{ROOT}.{NODE}.panel.c{k}{j}")) else { continue };
@@ -616,6 +655,9 @@ mod tests {
         let mut boxes = vec![CLOSE, AI_BTN, ALL_BTN, OK_BTN];
         boxes.extend((0..TABS).map(tab));
         for k in 0..rules::SCREENS {
+            for i in 0..3 {
+                boxes.push(slot_btn(k, i));
+            }
             for j in 0..3 {
                 boxes.push(card(k, j));
                 let r = reroll(k, j);
@@ -646,6 +688,8 @@ mod tests {
         }
         assert_eq!(parse_click("c21"), Some(Click::Card(2, 1)));
         assert_eq!(parse_click("r30"), Some(Click::Reroll(3, 0)));
+        assert_eq!(parse_click("s12"), Some(Click::Slot(1, 2)));
+        assert_eq!(parse_click("s13"), None);
         assert_eq!(parse_click("t4"), Some(Click::Tab(4)));
         assert_eq!(parse_click("t5"), None);
         assert_eq!(parse_click("c43"), None);
