@@ -11,13 +11,34 @@
   "passive": {
     "passive_ref": "league_vex:gloom",
     "params": {
-      "p_cd": 900,
-      "p_dash_r": 60000,
+      "p_cd1": 1030,
+      "p_fear": 45,
+      "p_fear4": 90,
+      "p_fs_lo": 60,
+      "p_fs_hi": 99,
+      "p_fs_d": 80000,
+      "p_dash_r": 160000,
       "g_t": 360,
-      "g_dmg": 60,
-      "g_ratio": 30,
+      "g_lo": 26,
+      "g_hi": 107,
+      "g_ratio": 25,
+      "g_u_lo": 40,
+      "g_u_hi": 60,
       "g_cut": 25,
-      "r_reset": 360
+      "g_cut_u": 10,
+      "e_cut": 10,
+      "e_cut_c": 25,
+      "e_r": 25000,
+      "e_fly": 18,
+      "r_reset": 480,
+      "r_free": 30,
+      "r_wait": 8,
+      "r_kill": 100,
+      "r_crowd": 1,
+      "r2_dmg": 164,
+      "r2_ratio": 50,
+      "w_dmg": 105,
+      "w_ratio": 30
     }
   },
   "sprite": "asset/league/champions/league_vex",
@@ -328,9 +349,9 @@
                                                           "effects": [
                                                             {
                                                               "type": "Shield",
-                                                              "amount": 60,
+                                                              "amount": 66,
                                                               "attack_ratio": 0,
-                                                              "ap_ratio": 60,
+                                                              "ap_ratio": 75,
                                                               "tick": 150
                                                             }
                                                           ]
@@ -361,8 +382,8 @@
                                                                 "effects": [
                                                                   {
                                                                     "type": "ApAttack",
-                                                                    "damage": 70,
-                                                                    "attack_ratio": 40,
+                                                                    "damage": 105,
+                                                                    "attack_ratio": 30,
                                                                     "hp_ratio": 0,
                                                                     "can_crit": false
                                                                   },
@@ -421,7 +442,7 @@
                                                                       "name": "league_vex_p_wait",
                                                                       "duration": {
                                                                         "Time": {
-                                                                          "tick": 900
+                                                                          "tick": 1030
                                                                         }
                                                                       }
                                                                     },
@@ -444,8 +465,8 @@
                                                                     "effects": [
                                                                       {
                                                                         "type": "ApAttack",
-                                                                        "damage": 70,
-                                                                        "attack_ratio": 40,
+                                                                        "damage": 105,
+                                                                        "attack_ratio": 30,
                                                                         "hp_ratio": 0,
                                                                         "can_crit": false
                                                                       },
@@ -469,8 +490,19 @@
                                                                         }
                                                                       },
                                                                       {
-                                                                        "type": "Fear",
-                                                                        "tick": 45
+                                                                        "type": "Airborne",
+                                                                        "duration": 2
+                                                                      },
+                                                                      {
+                                                                        "type": "AddBuff",
+                                                                        "buff_state": {
+                                                                          "name": "league_vex_f_q",
+                                                                          "duration": {
+                                                                            "Time": {
+                                                                              "tick": 2
+                                                                            }
+                                                                          }
+                                                                        }
                                                                       }
                                                                     ]
                                                                   },
@@ -724,14 +756,14 @@
                           "effects": [
                             {
                               "type": "LinearProjectile",
-                              "name": "league_vex_q_bolt",
-                              "speed": 4000,
-                              "range": 95000,
-                              "y_offset": 0,
+                              "name": "league_vex_q_wave",
+                              "speed": 2100,
+                              "range": 39800,
+                              "y_offset": 5000,
                               "penetrate": true,
                               "shape": {
                                 "Circle": {
-                                  "radius": 8000
+                                  "radius": 18000
                                 }
                               },
                               "applied_target": "EnemyWithoutTower",
@@ -775,7 +807,20 @@
                                   }
                                 }
                               ],
-                              "end_effects": []
+                              "end_effects": [
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_vex_q_far",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 3
+                                      }
+                                    }
+                                  },
+                                  "only_to_enemy": false
+                                }
+                              ]
                             }
                           ]
                         },
@@ -795,7 +840,7 @@
                                     "name": "league_vex_p_wait",
                                     "duration": {
                                       "Time": {
-                                        "tick": 900
+                                        "tick": 1030
                                       }
                                     }
                                   },
@@ -807,66 +852,110 @@
                               "type": "Combine",
                               "effects": [
                                 {
-                                  "type": "LinearProjectile",
-                                  "name": "league_vex_q_bolt",
-                                  "speed": 4000,
-                                  "range": 95000,
-                                  "y_offset": 0,
-                                  "penetrate": true,
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 8000
-                                    }
-                                  },
-                                  "applied_target": "EnemyWithoutTower",
-                                  "applied_effects": [
+                                  "type": "Combine",
+                                  "effects": [
                                     {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ApAttack",
-                                        "damage": 105,
-                                        "attack_ratio": 70,
-                                        "hp_ratio": 0,
-                                        "can_crit": false
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "ViewEffect",
-                                        "name": "league_vex_q_hit"
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "TargetSfx",
-                                        "name": "league_vex_q_hit"
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "AddBuff",
-                                        "buff_state": {
-                                          "name": "league_vex_v_hit",
-                                          "duration": {
-                                            "Time": {
-                                              "tick": 2
+                                      "type": "LinearProjectile",
+                                      "name": "league_vex_q_wave",
+                                      "speed": 2100,
+                                      "range": 39800,
+                                      "y_offset": 5000,
+                                      "penetrate": true,
+                                      "shape": {
+                                        "Circle": {
+                                          "radius": 18000
+                                        }
+                                      },
+                                      "applied_target": "EnemyWithoutTower",
+                                      "applied_effects": [
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ApAttack",
+                                            "damage": 105,
+                                            "attack_ratio": 70,
+                                            "hp_ratio": 0,
+                                            "can_crit": false
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "ViewEffect",
+                                            "name": "league_vex_q_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "TargetSfx",
+                                            "name": "league_vex_q_hit"
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vex_v_hit",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 2
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "Airborne",
+                                            "duration": 2
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vex_f_q",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 2
+                                                }
+                                              }
                                             }
                                           }
                                         }
-                                      }
-                                    },
-                                    {
-                                      "casting_type": "Targeting",
-                                      "effect": {
-                                        "type": "Fear",
-                                        "tick": 45
+                                      ],
+                                      "end_effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_vex_q_far",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 3
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "AddCasterBuff",
+                                  "buff_state": {
+                                    "name": "league_vex_q_scare",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 13
                                       }
                                     }
-                                  ],
-                                  "end_effects": []
+                                  },
+                                  "only_to_enemy": false
                                 }
                               ]
                             }
@@ -891,6 +980,210 @@
               ]
             }
           ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 20,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "league_vex_lives",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "league_vex_lives",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "SwitchByBuff",
+                        "buff_name": "league_vex_q_scare",
+                        "effect_buff": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "RemoveCasterBuff",
+                              "name": "league_vex_q_scare"
+                            },
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "LinearProjectile",
+                                  "name": "league_vex_q_dart",
+                                  "speed": 10750,
+                                  "range": 95000,
+                                  "y_offset": 5000,
+                                  "penetrate": true,
+                                  "shape": {
+                                    "Circle": {
+                                      "radius": 8000
+                                    }
+                                  },
+                                  "applied_target": "EnemyWithoutTower",
+                                  "applied_effects": [
+                                    {
+                                      "casting_type": "Targeting",
+                                      "effect": {
+                                        "type": "SwitchByBuff",
+                                        "buff_name": "league_vex_q_far",
+                                        "effect_buff": {
+                                          "type": "Combine",
+                                          "effects": [
+                                            {
+                                              "type": "ApAttack",
+                                              "damage": 105,
+                                              "attack_ratio": 70,
+                                              "hp_ratio": 0,
+                                              "can_crit": false
+                                            },
+                                            {
+                                              "type": "ViewEffect",
+                                              "name": "league_vex_q_hit"
+                                            },
+                                            {
+                                              "type": "TargetSfx",
+                                              "name": "league_vex_q_hit"
+                                            },
+                                            {
+                                              "type": "AddBuff",
+                                              "buff_state": {
+                                                "name": "league_vex_v_hit",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 2
+                                                  }
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "type": "Airborne",
+                                              "duration": 2
+                                            },
+                                            {
+                                              "type": "AddBuff",
+                                              "buff_state": {
+                                                "name": "league_vex_f_q",
+                                                "duration": {
+                                                  "Time": {
+                                                    "tick": 2
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        },
+                                        "effect_none": {
+                                          "type": "Combine",
+                                          "effects": []
+                                        }
+                                      }
+                                    }
+                                  ],
+                                  "end_effects": []
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        "effect_none": {
+                          "type": "Combine",
+                          "effects": [
+                            {
+                              "type": "LinearProjectile",
+                              "name": "league_vex_q_dart",
+                              "speed": 10750,
+                              "range": 95000,
+                              "y_offset": 5000,
+                              "penetrate": true,
+                              "shape": {
+                                "Circle": {
+                                  "radius": 8000
+                                }
+                              },
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "SwitchByBuff",
+                                    "buff_name": "league_vex_q_far",
+                                    "effect_buff": {
+                                      "type": "Combine",
+                                      "effects": [
+                                        {
+                                          "type": "ApAttack",
+                                          "damage": 105,
+                                          "attack_ratio": 70,
+                                          "hp_ratio": 0,
+                                          "can_crit": false
+                                        },
+                                        {
+                                          "type": "ViewEffect",
+                                          "name": "league_vex_q_hit"
+                                        },
+                                        {
+                                          "type": "TargetSfx",
+                                          "name": "league_vex_q_hit"
+                                        },
+                                        {
+                                          "type": "AddBuff",
+                                          "buff_state": {
+                                            "name": "league_vex_v_hit",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 2
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    "effect_none": {
+                                      "type": "Combine",
+                                      "effects": []
+                                    }
+                                  }
+                                }
+                              ],
+                              "end_effects": []
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "Combine",
+                    "effects": []
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "league_vex_lives"
+                }
+              ]
+            }
+          ]
         }
       ]
     }
@@ -899,7 +1192,7 @@
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.league_vex.skill2",
     "duration": 30,
-    "cooltime": 600,
+    "cooltime": 554,
     "start_timing": 1,
     "cancelable": false,
     "range": 70000,
@@ -938,8 +1231,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 80,
-                "attack_ratio": 60,
+                "damage": 59,
+                "attack_ratio": 50,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -1027,6 +1320,17 @@
                               "name": "league_vex_e_cast"
                             },
                             {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "league_vex_e_aim",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              }
+                            },
+                            {
                               "type": "ParabolicProjectile",
                               "name": "league_vex_e_fly",
                               "travel_time": 18,
@@ -1053,7 +1357,7 @@
                                   "name": "league_vex_e_zone",
                                   "shape": {
                                     "Circle": {
-                                      "radius": 22000
+                                      "radius": 25000
                                     }
                                   },
                                   "delay": 1,
@@ -1064,8 +1368,8 @@
                                       "casting_type": "Targeting",
                                       "effect": {
                                         "type": "ApAttack",
-                                        "damage": 80,
-                                        "attack_ratio": 60,
+                                        "damage": 59,
+                                        "attack_ratio": 50,
                                         "hp_ratio": 0,
                                         "can_crit": false
                                       }
@@ -1081,7 +1385,7 @@
                                               "tick": 120
                                             }
                                           },
-                                          "move_speed_mult": -35
+                                          "move_speed_mult": -40
                                         }
                                       }
                                     },
@@ -1128,7 +1432,7 @@
                                     "name": "league_vex_p_wait",
                                     "duration": {
                                       "Time": {
-                                        "tick": 900
+                                        "tick": 1030
                                       }
                                     }
                                   },
@@ -1142,6 +1446,17 @@
                                 {
                                   "type": "CasterViewEffect",
                                   "name": "league_vex_e_cast"
+                                },
+                                {
+                                  "type": "AddBuff",
+                                  "buff_state": {
+                                    "name": "league_vex_e_aim",
+                                    "duration": {
+                                      "Time": {
+                                        "tick": 2
+                                      }
+                                    }
+                                  }
                                 },
                                 {
                                   "type": "ParabolicProjectile",
@@ -1170,7 +1485,7 @@
                                       "name": "league_vex_e_zone",
                                       "shape": {
                                         "Circle": {
-                                          "radius": 22000
+                                          "radius": 25000
                                         }
                                       },
                                       "delay": 1,
@@ -1181,8 +1496,8 @@
                                           "casting_type": "Targeting",
                                           "effect": {
                                             "type": "ApAttack",
-                                            "damage": 80,
-                                            "attack_ratio": 60,
+                                            "damage": 59,
+                                            "attack_ratio": 50,
                                             "hp_ratio": 0,
                                             "can_crit": false
                                           }
@@ -1198,7 +1513,7 @@
                                                   "tick": 120
                                                 }
                                               },
-                                              "move_speed_mult": -35
+                                              "move_speed_mult": -40
                                             }
                                           }
                                         },
@@ -1226,8 +1541,22 @@
                                         {
                                           "casting_type": "Targeting",
                                           "effect": {
-                                            "type": "Fear",
-                                            "tick": 45
+                                            "type": "Airborne",
+                                            "duration": 2
+                                          }
+                                        },
+                                        {
+                                          "casting_type": "Targeting",
+                                          "effect": {
+                                            "type": "AddBuff",
+                                            "buff_state": {
+                                              "name": "league_vex_f_e",
+                                              "duration": {
+                                                "Time": {
+                                                  "tick": 2
+                                                }
+                                              }
+                                            }
                                           }
                                         }
                                       ]
@@ -1300,8 +1629,8 @@
               },
               "effect_none": {
                 "type": "ApAttack",
-                "damage": 305,
-                "attack_ratio": 90,
+                "damage": 246,
+                "attack_ratio": 70,
                 "hp_ratio": 0,
                 "can_crit": false
               }
@@ -1388,16 +1717,6 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "ApAttack",
-                              "damage": 80,
-                              "attack_ratio": 20,
-                              "hp_ratio": 0,
-                              "can_crit": false
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
                               "type": "AddBuff",
                               "buff_state": {
                                 "name": "league_vex_r_mark",
@@ -1412,22 +1731,18 @@
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "TargetSfx",
-                              "name": "league_vex_r_mark"
+                              "type": "ApAttack",
+                              "damage": 82,
+                              "attack_ratio": 20,
+                              "hp_ratio": 0,
+                              "can_crit": false
                             }
                           },
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "AddBuff",
-                              "buff_state": {
-                                "name": "league_vex_v_hit",
-                                "duration": {
-                                  "Time": {
-                                    "tick": 2
-                                  }
-                                }
-                              }
+                              "type": "TargetSfx",
+                              "name": "league_vex_r_mark"
                             }
                           },
                           {
@@ -1437,298 +1752,350 @@
                               "tick": 8,
                               "effects": [
                                 {
-                                  "type": "CasterAnimation",
-                                  "name": "ult_dash",
-                                  "tick": 24
-                                },
-                                {
-                                  "type": "Sfx",
-                                  "name": "league_vex_r_dash"
-                                },
-                                {
-                                  "type": "LinearProjectile",
-                                  "name": "league_vex_r_surge",
-                                  "speed": 6000,
-                                  "range": 140000,
-                                  "y_offset": 5000,
-                                  "penetrate": false,
-                                  "shape": {
-                                    "Circle": {
-                                      "radius": 48000
-                                    }
-                                  },
-                                  "applied_target": "EnemyChampion",
-                                  "applied_effects": [],
-                                  "end_effects": [
-                                    {
-                                      "type": "Teleport"
-                                    },
-                                    {
-                                      "type": "CasterAnimation",
-                                      "name": "ult_hit",
-                                      "tick": 24
-                                    }
-                                  ]
-                                },
-                                {
-                                  "type": "Delayed",
-                                  "tick": 12,
+                                  "type": "Combine",
                                   "effects": [
                                     {
-                                      "type": "ApAttack",
-                                      "damage": 225,
-                                      "attack_ratio": 70,
-                                      "hp_ratio": 0,
-                                      "can_crit": false
-                                    },
-                                    {
-                                      "type": "ViewEffect",
-                                      "name": "league_vex_r_hit"
-                                    },
-                                    {
-                                      "type": "TargetSfx",
-                                      "name": "league_vex_r_hit"
-                                    },
-                                    {
-                                      "type": "Combine",
-                                      "effects": []
-                                    },
-                                    {
-                                      "type": "AddBuff",
-                                      "buff_state": {
-                                        "name": "league_vex_v_hit",
-                                        "duration": {
-                                          "Time": {
-                                            "tick": 2
-                                          }
+                                      "type": "RandomTarget",
+                                      "range": 1,
+                                      "casting_target": "AllyOnlySelf",
+                                      "from_projectile": false,
+                                      "effects": [
+                                        {
+                                          "type": "AddCasterBuff",
+                                          "buff_state": {
+                                            "name": "league_vex_lives",
+                                            "duration": {
+                                              "Time": {
+                                                "tick": 1
+                                              }
+                                            }
+                                          },
+                                          "only_to_enemy": false
                                         }
-                                      }
+                                      ]
                                     },
                                     {
                                       "type": "SwitchByBuff",
-                                      "buff_name": "league_vex_w_cd",
+                                      "buff_name": "league_vex_lives",
                                       "effect_buff": {
-                                        "type": "Combine",
-                                        "effects": []
-                                      },
-                                      "effect_none": {
                                         "type": "Combine",
                                         "effects": [
                                           {
-                                            "type": "AddCasterBuff",
-                                            "buff_state": {
-                                              "name": "league_vex_w_cd",
-                                              "duration": {
-                                                "Time": {
-                                                  "tick": 720
-                                                }
-                                              }
-                                            },
-                                            "only_to_enemy": false
-                                          },
-                                          {
-                                            "type": "Combine",
-                                            "effects": [
-                                              {
-                                                "type": "Sfx",
-                                                "name": "league_vex_w"
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_vex_vo_cd",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": []
+                                            "type": "SwitchByBuff",
+                                            "buff_name": "league_vex_r_in",
+                                            "effect_buff": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "RemoveCasterBuff",
+                                                  "name": "league_vex_r_in"
                                                 },
-                                                "effect_none": {
+                                                {
                                                   "type": "Combine",
                                                   "effects": [
                                                     {
                                                       "type": "AddCasterBuff",
                                                       "buff_state": {
-                                                        "name": "league_vex_vo_cd",
+                                                        "name": "league_vex_r_safe",
                                                         "duration": {
                                                           "Time": {
-                                                            "tick": 600
+                                                            "tick": 30
                                                           }
-                                                        }
+                                                        },
+                                                        "cc_immune": true
                                                       },
                                                       "only_to_enemy": false
                                                     },
                                                     {
+                                                      "type": "CasterAnimation",
+                                                      "name": "ult_dash",
+                                                      "tick": 24
+                                                    },
+                                                    {
                                                       "type": "Sfx",
-                                                      "name": "league_vex_vo_w"
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              {
-                                                "type": "RandomTarget",
-                                                "range": 1,
-                                                "casting_target": "AllyOnlySelf",
-                                                "from_projectile": false,
-                                                "effects": [
-                                                  {
-                                                    "type": "Shield",
-                                                    "amount": 60,
-                                                    "attack_ratio": 0,
-                                                    "ap_ratio": 60,
-                                                    "tick": 150
-                                                  }
-                                                ]
-                                              },
-                                              {
-                                                "type": "CasterViewEffect",
-                                                "name": "league_vex_w_shield"
-                                              },
-                                              {
-                                                "type": "CasterViewEffect",
-                                                "name": "league_vex_w_ring"
-                                              },
-                                              {
-                                                "type": "SwitchByBuff",
-                                                "buff_name": "league_vex_p_wait",
-                                                "effect_buff": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "RangeEffect",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 40000
-                                                        }
-                                                      },
-                                                      "target": "EnemyWithoutTower",
-                                                      "apply_type": "AroundCaster",
-                                                      "effects": [
-                                                        {
-                                                          "type": "ApAttack",
-                                                          "damage": 70,
-                                                          "attack_ratio": 40,
-                                                          "hp_ratio": 0,
-                                                          "can_crit": false
-                                                        },
-                                                        {
-                                                          "type": "ViewEffect",
-                                                          "name": "league_vex_w_hit"
-                                                        },
-                                                        {
-                                                          "type": "TargetSfx",
-                                                          "name": "league_vex_w_hit"
-                                                        },
-                                                        {
-                                                          "type": "AddBuff",
-                                                          "buff_state": {
-                                                            "name": "league_vex_v_hit",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 2
-                                                              }
-                                                            }
-                                                          }
-                                                        }
-                                                      ]
+                                                      "name": "league_vex_r_dash"
                                                     },
                                                     {
-                                                      "type": "RangeEffect",
-                                                      "shape": {
-                                                        "Circle": {
-                                                          "radius": 40000
-                                                        }
-                                                      },
-                                                      "target": "EnemyChampion",
-                                                      "apply_type": "AroundCaster",
-                                                      "effects": [
+                                                      "type": "MoveToTarget",
+                                                      "speed": 4500,
+                                                      "range": 400000,
+                                                      "end_effects": [
                                                         {
-                                                          "type": "Combine",
-                                                          "effects": []
-                                                        }
-                                                      ]
-                                                    }
-                                                  ]
-                                                },
-                                                "effect_none": {
-                                                  "type": "Combine",
-                                                  "effects": [
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
-                                                        {
-                                                          "type": "Sfx",
-                                                          "name": "league_vex_p_fear"
+                                                          "type": "RemoveCasterBuff",
+                                                          "name": "league_vex_r_safe"
                                                         },
                                                         {
-                                                          "type": "AddCasterBuff",
-                                                          "buff_state": {
-                                                            "name": "league_vex_p_wait",
-                                                            "duration": {
-                                                              "Time": {
-                                                                "tick": 900
-                                                              }
-                                                            }
-                                                          },
-                                                          "only_to_enemy": false
-                                                        }
-                                                      ]
-                                                    },
-                                                    {
-                                                      "type": "Combine",
-                                                      "effects": [
+                                                          "type": "CasterAnimation",
+                                                          "name": "ult_hit",
+                                                          "tick": 24
+                                                        },
                                                         {
-                                                          "type": "RangeEffect",
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 40000
-                                                            }
-                                                          },
-                                                          "target": "EnemyWithoutTower",
-                                                          "apply_type": "AroundCaster",
+                                                          "type": "Delayed",
+                                                          "tick": 6,
                                                           "effects": [
                                                             {
                                                               "type": "ApAttack",
-                                                              "damage": 70,
-                                                              "attack_ratio": 40,
+                                                              "damage": 164,
+                                                              "attack_ratio": 50,
                                                               "hp_ratio": 0,
                                                               "can_crit": false
                                                             },
                                                             {
                                                               "type": "ViewEffect",
-                                                              "name": "league_vex_w_hit"
+                                                              "name": "league_vex_r_hit"
                                                             },
                                                             {
                                                               "type": "TargetSfx",
-                                                              "name": "league_vex_w_hit"
+                                                              "name": "league_vex_r_hit"
                                                             },
                                                             {
-                                                              "type": "AddBuff",
-                                                              "buff_state": {
-                                                                "name": "league_vex_v_hit",
-                                                                "duration": {
-                                                                  "Time": {
-                                                                    "tick": 2
+                                                              "type": "SwitchByBuff",
+                                                              "buff_name": "league_vex_w_cd",
+                                                              "effect_buff": {
+                                                                "type": "Combine",
+                                                                "effects": []
+                                                              },
+                                                              "effect_none": {
+                                                                "type": "Combine",
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "AddCasterBuff",
+                                                                    "buff_state": {
+                                                                      "name": "league_vex_w_cd",
+                                                                      "duration": {
+                                                                        "Time": {
+                                                                          "tick": 720
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    "only_to_enemy": false
+                                                                  },
+                                                                  {
+                                                                    "type": "Combine",
+                                                                    "effects": [
+                                                                      {
+                                                                        "type": "Sfx",
+                                                                        "name": "league_vex_w"
+                                                                      },
+                                                                      {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_vex_vo_cd",
+                                                                        "effect_buff": {
+                                                                          "type": "Combine",
+                                                                          "effects": []
+                                                                        },
+                                                                        "effect_none": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "AddCasterBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_vex_vo_cd",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 600
+                                                                                  }
+                                                                                }
+                                                                              },
+                                                                              "only_to_enemy": false
+                                                                            },
+                                                                            {
+                                                                              "type": "Sfx",
+                                                                              "name": "league_vex_vo_w"
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      },
+                                                                      {
+                                                                        "type": "RandomTarget",
+                                                                        "range": 1,
+                                                                        "casting_target": "AllyOnlySelf",
+                                                                        "from_projectile": false,
+                                                                        "effects": [
+                                                                          {
+                                                                            "type": "Shield",
+                                                                            "amount": 66,
+                                                                            "attack_ratio": 0,
+                                                                            "ap_ratio": 75,
+                                                                            "tick": 150
+                                                                          }
+                                                                        ]
+                                                                      },
+                                                                      {
+                                                                        "type": "CasterViewEffect",
+                                                                        "name": "league_vex_w_shield"
+                                                                      },
+                                                                      {
+                                                                        "type": "CasterViewEffect",
+                                                                        "name": "league_vex_w_ring"
+                                                                      },
+                                                                      {
+                                                                        "type": "SwitchByBuff",
+                                                                        "buff_name": "league_vex_p_wait",
+                                                                        "effect_buff": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "RangeEffect",
+                                                                              "shape": {
+                                                                                "Circle": {
+                                                                                  "radius": 40000
+                                                                                }
+                                                                              },
+                                                                              "target": "EnemyWithoutTower",
+                                                                              "apply_type": "AroundCaster",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "ApAttack",
+                                                                                  "damage": 105,
+                                                                                  "attack_ratio": 30,
+                                                                                  "hp_ratio": 0,
+                                                                                  "can_crit": false
+                                                                                },
+                                                                                {
+                                                                                  "type": "ViewEffect",
+                                                                                  "name": "league_vex_w_hit"
+                                                                                },
+                                                                                {
+                                                                                  "type": "TargetSfx",
+                                                                                  "name": "league_vex_w_hit"
+                                                                                },
+                                                                                {
+                                                                                  "type": "AddBuff",
+                                                                                  "buff_state": {
+                                                                                    "name": "league_vex_v_hit",
+                                                                                    "duration": {
+                                                                                      "Time": {
+                                                                                        "tick": 2
+                                                                                      }
+                                                                                    }
+                                                                                  }
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "type": "RangeEffect",
+                                                                              "shape": {
+                                                                                "Circle": {
+                                                                                  "radius": 40000
+                                                                                }
+                                                                              },
+                                                                              "target": "EnemyChampion",
+                                                                              "apply_type": "AroundCaster",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "Combine",
+                                                                                  "effects": []
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        "effect_none": {
+                                                                          "type": "Combine",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "Sfx",
+                                                                                  "name": "league_vex_p_fear"
+                                                                                },
+                                                                                {
+                                                                                  "type": "AddCasterBuff",
+                                                                                  "buff_state": {
+                                                                                    "name": "league_vex_p_wait",
+                                                                                    "duration": {
+                                                                                      "Time": {
+                                                                                        "tick": 1030
+                                                                                      }
+                                                                                    }
+                                                                                  },
+                                                                                  "only_to_enemy": false
+                                                                                }
+                                                                              ]
+                                                                            },
+                                                                            {
+                                                                              "type": "Combine",
+                                                                              "effects": [
+                                                                                {
+                                                                                  "type": "RangeEffect",
+                                                                                  "shape": {
+                                                                                    "Circle": {
+                                                                                      "radius": 40000
+                                                                                    }
+                                                                                  },
+                                                                                  "target": "EnemyWithoutTower",
+                                                                                  "apply_type": "AroundCaster",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "ApAttack",
+                                                                                      "damage": 105,
+                                                                                      "attack_ratio": 30,
+                                                                                      "hp_ratio": 0,
+                                                                                      "can_crit": false
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "ViewEffect",
+                                                                                      "name": "league_vex_w_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "TargetSfx",
+                                                                                      "name": "league_vex_w_hit"
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_vex_v_hit",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 2
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "Airborne",
+                                                                                      "duration": 2
+                                                                                    },
+                                                                                    {
+                                                                                      "type": "AddBuff",
+                                                                                      "buff_state": {
+                                                                                        "name": "league_vex_f_q",
+                                                                                        "duration": {
+                                                                                          "Time": {
+                                                                                            "tick": 2
+                                                                                          }
+                                                                                        }
+                                                                                      }
+                                                                                    }
+                                                                                  ]
+                                                                                },
+                                                                                {
+                                                                                  "type": "RangeEffect",
+                                                                                  "shape": {
+                                                                                    "Circle": {
+                                                                                      "radius": 40000
+                                                                                    }
+                                                                                  },
+                                                                                  "target": "EnemyChampion",
+                                                                                  "apply_type": "AroundCaster",
+                                                                                  "effects": [
+                                                                                    {
+                                                                                      "type": "Combine",
+                                                                                      "effects": []
+                                                                                    }
+                                                                                  ]
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      }
+                                                                    ]
                                                                   }
-                                                                }
+                                                                ]
                                                               }
-                                                            },
-                                                            {
-                                                              "type": "Fear",
-                                                              "tick": 45
-                                                            }
-                                                          ]
-                                                        },
-                                                        {
-                                                          "type": "RangeEffect",
-                                                          "shape": {
-                                                            "Circle": {
-                                                              "radius": 40000
-                                                            }
-                                                          },
-                                                          "target": "EnemyChampion",
-                                                          "apply_type": "AroundCaster",
-                                                          "effects": [
-                                                            {
-                                                              "type": "Combine",
-                                                              "effects": []
                                                             }
                                                           ]
                                                         }
@@ -1736,11 +2103,328 @@
                                                     }
                                                   ]
                                                 }
-                                              }
-                                            ]
+                                              ]
+                                            },
+                                            "effect_none": {
+                                              "type": "Combine",
+                                              "effects": [
+                                                {
+                                                  "type": "CasterAnimation",
+                                                  "name": "ult_dash",
+                                                  "tick": 24
+                                                },
+                                                {
+                                                  "type": "Sfx",
+                                                  "name": "league_vex_r_dash"
+                                                },
+                                                {
+                                                  "type": "LinearProjectile",
+                                                  "name": "league_vex_r_surge",
+                                                  "speed": 6000,
+                                                  "range": 140000,
+                                                  "y_offset": 5000,
+                                                  "penetrate": false,
+                                                  "shape": {
+                                                    "Circle": {
+                                                      "radius": 48000
+                                                    }
+                                                  },
+                                                  "applied_target": "EnemyChampion",
+                                                  "applied_effects": [],
+                                                  "end_effects": [
+                                                    {
+                                                      "type": "Teleport"
+                                                    },
+                                                    {
+                                                      "type": "CasterAnimation",
+                                                      "name": "ult_hit",
+                                                      "tick": 24
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "type": "Delayed",
+                                                  "tick": 12,
+                                                  "effects": [
+                                                    {
+                                                      "type": "ApAttack",
+                                                      "damage": 164,
+                                                      "attack_ratio": 50,
+                                                      "hp_ratio": 0,
+                                                      "can_crit": false
+                                                    },
+                                                    {
+                                                      "type": "ViewEffect",
+                                                      "name": "league_vex_r_hit"
+                                                    },
+                                                    {
+                                                      "type": "TargetSfx",
+                                                      "name": "league_vex_r_hit"
+                                                    },
+                                                    {
+                                                      "type": "SwitchByBuff",
+                                                      "buff_name": "league_vex_w_cd",
+                                                      "effect_buff": {
+                                                        "type": "Combine",
+                                                        "effects": []
+                                                      },
+                                                      "effect_none": {
+                                                        "type": "Combine",
+                                                        "effects": [
+                                                          {
+                                                            "type": "AddCasterBuff",
+                                                            "buff_state": {
+                                                              "name": "league_vex_w_cd",
+                                                              "duration": {
+                                                                "Time": {
+                                                                  "tick": 720
+                                                                }
+                                                              }
+                                                            },
+                                                            "only_to_enemy": false
+                                                          },
+                                                          {
+                                                            "type": "Combine",
+                                                            "effects": [
+                                                              {
+                                                                "type": "Sfx",
+                                                                "name": "league_vex_w"
+                                                              },
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_vex_vo_cd",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": []
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "AddCasterBuff",
+                                                                      "buff_state": {
+                                                                        "name": "league_vex_vo_cd",
+                                                                        "duration": {
+                                                                          "Time": {
+                                                                            "tick": 600
+                                                                          }
+                                                                        }
+                                                                      },
+                                                                      "only_to_enemy": false
+                                                                    },
+                                                                    {
+                                                                      "type": "Sfx",
+                                                                      "name": "league_vex_vo_w"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
+                                                              {
+                                                                "type": "RandomTarget",
+                                                                "range": 1,
+                                                                "casting_target": "AllyOnlySelf",
+                                                                "from_projectile": false,
+                                                                "effects": [
+                                                                  {
+                                                                    "type": "Shield",
+                                                                    "amount": 66,
+                                                                    "attack_ratio": 0,
+                                                                    "ap_ratio": 75,
+                                                                    "tick": 150
+                                                                  }
+                                                                ]
+                                                              },
+                                                              {
+                                                                "type": "CasterViewEffect",
+                                                                "name": "league_vex_w_shield"
+                                                              },
+                                                              {
+                                                                "type": "CasterViewEffect",
+                                                                "name": "league_vex_w_ring"
+                                                              },
+                                                              {
+                                                                "type": "SwitchByBuff",
+                                                                "buff_name": "league_vex_p_wait",
+                                                                "effect_buff": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "RangeEffect",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 40000
+                                                                        }
+                                                                      },
+                                                                      "target": "EnemyWithoutTower",
+                                                                      "apply_type": "AroundCaster",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "ApAttack",
+                                                                          "damage": 105,
+                                                                          "attack_ratio": 30,
+                                                                          "hp_ratio": 0,
+                                                                          "can_crit": false
+                                                                        },
+                                                                        {
+                                                                          "type": "ViewEffect",
+                                                                          "name": "league_vex_w_hit"
+                                                                        },
+                                                                        {
+                                                                          "type": "TargetSfx",
+                                                                          "name": "league_vex_w_hit"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_vex_v_hit",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 2
+                                                                              }
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "RangeEffect",
+                                                                      "shape": {
+                                                                        "Circle": {
+                                                                          "radius": 40000
+                                                                        }
+                                                                      },
+                                                                      "target": "EnemyChampion",
+                                                                      "apply_type": "AroundCaster",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "Combine",
+                                                                          "effects": []
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                },
+                                                                "effect_none": {
+                                                                  "type": "Combine",
+                                                                  "effects": [
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "Sfx",
+                                                                          "name": "league_vex_p_fear"
+                                                                        },
+                                                                        {
+                                                                          "type": "AddCasterBuff",
+                                                                          "buff_state": {
+                                                                            "name": "league_vex_p_wait",
+                                                                            "duration": {
+                                                                              "Time": {
+                                                                                "tick": 1030
+                                                                              }
+                                                                            }
+                                                                          },
+                                                                          "only_to_enemy": false
+                                                                        }
+                                                                      ]
+                                                                    },
+                                                                    {
+                                                                      "type": "Combine",
+                                                                      "effects": [
+                                                                        {
+                                                                          "type": "RangeEffect",
+                                                                          "shape": {
+                                                                            "Circle": {
+                                                                              "radius": 40000
+                                                                            }
+                                                                          },
+                                                                          "target": "EnemyWithoutTower",
+                                                                          "apply_type": "AroundCaster",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "ApAttack",
+                                                                              "damage": 105,
+                                                                              "attack_ratio": 30,
+                                                                              "hp_ratio": 0,
+                                                                              "can_crit": false
+                                                                            },
+                                                                            {
+                                                                              "type": "ViewEffect",
+                                                                              "name": "league_vex_w_hit"
+                                                                            },
+                                                                            {
+                                                                              "type": "TargetSfx",
+                                                                              "name": "league_vex_w_hit"
+                                                                            },
+                                                                            {
+                                                                              "type": "AddBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_vex_v_hit",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 2
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            },
+                                                                            {
+                                                                              "type": "Airborne",
+                                                                              "duration": 2
+                                                                            },
+                                                                            {
+                                                                              "type": "AddBuff",
+                                                                              "buff_state": {
+                                                                                "name": "league_vex_f_q",
+                                                                                "duration": {
+                                                                                  "Time": {
+                                                                                    "tick": 2
+                                                                                  }
+                                                                                }
+                                                                              }
+                                                                            }
+                                                                          ]
+                                                                        },
+                                                                        {
+                                                                          "type": "RangeEffect",
+                                                                          "shape": {
+                                                                            "Circle": {
+                                                                              "radius": 40000
+                                                                            }
+                                                                          },
+                                                                          "target": "EnemyChampion",
+                                                                          "apply_type": "AroundCaster",
+                                                                          "effects": [
+                                                                            {
+                                                                              "type": "Combine",
+                                                                              "effects": []
+                                                                            }
+                                                                          ]
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              }
+                                                            ]
+                                                          }
+                                                        ]
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
                                           }
                                         ]
+                                      },
+                                      "effect_none": {
+                                        "type": "Combine",
+                                        "effects": []
                                       }
+                                    },
+                                    {
+                                      "type": "RemoveCasterBuff",
+                                      "name": "league_vex_lives"
                                     }
                                   ]
                                 }
@@ -1782,9 +2466,17 @@
     },
     {
       "type": "Animated",
-      "name": "league_vex_q_bolt",
+      "name": "league_vex_q_wave",
       "anim": "asset/league/effects/league_vex_fx",
-      "tag": "q_bolt",
+      "tag": "q_wave",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "league_vex_q_dart",
+      "anim": "asset/league/effects/league_vex_fx",
+      "tag": "q_dart",
       "repeat": true,
       "z": 2
     },

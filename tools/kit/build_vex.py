@@ -88,6 +88,8 @@ P = {
     "p_cd1": 1030, "p_fear4": 90, "p_fs_lo": 60, "p_fs_hi": 99, "p_fs_d": 80000,
     "p_dash_r": 160000, "g_lo": 26, "g_hi": 107, "g_u_lo": 40, "g_u_hi": 60, "g_cut": 25, "g_cut_u": 10,
     "e_cut": 10, "e_cut_c": 25, "r_reset": 480, "r_free": 30, "r_kill": 100, "r_crowd": 1,
+    # 副本里愁煞的冷却（附加包能刷新它）
+    "r_cd_c": 2100,
     "native": 0,
 }
 # 附加包被动读的参数（passive.params，全是非负整数）
@@ -365,7 +367,7 @@ def build(p):
     # 标记先挂上再扣血：飞弹自己打死他也算（附加包看得到标记）
     marked = [buff("r_mark", p["r_wait"] + 30), ap(p["r_dmg"], p["r_ratio"]), tsfx("r_mark"),
               delayed(p["r_wait"], alive(surge)) if p["r_surge"] else delayed(p["r_wait"], *strike)]
-    ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting",
+    ult = action("ult", p["r_dur"], p["r_cd_c"] if native else p["r_cd"], 1, p["r_range"], "Targeting",
                  "EnemyChampionRecentlyAttacked" if p["r_recent"] else "EnemyChampion",
                  combine(decoy(p["r_dmg"] + p["r2_dmg"], p["r_ratio"] + p["r2_ratio"], ap), sfx("r"), voice("vo_r", p),
                          delayed(p["r_rel"] - 1, alive(homing("r_missile", "EnemyChampion", marked, p["r_speed"]),
