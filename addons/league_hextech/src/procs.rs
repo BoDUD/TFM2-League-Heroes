@@ -295,6 +295,8 @@ pub enum Show {
     /// 风刃：`at` 是放的人，`to` 是打到的人
     Typhoon,
     Ward,
+    /// 本包给的护盾还在时身上的一圈光（0.3.3）：每一步记一次他这时在哪，放 `dur` tick，所以跟着人走
+    ShieldGlow,
 }
 
 /// 屏幕那一场的一次特效：模拟的哪个 tick、在哪（模拟坐标）。
@@ -394,6 +396,15 @@ enum Kind {
     Snowball,
 }
 
+/// 本包给的一层护盾（只记屏幕那一场的，画光用）：给了哪个座位的哪个实体、哪个 tick 给的、到哪个 tick。
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+struct Aura {
+    seat: usize,
+    ent: usize,
+    from: usize,
+    until: usize,
+}
+
 /// 还在路上的：飞弹、激光、彗星、雪球。`base` 是放出去那一刻算好的伤害（不含按目标最大生命的那部分）。
 #[derive(Clone, Debug)]
 struct Shot {
@@ -432,6 +443,8 @@ pub struct Procs {
     kills_seen: usize,
     /// 本包给的控制（雪球的击飞）：(实体, 到这个 tick)，这期间他新挂上的控制不算谁控住的
     own_cc: Vec<(usize, usize)>,
+    /// 本包给的护盾还亮着的（屏幕那一场才记）
+    auras: Vec<Aura>,
     /// 每种触发了几次（END 一行）
     pub count: [u32; EV_N],
     /// 屏幕那一场这一步要画的（lib.rs 拿走放进 feed）
@@ -502,6 +515,38 @@ impl Procs {
     fn show(&mut self, screen: bool, now: usize, show: Show, at: (u64, u64), to: Vec<(u64, u64)>, dur: usize) {
         if screen {
             self.out.push(Out { tick: now, show, at, to, dur: dur.min(u16::MAX as usize) as u16 });
+        }
+    }
+
+    /// 给了 `ent` 一层 `t` tick 的护盾：屏幕那一场记下来，护盾还在就在他身上画一圈光（用户：「现在有些海克斯比如什么加护盾
+    /// 我是看不到特效的」「或者是不明显？」——给盾那一下的动画只有半秒，盾要挂两三秒）。同一个人又给了一层：亮到晚的那个。
+    fn guarded(&mut self, screen: bool, seat: usize, ent: usize, now: usize, t: usize) {
+        if !screen {
+            return;
+        }
+        let until = now + t;
+        match self.auras.iter_mut().find(|a| a.ent == ent) {
+            Some(a) => a.until = a.until.max(until),
+            None => self.auras.push(Aura { seat, ent, from: now, until }),
+        }
+    }
+
+    /// 每一步给还亮着的护盾记一次光（在他这一步的位置）。时间到了、盾打没了（给的那一步之后护盾读到 0）、人死了、
+    /// 换了一条命：不再亮。
+    fn auras_tick(&mut self, now: usize, looks: &[L], screen: bool) {
+        if !screen {
+            self.auras.clear();
+            return;
+        }
+        let auras = std::mem::take(&mut self.auras);
+        for a in auras {
+            let Some(l) = looks.get(a.seat).filter(|l| l.alive && l.ent == a.ent) else { continue };
+            let broken = now > a.from && self.pls[a.seat].shield == 0;
+            if now >= a.until || broken {
+                continue;
+            }
+            self.show(true, now, Show::ShieldGlow, l.pos, Vec::new(), EVERY);
+            self.auras.push(a);
         }
     }
 
@@ -687,6 +732,7 @@ impl Procs {
         self.hots_tick(sim, now, &looks);
         self.shots_tick(sim, now, &looks, names, screen);
         self.keep_stacks(sim, &looks);
+        self.auras_tick(now, &looks, screen);
     }
 
     // ---------- 参与击杀 ----------
@@ -892,6 +938,7 @@ impl Procs {
             self.pls[h].ready[Ev::EscapePlan as usize] = now + ESCAPE_CD;
             let amount = escape_shield(me.max);
             sim.entity_add_shield(me.ent, amount, ESCAPE_SHIELD_T);
+            self.guarded(screen, h, me.ent, now, ESCAPE_SHIELD_T);
             put_timed(sim, me.ent, &escape_speed());
             self.fire(Ev::EscapePlan);
             self.say(screen, || format!("PROC escape_plan {}: below {ESCAPE_PCT}% ({}/{}) - shield {amount}", names[h],
@@ -927,6 +974,8 @@ impl Procs {
                 let amount = guard_shield(me.max);
                 sim.entity_add_shield(looks[a].ent, amount, GUARD_T);
                 sim.entity_add_shield(me.ent, amount, GUARD_T);
+                self.guarded(screen, a, looks[a].ent, now, GUARD_T);
+                self.guarded(screen, h, me.ent, now, GUARD_T);
                 self.fire(Ev::Guardian);
                 self.say(screen, || format!("PROC guardian {} guards {}: shields of {amount}", names[h], names[a]));
                 self.show(screen, now, Show::Guard, looks[a].pos, vec![me.pos], 0);
@@ -953,6 +1002,7 @@ impl Procs {
             self.pls[h].ready[Ev::Colossus as usize] = now + COLOSSUS_CD;
             let amount = colossus_shield(me.max);
             sim.entity_add_shield(me.ent, amount, COLOSSUS_T);
+            self.guarded(screen, h, me.ent, now, COLOSSUS_T);
             self.fire(Ev::Colossus);
             self.say(screen, || format!("PROC courage_of_the_colossus {} immobilized {}: shield {amount}", names[h],
                                         names[v]));
@@ -1076,6 +1126,7 @@ impl Procs {
                 let (_, ap) = ad_ap(sim, me.ent);
                 let amount = ward_shield(ap, looks[a].max);
                 sim.entity_add_shield(looks[a].ent, amount, WARD_T);
+                self.guarded(screen, a, looks[a].ent, now, WARD_T);
                 put_timed(sim, looks[a].ent, &ward_speed());
                 self.fire(Ev::SacredWard);
                 self.say(screen, || format!("PROC sacred_ward {} wards {}: shield {amount}", names[h], names[a]));

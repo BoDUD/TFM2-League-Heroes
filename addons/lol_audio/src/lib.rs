@@ -50,6 +50,11 @@
 //! 「警告，警告」（`build_audio.py` 从 Rumble.zh_CN 的语音包取：`Play_vo_Rumble_Spell3DPCast`）。英雄自己的话不排队、不等
 //! 播报员。第一次看到这一局时已经在过热的不补放。日志一行 `RUMBLE`。
 //!
+//! 0.3.1（用户 2026-11-26：「还有EZ的语音一直在重复 炸飞他们这个语音」）：0.3.0 每个英雄的击杀、阵亡、复活各只有一句，
+//! 一局里拿几个人头就把同一句说几遍（那一局伊泽瑞尔的击杀那句放了 6 次）。现在 `build_audio.py` 每种最多取三句（同一个
+//! 语音事件里不同的几句，不够再往后面的事件找），这个 DLL 轮着放：同一个英雄同一种话一句接一句换，起点按这一局的种子错开，
+//! 三句说完才回到第一句。几句写在 `src/variants.rs`；第一句还是原来那句，后面的叫 `lol_audio_ch_<英雄>_<事件>_2`、`_3`。
+//!
 //! 播报排队放：一条放完（`GAP` tick）才放下一条，等了 `EXPIRE` tick 还没轮到的扔掉（胜负那句插到最前面、清掉别的）。
 //!
 //! 只在看得见、听得见的比赛里放（观看、观战、回放）；后台预演的比赛（`ServerPresim`）和别的队伍在后台打的比赛
@@ -70,6 +75,8 @@ use std::sync::{LazyLock, Mutex};
 use std::time::{Duration, Instant};
 
 use mod_api_stable::*;
+
+mod variants;
 
 const ID: &str = "lol_audio";
 const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -565,6 +572,32 @@ impl ChampCue {
             ChampCue::Respawn => COOLDOWN_RESPAWN,
         }
     }
+
+    /// 在 `variants::VARIANTS` 那一行里是第几个数（开局那句只有一句，不在表里）。
+    fn slot(self) -> Option<usize> {
+        match self {
+            ChampCue::Start => None,
+            ChampCue::Kill => Some(0),
+            ChampCue::Dead => Some(1),
+            ChampCue::Respawn => Some(2),
+        }
+    }
+}
+
+/// 这个英雄这种话有几句（`src/variants.rs`；表里没有的、开局那句：一句）。
+pub fn lines_of(slug: &str, cue: ChampCue) -> usize {
+    let Some(i) = cue.slot() else { return 1 };
+    variants::VARIANTS
+        .binary_search_by_key(&slug, |v| v.0)
+        .map_or(1, |k| variants::VARIANTS[k].1[i].max(1) as usize)
+}
+
+/// 第 `n` 次（从 0 起）说这种话时用第几句（从 0 起）：一句一句轮着来，起点按这一局的种子和座位错开。
+pub fn line_at(n: usize, seed: u64, player: usize, lines: usize) -> usize {
+    if lines <= 1 {
+        return 0;
+    }
+    (seed as usize).wrapping_add(player.wrapping_mul(7)).wrapping_add(n) % lines
 }
 
 /// Snapshot of one player's champion for lifecycle voice tracking.
@@ -604,6 +637,10 @@ pub struct ChampVoice {
     last_any: Option<usize>,
     /// Per-(player, cue) last played tick.
     last_cue: HashMap<(usize, ChampCue), usize>,
+    /// 每个 (座位, 哪种话) 这一局说过几次：下一次用哪一句（[`line_at`]）。
+    said: HashMap<(usize, ChampCue), usize>,
+    /// 这一局的种子（轮换的起点）。
+    seed: u64,
     /// Total champion lifecycle lines played in this match.
     pub played: usize,
 }
@@ -638,10 +675,14 @@ impl ChampVoice {
         self.last_any = Some(now);
         self.last_cue.insert((player, cue), now);
         self.played += 1;
+        let n = self.said.entry((player, cue)).or_insert(0);
+        let k = line_at(*n, self.seed, player, lines_of(slug, cue));
+        *n += 1;
+        let first = format!("lol_audio_ch_{slug}_{}", cue.tag());
         ChampLine {
             slug: slug.to_string(),
             cue,
-            event: format!("lol_audio_ch_{slug}_{}", cue.tag()),
+            event: if k == 0 { first } else { format!("{first}_{}", k + 1) },
             on,
             at,
         }
@@ -660,6 +701,7 @@ impl ChampVoice {
     ) -> Option<ChampLine> {
         let first_tick = !self.seen;
         self.seen = true;
+        self.seed = seed;
 
         // Collect transitions before updating `prev`.
         let mut died_now: Vec<(usize, usize, (u64, u64), String)> = Vec::new();
@@ -1997,6 +2039,78 @@ mod champ_voice_tests {
         ChampSnap { player, entity, team, lane, alive, pos: (100, 100), name: name.to_string() }
     }
 
+    /// 一句话的事件去掉第几句的尾巴（`lol_audio_ch_garen_kill_2` -> `lol_audio_ch_garen_kill`）。
+    fn family(event: &str) -> &str {
+        match event.rsplit_once('_') {
+            Some((head, k)) if k.len() == 1 && k.bytes().all(|b| b.is_ascii_digit()) => head,
+            _ => event,
+        }
+    }
+
+    /// 0.3.1（用户：「还有EZ的语音一直在重复 炸飞他们这个语音」）：同一个英雄一局里连着拿人头，击杀那句一句一句换着说，
+    /// 几句都说过才回到第一句；只有一句的、表里没有的英雄照旧是那一句。
+    #[test]
+    fn a_champion_rotates_through_his_lines_instead_of_repeating_one() {
+        let n = lines_of("ezreal", ChampCue::Kill);
+        assert!(n >= 2, "Ezreal has more than one kill line ({n})");
+        let mut cv = ChampVoice::default();
+        let alive = vec![snap(3, 30, 0, 3, true, "league_ezreal"), snap(6, 60, 1, 1, true, "league_vi")];
+        assert!(cv.step(2000, &alive, &[], false, false, false, 5).is_none());
+        let mut said = Vec::new();
+        let mut t = 2100;
+        for _ in 0..2 * n {
+            let kill = KillLogV1 { tick: t, killer_team: 0, killer_position: 3, killed_position: 1, ..Default::default() };
+            let l = cv.step(t, &alive, &[kill], false, false, false, 5).expect("a kill line");
+            assert_eq!(family(&l.event), "lol_audio_ch_ezreal_kill");
+            said.push(l.event);
+            t += COOLDOWN_KILL;
+        }
+        for w in said.windows(2) {
+            assert_ne!(w[0], w[1], "the same line twice in a row: {said:?}");
+        }
+        let mut distinct = said.clone();
+        distinct.sort();
+        distinct.dedup();
+        assert_eq!(distinct.len(), n, "every line is said: {said:?}");
+        assert_eq!(said[..n], said[n..], "then around again");
+        // the rotation
+        assert_eq!((0..6).map(|i| line_at(i, 1, 0, 3)).collect::<Vec<_>>(), vec![1, 2, 0, 1, 2, 0]);
+        assert_eq!(line_at(4, 9, 2, 1), 0);
+        assert_eq!(lines_of("no_such_champion", ChampCue::Kill), 1);
+        assert_eq!(lines_of("ezreal", ChampCue::Start), 1);
+    }
+
+    /// 表里的每一句都有自己的声音事件，`mod.override_info` 里事件和声音两条都改到了本包（不然放出来是哑的）。
+    #[test]
+    fn every_line_in_the_table_has_its_event() {
+        let root = env!("CARGO_MANIFEST_DIR");
+        let info = std::fs::read_to_string(format!("{root}/mod.override_info")).expect("mod.override_info");
+        let mut names = variants::VARIANTS.iter().map(|v| v.0).collect::<Vec<_>>();
+        let sorted = {
+            let mut s = names.clone();
+            s.sort();
+            s
+        };
+        assert_eq!(names, sorted, "sorted for the binary search");
+        names.dedup();
+        assert_eq!(names.len(), variants::VARIANTS.len(), "each champion once");
+        for (slug, counts) in variants::VARIANTS {
+            for (i, cue) in ["kill", "dead", "respawn"].iter().enumerate() {
+                assert!((1..=3).contains(&counts[i]), "{slug} {cue}: {}", counts[i]);
+                for k in 1..=counts[i] as usize {
+                    let suffix = if k == 1 { String::new() } else { format!("_{k}") };
+                    let event = format!("lol_audio_ch_{slug}_{cue}{suffix}");
+                    let clip = format!("lol_ch_{slug}_{cue}{suffix}");
+                    let si = format!("{root}/sound/sfx/{event}.sound_info");
+                    let body = std::fs::read_to_string(&si).unwrap_or_else(|e| panic!("{si}: {e}"));
+                    assert!(body.contains(&format!("\"clip\":\"{clip}\"")), "{si}: {body}");
+                    assert!(info.contains(&format!("\"asset/base/sound/sfx/{event}\"")), "{event} not remapped");
+                    assert!(info.contains(&format!("\"remapping\": \"asset/lol_audio/sound/bgm/{clip}\"")), "{clip} not remapped");
+                }
+            }
+        }
+    }
+
     #[test]
     fn start_stagger_blue_then_red_and_only_league_heroes() {
         let mut cv = ChampVoice::default();
@@ -2037,7 +2151,7 @@ mod champ_voice_tests {
         // Announcer free -> Garen kill line plays
         let kill2 = KillLogV1 { tick: 2105, killer_team: 0, killer_position: 1, killed_position: 2, ..Default::default() };
         let cl = cv.step(2105, &alive, &[kill2], false, false, false, 1).unwrap();
-        assert_eq!(cl.event, "lol_audio_ch_garen_kill");
+        assert_eq!(family(&cl.event), "lol_audio_ch_garen_kill");
 
         // Kog'Maw dies after gap: skipped (Kog'Maw has passive death VO)
         let kog_dead = vec![
@@ -2057,7 +2171,7 @@ mod champ_voice_tests {
             snap(4, 40, 0, 2, true, "ragnarok_lubu"),
         ];
         let dl = cv.step(t_dead + 1, &ashe_dead, &[], false, false, false, 1).unwrap();
-        assert_eq!(dl.event, "lol_audio_ch_ashe_dead");
+        assert_eq!(family(&dl.event), "lol_audio_ch_ashe_dead");
 
         // Ashe respawns after gap -> Ashe respawn line plays
         let t_resp = t_dead + 1 + CHAMP_VOICE_GAP;
@@ -2068,6 +2182,6 @@ mod champ_voice_tests {
             snap(4, 40, 0, 2, true, "ragnarok_lubu"),
         ];
         let rl = cv.step(t_resp, &back, &[], false, false, false, 1).unwrap();
-        assert_eq!(rl.event, "lol_audio_ch_ashe_respawn");
+        assert_eq!(family(&rl.event), "lol_audio_ch_ashe_respawn");
     }
 }
