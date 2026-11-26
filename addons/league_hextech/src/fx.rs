@@ -34,6 +34,7 @@
 //! | 献祭光环 | 脚下一圈火（`immolate`，打到人的那一秒） |
 //! | 台风 | 风刃（线）、落点的旋风（`gust`） |
 //! | 圣光庇佑 | 金色的光罩（`ward`） |
+//! | 逃跑计划、守护者、巨像的勇气、圣光庇佑的护盾还在时 | 身上一圈白里带蓝的光（线，跟着人走，盾没了就灭；0.3.3） |
 
 use std::sync::{Mutex, OnceLock};
 
@@ -84,6 +85,8 @@ pub fn anim_name(s: Show) -> &'static str {
         Show::Immolate => "immolate",
         Show::Typhoon => "gust",
         Show::Ward => "ward",
+        // 护盾的光是画的线，图上没有
+        Show::ShieldGlow => "shield_glow",
     }
 }
 
@@ -103,7 +106,7 @@ fn flies(s: Show) -> bool {
 
 /// 这一次一共放多少 tick。
 pub fn ticks(f: &feed::Fx) -> usize {
-    if flies(f.show) {
+    if flies(f.show) || f.show == Show::ShieldGlow {
         return (f.dur as usize).max(1);
     }
     let a = anim(f.show).map_or(0, length);
@@ -275,6 +278,44 @@ fn chest(p: (u64, u64)) -> (i32, i32) {
     (world::whole_px(p.0), world::whole_px(p.1) - CHEST)
 }
 
+// ===================== 护盾的光（0.3.3） =====================
+
+/// 光圈的中心离脚底多高、横竖两个半径（世界像素：罩住整个人）；一圈几段；一明一暗一次多少 tick、大小差多少。
+pub const GLOW_UP: f32 = 16.0;
+pub const GLOW_RX: f32 = 14.0;
+pub const GLOW_RY: f32 = 19.0;
+const GLOW_SEGS: usize = 24;
+const GLOW_BEAT: usize = 36;
+const GLOW_PULSE: f32 = 0.06;
+/// 外面一层淡的光晕、中间一层、最里面一道亮边（英雄联盟的护盾那种白里带蓝）。
+const GLOW_COLOURS: [u32; 3] = [0x7c_d4_ff_48, 0xb4_ec_ff_8c, 0xf2_fc_ff_e0];
+const GLOW_WIDTHS: [f32; 3] = [4.2, 2.4, 1.0];
+
+/// 屏幕时钟 `t` 时罩在 `at`（脚底）那个人身上的一圈（世界像素，首尾相接）：跟着屏幕时钟轻轻一涨一缩。
+pub fn glow_ring(at: (u64, u64), t: usize) -> Vec<(f32, f32)> {
+    let beat = (t % GLOW_BEAT) as f32 / GLOW_BEAT as f32 * std::f32::consts::TAU;
+    let k = 1.0 + GLOW_PULSE * beat.sin();
+    let (cx, cy) = (world::whole_px(at.0) as f32 + 0.5, world::whole_px(at.1) as f32 - GLOW_UP);
+    (0..=GLOW_SEGS)
+        .map(|i| {
+            let a = i as f32 / GLOW_SEGS as f32 * std::f32::consts::TAU;
+            (cx + GLOW_RX * k * a.cos(), cy + GLOW_RY * k * a.sin())
+        })
+        .collect()
+}
+
+/// 一圈按几层画（[`lines`] 的小数坐标版）。
+fn ring(ctx: &mut StableClient<'_>, v: &world::View, pts: &[(f32, f32)]) -> bool {
+    let mut drawn = false;
+    for (width, colour) in GLOW_WIDTHS.into_iter().zip(GLOW_COLOURS) {
+        for w in pts.windows(2) {
+            let (a, b) = (v.px(w[0]), v.px(w[1]));
+            drawn |= ctx.draw_line(world::GAME, a.0, a.1, b.0, b.1, width * v.scale.0, v.z, colour);
+        }
+    }
+    drawn
+}
+
 /// 一次连锁闪电在 `age` 时的每一道：放的人 -> 第一个，第一个 -> 第二个……（世界像素的折线）。
 pub fn bolt_paths(f: &feed::Fx, age: usize) -> Vec<Vec<(i32, i32)>> {
     let shape = (age / BOLT_SHAPE) as u64;
@@ -391,6 +432,7 @@ pub fn draw(ctx: &mut StableClient<'_>, m: u64, s: u64, t: usize) {
                     drawn |= frame(ctx, &v, a, fr, f.at);
                 }
             }
+            Show::ShieldGlow => drawn |= ring(ctx, &v, &glow_ring(f.at, t)),
             show => {
                 if let Some((a, fr)) = anim(show).and_then(|a| frame_at(a, age).map(|fr| (a, fr))) {
                     drawn |= frame(ctx, &v, a, fr, f.at);
@@ -456,6 +498,29 @@ mod tests {
         assert!((4..=10).contains(&p.len()));
         assert_eq!(bolt_path(a, a, 1), vec![a, a]);
         assert_eq!(bolt_layers(false), vec![(1.4, BOLT_COLOURS[2])]);
+    }
+
+    /// 护盾的光：罩住整个人（中心在脚底上面），首尾相接，跟着屏幕时钟轻轻一涨一缩；一条只放一步（下一步换到他的新位置）。
+    #[test]
+    fn the_shield_glow_rings_the_body_for_one_step() {
+        let at = (500_000, 400_000);
+        let (cx, cy) = (500.5, 400.0 - GLOW_UP);
+        for t in [0, 9, 18, 27] {
+            let r = glow_ring(at, t);
+            let (a, b) = (r[0], *r.last().unwrap());
+            assert!((a.0 - b.0).abs() < 0.01 && (a.1 - b.1).abs() < 0.01, "closed");
+            for p in &r {
+                let e = ((p.0 - cx) / GLOW_RX).powi(2) + ((p.1 - cy) / GLOW_RY).powi(2);
+                assert!((0.85..1.15).contains(&e), "{t}: {p:?}");
+            }
+            // the feet inside it, the head too
+            assert!(r.iter().any(|p| p.1 > 400.0) && r.iter().any(|p| p.1 < 400.0 - 30.0));
+        }
+        assert_ne!(glow_ring(at, 0), glow_ring(at, 9), "it breathes");
+        let f = feed::Fx { m: 1, s: 1, tick: 10, show: Show::ShieldGlow, at, to: Vec::new(),
+                           dur: super::super::procs::EVERY as u16 };
+        assert_eq!(ticks(&f), super::super::procs::EVERY);
+        assert!(anim(Show::ShieldGlow).is_none(), "drawn as lines, not on the sheet");
     }
 
     #[test]

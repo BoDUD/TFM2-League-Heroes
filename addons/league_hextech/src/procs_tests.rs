@@ -310,6 +310,51 @@ fn executioner_only_on_the_low_and_guardian_shields_both() {
     assert_eq!(b.w.shields, vec![(b.w.ent(2), s, procs::GUARD_T), (b.w.ent(4), s, procs::GUARD_T)]);
 }
 
+/// 本包给的护盾还在时，屏幕那一场每一步在他身上记一圈光、跟着他走；盾打没了、时间到了就灭，屏幕外的模拟一条都不记
+/// （0.3.3，用户：「现在有些海克斯比如什么加护盾我是看不到特效的」「或者是不明显？」）。
+#[test]
+fn a_shield_glows_on_its_holder_while_it_holds() {
+    let grant = |screen: bool| {
+        let mut b = Bench::new(&[(2, &[Ev::Colossus])]);
+        b.screen = screen;
+        b.near(7, 2, 50_000);
+        b.go(2);
+        b.w.players[2].cds[1] = 400;
+        b.go(4);
+        b.w.champ_mut(7).cc.push(CcV1::stun(60));
+        b.go(10);
+        assert_eq!(b.w.shields.len(), 1, "the colossus's shield");
+        b
+    };
+    let glows = |b: &Bench| -> Vec<(usize, (u64, u64))> {
+        b.p.out.iter().filter(|o| o.show == Show::ShieldGlow).map(|o| (o.tick, o.at)).collect()
+    };
+    // every step from the one it was given on, where he is, a step long
+    let mut b = grant(true);
+    let g = glows(&b);
+    let from = g[0].0;
+    assert!(g.iter().enumerate().all(|(i, x)| x.0 == from + i * procs::EVERY && x.1 == b.w.champ(2).pos), "{g:?}");
+    assert!(b.p.out.iter().filter(|o| o.show == Show::ShieldGlow).all(|o| o.dur as usize == procs::EVERY));
+    // it follows him
+    b.w.champ_mut(2).pos.0 += 30_000;
+    b.go(20);
+    assert_eq!(glows(&b).last().copied(), Some((20, b.w.champ(2).pos)));
+    // broken: the next look sees no shield, no more glow
+    b.w.champ_mut(2).shield = 0;
+    b.go(40);
+    assert_eq!(glows(&b).last().map(|x| x.0), Some(20));
+    // left alone it lasts as long as the shield
+    let mut c = grant(true);
+    c.go(400);
+    let g = glows(&c);
+    assert_eq!(g.len(), procs::COLOSSUS_T / procs::EVERY, "{g:?}");
+    assert!(g.iter().all(|x| x.0 < from + procs::COLOSSUS_T));
+    // off the screen: nothing
+    let mut d = grant(false);
+    d.go(100);
+    assert!(glows(&d).is_empty());
+}
+
 /// The same match run twice (the twin presims, the screen's second run) does the same things, and only the screen's run
 /// records the battlefield effects.
 #[test]
