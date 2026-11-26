@@ -706,7 +706,7 @@ impl Procs {
         true
     }
 
-    fn fire(&mut self, ev: Ev) {
+    pub(crate) fn fire(&mut self, ev: Ev) {
         self.count[ev as usize] += 1;
     }
 
