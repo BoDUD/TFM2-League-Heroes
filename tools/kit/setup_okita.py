@@ -36,8 +36,8 @@ TEXT = {
                  phys("q3_dmg", "q3_ad") + "。",
         "skill2": "变成鬼子：" + A + "{e_t}秒" + E + "内攻击力提高" + A + "{e_atk}%" + E + "、攻速提高" + A + "{e_as}%" + E +
                   "、移速提高" + A + "{e_ms}%" + E + "。",
-        "ult": "极快地突进（不受控制），连刺三下，每刺" + phys("r_dmg", "r_ad") + O + "物理伤害" + E + "，第三刺再加目标" + A +
-               "{r_thp}%" + E + "最大生命。",
+        "ult": "极快地突进（不受控制），连刺三下，每刺一道真空刃飞出、刺到刀够不到的地方：一条线上的敌人受到" +
+               phys("r_dmg", "r_ad") + O + "物理伤害" + E + "，第三刺再加目标" + A + "{r_thp}%" + E + "最大生命。",
         "names": ("三段突", "鬼子", "天翔散段突"),
     },
     "zh-hant": {
@@ -48,8 +48,8 @@ TEXT = {
                  phys("q3_dmg", "q3_ad") + "。",
         "skill2": "變成鬼子：" + A + "{e_t}秒" + E + "內攻擊力提高" + A + "{e_atk}%" + E + "、攻速提高" + A + "{e_as}%" + E +
                   "、移速提高" + A + "{e_ms}%" + E + "。",
-        "ult": "極快地突進（不受控制），連刺三下，每刺" + phys("r_dmg", "r_ad") + O + "物理傷害" + E + "，第三刺再加目標" + A +
-               "{r_thp}%" + E + "最大生命。",
+        "ult": "極快地突進（不受控制），連刺三下，每刺一道真空刃飛出、刺到刀夠不到的地方：一條線上的敵人受到" +
+               phys("r_dmg", "r_ad") + O + "物理傷害" + E + "，第三刺再加目標" + A + "{r_thp}%" + E + "最大生命。",
         "names": ("三段突", "鬼子", "天翔散段突"),
     },
     "en": {
@@ -61,9 +61,9 @@ TEXT = {
                  E + " in front of him, the third " + phys("q3_dmg", "q3_ad") + " more.",
         "skill2": "Demon Child: for " + A + "{e_t}s" + E + " he gains " + A + "{e_atk}%" + E + " attack, " + A + "{e_as}%" +
                   E + " attack speed and " + A + "{e_ms}%" + E + " move speed.",
-        "ult": "Tensho Sandanzuki: he lunges at blinding speed (unstoppable) and thrusts three times, each for " +
-               phys("r_dmg", "r_ad") + " " + O + "physical damage" + E + ", the third plus " + A + "{r_thp}%" + E +
-               " of the target's max health.",
+        "ult": "Tensho Sandanzuki: he lunges at blinding speed (unstoppable) and thrusts three times; each thrust sends a "
+               "vacuum blade past the sword's reach, dealing " + phys("r_dmg", "r_ad") + " " + O + "physical damage" + E +
+               " along a line, the third plus " + A + "{r_thp}%" + E + " of the target's max health.",
         "names": ("Sandanzuki", "Demon Child", "Tensho Sandanzuki"),
     },
     "ko": {
@@ -74,8 +74,8 @@ TEXT = {
                  ", 세 번째는 " + phys("q3_dmg", "q3_ad") + " 추가.",
         "skill2": "귀자: " + A + "{e_t}초" + E + " 동안 공격력 " + A + "{e_atk}%" + E + ", 공격 속도 " + A + "{e_as}%" + E +
                   ", 이동 속도 " + A + "{e_ms}%" + E + " 증가.",
-        "ult": "번개같이 돌진해(저지 불가) 세 번 찔러 각 " + phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + ", 세 번째는 "
-               "대상 최대 체력의 " + A + "{r_thp}%" + E + " 추가.",
+        "ult": "번개같이 돌진해(저지 불가) 세 번 찌른다. 찌를 때마다 진공의 칼날이 칼끝 너머로 날아가 일직선의 적에게 " +
+               phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + ", 세 번째는 대상 최대 체력의 " + A + "{r_thp}%" + E + " 추가.",
         "names": ("삼단 찌르기", "귀자", "천상산단돌"),
     },
     "ja": {
@@ -86,8 +86,8 @@ TEXT = {
                  phys("q3_dmg", "q3_ad") + "追加。",
         "skill2": "鬼子：" + A + "{e_t}秒" + E + "攻撃力" + A + "{e_atk}%" + E + "、攻撃速度" + A + "{e_as}%" + E + "、移動速度" +
                   A + "{e_ms}%" + E + "上昇。",
-        "ult": "神速で踏み込み（行動妨害無効）三度突く、各" + phys("r_dmg", "r_ad") + "の" + O + "物理ダメージ" + E +
-               "、三突き目は対象の最大体力の" + A + "{r_thp}%" + E + "追加。",
+        "ult": "神速で踏み込み（行動妨害無効）三度突く。突くたびに真空の刃が刀の届かない先まで飛び、一直線の敵に" +
+               phys("r_dmg", "r_ad") + "の" + O + "物理ダメージ" + E + "、三突き目は対象の最大体力の" + A + "{r_thp}%" + E + "追加。",
         "names": ("三段突き", "鬼子", "天翔散段突"),
     },
 }

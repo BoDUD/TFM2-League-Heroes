@@ -241,7 +241,7 @@
                         "shape": {
                           "DirDot": {
                             "radius": 50000,
-                            "range": 940
+                            "range": 800
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -253,8 +253,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 70,
-                            "attack_ratio": 110,
+                            "damage": 60,
+                            "attack_ratio": 85,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -294,7 +294,7 @@
                         "shape": {
                           "DirDot": {
                             "radius": 50000,
-                            "range": 940
+                            "range": 800
                           }
                         },
                         "target": "EnemyWithoutTower",
@@ -306,8 +306,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 70,
-                            "attack_ratio": 110,
+                            "damage": 60,
+                            "attack_ratio": 85,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"

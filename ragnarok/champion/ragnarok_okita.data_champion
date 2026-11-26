@@ -17,10 +17,10 @@
     "asset/ragnarok/icons/ragnarok_okita_ult"
   ],
   "stat": {
-    "attack": 96,
+    "attack": 100,
     "magic_power": 0,
-    "hp": 1000,
-    "defence": 30,
+    "hp": 1050,
+    "defence": 34,
     "magic_resistance": 30,
     "move_speed": 1090,
     "hp_regen": 0,
@@ -79,7 +79,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.ragnarok_okita.skill",
     "duration": 42,
-    "cooltime": 420,
+    "cooltime": 360,
     "start_timing": 1,
     "cancelable": false,
     "range": 34000,
@@ -156,8 +156,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 45,
+                            "damage": 40,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -201,8 +201,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 45,
+                            "damage": 40,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -282,8 +282,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 45,
+                            "damage": 40,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -327,8 +327,8 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 45,
+                            "damage": 40,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -408,16 +408,16 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 45,
+                            "damage": 40,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
                           },
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 30,
+                            "damage": 40,
+                            "attack_ratio": 40,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -461,16 +461,16 @@
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 45,
+                            "damage": 40,
+                            "attack_ratio": 60,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
                           },
                           {
                             "type": "Attack",
-                            "damage": 30,
-                            "attack_ratio": 30,
+                            "damage": 40,
+                            "attack_ratio": 40,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
@@ -506,7 +506,7 @@
     "cooltime": 900,
     "start_timing": 1,
     "cancelable": false,
-    "range": 40000,
+    "range": 50000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -587,9 +587,9 @@
                                       "tick": 300
                                     }
                                   },
-                                  "attack_mult": 20,
-                                  "attack_speed_mult": 30,
-                                  "move_speed_mult": 15
+                                  "attack_mult": 25,
+                                  "attack_speed_mult": 40,
+                                  "move_speed_mult": 20
                                 },
                                 "only_to_enemy": false
                               },
@@ -687,9 +687,9 @@
                                       "tick": 300
                                     }
                                   },
-                                  "attack_mult": 20,
-                                  "attack_speed_mult": 30,
-                                  "move_speed_mult": 15
+                                  "attack_mult": 25,
+                                  "attack_speed_mult": 40,
+                                  "move_speed_mult": 20
                                 },
                                 "only_to_enemy": false
                               },
@@ -778,7 +778,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.ragnarok_okita.ult",
-    "duration": 47,
+    "duration": 40,
     "cooltime": 2700,
     "start_timing": 1,
     "cancelable": false,
@@ -808,7 +808,7 @@
             "name": "ragnarok_okita_r_guard",
             "duration": {
               "Time": {
-                "tick": 34
+                "tick": 24
               }
             },
             "cc_immune": true
@@ -877,7 +877,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 17,
+          "tick": 12,
           "effects": [
             {
               "type": "Combine",
@@ -918,84 +918,12 @@
                       },
                       {
                         "type": "RushTime",
-                        "speed": 9000,
-                        "tick": 6,
+                        "speed": 4200,
+                        "tick": 13,
                         "range": 15000,
                         "casting_target": "EnemyWithoutTower",
                         "penetrate": false,
-                        "applied_effects": [
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Attack",
-                              "damage": 70,
-                              "attack_ratio": 70,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 0,
-                              "attack_effect_type": "Target"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "ViewEffect",
-                              "name": "ragnarok_okita_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "TargetSfx",
-                              "name": "ragnarok_okita_r_hit"
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Delayed",
-                              "tick": 5,
-                              "effects": [
-                                {
-                                  "type": "Attack",
-                                  "damage": 70,
-                                  "attack_ratio": 70,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "ragnarok_okita_a_hit"
-                                }
-                              ]
-                            }
-                          },
-                          {
-                            "casting_type": "Targeting",
-                            "effect": {
-                              "type": "Delayed",
-                              "tick": 10,
-                              "effects": [
-                                {
-                                  "type": "Attack",
-                                  "damage": 70,
-                                  "attack_ratio": 70,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 10,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "ragnarok_okita_r_hit"
-                                },
-                                {
-                                  "type": "TargetSfx",
-                                  "name": "ragnarok_okita_r_hit"
-                                }
-                              ]
-                            }
-                          }
-                        ]
+                        "applied_effects": []
                       }
                     ]
                   },
@@ -1015,18 +943,72 @@
                       },
                       {
                         "type": "RushTime",
-                        "speed": 9000,
-                        "tick": 6,
+                        "speed": 4200,
+                        "tick": 13,
                         "range": 15000,
                         "casting_target": "EnemyWithoutTower",
                         "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_okita_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 16,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_okita_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_okita_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_okita_r_v1",
+                        "width": 9000,
+                        "length": 70000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
                         "applied_effects": [
                           {
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "Attack",
-                              "damage": 70,
-                              "attack_ratio": 70,
+                              "damage": 45,
+                              "attack_ratio": 50,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -1045,51 +1027,297 @@
                               "type": "TargetSfx",
                               "name": "ragnarok_okita_r_hit"
                             }
-                          },
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_okita_r_v1",
+                        "width": 9000,
+                        "length": 70000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "Delayed",
-                              "tick": 5,
-                              "effects": [
-                                {
-                                  "type": "Attack",
-                                  "damage": 70,
-                                  "attack_ratio": 70,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 0,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "ragnarok_okita_a_hit"
-                                }
-                              ]
+                              "type": "Attack",
+                              "damage": 45,
+                              "attack_ratio": 50,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
                             }
                           },
                           {
                             "casting_type": "Targeting",
                             "effect": {
-                              "type": "Delayed",
-                              "tick": 10,
-                              "effects": [
-                                {
-                                  "type": "Attack",
-                                  "damage": 70,
-                                  "attack_ratio": 70,
-                                  "hp_ratio": 0,
-                                  "target_hp_ratio": 10,
-                                  "attack_effect_type": "Target"
-                                },
-                                {
-                                  "type": "ViewEffect",
-                                  "name": "ragnarok_okita_r_hit"
-                                },
-                                {
-                                  "type": "TargetSfx",
-                                  "name": "ragnarok_okita_r_hit"
-                                }
-                              ]
+                              "type": "ViewEffect",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_okita_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 20,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_okita_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_okita_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_okita_r_v2",
+                        "width": 9000,
+                        "length": 70000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 45,
+                              "attack_ratio": 50,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_okita_r_v2",
+                        "width": 9000,
+                        "length": 70000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 45,
+                              "attack_ratio": 50,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_okita_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 22,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_okita_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_okita_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_okita_r_v3",
+                        "width": 9000,
+                        "length": 70000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 45,
+                              "attack_ratio": 50,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 8,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "LineRangeProjectile",
+                        "name": "ragnarok_okita_r_v3",
+                        "width": 9000,
+                        "length": 70000,
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 45,
+                              "attack_ratio": 50,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 8,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_okita_r_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_okita_r_hit"
                             }
                           }
                         ]

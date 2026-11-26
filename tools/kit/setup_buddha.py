@@ -35,71 +35,71 @@ TEXT = {
         "name": "释迦",
         "attack": "六道棍一击，造成" + AD + O + "物理伤害" + E + "。" + O + "未来视" + E + "：普攻和枪刃时看穿接下来的招（每" + A +
                   "{p_cd}秒" + E + "一次），" + A + "{p_t}秒" + E + "里普攻打不疼他。",
-        "skill": "六道棍化作枪刃往前一刺：前方的敌人受到" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "，" + R + "护甲降低{q_shred}%" +
+        "skill": "六道棍化作十二天斧（长戟）横扫：前方扇形的敌人受到" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "，" + R + "护甲降低{q_shred}%" +
                  E + "，持续" + A + "{q_shred_t}秒" + E + "。",
-        "skill2": "看见要挨的打，举起观音盾：" + S + "护盾{e_sh}" + E + " + " + ratio("e_sh_ad") + "（" + A + "{e_t}秒" + E + "），" + A +
+        "skill2": "看见要挨的打，六道棍化作七难即灭之盾：" + S + "护盾{e_sh}" + E + " + " + ratio("e_sh_ad") + "（" + A + "{e_t}秒" + E + "），" + A +
                   "{e_cc}秒" + E + "不受控制。盾收起时莲光绽开，身边的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R +
                   "减速{e_slow}%" + E + "。",
-        "ult": "召出大圆寂刀·零（斩中前不受控制、受到的伤害降低" + A + "{r_dr}%" + E + "）一刀斩下：前方扇形的敌人受到" +
+        "ult": "与零福的灵魂炼出大圆寂刀·零，天眼妙觉大涅槃斩（斩中前不受控制、受到的伤害降低" + A + "{r_dr}%" + E + "）一刀斩下：前方扇形的敌人受到" +
                phys("r_dmg", "r_ad") + "加目标最大生命" + O + "{r_thp}%" + E + "的" + O + "物理伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "。",
-        "names": ("六道棍·枪刃", "观音盾", "大圆寂刀·零"),
+        "names": ("十二天斧", "七难即灭之盾", "大圆寂刀·零"),
     },
     "zh-hant": {
         "name": "釋迦",
         "attack": "六道棍一擊，造成" + AD + O + "物理傷害" + E + "。" + O + "未來視" + E + "：普攻和槍刃時看穿接下來的招（每" + A +
                   "{p_cd}秒" + E + "一次），" + A + "{p_t}秒" + E + "裡普攻打不疼他。",
-        "skill": "六道棍化作槍刃往前一刺：前方的敵人受到" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "，" + R + "護甲降低{q_shred}%" +
+        "skill": "六道棍化作十二天斧（長戟）橫掃：前方扇形的敵人受到" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "，" + R + "護甲降低{q_shred}%" +
                  E + "，持續" + A + "{q_shred_t}秒" + E + "。",
-        "skill2": "看見要挨的打，舉起觀音盾：" + S + "護盾{e_sh}" + E + " + " + ratio("e_sh_ad") + "（" + A + "{e_t}秒" + E + "），" + A +
+        "skill2": "看見要挨的打，六道棍化作七難即滅之盾：" + S + "護盾{e_sh}" + E + " + " + ratio("e_sh_ad") + "（" + A + "{e_t}秒" + E + "），" + A +
                   "{e_cc}秒" + E + "不受控制。盾收起時蓮光綻開，身邊的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R +
                   "減速{e_slow}%" + E + "。",
-        "ult": "召出大圓寂刀·零（斬中前不受控制、受到的傷害降低" + A + "{r_dr}%" + E + "）一刀斬下：前方扇形的敵人受到" +
+        "ult": "與零福的靈魂煉出大圓寂刀·零，天眼妙覺大涅槃斬（斬中前不受控制、受到的傷害降低" + A + "{r_dr}%" + E + "）一刀斬下：前方扇形的敵人受到" +
                phys("r_dmg", "r_ad") + "加目標最大生命" + O + "{r_thp}%" + E + "的" + O + "物理傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "。",
-        "names": ("六道棍·槍刃", "觀音盾", "大圓寂刀·零"),
+        "names": ("十二天斧", "七難即滅之盾", "大圓寂刀·零"),
     },
     "en": {
         "name": "Buddha",
         "attack": "A blow of the Six Realms Staff for " + AD + " " + O + "physical damage" + E + ". " + O + "Future Sight" + E +
                   ": on an attack or Spear Blade he reads the blows to come (once every " + A + "{p_cd}s" + E + "): for " + A +
                   "{p_t}s" + E + " basic attacks cannot hurt him.",
-        "skill": "The staff becomes a spear for one thrust: enemies in front take " + phys("q_dmg", "q_ad") + " " + O +
+        "skill": "The staff becomes the Twelve Devas Axe, a long halberd, for one sweep: enemies in a cone take " + phys("q_dmg", "q_ad") + " " + O +
                  "physical damage" + E + " and lose " + R + "{q_shred}% armour" + E + " for " + A + "{q_shred_t}s" + E + ".",
-        "skill2": "He sees the blow coming and raises the Kannon Shield: a " + S + "{e_sh}" + E + " + " + ratio("e_sh_ad") + " " + S +
+        "skill2": "He sees the blow coming and the staff becomes the Shield of Ahimsa: a " + S + "{e_sh}" + E + " + " + ratio("e_sh_ad") + " " + S +
                   "shield" + E + " for " + A + "{e_t}s" + E + ", unstoppable for " + A + "{e_cc}s" + E + ". When it is lowered a lotus "
                   "blooms: enemies around him take " + phys("e_dmg", "e_ad") + " " + O + "physical damage" + E + " and are " + R +
                   "slowed {e_slow}%" + E + ".",
-        "ult": "Draws the Great Nirvana Sword Zero (unstoppable and " + A + "{r_dr}%" + E + " less damage until it lands) and cuts: "
+        "ult": "Forges the Great Nirvana Sword Zero with Zerofuku's soul and cuts the Mahabali Nirvana (unstoppable and " + A + "{r_dr}%" + E + " less damage until it lands) and cuts: "
                "enemies in a cone take " + phys("r_dmg", "r_ad") + " plus " + O + "{r_thp}%" + E + " of their maximum health as " + O +
                "physical damage" + E + " and are " + R + "stunned for {r_stun}s" + E + ".",
-        "names": ("Spear Blade", "Kannon Shield", "Great Nirvana Sword Zero"),
+        "names": ("Twelve Devas Axe", "Shield of Ahimsa", "Great Nirvana Sword Zero"),
     },
     "ko": {
         "name": "석가",
         "attack": "육도곤으로 쳐 " + AD + " " + O + "물리 피해" + E + ". " + O + "미래시" + E + ": 기본 공격이나 창날 때 다음 수를 꿰뚫어 보고(" +
                   A + "{p_cd}초" + E + "마다 한 번) " + A + "{p_t}초" + E + " 동안 기본 공격에 피해를 받지 않음.",
-        "skill": "육도곤이 창날로 변해 앞을 찌름: 앞쪽 적에게 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + ", " + A +
+        "skill": "육도곤이 십이천부(긴 창도끼)로 변해 휩쓸어 앞쪽 부채꼴의 적에게 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + ", " + A +
                  "{q_shred_t}초" + E + " 동안 " + R + "방어력 {q_shred}% 감소" + E + ".",
-        "skill2": "맞을 공격을 보고 관음 방패를 듦: " + S + "보호막 {e_sh}" + E + " + " + ratio("e_sh_ad") + "(" + A + "{e_t}초" + E +
+        "skill2": "맞을 공격을 보고 육도곤이 칠난즉멸의 방패로 변함: " + S + "보호막 {e_sh}" + E + " + " + ratio("e_sh_ad") + "(" + A + "{e_t}초" + E +
                   "), " + A + "{e_cc}초" + E + " 저지 불가. 방패를 거둘 때 연꽃이 피어 주변 적에게 " + phys("e_dmg", "e_ad") + " " + O +
                   "물리 피해" + E + "와 " + R + "{e_slow}% 둔화" + E + ".",
-        "ult": "대원적도·영을 꺼내(베기 전까지 저지 불가, 받는 피해 " + A + "{r_dr}%" + E + " 감소) 내리벰: 앞쪽 부채꼴의 적에게 " +
+        "ult": "영복의 혼과 함께 대원적도·영을 벼려 천안묘각대열반참(베기 전까지 저지 불가, 받는 피해 " + A + "{r_dr}%" + E + " 감소) 내리벰: 앞쪽 부채꼴의 적에게 " +
                phys("r_dmg", "r_ad") + " + 최대 체력 " + O + "{r_thp}%" + E + "의 " + O + "물리 피해" + E + "와 " + R + "{r_stun}초 기절" +
                E + ".",
-        "names": ("육도곤·창날", "관음 방패", "대원적도·영"),
+        "names": ("십이천부", "칠난즉멸의 방패", "대원적도·영"),
     },
     "ja": {
         "name": "釈迦",
         "attack": "六道棍の一撃で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "未来視" + E + "：通常攻撃や槍刃の時に次の手を見切り（" +
                   A + "{p_cd}秒" + E + "に一度）、" + A + "{p_t}秒" + E + "の間、通常攻撃のダメージを受けない。",
-        "skill": "六道棍を槍刃に変えて突く：前方の敵に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "、" + A +
+        "skill": "六道棍を十二天斧（長柄の斧）に変えて薙ぐ：前方扇形の敵に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "、" + A +
                  "{q_shred_t}秒" + E + "の間" + R + "物防{q_shred}%低下" + E + "。",
-        "skill2": "受ける攻撃を見て観音盾を構える：" + S + "シールド{e_sh}" + E + " + " + ratio("e_sh_ad") + "（" + A + "{e_t}秒" + E + "）、" +
+        "skill2": "受ける攻撃を見て六道棍が七難即滅の楯に変わる：" + S + "シールド{e_sh}" + E + " + " + ratio("e_sh_ad") + "（" + A + "{e_t}秒" + E + "）、" +
                   A + "{e_cc}秒" + E + "行動妨害無効。盾を収める時に蓮華が咲き、周囲の敵に" + phys("e_dmg", "e_ad") + "の" + O +
                   "物理ダメージ" + E + "と" + R + "{e_slow}%スロウ" + E + "。",
-        "ult": "大円寂刀・零を顕現させ（斬るまで行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）斬り下ろす：前方扇形の敵に" +
+        "ult": "零福の魂と大円寂刀・零を鍛え、天眼妙覚大涅槃斬（斬るまで行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）斬り下ろす：前方扇形の敵に" +
                phys("r_dmg", "r_ad") + "＋最大体力" + O + "{r_thp}%" + E + "の" + O + "物理ダメージ" + E + "と" + R + "{r_stun}秒スタン" + E +
                "。",
-        "names": ("六道棍・槍刃", "観音盾", "大円寂刀・零"),
+        "names": ("十二天斧", "七難即滅の楯", "大円寂刀・零"),
     },
 }
 

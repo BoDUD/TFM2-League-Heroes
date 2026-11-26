@@ -8,9 +8,9 @@
   被动    未来视：他普攻、放枪刃时，冷却（p_cd 拍）好了就看穿接下来的招：p_t 拍里普攻打不疼他（base_attack_damaged_reduce
           100，亚当神虚视的做法），头上亮一下准星。写在普攻说明里（游戏只有三个技能图标位），全在数据里。
   attack  六道棍打 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 6 帧，0.287 秒）打到。
-  skill   枪刃：`Targeting` EnemyWithoutTower（q_range）：六道棍变成枪往前一刺，q_hit 拍（第 6 帧，0.285 秒）前方窄扇形（半径 q_r，
+  skill   十二天斧（原作没有枪形态，长戟横扫）：`Targeting` EnemyWithoutTower（q_range）：六道棍变成枪往前一刺，q_hit 拍（第 6 帧，0.285 秒）前方窄扇形（半径 q_r，
           左右各 acos(q_cone/1000)）里的敌人 q_dmg + q_ad% 攻击力物理伤害，护甲降低 q_shred% q_shred_t 拍。
-  skill2  观音盾：`Targeting` EnemyWithoutTower（e_range，有人在身边）：未来视看见要挨的打，e_go 拍（第 4 帧，0.217 秒）举起
+  skill2  七难即灭之盾：`Targeting` EnemyWithoutTower（e_range，有人在身边）：未来视看见要挨的打，e_go 拍（第 4 帧，0.217 秒）举起
           观音盾：护盾 e_sh + e_sh_ad% 攻击力，e_t 拍；e_cc 拍不受控制。盾收起时（e_t 拍）莲光绽开，身边 e_r 里的敌人
           e_dmg + e_ad% 物理伤害、减速 e_slow% e_slow_t 拍。中间被打死就不绽开。
   ult     大圆寂刀·零：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到斩中为止），r_go 拍（0.305 秒）
@@ -40,6 +40,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # 蔚 +2.21、李青 +1.98、瑟庄妮 +1.88、狼人 +0.57、扎克 +0.41、人马 -0.38（中位数约 +1.2），赫拉克勒斯 +1.52。初稿就是这份：
 # +1.46 / +1.43（两批种子，16 个种子 +1.45；K/D/A 2.0 / 1.0 / 4.5，输出和对手持平、死得少一半，一局普攻 175、枪刃 49、
 # 观音盾 25、大圆寂刀 6 次）。
+# 2026-11-26 照原作改了十二天斧横扫以后：初版 +2.05；Q 降到 60 + 85%（这份 P）+1.25，
+# 改之前 +1.45。
 P = {
     # 属性（打野战士）：棍子比拳头长一点
     "hp": 1250, "hp_g": 110, "atk": 92, "atk_g": 16, "apw": 0, "apw_g": 0, "def": 42, "def_g": 7, "mr": 32,
@@ -48,8 +50,8 @@ P = {
     # 被动：未来视
     "p_cd": 480, "p_t": 90,
     # 枪刃
-    "q_cd": 420, "q_range": 38000, "q_dur": 35, "q_load": 11, "q_go": 14, "q_hit": 17, "q_r": 50000, "q_cone": 940,
-    "q_dmg": 70, "q_ad": 110, "q_shred": 25, "q_shred_t": 240,
+    "q_cd": 420, "q_range": 38000, "q_dur": 35, "q_load": 11, "q_go": 14, "q_hit": 17, "q_r": 50000, "q_cone": 800,
+    "q_dmg": 60, "q_ad": 85, "q_shred": 25, "q_shred_t": 240,
     # 观音盾
     "e_cd": 720, "e_range": 32000, "e_dur": 43, "e_eye": 7, "e_go": 13, "e_t": 150, "e_sh": 100, "e_sh_ad": 80,
     "e_cc": 60, "e_r": 36000, "e_dmg": 60, "e_ad": 60, "e_slow": 30, "e_slow_t": 90,

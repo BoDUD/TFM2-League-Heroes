@@ -1,0 +1,363 @@
+{
+  "hero": "zerofuku",
+  "name": "零福",
+  "actor_id": "ragnarok_zerofuku",
+  "cell": [
+    144,
+    112
+  ],
+  "ground": [
+    65,
+    99
+  ],
+  "hd_multiplier": 3,
+  "right_facing": true,
+  "fx_cell": [
+    203,
+    128
+  ],
+  "actor": {
+    "skill2": {
+      "name": "斧爻岚阵",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.12
+        },
+        {
+          "x": 144,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.105
+        },
+        {
+          "x": 288,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.087
+        },
+        {
+          "x": 432,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.065
+        },
+        {
+          "x": 576,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.073
+        },
+        {
+          "x": 720,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.079
+        },
+        {
+          "x": 864,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.11
+        },
+        {
+          "x": 1008,
+          "y": 0,
+          "w": 144,
+          "h": 112,
+          "duration": 0.145
+        }
+      ],
+      "source_animation": "hd_skill2",
+      "placement_changes": [
+        {
+          "dx": 0,
+          "lift": 0
+        },
+        {
+          "dx": -1,
+          "lift": 0
+        },
+        {
+          "dx": -1,
+          "lift": 0
+        },
+        {
+          "dx": -1,
+          "lift": 0
+        },
+        {
+          "dx": 1,
+          "lift": 0
+        },
+        {
+          "dx": 3,
+          "lift": 0
+        },
+        {
+          "dx": 1,
+          "lift": 0
+        },
+        {
+          "dx": 0,
+          "lift": 0
+        }
+      ]
+    }
+  },
+  "fx": {
+    "axe_burst": {
+      "name": "斧爻裂开黑气",
+      "frames": [
+        {
+          "x": 0,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 203,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 406,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 609,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 812,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 1015,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 1218,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        },
+        {
+          "x": 1421,
+          "y": 0,
+          "w": 203,
+          "h": 128,
+          "duration": 0.06
+        }
+      ],
+      "anchor": [
+        93,
+        63
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        9,
+        -45
+      ]
+    },
+    "flying_blade": {
+      "name": "追踪黑刃",
+      "frames": [
+        {
+          "x": 0,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 203,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 406,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 609,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 812,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 1015,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 1218,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        },
+        {
+          "x": 1421,
+          "y": 128,
+          "w": 203,
+          "h": 128,
+          "duration": 0.053
+        }
+      ],
+      "anchor": [
+        49,
+        63
+      ],
+      "placement": "projectile",
+      "offset": [
+        27,
+        -23
+      ],
+      "loop_frames": [
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "cues": {
+    "skill2": [
+      {
+        "frame": 4,
+        "event": "axe_burst",
+        "time_s": 0.312
+      },
+      {
+        "frame": 5,
+        "event": "flying_blade",
+        "time_s": 0.377
+      },
+      {
+        "frame": 7,
+        "event": "recovery",
+        "time_s": 0.529
+      }
+    ]
+  },
+  "fx_events": {
+    "axe_burst": {
+      "track": "axe_burst",
+      "anchor": [
+        93,
+        63
+      ],
+      "placement": "actor_behind",
+      "offset": [
+        9,
+        -45
+      ]
+    },
+    "flying_blade": {
+      "track": "flying_blade",
+      "anchor": [
+        49,
+        63
+      ],
+      "placement": "projectile",
+      "offset": [
+        27,
+        -23
+      ],
+      "loop_frames": [
+        4,
+        5,
+        6
+      ]
+    }
+  },
+  "baseline": {
+    "skill2": {
+      "source": "zerofuku",
+      "action": "skill2",
+      "identity": "idle",
+      "idle_ink_heights": [
+        114,
+        108,
+        114,
+        117,
+        123,
+        117,
+        114
+      ],
+      "target_hd_ink_height": 114,
+      "source_track_frames": 16,
+      "source_track_canvas_max": [
+        234,
+        195
+      ],
+      "source_track_durations": [
+        0.122,
+        0.095,
+        0.075,
+        0.049,
+        0.013,
+        0.036,
+        0.035,
+        0.014,
+        0.049,
+        0.014,
+        0.035,
+        0.049,
+        0.01,
+        0.039,
+        0.049,
+        0.033
+      ]
+    }
+  },
+  "art_sources": {
+    "skill2": {
+      "source_atlas_entry": "zerofuku",
+      "source_kind": "native_q_head_and_pose_pixels",
+      "redraw_source_sha256": "122cb974a1926b3dc1de4ebfec17209484b13028bedfdbafdf3d2e67f294f803",
+      "native_head_sha256": "62cb03abc078cde8aa9491bf1773152715217ec6e7736ed1ef25bf7c6b087d42"
+    }
+  },
+  "actor_hd_sampling": "nearest"
+}

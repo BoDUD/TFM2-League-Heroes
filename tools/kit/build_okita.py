@@ -14,12 +14,15 @@
           （半径 q_r，左右各 acos(q_cone/1000)）里的敌人 q_dmg + q_ad%，第三刺再加 q3_dmg + q3_ad%。
   skill2  鬼子：`Targeting` 敌方英雄（e_range），e_charge 拍心跳加速，e_go 拍（第 5 帧，0.39 秒）眼睛变红：e_t 拍里攻击力 +e_atk%、
           攻速 +e_as%、移速 +e_ms%（残影、一次几刀），身上一圈红气。
-  ult     天翔散段突：`Targeting` 敌方英雄（r_range）：r_charge 拍蓄势（不受控制，到刺完为止），r_go 拍（第 4 帧，0.3 秒）极快地
-          冲过去（RushTime，r_speed x r_t 拍，碰到就停），刺中的人连吃三刺（每隔 r_gap 拍）：r_dmg + r_ad%，第三刺再加目标最大
-          生命 r_thp%（刺要害）。冲出去前被打死就什么都不发生。
+  ult     天翔散段突（原作第十回合的终结技：极快地突进，然后三刺，刺到刀够不到的地方——刀会飞，和天魔反同一个真空刃的原理；
+          2026-11-26 Codex 照原作补画，原来画的是一刺）：`Targeting` 敌方英雄（r_range）：r_charge 拍蓄势（不受控制，到刺完为止），
+          r_go 拍（第 3 帧，0.22 秒）极快地冲过去（RushTime，r_speed x r_t 拍，碰到就停），r_s1 / r_s2 / r_s3 拍（第 4、5、6 帧）
+          三刺，每刺一道真空刃朝目标打一条线（长 r_len、半宽 r_w）：线上的敌人 r_dmg + r_ad%，第三刺再加目标最大生命 r_thp%
+          （刺要害）。死了就不再刺。
 
 时间按 Codex 的 frames.json（一秒 60 拍）：普攻第 5 帧 0.335 秒，三连刺 0.105 / 0.245 / 0.39 秒，鬼子 0.105 秒蓄势、0.39 秒启动，
-终结突刺 0.12 秒蓄势、0.3 秒出刀；动作长度普攻 0.735 秒、Q 42 拍、E 49 拍、R 47 拍。
+天翔散段突 0.12 秒蓄势、0.22 秒突进、0.291 / 0.343 / 0.39 秒三刺（补画的 frames.json）；动作长度普攻 0.735 秒、Q 42 拍、E 49 拍、
+R 40 拍。
 
 ragnarok.dll（addons/ragnarok/src/okita.rs）：配音和倒地声（被动 ragnarok_okita:voice，没有参数）。
 """
@@ -36,22 +39,24 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 
 # 单位：近战射程 25000；范围按单位的碰撞半径（约 15000）另算。一秒 60 拍。
 # 数值：经典 SDK 模拟（C:/t/lb_sim，打野 lane 1，600 秒，对手是原版打野），联盟打野中位数约 +1.2，哈迪斯 +1.17、特斯拉 +1.13。
+# 2026-11-26 R 改成天翔散段突（三道真空刃）以后：Q、E、身板加一档、R 不动 +2.86 太强；R 每道降到 45 + 50%、
+# 真实伤害 8%（这份 P）+1.25，打野中位数约 +1.2。
 P = {
     # 属性（打野刺客）：脚快
-    "hp": 1000, "hp_g": 95, "atk": 96, "atk_g": 17, "apw": 0, "apw_g": 0, "def": 30, "def_g": 5, "mr": 30,
+    "hp": 1050, "hp_g": 95, "atk": 100, "atk_g": 17, "apw": 0, "apw_g": 0, "def": 34, "def_g": 5, "mr": 30,
     "mr_g": 4, "ms": 1090, "ms_g": 11,
     "atk_range": 26000, "atk_dur": 36, "atk_cd": 58, "atk_st": 16,
     # 被动：剑之刻
     "p_t": 180, "p_as": 30,
     # 三段突
-    "q_cd": 420, "q_range": 34000, "q_dur": 42, "q1": 7, "q2": 15, "q3": 24, "q_r": 40000, "q_cone": 940,
-    "q_dmg": 30, "q_ad": 45, "q3_dmg": 30, "q3_ad": 30,
+    "q_cd": 360, "q_range": 34000, "q_dur": 42, "q1": 7, "q2": 15, "q3": 24, "q_r": 40000, "q_cone": 940,
+    "q_dmg": 40, "q_ad": 60, "q3_dmg": 40, "q3_ad": 40,
     # 鬼子
-    "e_cd": 900, "e_range": 40000, "e_dur": 49, "e_charge": 7, "e_go": 24, "e_t": 300, "e_atk": 20, "e_as": 30,
-    "e_ms": 15,
+    "e_cd": 900, "e_range": 50000, "e_dur": 49, "e_charge": 7, "e_go": 24, "e_t": 300, "e_atk": 25, "e_as": 40,
+    "e_ms": 20,
     # 天翔散段突
-    "r_cd": 2700, "r_range": 45000, "r_dur": 47, "r_charge": 8, "r_go": 18, "r_speed": 9000, "r_t": 6, "r_gap": 5,
-    "r_dmg": 70, "r_ad": 70, "r_thp": 10,
+    "r_cd": 2700, "r_range": 45000, "r_dur": 40, "r_charge": 8, "r_go": 13, "r_speed": 4200, "r_t": 13, "r_s1": 17,
+    "r_s2": 21, "r_s3": 23, "r_len": 70000, "r_w": 9000, "r_dmg": 45, "r_ad": 50, "r_thp": 8,
 }
 
 
@@ -148,20 +153,26 @@ def build(p, is_native=False):
                             delayed(p["e_go"] - 1, alive_only(search_self(oni)))))
 
     # ------------------------------------------------------------------ R：天翔散段突（突进 + 三刺）
-    stabs = [attack(p["r_dmg"], p["r_ad"]), view("r_hit"), tsfx("r_hit"),
-             delayed(p["r_gap"], attack(p["r_dmg"], p["r_ad"]), view("a_hit")),
-             delayed(2 * p["r_gap"], attack(p["r_dmg"], p["r_ad"], p["r_thp"]), view("r_hit"), tsfx("r_hit"))]
+    # 突进（碰到就停），途中三刺：每刺一道真空刃朝目标打一条线，第三刺刺要害
+    def vacuum(name, *extra):
+        return {"type": "LineRangeProjectile", "name": n(name), "width": p["r_w"], "length": p["r_len"], "delay": 2,
+                "apply": 1, "applied_target": "EnemyWithoutTower",
+                "applied_effects": [{"casting_type": "Targeting", "effect": e} for e in extra]}
+    stab = [attack(p["r_dmg"], p["r_ad"]), view("r_hit"), tsfx("r_hit")]
+    last = [attack(p["r_dmg"], p["r_ad"], p["r_thp"]), view("r_hit"), tsfx("r_hit")]
     dash = {"type": "RushTime", "speed": p["r_speed"], "tick": p["r_t"], "range": 15000,
-            "casting_target": "EnemyWithoutTower", "penetrate": False,
-            "applied_effects": [{"casting_type": "Targeting", "effect": e} for e in stabs]}
+            "casting_target": "EnemyWithoutTower", "penetrate": False, "applied_effects": []}
     ult = action("ult", p["r_dur"], p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
-                 combine(sword_time, flag("r_guard", p["r_go"] + p["r_t"] + 2 * p["r_gap"], cc_immune=True),
+                 combine(sword_time, flag("r_guard", p["r_s3"] + 1, cc_immune=True),
                          delayed(p["r_charge"] - 1, alive_only(sfx("r_load"))),
                          delayed(p["r_go"] - 1, alive_only(sfx("r"), {"type": "CasterViewEffect", "name": n("r_step")},
-                                                           dash))))
+                                                           dash)),
+                         delayed(p["r_s1"] - 1, alive_only(vacuum("r_v1", *stab))),
+                         delayed(p["r_s2"] - 1, alive_only(vacuum("r_v2", *stab))),
+                         delayed(p["r_s3"] - 1, alive_only(vacuum("r_v3", *last)))))
 
     # ------------------------------------------------------------------ 画面
-    # 刀光、三段突的突刺光、鬼子启动的红光、终结突刺的光柱画在他自己的帧里（tools/art/import_okita.py）；鬼子的红气挂在他身上
+    # 刀光、三段突的突刺光、鬼子启动的红光、天翔散段突的三道真空刃画在他自己的帧里（tools/art/import_okita.py）；鬼子的红气挂在他身上
     # （46 拍一圈：8 帧 x 0.095 秒 = 0.76 秒），突进起步的踏步残影留在原地，命中在目标身上
     E = lambda name, tag, z=2, follow=True: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z,
                                              "is_follow": follow}

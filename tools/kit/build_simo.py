@@ -40,23 +40,25 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 
 # 单位：1 个游戏像素 1000；一秒 60 拍。
 # 数值：经典 SDK 模拟（C:/t/lb_sim，下路 lane 3，600 秒，对手是四个原版射手），联盟射手中位数约 +2.7，杰克 +1.85。
+# 2026-11-26：初稿 +1.20（射程 6.8 万、三发和大招偏低）；三发、大招伤害各提一到两成 +1.77；再把射程拉到 7.2 万、Q 冷却 8 -> 7 秒
+# （这份）+2.33。
 P = {
     # 属性（下路射手）：个子小，手稳
     "hp": 880, "hp_g": 88, "atk": 100, "atk_g": 20, "apw": 0, "apw_g": 0, "def": 20, "def_g": 6, "mr": 15,
     "mr_g": 3, "ms": 930, "ms_g": 9,
-    "atk_range": 68000, "atk_dur": 22, "atk_cd": 60, "atk_st": 9,
+    "atk_range": 72000, "atk_dur": 22, "atk_cd": 60, "atk_st": 9,
     # 被动：死神的契约（ragnarok.dll 扣血）
     "p_cost": 3,
     # 对神狙击术
-    "q_cd": 480, "q_range": 62000, "q_dur": 48, "q_load": 13, "q_go": 27,
-    "q1_r": 70000, "q1_cone": 900, "q1_dmg": 70, "q1_ad": 80,
-    "q2_len": 90000, "q2_w": 7000, "q2_dmg": 90, "q2_ad": 105, "q2_back": 3000, "q2_back_t": 6,
-    "q3_dmg": 110, "q3_ad": 140,
+    "q_cd": 420, "q_range": 62000, "q_dur": 48, "q_load": 13, "q_go": 27,
+    "q1_r": 70000, "q1_cone": 900, "q1_dmg": 85, "q1_ad": 95,
+    "q2_len": 90000, "q2_w": 7000, "q2_dmg": 105, "q2_ad": 125, "q2_back": 3000, "q2_back_t": 6,
+    "q3_dmg": 130, "q3_ad": 160,
     # 雪中隐踪
     "e_cd": 720, "e_range": 35000, "e_dur": 42, "e_veil": 7, "e_step": 16, "e_back": 3500, "e_back_t": 10,
     "e_inv": 75, "e_ms": 30, "e_ms_t": 120,
     # 天空的残光
-    "r_cd": 3000, "r_range": 100000, "r_dur": 54, "r_load": 8, "r_go": 31, "r_dmg": 250, "r_ad": 200, "r_thp": 10,
+    "r_cd": 3000, "r_range": 100000, "r_dur": 54, "r_load": 8, "r_go": 31, "r_dmg": 300, "r_ad": 230, "r_thp": 10,
 }
 # ragnarok.dll 读的那几个（addons/ragnarok/src/simo.rs 的 Params::default() 要和这里一样）
 NATIVE_KEYS = ("p_cost",)
@@ -133,6 +135,10 @@ def line(name, length, width, effects):
             "applied_effects": [{"casting_type": "Targeting", "effect": e} for e in effects if e is not None]}
 
 
+def anim(name, tick):
+    return {"type": "CasterAnimation", "name": name, "tick": tick}
+
+
 def action(name, dur, cd, st, rng, ctype, ctarget, effect, atype="Skill", cancel=False):
     return {"action_name": name, "description": f"#asset/base/text/champion?description.{ID}.{name}",
             "duration": dur, "cooltime": cd, "start_timing": st, "cancelable": cancel, "range": rng,
@@ -145,15 +151,18 @@ def build(p, is_native=False):
                       combine(attack(0, 100), sfx("a"), view("a_hit"), tsfx("a_hit")), atype="BaseAttack", cancel=True)
 
     # ------------------------------------------------------------------ Q：对神狙击术（万花缭乱 -> 天穿白鸟 -> 精灵的气息）
-    ilmatar = combine(cone(p["q1_r"], p["q1_cone"], [attack(p["q1_dmg"], p["q1_ad"]), view("q_hit"), tsfx("q_hit")]),
+    ilmatar = combine(cone(p["q1_r"], p["q1_cone"], [attack(p["q1_dmg"], p["q1_ad"]), view("q1_hit"), tsfx("q_hit")]),
                       sfx("q1"), flag("q2", None))
     swan = combine(line("q_swan", p["q2_len"], p["q2_w"], [attack(p["q2_dmg"], p["q2_ad"]), view("q_hit"), tsfx("q_hit")]),
                    {"type": "MoveBack", "speed": p["q2_back"], "tick": p["q2_back_t"]}, sfx("q2"), unflag("q2"),
                    flag("q3", None))
     spirit = combine(attack(p["q3_dmg"], p["q3_ad"]), view("q_hit"), tsfx("q_hit"), sfx("q3"), unflag("q3"))
     shot = when("q3", spirit, when("q2", swan, ilmatar))
+    # 轮到哪一发放哪一套画（2026-11-26 Codex 补的子弹特效，tools/art/import_simo.py 的 ALIAS）：万花缭乱 skill_lily（枪口炸开铃兰
+    # 扇形）、天穿白鸟 skill_swan（长螺旋光、脚后的后坐光），精灵的气息就是动作自己的 skill
+    look = when("q3", combine(), when("q2", anim("skill_swan", p["q_dur"]), anim("skill_lily", p["q_dur"])))
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
-                   combine(delayed(p["q_load"] - 1, sfx("q_load")), delayed(p["q_go"] - 1, alive_only(shot))))
+                   combine(look, delayed(p["q_load"] - 1, sfx("q_load")), delayed(p["q_go"] - 1, alive_only(shot))))
 
     # ------------------------------------------------------------------ E：雪中隐踪
     vanish = combine({"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]},
@@ -169,10 +178,11 @@ def build(p, is_native=False):
                                                            view("r_hit"), tsfx("r_hit")))))
 
     # ------------------------------------------------------------------ 画面
-    # 枪口焰、短弹道、对神狙击术和天空的残光的光迹、雪幕画在他自己的帧里（tools/art/import_simo.py）；命中的雪晶、终结命中
-    # 放在目标身上，踏雪放在他脚下
+    # 枪口焰、短弹道、对神狙击术三发子弹和天空的残光的光迹、雪幕画在他自己的帧里（tools/art/import_simo.py）；命中的雪晶、
+    # 万花缭乱的碎片光、终结命中放在目标身上，踏雪放在他脚下
     E = lambda name, tag, z=2: {"type": "Animation", "name": n(name), "anim": FX, "tag": tag, "z": z, "is_follow": True}
-    views_e = [E("a_hit", "impact"), E("q_hit", "impact"), E("r_hit", "finisher_impact", 3), E("e_step", "snow_step", -1)]
+    views_e = [E("a_hit", "impact"), E("q_hit", "impact"), E("q1_hit", "lily_hit"), E("r_hit", "finisher_impact", 3),
+               E("e_step", "snow_step", -1)]
     kit = {
         "id": ID, "category": "Range", "tags": ["AD", "Range"],
         "sprite": f"asset/{MOD_ID}/champions/{ID}", "anim_prefix": "",

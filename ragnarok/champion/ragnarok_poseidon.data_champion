@@ -144,8 +144,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 60,
-                  "attack_ratio": 85,
+                  "damage": 65,
+                  "attack_ratio": 90,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -179,8 +179,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 60,
-                  "attack_ratio": 85,
+                  "damage": 65,
+                  "attack_ratio": 90,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -214,8 +214,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 60,
-                  "attack_ratio": 85,
+                  "damage": 65,
+                  "attack_ratio": 90,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -249,8 +249,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 60,
-                  "attack_ratio": 85,
+                  "damage": 65,
+                  "attack_ratio": 90,
                   "hp_ratio": 0,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -273,7 +273,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.ragnarok_poseidon.skill2",
-    "duration": 37,
+    "duration": 42,
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
@@ -286,11 +286,75 @@
       "effects": [
         {
           "type": "Delayed",
-          "tick": 10,
+          "tick": 12,
           "effects": [
             {
               "type": "Sfx",
               "name": "ragnarok_poseidon_e_rise"
+            },
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_poseidon_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_poseidon_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 2000,
+                        "tick": 15,
+                        "range": 15000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 2000,
+                        "tick": 15,
+                        "range": 15000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_poseidon_live"
+                }
+              ]
             }
           ]
         },
@@ -299,52 +363,380 @@
           "tick": 16,
           "effects": [
             {
-              "type": "Sfx",
-              "name": "ragnarok_poseidon_e"
-            },
-            {
-              "type": "RangeProjectile",
-              "name": "ragnarok_poseidon_e_fall",
-              "shape": {
-                "Circle": {
-                  "radius": 16000
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_poseidon_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_poseidon_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_poseidon_e"
+                      },
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_poseidon_e_fall",
+                        "shape": {
+                          "Circle": {
+                            "radius": 20000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 78,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_poseidon_e"
+                      },
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_poseidon_e_fall",
+                        "shape": {
+                          "Circle": {
+                            "radius": 20000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 78,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_poseidon_live"
                 }
-              },
-              "delay": 1,
-              "apply": 1,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 20,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
                 {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 145,
-                    "attack_ratio": 195,
-                    "hp_ratio": 0,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_poseidon_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_poseidon_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_poseidon_e_fall",
+                        "shape": {
+                          "Circle": {
+                            "radius": 20000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 78,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_poseidon_e_fall",
+                        "shape": {
+                          "Circle": {
+                            "radius": 20000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 78,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 },
                 {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Stun",
-                    "duration": 42
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_poseidon_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 24,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_poseidon_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_poseidon_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_poseidon_e_fall",
+                        "shape": {
+                          "Circle": {
+                            "radius": 20000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 78,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 42
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_poseidon_e_fall",
+                        "shape": {
+                          "Circle": {
+                            "radius": 20000
+                          }
+                        },
+                        "delay": 1,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Attack",
+                              "damage": 60,
+                              "attack_ratio": 78,
+                              "hp_ratio": 0,
+                              "target_hp_ratio": 0,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 42
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_poseidon_e_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
                   }
                 },
                 {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "ragnarok_poseidon_e_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "ragnarok_poseidon_e_hit"
-                  }
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_poseidon_live"
                 }
               ]
             }

@@ -147,51 +147,157 @@
           },
           {
             "type": "Delayed",
-            "tick": 16,
+            "tick": 18,
             "effects": [
               {
-                "type": "Sfx",
-                "name": "ragnarok_zerofuku_hq"
-              },
-              {
-                "type": "RushTime",
-                "speed": 3200,
-                "tick": 11,
-                "range": 15000,
-                "casting_target": "EnemyWithoutTower",
-                "penetrate": true,
-                "applied_effects": [
+                "type": "Combine",
+                "effects": [
                   {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Attack",
-                      "damage": 55,
-                      "attack_ratio": 100,
-                      "hp_ratio": 0,
-                      "target_hp_ratio": 0,
-                      "attack_effect_type": "Target"
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "ragnarok_zerofuku_live",
+                          "duration": {
+                            "Time": {
+                              "tick": 1
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
+                  },
+                  {
+                    "type": "SwitchByBuff",
+                    "buff_name": "ragnarok_zerofuku_live",
+                    "effect_buff": {
+                      "type": "Combine",
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_zerofuku_hq"
+                        },
+                        {
+                          "type": "LinearProjectile",
+                          "name": "ragnarok_zerofuku_hq_drill",
+                          "penetrate": true,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 55,
+                                "attack_ratio": 100,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Airborne",
+                                "duration": 30
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zerofuku_hq_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zerofuku_hq_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": [],
+                          "speed": 6000,
+                          "range": 60000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 10000
+                            }
+                          },
+                          "y_offset": -8500
+                        }
+                      ]
+                    },
+                    "effect_none": {
+                      "type": "RandomTarget",
+                      "range": 1,
+                      "casting_target": "AllyOnlySelf",
+                      "from_projectile": false,
+                      "effects": [
+                        {
+                          "type": "Sfx",
+                          "name": "ragnarok_zerofuku_hq"
+                        },
+                        {
+                          "type": "LinearProjectile",
+                          "name": "ragnarok_zerofuku_hq_drill",
+                          "penetrate": true,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 55,
+                                "attack_ratio": 100,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 0,
+                                "attack_effect_type": "Target"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Airborne",
+                                "duration": 30
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zerofuku_hq_hit"
+                              }
+                            },
+                            {
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zerofuku_hq_hit"
+                              }
+                            }
+                          ],
+                          "end_effects": [],
+                          "speed": 6000,
+                          "range": 60000,
+                          "shape": {
+                            "Circle": {
+                              "radius": 10000
+                            }
+                          },
+                          "y_offset": -8500
+                        }
+                      ]
                     }
                   },
                   {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "Airborne",
-                      "duration": 30
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "ViewEffect",
-                      "name": "ragnarok_zerofuku_hq_hit"
-                    }
-                  },
-                  {
-                    "casting_type": "Targeting",
-                    "effect": {
-                      "type": "TargetSfx",
-                      "name": "ragnarok_zerofuku_hq_hit"
-                    }
+                    "type": "RemoveCasterBuff",
+                    "name": "ragnarok_zerofuku_live"
                   }
                 ]
               }
@@ -397,7 +503,7 @@
     "cooltime": 600,
     "start_timing": 1,
     "cancelable": false,
-    "range": 32000,
+    "range": 45000,
     "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
@@ -461,8 +567,8 @@
                           "effects": [
                             {
                               "type": "Attack",
-                              "damage": 62,
-                              "attack_ratio": 90,
+                              "damage": 75,
+                              "attack_ratio": 105,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -510,8 +616,8 @@
                           "effects": [
                             {
                               "type": "Attack",
-                              "damage": 62,
-                              "attack_ratio": 90,
+                              "damage": 75,
+                              "attack_ratio": 105,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -548,7 +654,7 @@
         "effects": [
           {
             "type": "Delayed",
-            "tick": 17,
+            "tick": 18,
             "effects": [
               {
                 "type": "Combine",
@@ -608,7 +714,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 20,
+            "tick": 22,
             "effects": [
               {
                 "type": "Combine",
@@ -640,45 +746,157 @@
                       "type": "Combine",
                       "effects": [
                         {
-                          "type": "LineRangeProjectile",
-                          "name": "ragnarok_zerofuku_e_line",
-                          "width": 9000,
-                          "length": 48000,
-                          "delay": 2,
-                          "apply": 1,
+                          "type": "Sfx",
+                          "name": "ragnarok_zerofuku_e2"
+                        },
+                        {
+                          "type": "TargetProjectile",
+                          "name": "ragnarok_zerofuku_e_blade",
+                          "speed": 6000,
+                          "y_offset": -8500,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "Attack",
-                                "damage": 55,
-                                "attack_ratio": 72,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 0,
-                                "attack_effect_type": "Target"
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 45,
+                                    "attack_ratio": 60,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "ragnarok_zerofuku_mark",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      },
+                                      "damaged_amplify": 8
+                                    }
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "ragnarok_zerofuku_e_hit"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "ragnarok_zerofuku_e_hit"
+                                  }
+                                ]
                               }
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 50000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
                             {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Airborne",
-                                "duration": 36
-                              }
-                            },
+                              "type": "TargetProjectile",
+                              "name": "ragnarok_zerofuku_e_blade",
+                              "speed": 6000,
+                              "y_offset": -8500,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 45,
+                                        "attack_ratio": 60,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "ragnarok_zerofuku_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          },
+                                          "damaged_amplify": 8
+                                        }
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 50000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
                             {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ViewEffect",
-                                "name": "ragnarok_zerofuku_e_hit"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "TargetSfx",
-                                "name": "ragnarok_zerofuku_e_hit"
-                              }
+                              "type": "TargetProjectile",
+                              "name": "ragnarok_zerofuku_e_blade",
+                              "speed": 6000,
+                              "y_offset": -8500,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 45,
+                                        "attack_ratio": 60,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "ragnarok_zerofuku_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          },
+                                          "damaged_amplify": 8
+                                        }
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
                             }
                           ]
                         }
@@ -691,45 +909,157 @@
                       "from_projectile": false,
                       "effects": [
                         {
-                          "type": "LineRangeProjectile",
-                          "name": "ragnarok_zerofuku_e_line",
-                          "width": 9000,
-                          "length": 48000,
-                          "delay": 2,
-                          "apply": 1,
+                          "type": "Sfx",
+                          "name": "ragnarok_zerofuku_e2"
+                        },
+                        {
+                          "type": "TargetProjectile",
+                          "name": "ragnarok_zerofuku_e_blade",
+                          "speed": 6000,
+                          "y_offset": -8500,
                           "applied_target": "EnemyWithoutTower",
                           "applied_effects": [
                             {
                               "casting_type": "Targeting",
                               "effect": {
-                                "type": "Attack",
-                                "damage": 55,
-                                "attack_ratio": 72,
-                                "hp_ratio": 0,
-                                "target_hp_ratio": 0,
-                                "attack_effect_type": "Target"
+                                "type": "Combine",
+                                "effects": [
+                                  {
+                                    "type": "Attack",
+                                    "damage": 45,
+                                    "attack_ratio": 60,
+                                    "hp_ratio": 0,
+                                    "target_hp_ratio": 0,
+                                    "attack_effect_type": "Target"
+                                  },
+                                  {
+                                    "type": "AddBuff",
+                                    "buff_state": {
+                                      "name": "ragnarok_zerofuku_mark",
+                                      "duration": {
+                                        "Time": {
+                                          "tick": 240
+                                        }
+                                      },
+                                      "damaged_amplify": 8
+                                    }
+                                  },
+                                  {
+                                    "type": "ViewEffect",
+                                    "name": "ragnarok_zerofuku_e_hit"
+                                  },
+                                  {
+                                    "type": "TargetSfx",
+                                    "name": "ragnarok_zerofuku_e_hit"
+                                  }
+                                ]
                               }
-                            },
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 50000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
                             {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "Airborne",
-                                "duration": 36
-                              }
-                            },
+                              "type": "TargetProjectile",
+                              "name": "ragnarok_zerofuku_e_blade",
+                              "speed": 6000,
+                              "y_offset": -8500,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 45,
+                                        "attack_ratio": 60,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "ragnarok_zerofuku_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          },
+                                          "damaged_amplify": 8
+                                        }
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "type": "RandomTarget",
+                          "range": 50000,
+                          "casting_target": "EnemyWithoutTower",
+                          "from_projectile": false,
+                          "effects": [
                             {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "ViewEffect",
-                                "name": "ragnarok_zerofuku_e_hit"
-                              }
-                            },
-                            {
-                              "casting_type": "Targeting",
-                              "effect": {
-                                "type": "TargetSfx",
-                                "name": "ragnarok_zerofuku_e_hit"
-                              }
+                              "type": "TargetProjectile",
+                              "name": "ragnarok_zerofuku_e_blade",
+                              "speed": 6000,
+                              "y_offset": -8500,
+                              "applied_target": "EnemyWithoutTower",
+                              "applied_effects": [
+                                {
+                                  "casting_type": "Targeting",
+                                  "effect": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Attack",
+                                        "damage": 45,
+                                        "attack_ratio": 60,
+                                        "hp_ratio": 0,
+                                        "target_hp_ratio": 0,
+                                        "attack_effect_type": "Target"
+                                      },
+                                      {
+                                        "type": "AddBuff",
+                                        "buff_state": {
+                                          "name": "ragnarok_zerofuku_mark",
+                                          "duration": {
+                                            "Time": {
+                                              "tick": 240
+                                            }
+                                          },
+                                          "damaged_amplify": 8
+                                        }
+                                      },
+                                      {
+                                        "type": "ViewEffect",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      },
+                                      {
+                                        "type": "TargetSfx",
+                                        "name": "ragnarok_zerofuku_e_hit"
+                                      }
+                                    ]
+                                  }
+                                }
+                              ]
                             }
                           ]
                         }
@@ -776,7 +1106,7 @@
               "name": "ragnarok_zerofuku_r_guard",
               "duration": {
                 "Time": {
-                  "tick": 26
+                  "tick": 27
                 }
               },
               "cc_immune": true,
@@ -786,7 +1116,7 @@
           },
           {
             "type": "Delayed",
-            "tick": 24,
+            "tick": 25,
             "effects": [
               {
                 "type": "Combine",
@@ -822,39 +1152,45 @@
                           "name": "ragnarok_zerofuku_r2"
                         },
                         {
-                          "type": "RangeEffect",
-                          "shape": {
-                            "DirDot": {
-                              "radius": 54000,
-                              "range": 600
-                            }
-                          },
-                          "target": "EnemyWithoutTower",
-                          "apply_type": {
-                            "Forward": {
-                              "offset": 1000
-                            }
-                          },
-                          "effects": [
+                          "type": "LineRangeProjectile",
+                          "name": "ragnarok_zerofuku_r2_line",
+                          "width": 11000,
+                          "length": 56000,
+                          "delay": 2,
+                          "apply": 1,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
                             {
-                              "type": "Attack",
-                              "damage": 165,
-                              "attack_ratio": 125,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 6,
-                              "attack_effect_type": "Target"
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 190,
+                                "attack_ratio": 145,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 6,
+                                "attack_effect_type": "Target"
+                              }
                             },
                             {
-                              "type": "Airborne",
-                              "duration": 40
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Airborne",
+                                "duration": 40
+                              }
                             },
                             {
-                              "type": "ViewEffect",
-                              "name": "ragnarok_zerofuku_r2_hit"
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zerofuku_r2_hit"
+                              }
                             },
                             {
-                              "type": "TargetSfx",
-                              "name": "ragnarok_zerofuku_r2_hit"
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zerofuku_r2_hit"
+                              }
                             }
                           ]
                         }
@@ -871,39 +1207,45 @@
                           "name": "ragnarok_zerofuku_r2"
                         },
                         {
-                          "type": "RangeEffect",
-                          "shape": {
-                            "DirDot": {
-                              "radius": 54000,
-                              "range": 600
-                            }
-                          },
-                          "target": "EnemyWithoutTower",
-                          "apply_type": {
-                            "Forward": {
-                              "offset": 1000
-                            }
-                          },
-                          "effects": [
+                          "type": "LineRangeProjectile",
+                          "name": "ragnarok_zerofuku_r2_line",
+                          "width": 11000,
+                          "length": 56000,
+                          "delay": 2,
+                          "apply": 1,
+                          "applied_target": "EnemyWithoutTower",
+                          "applied_effects": [
                             {
-                              "type": "Attack",
-                              "damage": 165,
-                              "attack_ratio": 125,
-                              "hp_ratio": 0,
-                              "target_hp_ratio": 6,
-                              "attack_effect_type": "Target"
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Attack",
+                                "damage": 190,
+                                "attack_ratio": 145,
+                                "hp_ratio": 0,
+                                "target_hp_ratio": 6,
+                                "attack_effect_type": "Target"
+                              }
                             },
                             {
-                              "type": "Airborne",
-                              "duration": 40
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "Airborne",
+                                "duration": 40
+                              }
                             },
                             {
-                              "type": "ViewEffect",
-                              "name": "ragnarok_zerofuku_r2_hit"
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_zerofuku_r2_hit"
+                              }
                             },
                             {
-                              "type": "TargetSfx",
-                              "name": "ragnarok_zerofuku_r2_hit"
+                              "casting_type": "Targeting",
+                              "effect": {
+                                "type": "TargetSfx",
+                                "name": "ragnarok_zerofuku_r2_hit"
+                              }
                             }
                           ]
                         }
@@ -1103,7 +1445,24 @@
       }
     }
   },
-  "view_projectiles": [],
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "ragnarok_zerofuku_e_blade",
+      "anim": "asset/ragnarok/effects/ragnarok_zerofuku_proj",
+      "tag": "blade_flight",
+      "repeat": true,
+      "z": 2
+    },
+    {
+      "type": "Animated",
+      "name": "ragnarok_zerofuku_hq_drill",
+      "anim": "asset/ragnarok/effects/ragnarok_zerofuku_proj",
+      "tag": "drill_flight",
+      "repeat": true,
+      "z": 2
+    }
+  ],
   "view_effects": [
     {
       "type": "Animation",
@@ -1157,7 +1516,7 @@
       "type": "Animation",
       "name": "ragnarok_zerofuku_r2_hit",
       "anim": "asset/ragnarok/effects/ragnarok_zerofuku_fx",
-      "tag": "demon_impact",
+      "tag": "sword_hit",
       "z": 3,
       "is_follow": true
     }

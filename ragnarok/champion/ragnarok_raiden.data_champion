@@ -262,7 +262,7 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.ragnarok_raiden.skill2",
-    "duration": 47,
+    "duration": 45,
     "cooltime": 780,
     "start_timing": 1,
     "cancelable": false,
@@ -275,7 +275,7 @@
       "effects": [
         {
           "type": "Delayed",
-          "tick": 13,
+          "tick": 6,
           "effects": [
             {
               "type": "Sfx",
@@ -285,7 +285,77 @@
         },
         {
           "type": "Delayed",
-          "tick": 23,
+          "tick": 21,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_raiden_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_raiden_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 4000,
+                        "tick": 4,
+                        "range": 15000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RushTime",
+                        "speed": 4000,
+                        "tick": 4,
+                        "range": 15000,
+                        "casting_target": "EnemyWithoutTower",
+                        "penetrate": false,
+                        "applied_effects": []
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_raiden_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 25,
           "effects": [
             {
               "type": "Combine",
@@ -328,19 +398,23 @@
                           }
                         },
                         "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 6000
+                          }
+                        },
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 65,
-                            "attack_ratio": 65,
+                            "damage": 55,
+                            "attack_ratio": 55,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
                           },
                           {
                             "type": "Stun",
-                            "duration": 60
+                            "duration": 40
                           }
                         ]
                       }
@@ -364,19 +438,23 @@
                           }
                         },
                         "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 6000
+                          }
+                        },
                         "effects": [
                           {
                             "type": "Attack",
-                            "damage": 65,
-                            "attack_ratio": 65,
+                            "damage": 55,
+                            "attack_ratio": 55,
                             "hp_ratio": 0,
                             "target_hp_ratio": 0,
                             "attack_effect_type": "Target"
                           },
                           {
                             "type": "Stun",
-                            "duration": 60
+                            "duration": 40
                           }
                         ]
                       }
@@ -393,7 +471,7 @@
         },
         {
           "type": "Delayed",
-          "tick": 27,
+          "tick": 29,
           "effects": [
             {
               "type": "Combine",
@@ -436,7 +514,11 @@
                           }
                         },
                         "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 6000
+                          }
+                        },
                         "effects": [
                           {
                             "type": "AddBuff",
@@ -472,7 +554,11 @@
                           }
                         },
                         "target": "EnemyWithoutTower",
-                        "apply_type": "AroundCaster",
+                        "apply_type": {
+                          "Forward": {
+                            "offset": 6000
+                          }
+                        },
                         "effects": [
                           {
                             "type": "AddBuff",
@@ -509,7 +595,7 @@
     "cooltime": 3000,
     "start_timing": 1,
     "cancelable": false,
-    "range": 30000,
+    "range": 45000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -569,6 +655,15 @@
                         {
                           "type": "Sfx",
                           "name": "ragnarok_raiden_r1"
+                        },
+                        {
+                          "type": "RushTime",
+                          "speed": 8000,
+                          "tick": 4,
+                          "range": 15000,
+                          "casting_target": "EnemyWithoutTower",
+                          "penetrate": false,
+                          "applied_effects": []
                         }
                       ]
                     },
@@ -581,6 +676,15 @@
                         {
                           "type": "Sfx",
                           "name": "ragnarok_raiden_r1"
+                        },
+                        {
+                          "type": "RushTime",
+                          "speed": 8000,
+                          "tick": 4,
+                          "range": 15000,
+                          "casting_target": "EnemyWithoutTower",
+                          "penetrate": false,
+                          "applied_effects": []
                         }
                       ]
                     }
@@ -956,6 +1060,15 @@
                             {
                               "type": "Sfx",
                               "name": "ragnarok_raiden_r1"
+                            },
+                            {
+                              "type": "RushTime",
+                              "speed": 8000,
+                              "tick": 4,
+                              "range": 15000,
+                              "casting_target": "EnemyWithoutTower",
+                              "penetrate": false,
+                              "applied_effects": []
                             }
                           ]
                         },
@@ -968,6 +1081,15 @@
                             {
                               "type": "Sfx",
                               "name": "ragnarok_raiden_r1"
+                            },
+                            {
+                              "type": "RushTime",
+                              "speed": 8000,
+                              "tick": 4,
+                              "range": 15000,
+                              "casting_target": "EnemyWithoutTower",
+                              "penetrate": false,
+                              "applied_effects": []
                             }
                           ]
                         }

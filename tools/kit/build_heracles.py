@@ -60,7 +60,8 @@ P = {
     # 克里特公牛（刻耳柏洛斯形态：护势）
     "e_cd": 720, "e_range": 28000, "e_dur": 44, "e_hit": 22, "e_r": 30000, "e_off": 15000,
     "e_dmg": 70, "e_ad": 80, "e_stun": 45,
-    "ce_go": 13, "ce_t": 150, "ce_dr": 35, "ce_ref": 20, "ce_r": 32000, "ce_taunt": 60,
+    # 刻耳柏洛斯突爪（2026-11-26 Codex 补画：0.21 秒贴地冲出、0.335 秒三道爪痕、0.401 秒停下）：原来的护势、嘲讽不是原作
+    "ce_go": 13, "ce_speed": 4000, "ce_t": 11, "ce_dmg": 70, "ce_ad": 90, "ce_slow": 30, "ce_slow_t": 60,
     # 刻耳柏洛斯
     "r_cd": 3000, "r_range": 30000, "r_dur": 63, "r_go": 19, "r_switch": 35, "r_cdr": 40,
     "r_t": 480, "r_atk": 40, "r_as": 50, "r_ms": 15, "r_dr": 20, "r_vamp": 15,
@@ -191,10 +192,13 @@ def build(p, is_native=False):
     # ------------------------------------------------------------------ E：克里特公牛 / 护势
     bull = combine(sfx("e"), ahead(p["e_r"], p["e_off"], [attack(p["e_dmg"], p["e_ad"]),
                                                          {"type": "Stun", "duration": p["e_stun"]}]))
-    guard = combine(sfx("ce"), flag("ce_guard", p["ce_t"], damaged_reduce=p["ce_dr"], damage_reflect=p["ce_ref"]),
-                    around(p["ce_r"], [{"type": "Taunt", "duration": p["ce_taunt"]}]))
+    # 原作第四回合：和刻耳柏洛斯合体以后一下就贴到对手面前，留下三道巨大的爪痕（RushTime 冲过去，碰到的人吃一爪）
+    claw = [attack(p["ce_dmg"], p["ce_ad"]), slow("ce_slow", p["ce_slow"], p["ce_slow_t"]), view("ca_hit")]
+    guard = combine(sfx("ce"), {"type": "RushTime", "speed": p["ce_speed"], "tick": p["ce_t"], "range": 15000,
+                                "casting_target": "EnemyWithoutTower", "penetrate": False,
+                                "applied_effects": [{"casting_type": "Targeting", "effect": e} for e in claw]})
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                    combine(first, when("cerberus", delayed(p["ce_go"] - 1, guard),
+                    combine(first, when("cerberus", delayed(p["ce_go"] - 1, alive_only(guard)),
                                         delayed(p["e_hit"] - 1, bull))))
 
     # ------------------------------------------------------------------ R：刻耳柏洛斯

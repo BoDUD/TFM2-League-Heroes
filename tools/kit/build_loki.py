@@ -39,22 +39,24 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # 数值：经典 SDK 模拟（C:/t/lb_sim，中路 lane 2，600 秒，对手是原版中单），联盟中单中位数约 +2.5，别西卜 +2.46。
 # 幻刃的高度：Codex 的出手点在脚底上 30 格 = 60 / (8/3) = 22.5 个游戏像素，弹道画面在落点（脚底上 11.5）往北 5000 - y_offset：
 # y_offset = 5000 - (22.5 - 11.5) x 1000 = -6000
+# 2026-11-26 新英雄（中路）：初版 -4.25；Q 只钩英雄、冷却 3 秒、170 + 140%，R 打四轮、每轮 280 + 130%、第一轮眩晕 30 拍，
+# 被动 50 + 50%，身板和攻击各加一档（这份 P）+2.66，中路中位数约 +2.5。
 P = {
     # 属性（远程法师）
-    "hp": 920, "hp_g": 88, "atk": 58, "atk_g": 6, "apw": 55, "apw_g": 20, "def": 24, "def_g": 5, "mr": 28,
+    "hp": 960, "hp_g": 88, "atk": 75, "atk_g": 9, "apw": 70, "apw_g": 25, "def": 26, "def_g": 5, "mr": 28,
     "mr_g": 4, "ms": 1050, "ms_g": 10,
     "atk_range": 50000, "atk_dur": 36, "atk_cd": 66, "atk_st": 15, "a_speed": 9000, "a_y": -6000,
     # 被动：虚伪之神影
-    "p_delay": 18, "p_dmg": 25, "p_ap": 25,
+    "p_delay": 18, "p_dmg": 50, "p_ap": 50,
     # 锁链钩
-    "q_cd": 420, "q_range": 50000, "q_dur": 45, "q_wind": 7, "q_go": 18, "q_dmg": 80, "q_ap": 80, "q_slow": 30,
-    "q_slow_t": 60, "q_champ": 0,
+    "q_cd": 300, "q_range": 50000, "q_dur": 45, "q_wind": 7, "q_go": 18, "q_dmg": 170, "q_ap": 140, "q_slow": 30,
+    "q_slow_t": 60, "q_champ": 1, "q_line": 0, "q_len": 55000, "q_w": 9000,
     # 欺瞒之种·回生之门
-    "e_cd": 780, "e_range": 40000, "e_dur": 48, "e_mist": 13, "e_decoy": 18, "e_back": 4000, "e_back_t": 10,
-    "e_inv": 90, "e_ms": 25, "e_ms_t": 120,
+    "e_cd": 780, "e_range": 50000, "e_dur": 48, "e_mist": 13, "e_decoy": 18, "e_back": 4000, "e_back_t": 10,
+    "e_inv": 90, "e_ms": 25, "e_ms_t": 120, "e_sh": 0, "e_sh_ap": 0, "e_sh_t": 150,
     # 道化师之环
-    "r_cd": 3000, "r_range": 52000, "r_dur": 54, "r_load": 8, "r_go": 28, "r_r": 30000, "r_n": 3, "r_gap": 24,
-    "r_dmg": 110, "r_ap": 60, "r_slow": 30, "r_stun": 0,
+    "r_cd": 3000, "r_range": 52000, "r_dur": 54, "r_load": 8, "r_go": 28, "r_r": 30000, "r_n": 4, "r_gap": 24,
+    "r_dmg": 280, "r_ap": 130, "r_slow": 30, "r_stun": 30,
 }
 
 
@@ -153,11 +155,18 @@ def build(p, is_native=False):
     hooked = combine(magic(p["q_dmg"], p["q_ap"]), debuff("q_slow", p["q_slow_t"], move_speed_mult=-p["q_slow"]),
                      view("q_hit"), tsfx("q_hit"), double)
     q_target = "EnemyChampion" if p["q_champ"] else "EnemyWithoutTower"
+    # q_line：钩刃顺着链子一路钩过去，朝目标一条线上的敌人都挨（LineRangeProjectile，打到线上每个敌人一次）
+    lash = ({"type": "LineRangeProjectile", "name": n("q_lash"), "width": p["q_w"], "length": p["q_len"], "delay": 2,
+             "apply": 1, "applied_target": "EnemyWithoutTower",
+             "applied_effects": [{"casting_type": "Targeting", "effect": hooked}]} if p["q_line"] else hooked)
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", q_target,
-                   combine(delayed(p["q_wind"] - 1, sfx("q_wind")), delayed(p["q_go"] - 1, alive_only(sfx("q"), hooked))))
+                   combine(delayed(p["q_wind"] - 1, sfx("q_wind")), delayed(p["q_go"] - 1, alive_only(sfx("q"), lash))))
 
     # ------------------------------------------------------------------ E：欺瞒之种·回生之门
-    swap = combine({"type": "CasterViewEffect", "name": n("e_decoy")},
+    # e_sh：斯库尔德之盾（原作里他复制出来的石墙和华丽的门，挡了天穿白鸟几秒），换位时挡在身前
+    skuld = ({"type": "Shield", "amount": p["e_sh"], "attack_ratio": 0, "ap_ratio": p["e_sh_ap"], "tick": p["e_sh_t"]}
+             if p["e_sh"] else None)
+    swap = combine(search_self(skuld) if skuld else None, {"type": "CasterViewEffect", "name": n("e_decoy")},
                    {"type": "MoveBack", "speed": p["e_back"], "tick": p["e_back_t"]},
                    search_self({"type": "CasterInvisible", "tick": p["e_inv"]}),
                    flag("e_haste", p["e_ms_t"], move_speed_mult=p["e_ms"]), sfx("e_decoy"))

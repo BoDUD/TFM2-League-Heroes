@@ -19,10 +19,10 @@
     "asset/ragnarok/icons/ragnarok_loki_ult"
   ],
   "stat": {
-    "attack": 58,
-    "magic_power": 55,
-    "hp": 920,
-    "defence": 24,
+    "attack": 75,
+    "magic_power": 70,
+    "hp": 960,
+    "defence": 26,
     "magic_resistance": 28,
     "move_speed": 1050,
     "hp_regen": 0,
@@ -30,8 +30,8 @@
     "crit_chance": 0
   },
   "growth": {
-    "attack": 6,
-    "magic_power": 20,
+    "attack": 9,
+    "magic_power": 25,
     "hp": 88,
     "defence": 5,
     "magic_resistance": 4,
@@ -98,12 +98,12 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.ragnarok_loki.skill",
     "duration": 45,
-    "cooltime": 420,
+    "cooltime": 300,
     "start_timing": 1,
     "cancelable": false,
     "range": 50000,
     "casting_type": "Targeting",
-    "casting_target": "EnemyWithoutTower",
+    "casting_target": "EnemyChampion",
     "attack_type": "Skill",
     "effect": {
       "type": "Combine",
@@ -160,8 +160,8 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 80,
-                            "attack_ratio": 80,
+                            "damage": 170,
+                            "attack_ratio": 140,
                             "attack_effect_type": "Target"
                           },
                           {
@@ -190,8 +190,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 25,
-                                "attack_ratio": 25,
+                                "damage": 50,
+                                "attack_ratio": 50,
                                 "attack_effect_type": "Target"
                               },
                               {
@@ -223,8 +223,8 @@
                         "effects": [
                           {
                             "type": "ApAttack",
-                            "damage": 80,
-                            "attack_ratio": 80,
+                            "damage": 170,
+                            "attack_ratio": 140,
                             "attack_effect_type": "Target"
                           },
                           {
@@ -253,8 +253,8 @@
                             "effects": [
                               {
                                 "type": "ApAttack",
-                                "damage": 25,
-                                "attack_ratio": 25,
+                                "damage": 50,
+                                "attack_ratio": 50,
                                 "attack_effect_type": "Target"
                               },
                               {
@@ -290,7 +290,7 @@
     "cooltime": 780,
     "start_timing": 1,
     "cancelable": false,
-    "range": 40000,
+    "range": 50000,
     "casting_type": "Targeting",
     "casting_target": "EnemyChampion",
     "attack_type": "Skill",
@@ -652,9 +652,16 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 110,
-                              "attack_ratio": 60,
+                              "damage": 280,
+                              "attack_ratio": 130,
                               "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 30
                             }
                           },
                           {
@@ -665,7 +672,7 @@
                                 "name": "ragnarok_loki_r_slow",
                                 "duration": {
                                   "Time": {
-                                    "tick": 72
+                                    "tick": 96
                                   }
                                 },
                                 "move_speed_mult": -30
@@ -709,9 +716,16 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 110,
-                              "attack_ratio": 60,
+                              "damage": 280,
+                              "attack_ratio": 130,
                               "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "Stun",
+                              "duration": 30
                             }
                           },
                           {
@@ -722,7 +736,7 @@
                                 "name": "ragnarok_loki_r_slow",
                                 "duration": {
                                   "Time": {
-                                    "tick": 72
+                                    "tick": 96
                                   }
                                 },
                                 "move_speed_mult": -30
@@ -802,8 +816,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 110,
-                              "attack_ratio": 60,
+                              "damage": 280,
+                              "attack_ratio": 130,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -815,7 +829,7 @@
                                 "name": "ragnarok_loki_r_slow",
                                 "duration": {
                                   "Time": {
-                                    "tick": 48
+                                    "tick": 72
                                   }
                                 },
                                 "move_speed_mult": -30
@@ -855,8 +869,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 110,
-                              "attack_ratio": 60,
+                              "damage": 280,
+                              "attack_ratio": 130,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -868,7 +882,7 @@
                                 "name": "ragnarok_loki_r_slow",
                                 "duration": {
                                   "Time": {
-                                    "tick": 48
+                                    "tick": 72
                                   }
                                 },
                                 "move_speed_mult": -30
@@ -944,8 +958,8 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 110,
-                              "attack_ratio": 60,
+                              "damage": 280,
+                              "attack_ratio": 130,
                               "attack_effect_type": "Target"
                             }
                           },
@@ -957,7 +971,7 @@
                                 "name": "ragnarok_loki_r_slow",
                                 "duration": {
                                   "Time": {
-                                    "tick": 24
+                                    "tick": 48
                                   }
                                 },
                                 "move_speed_mult": -30
@@ -997,8 +1011,150 @@
                             "casting_type": "Targeting",
                             "effect": {
                               "type": "ApAttack",
-                              "damage": 110,
-                              "attack_ratio": 60,
+                              "damage": 280,
+                              "attack_ratio": 130,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "ragnarok_loki_r_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 48
+                                  }
+                                },
+                                "move_speed_mult": -30
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_loki_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_loki_live"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "Delayed",
+          "tick": 99,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_loki_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_loki_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_loki_r_wave4",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 280,
+                              "attack_ratio": 130,
+                              "attack_effect_type": "Target"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "ragnarok_loki_r_slow",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 24
+                                  }
+                                },
+                                "move_speed_mult": -30
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_loki_r_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "RangeProjectile",
+                        "name": "ragnarok_loki_r_wave4",
+                        "shape": {
+                          "Circle": {
+                            "radius": 30000
+                          }
+                        },
+                        "delay": 2,
+                        "apply": 1,
+                        "applied_target": "EnemyWithoutTower",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 280,
+                              "attack_ratio": 130,
                               "attack_effect_type": "Target"
                             }
                           },

@@ -47,7 +47,7 @@
     "cooltime": 60,
     "start_timing": 9,
     "cancelable": true,
-    "range": 68000,
+    "range": 72000,
     "casting_type": "Targeting",
     "casting_target": "Enemy",
     "attack_type": "BaseAttack",
@@ -81,7 +81,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.ragnarok_simo.skill",
     "duration": 48,
-    "cooltime": 480,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
     "range": 62000,
@@ -91,6 +91,28 @@
     "effect": {
       "type": "Combine",
       "effects": [
+        {
+          "type": "SwitchByBuff",
+          "buff_name": "ragnarok_simo_q3",
+          "effect_buff": {
+            "type": "Combine",
+            "effects": []
+          },
+          "effect_none": {
+            "type": "SwitchByBuff",
+            "buff_name": "ragnarok_simo_q2",
+            "effect_buff": {
+              "type": "CasterAnimation",
+              "name": "skill_swan",
+              "tick": 48
+            },
+            "effect_none": {
+              "type": "CasterAnimation",
+              "name": "skill_lily",
+              "tick": 48
+            }
+          }
+        },
         {
           "type": "Delayed",
           "tick": 12,
@@ -142,8 +164,8 @@
                           "effects": [
                             {
                               "type": "Attack",
-                              "damage": 110,
-                              "attack_ratio": 140,
+                              "damage": 130,
+                              "attack_ratio": 160,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -185,8 +207,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 90,
-                                      "attack_ratio": 105,
+                                      "damage": 105,
+                                      "attack_ratio": 125,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -251,15 +273,15 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 70,
-                                    "attack_ratio": 80,
+                                    "damage": 85,
+                                    "attack_ratio": 95,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
                                   },
                                   {
                                     "type": "ViewEffect",
-                                    "name": "ragnarok_simo_q_hit"
+                                    "name": "ragnarok_simo_q1_hit"
                                   },
                                   {
                                     "type": "TargetSfx",
@@ -299,8 +321,8 @@
                           "effects": [
                             {
                               "type": "Attack",
-                              "damage": 110,
-                              "attack_ratio": 140,
+                              "damage": 130,
+                              "attack_ratio": 160,
                               "hp_ratio": 0,
                               "target_hp_ratio": 0,
                               "attack_effect_type": "Target"
@@ -342,8 +364,8 @@
                                     "casting_type": "Targeting",
                                     "effect": {
                                       "type": "Attack",
-                                      "damage": 90,
-                                      "attack_ratio": 105,
+                                      "damage": 105,
+                                      "attack_ratio": 125,
                                       "hp_ratio": 0,
                                       "target_hp_ratio": 0,
                                       "attack_effect_type": "Target"
@@ -408,15 +430,15 @@
                                 "effects": [
                                   {
                                     "type": "Attack",
-                                    "damage": 70,
-                                    "attack_ratio": 80,
+                                    "damage": 85,
+                                    "attack_ratio": 95,
                                     "hp_ratio": 0,
                                     "target_hp_ratio": 0,
                                     "attack_effect_type": "Target"
                                   },
                                   {
                                     "type": "ViewEffect",
-                                    "name": "ragnarok_simo_q_hit"
+                                    "name": "ragnarok_simo_q1_hit"
                                   },
                                   {
                                     "type": "TargetSfx",
@@ -682,8 +704,8 @@
                       },
                       {
                         "type": "Attack",
-                        "damage": 250,
-                        "attack_ratio": 200,
+                        "damage": 300,
+                        "attack_ratio": 230,
                         "hp_ratio": 0,
                         "target_hp_ratio": 10,
                         "attack_effect_type": "Target"
@@ -710,8 +732,8 @@
                       },
                       {
                         "type": "Attack",
-                        "damage": 250,
-                        "attack_ratio": 200,
+                        "damage": 300,
+                        "attack_ratio": 230,
                         "hp_ratio": 0,
                         "target_hp_ratio": 10,
                         "attack_effect_type": "Target"
@@ -753,6 +775,14 @@
       "name": "ragnarok_simo_q_hit",
       "anim": "asset/ragnarok/effects/ragnarok_simo_fx",
       "tag": "impact",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_simo_q1_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_simo_fx",
+      "tag": "lily_hit",
       "z": 2,
       "is_follow": true
     },

@@ -10,7 +10,9 @@
   ],
   "passive": {
     "passive_ref": "ragnarok_beelzebub:voice",
-    "params": {}
+    "params": {
+      "r_cost": 6
+    }
   },
   "sprite": "asset/ragnarok/champions/ragnarok_beelzebub",
   "anim_prefix": "",

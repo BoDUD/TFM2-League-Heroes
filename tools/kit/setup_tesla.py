@@ -43,71 +43,71 @@ TEXT = {
         "attack": "机甲重拳，造成" + AD + O + "物理伤害" + E + "。" + O + "等离子脉冲" + E + "：每一拳额外造成" + mag("p_dmg", "p_ap") +
                   M + "魔法伤害" + E + "。",
         "skill": "特斯拉步冲向目标，撞上的敌人受到" + phys("q_dmg", "q_ad") + O + "物理伤害" + E + "并" + R + "减速{q_slow}%" + E +
-                 "；神之监狱还在时改为瞬移到目标身上，造成" + phys("q2_dmg", "q2_ad") + O + "物理伤害" + E + "并" + R + "眩晕{q2_stun}秒" +
+                 "；众神的监狱还在时改为特斯拉跃迁（瞬移到目标身上），造成" + phys("q2_dmg", "q2_ad") + O + "物理伤害" + E + "并" + R + "眩晕{q2_stun}秒" +
                  E + "。",
-        "skill2": "在目标那里落下神之监狱，里面的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R + "减速{e_slow}%" +
+        "skill2": "在目标那里展开众神的监狱（格玛特利亚领域），里面的敌人受到" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "并" + R + "减速{e_slow}%" +
                   E + "（" + A + "{e_t}秒" + E + "）；这段时间特斯拉步变成瞬移。",
-        "ult": "双向电光拳（不受控制、减伤" + A + "{r_dr}%" + E + "）：第一拳造成" + phys("r1_dmg", "r1_ad") + O + "物理伤害" + E + "并" +
-               R + "眩晕{r1_stun}秒" + E + "；第二拳打出一道电光，线上的敌人受到" + phys("r2_dmg", "r2_ad") + O + "物理伤害" + E +
+        "ult": "等离子脉冲拳·交叉（不受控制、减伤" + A + "{r_dr}%" + E + "）：第一拳造成" + phys("r1_dmg", "r1_ad") + O + "物理伤害" + E + "并" +
+               R + "眩晕{r1_stun}秒" + E + "；右臂跃迁到对手身后，第二拳打出一道电光，线上的敌人受到" + phys("r2_dmg", "r2_ad") + O + "物理伤害" + E +
                "并被" + R + "击飞{r_up}秒" + E + "。",
-        "names": ("特斯拉步", "神之监狱", "双向电光拳"),
+        "names": ("特斯拉步", "众神的监狱", "等离子脉冲拳·交叉"),
     },
     "zh-hant": {
         "name": "尼古拉·特斯拉",
         "attack": "機甲重拳，造成" + AD + O + "物理傷害" + E + "。" + O + "等離子脈衝" + E + "：每一拳額外造成" + mag("p_dmg", "p_ap") +
                   M + "魔法傷害" + E + "。",
         "skill": "特斯拉步衝向目標，撞上的敵人受到" + phys("q_dmg", "q_ad") + O + "物理傷害" + E + "並" + R + "減速{q_slow}%" + E +
-                 "；神之監獄還在時改為瞬移到目標身上，造成" + phys("q2_dmg", "q2_ad") + O + "物理傷害" + E + "並" + R + "暈眩{q2_stun}秒" +
+                 "；眾神的監獄還在時改為特斯拉躍遷（瞬移到目標身上），造成" + phys("q2_dmg", "q2_ad") + O + "物理傷害" + E + "並" + R + "暈眩{q2_stun}秒" +
                  E + "。",
-        "skill2": "在目標那裡落下神之監獄，裡面的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R + "減速{e_slow}%" +
+        "skill2": "在目標那裡展開眾神的監獄（格瑪特利亞領域），裡面的敵人受到" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "並" + R + "減速{e_slow}%" +
                   E + "（" + A + "{e_t}秒" + E + "）；這段時間特斯拉步變成瞬移。",
-        "ult": "雙向電光拳（不受控制、減傷" + A + "{r_dr}%" + E + "）：第一拳造成" + phys("r1_dmg", "r1_ad") + O + "物理傷害" + E + "並" +
-               R + "暈眩{r1_stun}秒" + E + "；第二拳打出一道電光，線上的敵人受到" + phys("r2_dmg", "r2_ad") + O + "物理傷害" + E +
+        "ult": "等離子脈衝拳·交叉（不受控制、減傷" + A + "{r_dr}%" + E + "）：第一拳造成" + phys("r1_dmg", "r1_ad") + O + "物理傷害" + E + "並" +
+               R + "暈眩{r1_stun}秒" + E + "；右臂躍遷到對手身後，第二拳打出一道電光，線上的敵人受到" + phys("r2_dmg", "r2_ad") + O + "物理傷害" + E +
                "並被" + R + "擊飛{r_up}秒" + E + "。",
-        "names": ("特斯拉步", "神之監獄", "雙向電光拳"),
+        "names": ("特斯拉步", "眾神的監獄", "等離子脈衝拳·交叉"),
     },
     "en": {
         "name": "Nikola Tesla",
         "attack": "A mech punch: " + AD + " " + O + "physical damage" + E + ". " + O + "Plasma Pulse" + E + ": every punch deals " +
                   mag("p_dmg", "p_ap") + " more " + M + "magic damage" + E + ".",
         "skill": "Tesla Step dashes at the target: enemies he hits take " + phys("q_dmg", "q_ad") + " " + O + "physical damage" + E +
-                 " and are " + R + "slowed {q_slow}%" + E + ". While God's Prison stands he warps onto the target instead: " +
+                 " and are " + R + "slowed {q_slow}%" + E + ". While the Prison of the Gods stands, Tesla Warp puts him on the target instead: " +
                  phys("q2_dmg", "q2_ad") + " " + O + "physical damage" + E + " and a " + R + "{q2_stun}s stun" + E + ".",
-        "skill2": "He drops God's Prison where the target stands: enemies inside take " + phys("e_dmg", "e_ad") + " " + O +
+        "skill2": "He raises the Prison of the Gods, the Gematria Zone, where the target stands: enemies inside take " + phys("e_dmg", "e_ad") + " " + O +
                   "physical damage" + E + " and are " + R + "slowed {e_slow}%" + E + " for " + A + "{e_t}s" + E + "; meanwhile Tesla "
-                  "Step is a warp.",
-        "ult": "Twin plasma fists (unstoppable, " + A + "{r_dr}%" + E + " less damage): the first deals " + phys("r1_dmg", "r1_ad") + " " +
-               O + "physical damage" + E + " and a " + R + "{r1_stun}s stun" + E + "; the second fires a bolt: enemies on its line take " +
+                  "Step is Tesla Warp.",
+        "ult": "Plasma Pulse Punch Cross (unstoppable, " + A + "{r_dr}%" + E + " less damage): the first deals " + phys("r1_dmg", "r1_ad") + " " +
+               O + "physical damage" + E + " and a " + R + "{r1_stun}s stun" + E + "; his right arm warps behind the foe and the second fires a bolt: enemies on its line take " +
                phys("r2_dmg", "r2_ad") + " " + O + "physical damage" + E + " and are " + R + "knocked up for {r_up}s" + E + ".",
-        "names": ("Tesla Step", "God's Prison", "Twin Plasma Fists"),
+        "names": ("Tesla Step", "Prison of the Gods", "Plasma Pulse Punch Cross"),
     },
     "ko": {
         "name": "니콜라 테슬라",
         "attack": "기갑 주먹으로 " + AD + " " + O + "물리 피해" + E + ". " + O + "플라스마 펄스" + E + ": 주먹마다 " + mag("p_dmg", "p_ap") +
                   " " + M + "마법 피해" + E + " 추가.",
         "skill": "테슬라 스텝으로 대상에게 돌진해 부딪힌 적에게 " + phys("q_dmg", "q_ad") + " " + O + "물리 피해" + E + "와 " + R +
-                 "{q_slow}% 둔화" + E + ". 신의 감옥이 있는 동안에는 대상에게 순간이동해 " + phys("q2_dmg", "q2_ad") + " " + O +
+                 "{q_slow}% 둔화" + E + ". 신들의 감옥이 있는 동안에는 테슬라 워프로 대상에게 순간이동해 " + phys("q2_dmg", "q2_ad") + " " + O +
                  "물리 피해" + E + "와 " + R + "{q2_stun}초 기절" + E + ".",
-        "skill2": "대상 위치에 신의 감옥을 떨어뜨려 안의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
+        "skill2": "대상 위치에 신들의 감옥(게마트리아 존)을 펼쳐 안의 적에게 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + "와 " + R +
                   "{e_slow}% 둔화" + E + "(" + A + "{e_t}초" + E + "). 그동안 테슬라 스텝이 순간이동이 됨.",
-        "ult": "쌍방향 전광권(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소): 첫 주먹은 " + phys("r1_dmg", "r1_ad") + " " + O + "물리 피해" +
-               E + "와 " + R + "{r1_stun}초 기절" + E + ", 둘째 주먹은 전광을 쏘아 일직선의 적에게 " + phys("r2_dmg", "r2_ad") + " " + O +
+        "ult": "플라스마 펄스 펀치 크로스(저지 불가, 피해 " + A + "{r_dr}%" + E + " 감소): 첫 주먹은 " + phys("r1_dmg", "r1_ad") + " " + O + "물리 피해" +
+               E + "와 " + R + "{r1_stun}초 기절" + E + ", 오른팔을 적 뒤로 워프시켜 둘째 주먹이 전광을 쏘아 일직선의 적에게 " + phys("r2_dmg", "r2_ad") + " " + O +
                "물리 피해" + E + "와 " + R + "{r_up}초 띄워 올림" + E + ".",
-        "names": ("테슬라 스텝", "신의 감옥", "쌍방향 전광권"),
+        "names": ("테슬라 스텝", "신들의 감옥", "플라스마 펄스 펀치 크로스"),
     },
     "ja": {
         "name": "ニコラ・テスラ",
         "attack": "機甲の拳で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "プラズマ・パルス" + E + "：拳ごとに" + mag("p_dmg", "p_ap") +
                   "の" + M + "魔法ダメージ" + E + "を追加。",
         "skill": "テスラ・ステップで対象へ突進し、ぶつかった敵に" + phys("q_dmg", "q_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
-                 "{q_slow}%スロウ" + E + "。神の監獄がある間は対象へ瞬間移動し" + phys("q2_dmg", "q2_ad") + "の" + O + "物理ダメージ" +
+                 "{q_slow}%スロウ" + E + "。神々の監獄がある間はテスラ・ワープで対象へ瞬間移動し" + phys("q2_dmg", "q2_ad") + "の" + O + "物理ダメージ" +
                  E + "と" + R + "{q2_stun}秒スタン" + E + "。",
-        "skill2": "対象の位置に神の監獄を落とし、中の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
+        "skill2": "対象の位置に神々の監獄（ゲマトリア・ゾーン）を展開し、中の敵に" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
                   "{e_slow}%スロウ" + E + "（" + A + "{e_t}秒" + E + "）。その間テスラ・ステップは瞬間移動になる。",
-        "ult": "双方向電光拳（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）：一撃目は" + phys("r1_dmg", "r1_ad") + "の" + O +
-               "物理ダメージ" + E + "と" + R + "{r1_stun}秒スタン" + E + "、二撃目は電光を放ち一直線の敵に" + phys("r2_dmg", "r2_ad") +
+        "ult": "プラズマパルスパンチ・クロス（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E + "軽減）：一撃目は" + phys("r1_dmg", "r1_ad") + "の" + O +
+               "物理ダメージ" + E + "と" + R + "{r1_stun}秒スタン" + E + "、右腕を背後へワープさせた二撃目が電光を放ち一直線の敵に" + phys("r2_dmg", "r2_ad") +
                "の" + O + "物理ダメージ" + E + "と" + R + "{r_up}秒打ち上げ" + E + "。",
-        "names": ("テスラ・ステップ", "神の監獄", "双方向電光拳"),
+        "names": ("テスラ・ステップ", "神々の監獄", "プラズマパルスパンチ・クロス"),
     },
 }
 

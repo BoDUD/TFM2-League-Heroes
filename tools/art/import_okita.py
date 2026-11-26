@@ -16,6 +16,7 @@ Codex 2026-11-26 画的（okita_packs/outputs/okita_final_assets.zip，交接说
   照 Codex 的位置画在前面会横过他的脸，画在身后只露出刀前面那一段；
 - 鬼子（skill2）第 5 帧（0.39 秒）红眼启动的 oni；
 - 终结突刺（ult）第 4 帧（0.3 秒）的 finisher：起手那颗白光照 Codex 的偏移 (44, -21) 正好落在脸上，往前挪到刀尖
+  （2026-11-26 起大招换成 Codex 补画的天翔散段突，这一条不用了，见 BAKE）
   （偏移 (81, -21)：白光在刀尖，光柱往前打）。
 放在别处的：刀刃命中 sword_hit、终结突刺命中 finisher_hit 放在目标身上；鬼子持续气息 oni_aura 是鬼子状态里挂在他身上的循环
 （Codex：脚底往上 21 格，地上一圈红光）；踏步残影 quick_step 是脚底的一抹（Codex 说是可选的位移特效）。
@@ -51,6 +52,12 @@ def on_unit(dx, dy):
     return (FX_ORIGIN[0] - ox, round(FX_ORIGIN[1] - oy - A.FEET * FX_PPU))
 
 
+FID = os.path.join(ROOT, "assets", "source", "okita", "fidelity")
+REDRAW = [(FID, "okita", {"ult": "ult"}, 2)]
+REDRAW_FX = [(FID, "okita", {"vacuum_upper": "vacuum_upper", "vacuum_mid": "vacuum_mid", "vacuum_lower": "vacuum_lower"}, 2)]
+# 突进是技能自己的位移（RushTime）：画里的前移扣掉，人画在原地
+SHIFT = {"ult": RA.redraw_shift(FID, "ult", 2)}
+
 # (动作, 特效, 开始秒, 离脚底的锚点, 每帧秒数（None 用特效自己的）, 特效格的中心[, "behind"])
 BAKE = [
     ("attack", "slash", 0.335, at(24, -25), None, FX_ORIGIN),
@@ -58,12 +65,17 @@ BAKE = [
     ("skill", "thrust", 0.245, at(44, -23), None, FX_ORIGIN, "behind"),
     ("skill", "thrust", 0.39, at(40, -21), None, FX_ORIGIN, "behind"),
     ("skill2", "oni", 0.39, at(0, -29), None, FX_ORIGIN),
-    ("ult", "finisher", 0.3, at(81, -21), None, FX_ORIGIN),
+    # 天翔散段突（2026-11-26 Codex 照原作补画：突进 + 三刺，每刺一道真空刃，刺到刀够不到的地方）：第 4、5、6 帧
+    # 0.291 / 0.343 / 0.39 秒的上、中、下三道真空刃，位置照 frames.json，画在前面（不碰脸）
+    ("ult", "vacuum_upper", 0.291, RA.redraw_offset(FID, "vacuum_upper", 2), None, RA.redraw_point(FID, "fx", "vacuum_upper", 2)),
+    ("ult", "vacuum_mid", 0.343, RA.redraw_offset(FID, "vacuum_mid", 2), None, RA.redraw_point(FID, "fx", "vacuum_mid", 2)),
+    ("ult", "vacuum_lower", 0.39, RA.redraw_offset(FID, "vacuum_lower", 2), None, RA.redraw_point(FID, "fx", "vacuum_lower", 2)),
 ]
 TARGET_FX = {"sword_hit": FX_ORIGIN, "finisher_hit": FX_ORIGIN, "oni_aura": on_unit(0, -21), "quick_step": on_unit(-10, -4)}
 
 OKITA = {"SRC": SRC, "ID": ID, "HERO": HERO, "PPU": PPU, "FX_PPU": FX_PPU, "SOLE": SOLE, "BAKE": BAKE, "RETIME": {},
-         "TARGET_FX": TARGET_FX, "CANVAS": CANVAS, "READ": RA.reader(SRC, "okita", ID)}
+         "TARGET_FX": TARGET_FX, "CANVAS": CANVAS, "READ": RA.reader(SRC, "okita", ID), "REDRAW": REDRAW,
+         "REDRAW_FX": REDRAW_FX, "SHIFT": SHIFT}
 
 if __name__ == "__main__":
     A.main(OKITA, __doc__)

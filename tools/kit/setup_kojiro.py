@@ -33,73 +33,73 @@ VIEW = {"face": {"x": 2, "y": -31}, "center": {"x": 0, "y": -11}, "banpick_cente
 TEXT = {
     "zh-hans": {
         "name": "佐佐木小次郎",
-        "attack": "长刀一斩，造成" + AD + O + "物理伤害" + E + "。" + O + "预判" + E + "：每打中一个敌方英雄一次就记下他一招（每人最多" +
+        "attack": "长刀一斩，造成" + AD + O + "物理伤害" + E + "。" + O + "千手无双" + E + "：每打中一个敌方英雄一次就记下他一招（每人最多" +
                   A + "{p_max}招" + E + "），之后对他的伤害每招" + A + "+{p_per}%" + E + "；死后重新记。",
         "skill": "往前斩下，前方扇形里的敌人受到" + phys("q1_dmg", "q1_ad") + O + "物理伤害" + E + "；随即反刃上撩，再造成" +
                  phys("q2_dmg", "q2_ad") + O + "物理伤害" + E + "并" + R + "减速{q_slow}%" + E + "。",
-        "skill2": "预判对手的一千种走法，侧身让开：" + A + "{e_t}秒" + E + "内受到的伤害降低" + A + "{e_dr}%" + E + "，攻速" + A +
+        "skill2": "读出空气的流动和地面的震动，连神的出招也预判得到，侧身让开：" + A + "{e_t}秒" + E + "内受到的伤害降低" + A + "{e_dr}%" + E + "，攻速" + A +
                   "+{e_as}%" + E + "。",
-        "ult": "拔出第二把刀，双刀斩下造成" + phys("r1_dmg", "r1_ad") + O + "物理伤害" + E + "，再交错一刀造成" + phys("r2_dmg", "r2_ad") +
-               O + "物理伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "；之后" + A + "{r_form}秒" + E + "双刀：攻速" + A + "+{r_as}%" + E +
+        "ult": "断掉的物干竿重炼成一长一短两把刀，双刀斩下造成" + phys("r1_dmg", "r1_ad") + O + "物理伤害" + E + "，再交错一刀造成" + phys("r2_dmg", "r2_ad") +
+               O + "物理伤害" + E + "并" + R + "眩晕{r_stun}秒" + E + "；之后" + A + "{r_form}秒" + E + "二天岩流：攻速" + A + "+{r_as}%" + E +
                "，普攻多一刀" + A + "{r_extra}%" + E + "。",
-        "names": ("燕返", "千手无双", "二天岩流"),
+        "names": ("燕返", "万手无双", "双燕斩虎万刃撩乱"),
     },
     "zh-hant": {
         "name": "佐佐木小次郎",
-        "attack": "長刀一斬，造成" + AD + O + "物理傷害" + E + "。" + O + "預判" + E + "：每打中一個敵方英雄一次就記下他一招（每人最多" +
+        "attack": "長刀一斬，造成" + AD + O + "物理傷害" + E + "。" + O + "千手無雙" + E + "：每打中一個敵方英雄一次就記下他一招（每人最多" +
                   A + "{p_max}招" + E + "），之後對他的傷害每招" + A + "+{p_per}%" + E + "；死後重新記。",
         "skill": "往前斬下，前方扇形裡的敵人受到" + phys("q1_dmg", "q1_ad") + O + "物理傷害" + E + "；隨即反刃上撩，再造成" +
                  phys("q2_dmg", "q2_ad") + O + "物理傷害" + E + "並" + R + "減速{q_slow}%" + E + "。",
-        "skill2": "預判對手的一千種走法，側身讓開：" + A + "{e_t}秒" + E + "內受到的傷害降低" + A + "{e_dr}%" + E + "，攻速" + A +
+        "skill2": "讀出空氣的流動和地面的震動，連神的出招也預判得到，側身讓開：" + A + "{e_t}秒" + E + "內受到的傷害降低" + A + "{e_dr}%" + E + "，攻速" + A +
                   "+{e_as}%" + E + "。",
-        "ult": "拔出第二把刀，雙刀斬下造成" + phys("r1_dmg", "r1_ad") + O + "物理傷害" + E + "，再交錯一刀造成" + phys("r2_dmg", "r2_ad") +
-               O + "物理傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "；之後" + A + "{r_form}秒" + E + "雙刀：攻速" + A + "+{r_as}%" + E +
+        "ult": "斷掉的物干竿重煉成一長一短兩把刀，雙刀斬下造成" + phys("r1_dmg", "r1_ad") + O + "物理傷害" + E + "，再交錯一刀造成" + phys("r2_dmg", "r2_ad") +
+               O + "物理傷害" + E + "並" + R + "暈眩{r_stun}秒" + E + "；之後" + A + "{r_form}秒" + E + "二天岩流：攻速" + A + "+{r_as}%" + E +
                "，普攻多一刀" + A + "{r_extra}%" + E + "。",
-        "names": ("燕返", "千手無雙", "二天岩流"),
+        "names": ("燕返", "萬手無雙", "雙燕斬虎萬刃撩亂"),
     },
     "en": {
         "name": "Sasaki Kojiro",
-        "attack": "A long-sword cut for " + AD + " " + O + "physical damage" + E + ". " + O + "Prediction" + E + ": each hit on an "
+        "attack": "A long-sword cut for " + AD + " " + O + "physical damage" + E + ". " + O + "Senju Muso" + E + ": each hit on an "
                   "enemy champion learns one of his moves (up to " + A + "{p_max}" + E + " a foe); every move learned adds " + A +
                   "{p_per}%" + E + " to Kojiro's damage against him. Forgotten when Kojiro dies.",
         "skill": "Cuts down through a cone ahead for " + phys("q1_dmg", "q1_ad") + " " + O + "physical damage" + E + ", then turns "
                  "the blade back up for " + phys("q2_dmg", "q2_ad") + " " + O + "physical damage" + E + " and a " + R +
                  "{q_slow}% slow" + E + ".",
-        "skill2": "Reads a thousand ways the fight can go and steps aside: for " + A + "{e_t}s" + E + " he takes " + A + "{e_dr}%" +
+        "skill2": "Reads the flow of the air and the shaking of the ground, even a god's moves, and steps aside: for " + A + "{e_t}s" + E + " he takes " + A + "{e_dr}%" +
                   E + " less damage and attacks " + A + "{e_as}%" + E + " faster.",
-        "ult": "Draws a second sword: a double cut for " + phys("r1_dmg", "r1_ad") + " " + O + "physical damage" + E + ", then a "
+        "ult": "His broken blade reforged as a long and a short sword: a double cut for " + phys("r1_dmg", "r1_ad") + " " + O + "physical damage" + E + ", then a "
                "cross for " + phys("r2_dmg", "r2_ad") + " " + O + "physical damage" + E + " that " + R + "stuns for {r_stun}s" + E +
-               ". For " + A + "{r_form}s" + E + " after, two swords: " + A + "{r_as}%" + E + " attack speed and a second cut of " +
+               ". For " + A + "{r_form}s" + E + " after, Niten Ganryu: " + A + "{r_as}%" + E + " attack speed and a second cut of " +
                A + "{r_extra}%" + E + " on every attack.",
-        "names": ("Swallow Return", "Senju Muso", "Niten Ganryu"),
+        "names": ("Swallow Return", "Manju Muso", "Soen Zanko Manjin Ryoran"),
     },
     "ko": {
         "name": "사사키 코지로",
-        "attack": "장검으로 베어 " + AD + " " + O + "물리 피해" + E + ". " + O + "예측" + E + ": 적 챔피언을 맞힐 때마다 그 수를 하나 "
+        "attack": "장검으로 베어 " + AD + " " + O + "물리 피해" + E + ". " + O + "센주무소" + E + ": 적 챔피언을 맞힐 때마다 그 수를 하나 "
                   "익혀(한 명당 최대 " + A + "{p_max}수" + E + ") 그 적에게 주는 피해가 수마다 " + A + "+{p_per}%" + E + ". 죽으면 "
                   "처음부터.",
         "skill": "앞쪽 부채꼴을 내려베어 " + phys("q1_dmg", "q1_ad") + " " + O + "물리 피해" + E + ", 곧바로 칼날을 되돌려 올려베어 " +
                  phys("q2_dmg", "q2_ad") + " " + O + "물리 피해" + E + "와 " + R + "{q_slow}% 둔화" + E + ".",
-        "skill2": "천 가지 수를 미리 읽고 몸을 비켜 " + A + "{e_t}초" + E + " 동안 받는 피해 " + A + "{e_dr}%" + E + " 감소, 공격 속도 " +
+        "skill2": "공기의 흐름과 땅의 떨림으로 신의 수까지 읽고 몸을 비켜 " + A + "{e_t}초" + E + " 동안 받는 피해 " + A + "{e_dr}%" + E + " 감소, 공격 속도 " +
                   A + "+{e_as}%" + E + ".",
-        "ult": "두 번째 검을 뽑아 쌍검으로 베어 " + phys("r1_dmg", "r1_ad") + " " + O + "물리 피해" + E + ", 엇갈려 베어 " +
+        "ult": "부러진 장검을 장단 두 자루로 다시 벼려 쌍검으로 베어 " + phys("r1_dmg", "r1_ad") + " " + O + "물리 피해" + E + ", 엇갈려 베어 " +
                phys("r2_dmg", "r2_ad") + " " + O + "물리 피해" + E + "와 " + R + "{r_stun}초 기절" + E + ". 이후 " + A + "{r_form}초" +
-               E + " 쌍검: 공격 속도 " + A + "+{r_as}%" + E + ", 평타마다 " + A + "{r_extra}%" + E + " 추가 베기.",
-        "names": ("츠바메가에시", "센주무소", "니텐간류"),
+               E + " 니텐간류: 공격 속도 " + A + "+{r_as}%" + E + ", 평타마다 " + A + "{r_extra}%" + E + " 추가 베기.",
+        "names": ("츠바메가에시", "만주무소", "쌍연참호만인요란"),
     },
     "ja": {
         "name": "佐々木小次郎",
-        "attack": "長刀の一太刀で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "予測" + E + "：敵チャンピオンに当てるたびに"
+        "attack": "長刀の一太刀で" + AD + "の" + O + "物理ダメージ" + E + "。" + O + "千手無双" + E + "：敵チャンピオンに当てるたびに"
                   "その技を一つ覚え（一人" + A + "{p_max}つ" + E + "まで）、以後その敵へのダメージが一つごとに" + A + "+{p_per}%" + E +
                   "。倒れると覚え直し。",
         "skill": "前方扇形に斬り下ろし" + phys("q1_dmg", "q1_ad") + "の" + O + "物理ダメージ" + E + "、返す刃で斬り上げ" +
                  phys("q2_dmg", "q2_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{q_slow}%スロウ" + E + "。",
-        "skill2": "千の手を読み身をかわす：" + A + "{e_t}秒" + E + "間被ダメージ" + A + "{e_dr}%" + E + "軽減、攻撃速度" + A + "+{e_as}%" +
+        "skill2": "空気の流れと地の震えで神の技まで読み身をかわす：" + A + "{e_t}秒" + E + "間被ダメージ" + A + "{e_dr}%" + E + "軽減、攻撃速度" + A + "+{e_as}%" +
                   E + "。",
-        "ult": "二本目の刀を抜き、二刀で斬り" + phys("r1_dmg", "r1_ad") + "の" + O + "物理ダメージ" + E + "、交差の一太刀で" +
+        "ult": "折れた物干し竿を長短二本に打ち直し、二刀で斬り" + phys("r1_dmg", "r1_ad") + "の" + O + "物理ダメージ" + E + "、交差の一太刀で" +
                phys("r2_dmg", "r2_ad") + "の" + O + "物理ダメージ" + E + "と" + R + "{r_stun}秒スタン" + E + "。以後" + A + "{r_form}秒" +
-               E + "二刀：攻撃速度" + A + "+{r_as}%" + E + "、通常攻撃に" + A + "{r_extra}%" + E + "の追い太刀。",
-        "names": ("燕返し", "千手無双", "二天岩流"),
+               E + "二天岩流：攻撃速度" + A + "+{r_as}%" + E + "、通常攻撃に" + A + "{r_extra}%" + E + "の追い太刀。",
+        "names": ("燕返し", "萬手無双", "双燕斬虎万刃撩乱"),
     },
 }
 

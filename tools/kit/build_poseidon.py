@@ -9,10 +9,10 @@
           加上或去掉 ragnarok_poseidon_p_alone）。写在普攻说明里（游戏只有三个技能图标位）。--plain 给平衡模拟用：
           模拟跑不了 DLL，从第一次放技能起一直开着（对线时他本来就是一个人）。
   attack  水平突刺打 `Enemy`（塔也打）：100% 攻击力，atk_st 拍（第 4 帧，0.225 秒）出手，三叉戟比一般近战长（射程 atk_range）。
-  skill   怒涛连刺：`Targeting` EnemyWithoutTower（q_range）：q_go 拍起往目标踏进一段（RushTime，碰到敌人就停），
+  skill   怒涛·安菲特里忒：`Targeting` EnemyWithoutTower（q_range）：q_go 拍起往目标踏进一段（RushTime，碰到敌人就停），
           q_hit 拍起每 q_gap 拍朝前刺一次，共 q_n 次，每次打前方扇形（半径 q_r，左右各 acos(q_cone/1000)）里的敌人
           q_dmg + q_ad% 攻击力物理伤害。
-  skill2  暴雨斜刺：`Targeting` EnemyWithoutTower（e_range）：抬戟（e_rise 拍）后斜着压下去，e_hit 拍在目标脚下
+  skill2  降临荒海的神雷：`Targeting` EnemyWithoutTower（e_range）：抬戟（e_rise 拍）后斜着压下去，e_hit 拍在目标脚下
           半径 e_r 的圈里打 e_dmg + e_ad% 攻击力物理伤害，眩晕 e_stun 拍。
   ult     四十昼夜的大洪水：`Targeting` 敌方英雄（r_range）：蓄势 r_go 拍（受到的伤害降低 r_dr%），然后在目标脚下
           半径 r_r 的圈里，每 r_gap 拍一轮戟影连刺，共 r_n 轮，每轮 r_dmg + r_ad% 攻击力物理伤害；第一轮定身 r_root 拍。
@@ -44,6 +44,8 @@ FX = f"asset/{MOD_ID}/effects/{ID}_fx"
 # 再耐打（血 1220、护甲 44、魔抗 36）+1.50 / +0.01（两批种子），再加攻击力 +1.82、技能冷却更短 +1.30（16 批），
 # 伤害再加 15%（这份 P）+2.36（16 批，K/D/A 约 3.6 / 1.3 / 3.2，伤害 11399，一局普攻 93、连刺 38、斜刺 27、大洪水 8 次）。
 # 被动在模拟里从第一次放技能起一直开着，游戏里身边有队友时没有，所以实战比这个数略弱一点。
+# 2026-11-26 照原作改（E 荒海に降る神雷：跳起来往前、像雷雨一样往下刺三阵）以后：初版 +1.91；E 60 + 78%、
+# Q 65 + 90%（这份 P）+2.13，改之前 +2.36。
 P = {
     # 属性（中路近战）：神的身子，比吕布、宙斯耐打，出手快
     "hp": 1220, "hp_g": 104, "atk": 96, "atk_g": 18, "apw": 0, "apw_g": 0, "def": 44, "def_g": 7, "mr": 36,
@@ -53,10 +55,12 @@ P = {
     "p_r": 70000, "p_atk": 15, "p_dr": 10,
     # 怒涛连刺
     "q_cd": 480, "q_range": 45000, "q_dur": 36, "q_go": 6, "q_speed": 2400, "q_t": 7, "q_hit": 14, "q_n": 4,
-    "q_gap": 3, "q_r": 42000, "q_cone": 900, "q_dmg": 60, "q_ad": 85,
+    "q_gap": 3, "q_r": 42000, "q_cone": 900, "q_dmg": 65, "q_ad": 90,
     # 暴雨斜刺
-    "e_cd": 600, "e_range": 34000, "e_dur": 37, "e_rise": 11, "e_hit": 17, "e_r": 16000, "e_dmg": 145, "e_ad": 195,
-    "e_stun": 42,
+    # 荒海に降る神雷（2026-11-26 Codex 补画：0.21 秒跳起、0.289 / 0.352 / 0.413 秒三阵下刺、0.475 秒落地，42 拍）：伤害分成三下，
+    # 加起来和原来一下一样
+    "e_cd": 600, "e_range": 34000, "e_dur": 42, "e_jump": 13, "e_speed": 2000, "e_t": 15, "e_s1": 17, "e_s2": 21,
+    "e_s3": 25, "e_r": 20000, "e_dmg": 60, "e_ad": 78, "e_stun": 42,
     # 四十昼夜的大洪水
     "r_cd": 2400, "r_range": 42000, "r_dur": 47, "r_go": 23, "r_dr": 30, "r_n": 6, "r_gap": 4, "r_r": 22000,
     "r_dmg": 85, "r_ad": 115, "r_root": 45,
@@ -161,14 +165,23 @@ def build(p, is_native=False):
     skill = action("skill", p["q_dur"], p["q_cd"], 1, p["q_range"], "Targeting", "EnemyWithoutTower",
                    combine(alone, delayed(p["q_go"] - 1, sfx("q_step"), step), delayed(p["q_hit"] - 1, sfx("q")), *stabs))
 
-    # ------------------------------------------------------------------ E：暴雨斜刺
-    fall = {"type": "RangeProjectile", "name": n("e_fall"), "shape": circle(p["e_r"]), "delay": 1, "apply": 1,
-            "applied_target": "EnemyWithoutTower",
-            "applied_effects": [T(e) for e in (attack(p["e_dmg"], p["e_ad"]), {"type": "Stun", "duration": p["e_stun"]},
-                                                view("e_hit"), tsfx("e_hit"))]}
+    # ------------------------------------------------------------------ E：荒海に降る神雷
+    # 原作第三回合：跳起来从上面像雷雨一样往下连刺，边刺边移动。e_jump 拍往前跳（RushTime，碰到就停），三阵下刺落在目标脚下，
+    # 第三阵眩晕
+    leap = {"type": "RushTime", "speed": p["e_speed"], "tick": p["e_t"], "range": 15000,
+            "casting_target": "EnemyWithoutTower", "penetrate": False, "applied_effects": []}
+
+    def rain(last):
+        hit = [attack(p["e_dmg"], p["e_ad"]), view("e_hit")]
+        if last:
+            hit += [{"type": "Stun", "duration": p["e_stun"]}, tsfx("e_hit")]
+        return {"type": "RangeProjectile", "name": n("e_fall"), "shape": circle(p["e_r"]), "delay": 1, "apply": 1,
+                "applied_target": "EnemyWithoutTower", "applied_effects": [T(e) for e in hit]}
     skill2 = action("skill2", p["e_dur"], p["e_cd"], 1, p["e_range"], "Targeting", "EnemyWithoutTower",
-                    combine(alone, delayed(p["e_rise"] - 1, sfx("e_rise")),
-                            delayed(p["e_hit"] - 1, sfx("e"), fall)))
+                    combine(alone, delayed(p["e_jump"] - 1, sfx("e_rise"), alive_only(leap)),
+                            delayed(p["e_s1"] - 1, alive_only(sfx("e"), rain(False))),
+                            delayed(p["e_s2"] - 1, alive_only(rain(False))),
+                            delayed(p["e_s3"] - 1, alive_only(rain(True)))))
 
     # ------------------------------------------------------------------ R：四十昼夜的大洪水
     root = {"type": "Bind", "duration": p["r_root"]}

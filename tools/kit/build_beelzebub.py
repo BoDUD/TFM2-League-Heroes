@@ -5,15 +5,15 @@
 终末的女武神第八回合的神方代表：苍蝇之王，研究「振动」的天才，手里是骸骨杖阿波弥俄斯。美术、图标、音频是 Codex 的
 （assets/source/beelzebub/，交接说明 assets/source/beelzebub/HANDOFF.md），技能照 Codex 的四个动作做。位置是中路法师（用户
 2026-11-23 定的：「中路法师」）：包里第一个打魔法伤害的，技能全按法术强度（ApAttack 的 attack_ratio 是法强的百分比）。
-  被动    振动：他的技能打中的敌人跟着振动，p_t 拍里魔抗 -p_mr%（magic_resistance_mult）。写在普攻说明里（游戏只有三个技能图标位），
+  被动    恶魔的振翅（帕尔米拉）：他的技能打中的敌人跟着振动，p_t 拍里魔抗 -p_mr%（magic_resistance_mult）。写在普攻说明里（游戏只有三个技能图标位），
           全在数据里。
   attack  振动掌 `Enemy`（塔也打）：100% 攻击力物理伤害，再加 a_dmg + a_ap% 法强的魔法伤害，atk_st 拍（第 5 帧，0.287 秒）打到。
   skill   暴食的堕天使：`Targeting` EnemyWithoutTower（q_range）：q_load 拍杖头蓄能，q_go 拍（0.237 秒）放出振动波：朝目标一条
           （长 q_len、半宽 q_w，吕布天喰的做法）上的敌人 q_dmg + q_ap% 法强魔法伤害、减速 q_slow% q_slow_t 拍，振动（被动）。
-  skill2  地狱之门：`Targeting` EnemyWithoutTower（e_range，有人在身边）：e_go 拍（0.217 秒）展开振动屏障：护盾 e_sh + e_sh_ap% 法强，
+  skill2  地狱之门扉：`Targeting` EnemyWithoutTower（e_range，有人在身边）：e_go 拍（0.217 秒）展开振动屏障：护盾 e_sh + e_sh_ap% 法强，
           e_t 拍；e_cc 拍不受控制。e_hit 拍（0.354 秒）屏障震开：身边 e_r 里的敌人 e_dmg + e_ap% 法强魔法伤害、减速 e_slow%
           e_slow_t 拍，振动。中间被打死就不震。
-  ult     虚神〈混沌〉：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到爆发为止）；r_go 拍（0.305 秒）黑核
+  ult     冥界的原罪·零号：虚神（卡俄斯）：`Targeting` 敌方英雄（r_range）：起手就不受控制、受到的伤害降低 r_dr%（到爆发为止）；r_go 拍（0.305 秒）黑核
           压缩，把身边 r_pull_r 里的敌人往他这边拉（Pull，每拍 r_pull_speed、r_pull_t 拍）；r_hit 拍（0.510 秒）爆发：身边 r_r
           里的敌人 r_dmg + r_ap% 法强魔法伤害、眩晕 r_stun 拍，振动。爆发前被打死就什么都不发生。
 
@@ -53,7 +53,7 @@ P = {
     "e_cc": 60, "e_fade": 30, "e_r": 36000, "e_dmg": 70, "e_ap": 60, "e_slow": 30, "e_slow_t": 60,
     # 虚神〈混沌〉
     "r_cd": 3000, "r_range": 35000, "r_dur": 56, "r_go": 18, "r_hit": 31, "r_dr": 30, "r_pull_r": 50000,
-    "r_pull_speed": 1500, "r_pull_t": 10, "r_r": 36000, "r_dmg": 220, "r_ap": 110, "r_stun": 50,
+    "r_pull_speed": 1500, "r_pull_t": 10, "r_r": 36000, "r_dmg": 220, "r_ap": 110, "r_stun": 50, "r_cost": 6,
 }
 
 
@@ -199,7 +199,7 @@ def build(p, is_native=False):
     }
     if is_native:   # ragnarok.dll（addons/ragnarok/src/beelzebub.rs）：配音、倒地声
         kit = {"id": ID, "category": kit["category"], "tags": kit["tags"],
-               "passive": {"passive_ref": f"{ID}:voice", "params": {}},
+               "passive": {"passive_ref": f"{ID}:voice", "params": {"r_cost": p["r_cost"]}},
                **{k: v for k, v in kit.items() if k not in ("id", "category", "tags")}}
     return kit
 

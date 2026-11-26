@@ -4524,6 +4524,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_loki",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_loki",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_loki_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_loki_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_ragnarok_lubu",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_lubu",
@@ -4535,6 +4551,22 @@
       "name": "league_illaoi_soul_ragnarok_lubu_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_lubu_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_okita",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_okita",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_okita_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_okita_l",
       "z": 3,
       "is_follow": false
     },
@@ -4599,6 +4631,38 @@
       "name": "league_illaoi_soul_ragnarok_shiva_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_shiva_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_simo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_simo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_simo_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_simo_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_susanoo",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_susanoo",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_susanoo_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_susanoo_l",
       "z": 3,
       "is_follow": false
     },

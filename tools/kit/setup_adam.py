@@ -36,12 +36,12 @@ TEXT = {
                   "），有记录时" + O + "模仿反击" + E + "会复刻那一招。",
         "skill": "睁开神虚视读出对手的动作，闪身躲开：" + A + "{q_t}秒" + E + "内普攻全部落空，受到的技能伤害降低" + A + "{q_sdr}%" +
                  E + "，并记下一招。",
-        "skill2": "反击一拳，造成" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "。有记录时复刻那一招：再加" + O + "{e_cdmg}" + E +
+        "skill2": "照着宙斯的黄昏流星群反击，造成" + phys("e_dmg", "e_ad") + O + "物理伤害" + E + "。有记录时复刻那一招：再加" + O + "{e_cdmg}" + E +
                   "和目标" + A + "{e_hp}%" + E + "最大生命值的物理伤害，并" + R + "眩晕{e_stun}秒" + E + "，用掉记录。",
         "ult": "从宙斯那里学来的拳：蓄势" + A + "{r_go}秒" + E + "（不受控制，受到的伤害降低" + A + "{r_dr}%" + E +
                "），然后朝目标打出一道拳劲，路上的敌人受到" + phys("r_dmg", "r_ad") + O + "物理伤害" + E + "并被" + R +
                "击飞{r_up}秒" + E + "。",
-        "names": ("神虚视", "模仿反击", "超越时间之拳"),
+        "names": ("神虚视", "复刻·黄昏流星群", "超越时间之拳"),
     },
     "zh-hant": {
         "name": "亞當",
@@ -49,12 +49,12 @@ TEXT = {
                   "），有記錄時" + O + "模仿反擊" + E + "會複刻那一招。",
         "skill": "睜開神虛視讀出對手的動作，閃身躲開：" + A + "{q_t}秒" + E + "內普攻全部落空，受到的技能傷害降低" + A + "{q_sdr}%" +
                  E + "，並記下一招。",
-        "skill2": "反擊一拳，造成" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "。有記錄時複刻那一招：再加" + O + "{e_cdmg}" + E +
+        "skill2": "照著宙斯的黃昏流星群反擊，造成" + phys("e_dmg", "e_ad") + O + "物理傷害" + E + "。有記錄時複刻那一招：再加" + O + "{e_cdmg}" + E +
                   "和目標" + A + "{e_hp}%" + E + "最大生命值的物理傷害，並" + R + "暈眩{e_stun}秒" + E + "，用掉記錄。",
         "ult": "從宙斯那裡學來的拳：蓄勢" + A + "{r_go}秒" + E + "（不受控制，受到的傷害降低" + A + "{r_dr}%" + E +
                "），然後朝目標打出一道拳勁，路上的敵人受到" + phys("r_dmg", "r_ad") + O + "物理傷害" + E + "並被" + R +
                "擊飛{r_up}秒" + E + "。",
-        "names": ("神虛視", "模仿反擊", "超越時間之拳"),
+        "names": ("神虛視", "復刻·黃昏流星群", "超越時間之拳"),
     },
     "en": {
         "name": "Adam",
@@ -63,13 +63,13 @@ TEXT = {
                   E + " copies it.",
         "skill": "Opens his God Reader eyes and slips aside: for " + A + "{q_t}s" + E + " basic attacks miss him and skills "
                  "deal " + A + "{q_sdr}%" + E + " less damage; he remembers a move.",
-        "skill2": "A counter punch for " + phys("e_dmg", "e_ad") + " " + O + "physical damage" + E + ". With a remembered move "
+        "skill2": "A counter with Zeus's own Meteor Jab for " + phys("e_dmg", "e_ad") + " " + O + "physical damage" + E + ". With a remembered move "
                   "he copies it: " + O + "{e_cdmg}" + E + " more plus " + A + "{e_hp}%" + E + " of the target's max health and a " +
                   R + "{e_stun}s stun" + E + ", using the move up.",
         "ult": "The punch he copied from Zeus: winds up for " + A + "{r_go}s" + E + " (unstoppable, taking " + A + "{r_dr}%" + E +
                " less damage), then drives a blast at the target that deals " + phys("r_dmg", "r_ad") + " " + O +
                "physical damage" + E + " to enemies in its path and " + R + "knocks them up for {r_up}s" + E + ".",
-        "names": ("God Reader", "Mimic Counter", "Fist That Transcends Time"),
+        "names": ("Eyes of the Lord", "Copied Meteor Jab", "Fist That Transcends Time"),
     },
     "ko": {
         "name": "아담",
@@ -77,13 +77,13 @@ TEXT = {
                   " 동안 기억하며, 기억이 있으면 " + O + "모방 반격" + E + "이 그 기술을 따라 한다.",
         "skill": "신허시로 상대의 움직임을 읽고 피한다: " + A + "{q_t}초" + E + " 동안 기본 공격이 모두 빗나가고 받는 스킬 피해 " + A +
                  "{q_sdr}%" + E + " 감소, 기술 하나를 기억한다.",
-        "skill2": "반격 주먹으로 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + ". 기억한 기술이 있으면 따라 해서 " + O +
+        "skill2": "제우스의 황혼유성군을 따라 반격해 " + phys("e_dmg", "e_ad") + " " + O + "물리 피해" + E + ". 기억한 기술이 있으면 따라 해서 " + O +
                   "{e_cdmg}" + E + "와 대상 최대 체력의 " + A + "{e_hp}%" + E + " 피해를 더하고 " + R + "{e_stun}초 기절" + E +
                   "시키며 기억을 쓴다.",
         "ult": "제우스에게서 배운 주먹: " + A + "{r_go}초" + E + " 동안 힘을 모은 뒤(군중 제어 면역, 받는 피해 " + A + "{r_dr}%" + E +
                " 감소) 대상을 향해 주먹 기운을 날려 경로의 적에게 " + phys("r_dmg", "r_ad") + " " + O + "물리 피해" + E + "와 " + R +
                "{r_up}초 에어본" + E + ".",
-        "names": ("신허시", "모방 반격", "시간을 넘어선 주먹"),
+        "names": ("신허시", "복제·황혼유성군", "시간을 넘어선 주먹"),
     },
     "ja": {
         "name": "アダム",
@@ -91,12 +91,12 @@ TEXT = {
                   E + "覚え、覚えていれば" + O + "模倣カウンター" + E + "がその技を写す。",
         "skill": "神虚視で相手の動きを読みかわす：" + A + "{q_t}秒" + E + "間通常攻撃はすべて外れ、受けるスキルダメージ" + A +
                  "{q_sdr}%" + E + "軽減、技をひとつ覚える。",
-        "skill2": "カウンターの一撃で" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "。覚えた技があれば写して" + O +
+        "skill2": "ゼウスの黄昏流星群を写したカウンターで" + phys("e_dmg", "e_ad") + "の" + O + "物理ダメージ" + E + "。覚えた技があれば写して" + O +
                   "{e_cdmg}" + E + "と対象の最大体力" + A + "{e_hp}%" + E + "を上乗せし" + R + "{e_stun}秒スタン" + E + "、記憶を使う。",
         "ult": "ゼウスから写した拳：" + A + "{r_go}秒" + E + "溜め（行動妨害無効、被ダメージ" + A + "{r_dr}%" + E +
                "軽減）、標的へ拳圧を放ち、通り道の敵に" + phys("r_dmg", "r_ad") + "の" + O + "物理ダメージ" + E + "と" + R +
                "{r_up}秒のノックアップ" + E + "。",
-        "names": ("神虚視", "模倣カウンター", "時を超える拳"),
+        "names": ("神虚視", "模倣・黄昏流星群", "時を超える拳"),
     },
 }
 

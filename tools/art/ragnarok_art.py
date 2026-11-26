@@ -24,6 +24,7 @@ ROOT = os.path.dirname(os.path.dirname(HERE))
 sys.path.insert(0, HERE)
 sys.path.insert(0, os.path.join(ROOT, ".claude", "skills", "tfm2-hero-mod", "scripts"))
 import pixel_down as D  # noqa: E402
+import ragnarok_atlas as RA  # noqa: E402
 import strips as G  # noqa: E402
 
 PPU_DIR = os.path.join(ROOT, "assets", "source", "ppu")
@@ -36,13 +37,18 @@ SRC = ID = HERO = SHEET = FX_SHEET = PROJ_SHEET = PPU = FX_PPU = SOLE = None
 BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT = [], {}, {}, {}, {}, [], {}
 TAGS, BANKS = ACTIONS, None
 READ = None
+REDRAW, REDRAW_FX, SOLES, PROJ_DENSITY, CUT, FX_SLICE = [], [], {}, {}, {}, {}
+REDRAWN_FX = set()
+ALIAS = {}
+CANVAS_OLD = None
+WIDE = ()
 
 
 def setup(cfg):
     """Point the engine at one hero (a dict of the names above)."""
     global CW, CH, CS
     global SRC, ID, HERO, SHEET, FX_SHEET, PROJ_SHEET, PPU, FX_PPU, SOLE, BAKE, RETIME, TARGET_FX, SPLIT, PROJ_FX, EXTRA_FX, SHIFT
-    global TAGS, BANKS, READ
+    global TAGS, BANKS, READ, REDRAW, REDRAW_FX, SOLES, PROJ_DENSITY, CUT, FX_SLICE, ALIAS, CANVAS_OLD, WIDE
     SRC, ID, HERO, PPU, SOLE = cfg["SRC"], cfg["ID"], cfg["HERO"], cfg["PPU"], cfg["SOLE"]
     # READ：交付不是 #sheet.png / #anim.fanim 那种时自己读（冲田、须佐之男是一张逻辑像素图集加 frames.json，
     # tools/art/ragnarok_atlas.py），给它图名（<ID>_native、<ID>_fx_native），回来的和 read() 一样
@@ -68,6 +74,22 @@ def setup(cfg):
     # 标签照表改名（膨胀的 idle -> mu_idle）；不给就是 <ID>_native 一张、标签原样。TAGS 是合成后本表的动作，顺序就是图里的顺序
     BANKS = cfg.get("BANKS")
     TAGS = tuple(cfg.get("TAGS", ACTIONS))
+    # REDRAW [(Codex 的文件夹, 图名, {它的动作: 本表的标签}, 倍数)]：照原作补画的动作（2026-11-26 第三轮，逻辑像素图集，
+    # tools/art/ragnarok_atlas.redraw），换掉本表的同名动作（或者加一个新标签），脚底点按它自己的 ground（SOLES，和 SOLE 不一样）；
+    # REDRAW_FX 同样格式，补画的特效并进特效表（画进帧里、打在人身上、弹道都从这里拿）
+    REDRAW, REDRAW_FX = cfg.get("REDRAW", []), cfg.get("REDRAW_FX", [])
+    SOLES = {}
+    # PROJ_DENSITY {弹道图: 它的密度}：补画的弹道是按英雄身体的密度（PPU）画的，不是 FX_PPU，缩 1 倍图时按这个
+    PROJ_DENSITY = cfg.get("PROJ_DENSITY", {})
+    CUT = cfg.get("CUT", {})
+    # FX_SLICE {新名字: (特效, 从第几帧, 到第几帧之前)}：一条特效的几帧单独当一个特效用（补画的飞行弹：Codex 写了飞的时候循环
+    # 第 4-6 帧，前 3 帧是在手上成形）
+    FX_SLICE = cfg.get("FX_SLICE", {})
+    ALIAS = cfg.get("ALIAS", {})
+    # CANVAS_OLD：为补画放大画布以前的画布，原来的动作照它裁（不然原来被画布切掉的特效回来了，帧变大，Q 版图集对不上）
+    CANVAS_OLD = cfg.get("CANVAS_OLD")
+    # WIDE：除了补画的动作，另外用大画布的标签（海耶 ALIAS 出来的两发新子弹）
+    WIDE = tuple(cfg.get("WIDE", ()))
     SHEET = os.path.join(MOD, "champions", ID)
     FX_SHEET = os.path.join(MOD, "effects", f"{ID}_fx")
     PROJ_SHEET = os.path.join(MOD, "effects", f"{ID}_proj")
@@ -154,16 +176,26 @@ def baked(body, fx):
         for b in bakes:
             _, name, t0, anchor, step = b[:5]
             origin = b[5] if len(b) > 5 else (64, 64)
-            # 第 7 项 "behind"：画在身子后面（索尔大招蓄力的雷圈围着锤头，锤子横在胸前、竖在身前时画在前面会从脸上划过）
-            behind = len(b) > 6 and b[6] == "behind"
+            # 第 7 项 "behind"：画在身子后面（索尔大招蓄力的雷圈围着锤头，锤子横在胸前、竖在身前时画在前面会从脸上划过）；
+            # 也可以是 {"layer": "behind" 或 "front", "world": (开始秒, 每秒往前挪几格, 停的秒)}：人被技能往后推的那段，特效往前挪
+            # 同样多，钉在原地不跟着人跑（海耶天穿白鸟的弹道光：后坐力把他往后推）
+            opts = b[6] if len(b) > 6 else None
+            behind = opts == "behind" or (isinstance(opts, dict) and opts.get("layer") == "behind")
+            world = opts.get("world") if isinstance(opts, dict) else None
             fr = fx[name]
             dt = step if step is not None else fr[0][1]
             for j in range(len(fr) + 1):
                 t = t0 + j * dt
                 if t < end:
                     cuts.add(round(t, 6))
-            plays.append((name, t0, anchor, dt, fr, origin, behind))
-        cuts = sorted(c for c in cuts if c <= end)
+            if world:
+                # 推的那段每帧都切一刀，挪得连贯
+                w0, _, w1 = world
+                for t in np.arange(w0, min(w1, end), 1 / 60):
+                    cuts.add(round(float(t), 6))
+            plays.append((name, t0, anchor, dt, fr, origin, behind, world))
+        # 特效可以从动作开始之前就在放（CUT 切掉了前面几帧：索尔大招的雷圈从切掉的那段开始，接着的部分照样放），切点只要 0 以后的
+        cuts = sorted(c for c in cuts if 0 <= c <= end)
         segs = []
         for a, b in zip(cuts, cuts[1:]):
             if b - a < 1e-6:
@@ -171,18 +203,41 @@ def baked(body, fx):
             i = int(np.searchsorted(starts, a + 1e-9, side="right") - 1)
             dx = shift[i] if isinstance(shift, (list, tuple)) else shift
             canvas = np.zeros((CH, CW, 4), np.uint8)
+            sole = SOLES.get(tag, SOLE)
             for layer in ("behind", "body", "front"):
                 if layer == "body":
-                    over(canvas, frames[i][0], CS[0] - SOLE[0] + dx, CS[1] - SOLE[1])
+                    f0 = frames[i][0]
+                    # 补画的动作画布装不下就报错（over 会悄悄切掉出界的像素）
+                    x0, y0 = CS[0] - sole[0] + dx, CS[1] - sole[1]
+                    ys, xs = np.nonzero(f0[..., 3] > 0)
+                    if tag in SOLES and len(xs) and (x0 + xs.min() < 0 or y0 + ys.min() < 0 or x0 + xs.max() >= CW or y0 + ys.max() >= CH):
+                        sys.exit(f"{tag} frame {i}: the body leaves the {CW}x{CH} canvas - widen CANVAS")
+                    over(canvas, f0, x0, y0)
                     continue
-                for name, t0, anchor, dt, fr, (ox, oy), behind in plays:
+                for name, t0, anchor, dt, fr, (ox, oy), behind, world in plays:
                     if behind != (layer == "behind"):
                         continue
                     j = int(np.floor((a - t0) / dt + 1e-9))
                     if 0 <= j < len(fr):
                         # 锚点也可以按身体帧给一串，特效跟着身体走（亚当睁眼的光跟着头）
                         ax, ay = anchor[i] if isinstance(anchor, list) else anchor
-                        over(canvas, fr[j][0], CS[0] + ax - ox + dx, CS[1] + ay - oy)
+                        fx0, fy0 = CS[0] + ax - ox + dx, CS[1] + ay - oy
+                        if world:
+                            w0, speed, w1 = world
+                            fx0 += round(speed * min(max(a - w0, 0.0), w1 - w0))
+                        if name in REDRAWN_FX:
+                            ys, xs = np.nonzero(fr[j][0][..., 3] > 0)
+                            if len(xs) and (fx0 + xs.min() < 0 or fy0 + ys.min() < 0 or fx0 + xs.max() >= CW
+                                            or fy0 + ys.max() >= CH):
+                                sys.exit(f"{tag}: {name} frame {j} leaves the {CW}x{CH} canvas - widen CANVAS")
+                        over(canvas, fr[j][0], fx0, fy0)
+            if CANVAS_OLD and tag not in SOLES and tag not in WIDE:
+                # 画布为补画放大了：原来的动作照原来的画布裁（原来出界被切掉的特效还切掉，帧和 Q 版图集一样大）
+                ow, oh, ocs = CANVAS_OLD
+                x0, y0 = CS[0] - ocs[0], CS[1] - ocs[1]
+                keep = np.zeros(canvas.shape[:2], bool)
+                keep[max(0, y0):y0 + oh, max(0, x0):x0 + ow] = True
+                canvas[~keep] = 0
             canvas = no_specks(canvas)
             if segs and np.array_equal(segs[-1][0], canvas) and segs[-1][2] == i:
                 segs[-1] = (canvas, segs[-1][1] + (b - a), i)
@@ -239,7 +294,11 @@ def hero_sheets(body, fx):
     segs = baked(body, fx)
     every = [f for tag in tags() for f, _ in segs[tag]]
     outline = D.edge_colour(np.concatenate(every, axis=1))
-    pal = D.palette_of(np.concatenate([body[t][0][0] for t in TAGS], axis=1), 96)
+    firsts = [body[t][0][0] for t in TAGS]
+    tall = max(f.shape[0] for f in firsts)
+    # 补画的帧和原来的格子不一样高：补齐了再拼
+    firsts = [np.pad(f, ((0, tall - f.shape[0]), (0, 0), (0, 0))) for f in firsts]
+    pal = D.palette_of(np.concatenate(firsts, axis=1), 96)
     pivot = (CS[0], CS[1] - FEET * PPU)
     ones, denses = {}, {}
     for tag in tags():
@@ -307,8 +366,9 @@ def proj_sheet(fx, own=None):
         frames = []
         # 按整数倍放大读进来的（EXTRA_FX 给了倍数的）用原来那张按它自己的密度缩，缩出来和放大前一模一样
         src, k = own.get(name, (fx[name], 1))
+        dens = PROJ_DENSITY.get(name, FX_PPU)
         for a, secs in src:
-            small, (nx, ny) = D.scale_fx(a, k / FX_PPU, (px / k, py / k), mote=0)
+            small, (nx, ny) = D.scale_fx(a, k / dens, (px / k, py / k), mote=0)
             op = small[..., 3] > 0
             rx = ry = 1
             if op.any():
@@ -347,7 +407,23 @@ def main(cfg, doc=None):
             body.update({names[t]: got[t] for t in names})
     else:
         body = load(f"{ID}_native")
+    # CUT {标签: 从第几帧起}：只用一个动作的后半段（索尔大招接锤以后举锤过头砸下：原来大招的第 4 帧起）
+    for tag, first in CUT.items():
+        body[tag] = body[tag][first:]
+    # ALIAS {新标签: 原来的标签}：同一套身体帧再出一份，画进不同的特效（海耶的 Q 三发子弹各一套）
+    for new, src in ALIAS.items():
+        body[new] = list(body[src])
     fx = load(f"{ID}_fx_native")
+    for root, png, names, k in REDRAW:
+        got, soles = RA.redraw(root, png, names, k)
+        body.update(got)
+        SOLES.update(soles)
+    for root, png, names, k in REDRAW_FX:
+        got = RA.redraw_fx(root, png, names, k)
+        fx.update(got)
+        REDRAWN_FX.update(got)
+    for new, (src, first, stop) in FX_SLICE.items():
+        fx[new] = fx[src][first:stop]
     own = {}
     for stem in EXTRA_FX:
         # 也可以给（路径, 倍数）：按最近邻放大整数倍再用（吕布的斩波：身体和特效是两倍的，它没重画）；

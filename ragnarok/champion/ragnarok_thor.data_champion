@@ -20,7 +20,7 @@
   "stat": {
     "attack": 84,
     "magic_power": 0,
-    "hp": 1220,
+    "hp": 1300,
     "defence": 40,
     "magic_resistance": 30,
     "move_speed": 990,
@@ -105,7 +105,7 @@
     "action_name": "skill",
     "description": "#asset/base/text/champion?description.ragnarok_thor.skill",
     "duration": 46,
-    "cooltime": 360,
+    "cooltime": 300,
     "start_timing": 1,
     "cancelable": false,
     "range": 30000,
@@ -217,8 +217,8 @@
               "effects": [
                 {
                   "type": "Attack",
-                  "damage": 60,
-                  "attack_ratio": 70,
+                  "damage": 75,
+                  "attack_ratio": 85,
                   "hp_ratio": 4,
                   "target_hp_ratio": 0,
                   "attack_effect_type": "Target"
@@ -227,11 +227,11 @@
                   "type": "SwitchByBuff",
                   "buff_name": "ragnarok_thor_awake",
                   "effect_buff": {
-                    "type": "Stun",
+                    "type": "Airborne",
                     "duration": 66
                   },
                   "effect_none": {
-                    "type": "Stun",
+                    "type": "Airborne",
                     "duration": 42
                   }
                 },
@@ -253,12 +253,12 @@
   "skill2": {
     "action_name": "skill2",
     "description": "#asset/base/text/champion?description.ragnarok_thor.skill2",
-    "duration": 26,
-    "cooltime": 480,
+    "duration": 49,
+    "cooltime": 420,
     "start_timing": 1,
     "cancelable": false,
-    "range": 55000,
-    "casting_type": "Direction",
+    "range": 32000,
+    "casting_type": "Targeting",
     "casting_target": "EnemyWithoutTower",
     "attack_type": "Skill",
     "effect": {
@@ -339,168 +339,49 @@
           }
         },
         {
+          "type": "Sfx",
+          "name": "ragnarok_thor_e"
+        },
+        {
           "type": "Delayed",
-          "tick": 21,
+          "tick": 16,
           "effects": [
             {
-              "type": "Sfx",
-              "name": "ragnarok_thor_e"
+              "type": "AddCasterBuff",
+              "buff_state": {
+                "name": "ragnarok_thor_e_guard",
+                "duration": {
+                  "Time": {
+                    "tick": 18
+                  }
+                },
+                "base_attack_damaged_reduce": 100,
+                "damaged_reduce": 70
+              },
+              "only_to_enemy": false
             },
             {
-              "type": "CasterAnimation",
-              "name": "skill2_wait",
-              "tick": 40
-            },
-            {
-              "type": "LinearProjectile",
-              "name": "ragnarok_thor_e_out",
-              "penetrate": true,
-              "applied_target": "EnemyWithoutTower",
-              "applied_effects": [
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "Attack",
-                    "damage": 40,
-                    "attack_ratio": 60,
-                    "hp_ratio": 2,
-                    "target_hp_ratio": 0,
-                    "attack_effect_type": "Target"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "AddBuff",
-                    "buff_state": {
-                      "name": "ragnarok_thor_e_slow",
-                      "duration": {
-                        "Time": {
-                          "tick": 60
-                        }
-                      },
-                      "move_speed_mult": -40
-                    }
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "ViewEffect",
-                    "name": "ragnarok_thor_e_hit"
-                  }
-                },
-                {
-                  "casting_type": "Targeting",
-                  "effect": {
-                    "type": "TargetSfx",
-                    "name": "ragnarok_thor_e_hit"
-                  }
-                }
-              ],
-              "end_effects": [
-                {
-                  "type": "Sfx",
-                  "name": "ragnarok_thor_e_turn"
-                },
-                {
-                  "type": "BackToCasterLinearProjectile",
-                  "name": "ragnarok_thor_e_back",
-                  "penetrate": true,
-                  "applied_target": "EnemyWithoutTower",
-                  "applied_effects": [
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "Attack",
-                        "damage": 40,
-                        "attack_ratio": 60,
-                        "hp_ratio": 2,
-                        "target_hp_ratio": 0,
-                        "attack_effect_type": "Target"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "AddBuff",
-                        "buff_state": {
-                          "name": "ragnarok_thor_e_slow",
-                          "duration": {
-                            "Time": {
-                              "tick": 60
-                            }
-                          },
-                          "move_speed_mult": -40
-                        }
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "ViewEffect",
-                        "name": "ragnarok_thor_e_hit"
-                      }
-                    },
-                    {
-                      "casting_type": "Targeting",
-                      "effect": {
-                        "type": "TargetSfx",
-                        "name": "ragnarok_thor_e_hit"
-                      }
-                    }
-                  ],
-                  "end_effects": [
-                    {
-                      "type": "RemoveCasterAnimation",
-                      "name": "skill2_wait"
-                    },
-                    {
-                      "type": "CasterAnimation",
-                      "name": "skill2_catch",
-                      "tick": 10
-                    },
-                    {
-                      "type": "Sfx",
-                      "name": "ragnarok_thor_e_catch"
-                    },
-                    {
-                      "type": "RangeEffect",
-                      "shape": {
-                        "Circle": {
-                          "radius": 1000
-                        }
-                      },
-                      "target": "AllyOnlySelf",
-                      "apply_type": "AroundCaster",
-                      "effects": [
-                        {
-                          "type": "Shield",
-                          "amount": 60,
-                          "attack_ratio": 50,
-                          "ap_ratio": 0,
-                          "tick": 150
-                        }
-                      ]
-                    }
-                  ],
-                  "speed": 5000,
-                  "range": 400000,
-                  "shape": {
-                    "Circle": {
-                      "radius": 12000
-                    }
-                  }
-                }
-              ],
-              "speed": 5000,
-              "range": 44000,
+              "type": "RangeEffect",
               "shape": {
                 "Circle": {
-                  "radius": 12000
+                  "radius": 1000
                 }
               },
-              "y_offset": -2000
+              "target": "AllyOnlySelf",
+              "apply_type": "AroundCaster",
+              "effects": [
+                {
+                  "type": "Shield",
+                  "amount": 140,
+                  "attack_ratio": 90,
+                  "ap_ratio": 0,
+                  "tick": 150
+                }
+              ]
+            },
+            {
+              "type": "Sfx",
+              "name": "ragnarok_thor_e_block"
             }
           ]
         }
@@ -510,7 +391,7 @@
   "ult": {
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.ragnarok_thor.ult",
-    "duration": 108,
+    "duration": 94,
     "cooltime": 2400,
     "start_timing": 1,
     "cancelable": false,
@@ -527,7 +408,7 @@
             "name": "ragnarok_thor_r_guard",
             "duration": {
               "Time": {
-                "tick": 77
+                "tick": 96
               }
             },
             "cc_immune": true,
@@ -616,133 +497,291 @@
         },
         {
           "type": "Delayed",
-          "tick": 74,
+          "tick": 21,
           "effects": [
             {
-              "type": "Combine",
-              "effects": [
+              "type": "Sfx",
+              "name": "ragnarok_thor_r_throw"
+            },
+            {
+              "type": "CasterAnimation",
+              "name": "ult_wait",
+              "tick": 60
+            },
+            {
+              "type": "LinearProjectile",
+              "name": "ragnarok_thor_r_out",
+              "penetrate": true,
+              "applied_target": "EnemyWithoutTower",
+              "applied_effects": [
                 {
-                  "type": "RandomTarget",
-                  "range": 1,
-                  "casting_target": "AllyOnlySelf",
-                  "from_projectile": false,
-                  "effects": [
-                    {
-                      "type": "AddCasterBuff",
-                      "buff_state": {
-                        "name": "ragnarok_thor_live",
-                        "duration": {
-                          "Time": {
-                            "tick": 1
-                          }
-                        }
-                      },
-                      "only_to_enemy": false
-                    }
-                  ]
-                },
-                {
-                  "type": "SwitchByBuff",
-                  "buff_name": "ragnarok_thor_live",
-                  "effect_buff": {
-                    "type": "Combine",
-                    "effects": [
-                      {
-                        "type": "Sfx",
-                        "name": "ragnarok_thor_r_slam"
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 44000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": {
-                          "Forward": {
-                            "offset": 24000
-                          }
-                        },
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 180,
-                            "attack_ratio": 100,
-                            "hp_ratio": 8,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "Airborne",
-                            "duration": 90
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "ragnarok_thor_r_hit"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "ragnarok_thor_r_hit"
-                          }
-                        ]
-                      }
-                    ]
-                  },
-                  "effect_none": {
-                    "type": "RandomTarget",
-                    "range": 1,
-                    "casting_target": "AllyOnlySelf",
-                    "from_projectile": false,
-                    "effects": [
-                      {
-                        "type": "Sfx",
-                        "name": "ragnarok_thor_r_slam"
-                      },
-                      {
-                        "type": "RangeEffect",
-                        "shape": {
-                          "Circle": {
-                            "radius": 44000
-                          }
-                        },
-                        "target": "EnemyWithoutTower",
-                        "apply_type": {
-                          "Forward": {
-                            "offset": 24000
-                          }
-                        },
-                        "effects": [
-                          {
-                            "type": "Attack",
-                            "damage": 180,
-                            "attack_ratio": 100,
-                            "hp_ratio": 8,
-                            "target_hp_ratio": 0,
-                            "attack_effect_type": "Target"
-                          },
-                          {
-                            "type": "Airborne",
-                            "duration": 90
-                          },
-                          {
-                            "type": "ViewEffect",
-                            "name": "ragnarok_thor_r_hit"
-                          },
-                          {
-                            "type": "TargetSfx",
-                            "name": "ragnarok_thor_r_hit"
-                          }
-                        ]
-                      }
-                    ]
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "Attack",
+                    "damage": 60,
+                    "attack_ratio": 80,
+                    "hp_ratio": 2,
+                    "target_hp_ratio": 0,
+                    "attack_effect_type": "Target"
                   }
                 },
                 {
-                  "type": "RemoveCasterBuff",
-                  "name": "ragnarok_thor_live"
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "AddBuff",
+                    "buff_state": {
+                      "name": "ragnarok_thor_r_slow",
+                      "duration": {
+                        "Time": {
+                          "tick": 60
+                        }
+                      },
+                      "move_speed_mult": -40
+                    }
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "ViewEffect",
+                    "name": "ragnarok_thor_r_pass"
+                  }
+                },
+                {
+                  "casting_type": "Targeting",
+                  "effect": {
+                    "type": "TargetSfx",
+                    "name": "ragnarok_thor_r_pass"
+                  }
                 }
-              ]
+              ],
+              "end_effects": [
+                {
+                  "type": "Sfx",
+                  "name": "ragnarok_thor_r_turn"
+                },
+                {
+                  "type": "BackToCasterLinearProjectile",
+                  "name": "ragnarok_thor_r_back",
+                  "penetrate": true,
+                  "applied_target": "EnemyWithoutTower",
+                  "applied_effects": [
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "Attack",
+                        "damage": 60,
+                        "attack_ratio": 80,
+                        "hp_ratio": 2,
+                        "target_hp_ratio": 0,
+                        "attack_effect_type": "Target"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "AddBuff",
+                        "buff_state": {
+                          "name": "ragnarok_thor_r_slow",
+                          "duration": {
+                            "Time": {
+                              "tick": 60
+                            }
+                          },
+                          "move_speed_mult": -40
+                        }
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "ViewEffect",
+                        "name": "ragnarok_thor_r_pass"
+                      }
+                    },
+                    {
+                      "casting_type": "Targeting",
+                      "effect": {
+                        "type": "TargetSfx",
+                        "name": "ragnarok_thor_r_pass"
+                      }
+                    }
+                  ],
+                  "end_effects": [
+                    {
+                      "type": "RemoveCasterAnimation",
+                      "name": "ult_wait"
+                    },
+                    {
+                      "type": "CasterAnimation",
+                      "name": "ult_catch",
+                      "tick": 7
+                    },
+                    {
+                      "type": "Sfx",
+                      "name": "ragnarok_thor_r_catch"
+                    },
+                    {
+                      "type": "Delayed",
+                      "tick": 7,
+                      "effects": [
+                        {
+                          "type": "CasterAnimation",
+                          "name": "ult_slam",
+                          "tick": 46
+                        },
+                        {
+                          "type": "Delayed",
+                          "tick": 10,
+                          "effects": [
+                            {
+                              "type": "Combine",
+                              "effects": [
+                                {
+                                  "type": "RandomTarget",
+                                  "range": 1,
+                                  "casting_target": "AllyOnlySelf",
+                                  "from_projectile": false,
+                                  "effects": [
+                                    {
+                                      "type": "AddCasterBuff",
+                                      "buff_state": {
+                                        "name": "ragnarok_thor_live",
+                                        "duration": {
+                                          "Time": {
+                                            "tick": 1
+                                          }
+                                        }
+                                      },
+                                      "only_to_enemy": false
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "SwitchByBuff",
+                                  "buff_name": "ragnarok_thor_live",
+                                  "effect_buff": {
+                                    "type": "Combine",
+                                    "effects": [
+                                      {
+                                        "type": "Sfx",
+                                        "name": "ragnarok_thor_r_slam"
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 44000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": {
+                                          "Forward": {
+                                            "offset": 24000
+                                          }
+                                        },
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 220,
+                                            "attack_ratio": 100,
+                                            "hp_ratio": 8,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Airborne",
+                                            "duration": 90
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "ragnarok_thor_r_hit"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "ragnarok_thor_r_hit"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  },
+                                  "effect_none": {
+                                    "type": "RandomTarget",
+                                    "range": 1,
+                                    "casting_target": "AllyOnlySelf",
+                                    "from_projectile": false,
+                                    "effects": [
+                                      {
+                                        "type": "Sfx",
+                                        "name": "ragnarok_thor_r_slam"
+                                      },
+                                      {
+                                        "type": "RangeEffect",
+                                        "shape": {
+                                          "Circle": {
+                                            "radius": 44000
+                                          }
+                                        },
+                                        "target": "EnemyWithoutTower",
+                                        "apply_type": {
+                                          "Forward": {
+                                            "offset": 24000
+                                          }
+                                        },
+                                        "effects": [
+                                          {
+                                            "type": "Attack",
+                                            "damage": 220,
+                                            "attack_ratio": 100,
+                                            "hp_ratio": 8,
+                                            "target_hp_ratio": 0,
+                                            "attack_effect_type": "Target"
+                                          },
+                                          {
+                                            "type": "Airborne",
+                                            "duration": 90
+                                          },
+                                          {
+                                            "type": "ViewEffect",
+                                            "name": "ragnarok_thor_r_hit"
+                                          },
+                                          {
+                                            "type": "TargetSfx",
+                                            "name": "ragnarok_thor_r_hit"
+                                          }
+                                        ]
+                                      }
+                                    ]
+                                  }
+                                },
+                                {
+                                  "type": "RemoveCasterBuff",
+                                  "name": "ragnarok_thor_live"
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "speed": 5000,
+                  "range": 400000,
+                  "shape": {
+                    "Circle": {
+                      "radius": 12000
+                    }
+                  }
+                }
+              ],
+              "speed": 5000,
+              "range": 44000,
+              "shape": {
+                "Circle": {
+                  "radius": 12000
+                }
+              },
+              "y_offset": -2000
             }
           ]
         }
@@ -752,7 +791,7 @@
   "view_projectiles": [
     {
       "type": "Animated",
-      "name": "ragnarok_thor_e_out",
+      "name": "ragnarok_thor_r_out",
       "anim": "asset/ragnarok/effects/ragnarok_thor_proj",
       "tag": "hammer_flight",
       "repeat": true,
@@ -760,7 +799,7 @@
     },
     {
       "type": "Animated",
-      "name": "ragnarok_thor_e_back",
+      "name": "ragnarok_thor_r_back",
       "anim": "asset/ragnarok/effects/ragnarok_thor_proj",
       "tag": "hammer_flight",
       "repeat": true,
@@ -794,7 +833,7 @@
     },
     {
       "type": "Animation",
-      "name": "ragnarok_thor_e_hit",
+      "name": "ragnarok_thor_r_pass",
       "anim": "asset/ragnarok/effects/ragnarok_thor_fx",
       "tag": "thunder_hit",
       "z": 2,

@@ -2,8 +2,8 @@
   "plays": [
     {
       "delay": 0.0,
-      "clip": "ragnarok_jack_sfx_artifact",
-      "volume": 0.55
+      "clip": "ragnarok_jack_sfx_cloak",
+      "volume": 0.5
     }
   ]
 }
