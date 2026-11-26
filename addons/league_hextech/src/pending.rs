@@ -90,7 +90,7 @@ impl Record {
                 picks.push(Choice { cards: c, first: c, chosen: c[0], by_user: false });
             }
             let mut m = Mine { hero, picks, confirmed: false };
-            recommend(&mut m, &t, &mut rng);
+            recommend(&mut m, &t, &mut rng, true);
             self.mine.push(m);
         }
     }
@@ -147,7 +147,7 @@ impl Record {
         super::augments::pool(tier).into_iter().any(|a| !seen.contains(&(a as u16)))
     }
 
-    /// 这个英雄全部按 AI 推荐（玩家点过的、确定过的都改回去；刷新过的卡不会变回来）。
+    /// 这个英雄全部按 AI 推荐（玩家点过的、确定过的都改回去；只在现在的三张里重新挑，不再换卡；刷新过的卡不会变回来）。
     pub fn all_ai(&mut self, hero: &str, traits: &Traits) {
         if self.used {
             return;
@@ -158,7 +158,7 @@ impl Record {
                 c.by_user = false;
             }
             m.confirmed = false;
-            recommend(m, traits, &mut rng);
+            recommend(m, traits, &mut rng, false);
         }
     }
 
@@ -213,24 +213,30 @@ impl Record {
     }
 }
 
-/// 没点过的那几次按 AI 推荐，和比赛里的 AI 一样：三张里分数低于刷新线（[`rules::reroll_bar`]）的先刷新掉（还能刷的、这一档
-/// 还有这个英雄四次里没出现过的），再拿分最高的；前面拿了的算进搭配。玩家 2026-11-26 的截图：塔莉垭（法师）6 级三张都不合适，
-/// 不刷新就默认拿了「钝器 +20% 攻击力」。刷新过的卡面板上写「已刷新」，玩家看到的就是最后生效的。
-fn recommend(m: &mut Mine, t: &Traits, rng: &mut Rng) {
+/// 没点过的那几次按 AI 推荐，和比赛里的 AI 一样拿三张里分最高的；前面拿了的算进搭配。
+///
+/// `replace`（发牌的时候）：先把分数低于刷新线（[`rules::reroll_bar`]）的换掉（这一档还有这个英雄四次里没出现过的卡时），
+/// 玩家 2026-11-26 的截图：塔莉垭（法师）6 级三张都不合适，不换就默认拿了「钝器 +20% 攻击力」。换掉的算在发牌里（`first` 也改成
+/// 新的那张）：0.2.1 / 0.3.x 只改了 `cards`，面板上这张卡写着「已刷新」、玩家这张卡的那次刷新也被用掉了（用户：「有点bug吧 AI默认
+/// 选择的直接显示已刷新」）。换下来的那张玩家从来没看见过，以后刷新再抽到它也没关系。「全部按 AI 推荐」不换卡，只在现在的三张里挑。
+fn recommend(m: &mut Mine, t: &Traits, rng: &mut Rng, replace: bool) {
     let mut taken: Vec<usize> = Vec::new();
     for k in 0..m.picks.len() {
         if !m.picks[k].by_user {
-            let tier = AUGS[m.picks[k].first[0] as usize].tier;
-            let bar = rules::reroll_bar(t, &taken, 0.0, tier);
-            for j in 0..3 {
-                let c = &m.picks[k];
-                if c.cards[j] != c.first[j] || rules::score(c.cards[j] as usize, t, &taken, 0.0) >= bar {
-                    continue;
-                }
-                let seen: Vec<usize> =
-                    m.picks.iter().flat_map(|p| p.cards.iter().chain(p.first.iter()).map(|&x| x as usize)).collect();
-                if let Some(new) = rules::draw_card(rng, AUGS[c.cards[j] as usize].tier, &seen, &[], false) {
-                    m.picks[k].cards[j] = new as u16;
+            if replace {
+                let tier = AUGS[m.picks[k].first[0] as usize].tier;
+                let bar = rules::reroll_bar(t, &taken, 0.0, tier);
+                for j in 0..3 {
+                    let c = &m.picks[k];
+                    if c.cards[j] != c.first[j] || rules::score(c.cards[j] as usize, t, &taken, 0.0) >= bar {
+                        continue;
+                    }
+                    let seen: Vec<usize> =
+                        m.picks.iter().flat_map(|p| p.cards.iter().chain(p.first.iter()).map(|&x| x as usize)).collect();
+                    if let Some(new) = rules::draw_card(rng, AUGS[c.cards[j] as usize].tier, &seen, &[], false) {
+                        m.picks[k].cards[j] = new as u16;
+                        m.picks[k].first[j] = new as u16;
+                    }
                 }
             }
             m.picks[k].chosen = best_card(&m.picks[k].cards, t, &taken);
@@ -445,8 +451,8 @@ mod tests {
                 let mut ever: Vec<u16> = m.picks.iter().flat_map(|c| c.cards.iter().chain(c.first.iter()).copied()).collect();
                 for (k, c) in m.picks.iter().enumerate() {
                     assert!(c.cards.contains(&c.chosen) && !c.by_user);
-                    // the deal (`first`; the AI's default may have rerolled `cards`): the screen's tier, unless this hero's
-                    // earlier screens took every card of it (then borrowed)
+                    // the deal (`first`, the AI default's swaps in it): the screen's tier, unless this hero's earlier screens
+                    // took every card of it (then borrowed)
                     let in_tier = c.first.iter().filter(|&&x| AUGS[x as usize].tier == r.tiers[k]).count();
                     let earlier: Vec<u16> = m.picks[..k].iter().flat_map(|p| p.first).collect();
                     let left = super::super::augments::pool(r.tiers[k]).into_iter().filter(|&a| !earlier.contains(&(a as u16))).count();
@@ -495,24 +501,45 @@ mod tests {
     }
 
     /// The player's screenshot (2026-11-26): Taliyah, a mage, offered three silver cards that do nothing for her, was
-    /// left on +20% attack damage. The default now rerolls what the AI would reroll first: a mage's defaults are magic
-    /// ones nearly always.
+    /// left on +20% attack damage. The default swaps out what the AI would reroll first: a mage's defaults are magic
+    /// ones nearly always. The swaps are part of the deal (0.3.2, the user: 「AI默认选择的直接显示已刷新」): no card shows
+    /// as rerolled and every card keeps the player's reroll; "all to the AI" only picks again among the cards on the table.
     #[test]
-    fn the_default_rerolls_what_does_not_fit() {
+    fn the_default_swaps_what_does_not_fit_and_leaves_the_rerolls() {
         let mage = Traits { ap: 1.0, caster: 1.0, ranged: 1.0, attacker: 0.1, assassin: 0.2, ..Traits::ZERO };
         let magic = super::super::rules::tests::MAGIC;
-        let (mut hits, mut n, mut rerolled) = (0, 0, 0);
+        let (mut hits, mut n, mut swapped, mut can) = (0, 0, 0, 0);
         for seed in 0..300u64 {
             let mut r = Record::new(seed, 0, seed, [35, 45, 20]);
+            // the deal as it came, before the AI's swaps (set_lineup's first draws)
+            let mut probe = Record::new(seed, 0, seed, [35, 45, 20]);
+            let mut rng = probe.rng();
+            let mut used: Vec<usize> = Vec::new();
+            let mut dealt = Vec::new();
+            for k in 0..SCREENS {
+                let cards = rules::deal(&mut rng, probe.tiers[k], &used).unwrap();
+                used.extend(cards);
+                dealt.push(cards);
+            }
             r.set_lineup(v(&["league_taliyah"]), vec![], |_| mage);
-            for c in &r.mine[0].picks {
+            let hero = "league_taliyah";
+            for (k, c) in r.mine[0].picks.iter().enumerate() {
                 n += 1;
                 hits += magic.contains(&AUGS[c.chosen as usize].key) as usize;
-                rerolled += (0..3).filter(|&j| c.cards[j] != c.first[j]).count();
+                swapped += (0..3).filter(|&j| c.first[j] as usize != dealt[k][j]).count();
+                assert_eq!(c.cards, c.first, "seed {seed}: nothing shows as rerolled");
+                can += (0..3).filter(|&j| r.reroll_left(hero, k, j)).count();
             }
+            // all to the AI: the same cards, the best of them
+            let before: Vec<[u16; 3]> = r.mine[0].picks.iter().map(|c| c.cards).collect();
+            r.all_ai(hero, &mage);
+            let after: Vec<[u16; 3]> = r.mine[0].picks.iter().map(|c| c.cards).collect();
+            assert_eq!(before, after, "seed {seed}: no card swapped by the button");
         }
         assert!(hits as f64 >= 0.85 * n as f64, "{hits} magic defaults of {n}");
-        assert!(rerolled > 0);
+        assert!(swapped > 0, "the AI swapped nothing");
+        // every card can be rerolled once by the player (but where a tier ran dry for this hero)
+        assert!(can as f64 >= 0.9 * (n * 3) as f64, "{can} of {} cards can be rerolled", n * 3);
     }
 
     #[test]

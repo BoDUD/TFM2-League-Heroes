@@ -51,7 +51,12 @@ use augments::{Ev, Tier, Traits, AUGS};
 use rules::{Rng, Screen, SCREENS};
 
 const ID: &str = "league_hextech";
-const VERSION: &str = env!("CARGO_PKG_VERSION");
+/// 本包的版本（mod.mod_info 的）：和大小龙一样，league_addons 的 build.rs 给每个 league_* 文件夹 ADDON_VERSION_<id>
+/// （合集的测试 every_add_on_prints_its_own_version 认这个写法），单独编译时用 Cargo 的。
+const VERSION: &str = match option_env!("ADDON_VERSION_league_hextech") {
+    Some(v) => v,
+    None => env!("CARGO_PKG_VERSION"),
+};
 
 /// 这份模拟的编号，挂在水晶和防御塔上。
 pub const SIM_TAG: &str = "league_hextech_sim:";
