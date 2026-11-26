@@ -55,7 +55,7 @@
 
 ### 阿萝拉附加包
 
-[阿萝拉附加包](../../addons/league_aurora/README.md)：`league_aurora` v0.3.1
+[阿萝拉附加包](../../addons/league_aurora/README.md)：`league_aurora` v0.3.2
 
 | 技能 | 主包（纯数据） | 附加包 |
 |---|---|---|

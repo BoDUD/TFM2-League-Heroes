@@ -430,7 +430,7 @@ fn hold(sim: &mut StableSim<'_>, me: usize, team: usize, up: &mut Up) {
     if moves.is_empty() {
         return;
     }
-    let grid = super::current_grid(&super::units(sim)).map(|(_, g)| g);
+    let grid = super::current_grid(sim, &super::units(sim)).map(|(_, g)| g);
     let seen = watched(sim);
     for (id, from, to) in moves {
         let solid = |p: Pt| grid.as_ref().is_some_and(|g| g.solid(p.0, p.1));

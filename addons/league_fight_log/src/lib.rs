@@ -23,6 +23,10 @@
 //! 贴脸后辅助在旁边 / 来救 / 死了的比例，各位置贴着敌人的时间占活着时间的比例，挨打的比例），也追加到
 //! `league_fight_log.sum.log`（不随启动重写；每次启动的第一行前先写时间和版本）。
 //!
+//! 两张 5v5 地图（2026-11-10）：「在场」的上限按这一场的地图（`game_places::terrain::Map::limit`，每次取样看
+//! `map_of_sim`）：游戏自己的地图照旧 `MAP_MAX`（1200000），Rin 的召唤师峡谷 1.25 x 1614545——以前一律 1200000，峡谷上
+//! 红方半边的英雄都不算在场（没有贴脸、没有交火、阵亡没有位置）。
+//!
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_fight_log.log`，每次启动游戏重写，上一次的留在 .prev.log；
 //! 一次启动最多 `LOG_CAP` 行。
 
@@ -33,6 +37,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_fight_log";
@@ -68,7 +73,8 @@ pub const DIVE_LEN: usize = 300;
 pub const DIVE_GAP: usize = 120;
 /// 每多少场写一行平均。
 pub const SUMMARY_EVERY: usize = 50;
-/// 地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算在场。
+/// 游戏自己的地图的大小上限：比这远的坐标（被放逐、藏起来的英雄）不算在场（= `Map::Native.limit()`；这一场的看
+/// `Map::limit`）。
 pub const MAP_MAX: f64 = 1_200_000.0;
 /// 位置（`LaneV1` 的编号）的简写：上单、打野、中单、射手（下路）、辅助。
 pub const ROLES: [&str; 5] = ["T", "J", "M", "B", "S"];
@@ -127,10 +133,9 @@ fn sum_log(line: &str) {
         let secs = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).map_or(0, |d| d.as_secs());
         let (y, m, d) = civil(secs / 86_400);
         text.push_str(&format!(
-            "=== {y}-{m:02}-{d:02} {:02}:{:02} UTC: {ID} v{VERSION}, league_macro v{} ===\n",
+            "=== {y}-{m:02}-{d:02} {:02}:{:02} UTC: {ID} v{VERSION} ===\n",
             secs / 3600 % 24,
             secs / 60 % 60,
-            option_env!("ADDON_VERSION_league_macro").unwrap_or("?")
         ));
     }
     text.push_str(line);
@@ -174,9 +179,9 @@ pub struct Seat {
     pub hp: usize,
 }
 
-/// Whether the seat's champion is alive and on the map.
-fn here(s: &Seat) -> bool {
-    s.alive && s.pos.0 <= MAP_MAX && s.pos.1 <= MAP_MAX
+/// Whether the seat's champion is alive and on the map (not past `limit`: `Map::limit`, `MAP_MAX` on the game's own).
+fn here_on(s: &Seat, limit: f64) -> bool {
+    s.alive && s.pos.0 <= limit && s.pos.1 <= limit
 }
 
 /// A kill-log entry: the killer's team (2 and up: not a team) and position, the victim's position.
@@ -189,14 +194,22 @@ pub struct Kill {
     pub assists: u32,
 }
 
-/// One sample of a match: every player (by player index), the standing towers (team, position) and the kill-log
-/// entries since the last sample.
-#[derive(Clone, Debug, Default)]
+/// One sample of a match: every player (by player index), the standing towers (team, position), the kill-log
+/// entries since the last sample and the map they are on (its `limit`: past it a champion is off the map).
+#[derive(Clone, Debug)]
 pub struct Sample {
     pub tick: usize,
     pub seats: Vec<Seat>,
     pub towers: Vec<(usize, Pos)>,
     pub kills: Vec<Kill>,
+    pub map: Map,
+}
+
+impl Default for Sample {
+    /// Nothing seen, on the game's own map.
+    fn default() -> Self {
+        Sample { tick: 0, seats: Vec::new(), towers: Vec::new(), kills: Vec::new(), map: Map::Native }
+    }
 }
 
 /// A fight being put together: its last death, where its first death fell, the kills of each team, the first victim's
@@ -267,6 +280,8 @@ impl Tracker {
     /// One sample.
     pub fn step(&mut self, s: &Sample) {
         self.last_tick = s.tick;
+        let lim = s.map.limit();
+        let here = |x: &Seat| here_on(x, lim);
         let n = s.seats.len();
         if self.last_pos.len() < n {
             self.last_pos.resize(n, None);
@@ -305,6 +320,8 @@ impl Tracker {
     }
 
     fn death(&mut self, k: &Kill, s: &Sample) {
+        let lim = s.map.limit();
+        let here = |x: &Seat| here_on(x, lim);
         if let Some(r) = k.victim_role {
             self.c.deaths[r] += 1;
             if k.tick <= EARLY {
@@ -363,6 +380,8 @@ impl Tracker {
     }
 
     fn watch_dives(&mut self, s: &Sample) {
+        let lim = s.map.limit();
+        let here = |x: &Seat| here_on(x, lim);
         for (i, adc) in s.seats.iter().enumerate() {
             if adc.role != Some(BOTTOM) {
                 continue;
@@ -582,10 +601,23 @@ fn lane(code: u32) -> Option<usize> {
     (code < 5).then_some(code as usize)
 }
 
+/// This launch's log has told the Rift already.
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// The map `sim` plays on; the first Rift a launch, a line in the log.
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: champions count as on the map up to {:.0} (1.25 x the Rift's side, not the game's own \
+                      {MAP_MAX:.0}); {} ==", map.limit(), rift_status()));
+    }
+    map
+}
+
 /// A sample of the match (kill-log entries from `kills_from` on), whether a nexus fell (one down or gone after both
 /// were seen) and the kill-log length.
 fn sample(sim: &StableSim<'_>, kills_from: usize) -> (Sample, usize, usize) {
-    let mut s = Sample { tick: sim.tick(), ..Sample::default() };
+    let mut s = Sample { tick: sim.tick(), map: map_here(sim), ..Sample::default() };
     for i in 0..sim.player_count() {
         let Some(p) = sim.player_at(i) else {
             s.seats.push(Seat { team: usize::MAX, ..Seat::default() });
@@ -746,25 +778,25 @@ mod tests {
         let mut blue = [(790_000.0, 790_000.0), (760_000.0, 820_000.0), (840_000.0, 760_000.0), (800_000.0, 800_000.0), (850_000.0, 800_000.0)];
         let mut red = [(820_000.0, 800_000.0), (870_000.0, 870_000.0), (300_000.0, 300_000.0), (880_000.0, 820_000.0), (860_000.0, 860_000.0)];
         let towers = vec![(0usize, (780_000.0, 830_000.0)), (1usize, (100_000.0, 100_000.0))];
-        t.step(&Sample { tick: 15, seats: seats(blue, red), towers: towers.clone(), kills: vec![] });
+        t.step(&Sample { tick: 15, seats: seats(blue, red), towers: towers.clone(), kills: vec![], map: Map::Native });
         // the support comes next to the diver: helped
         blue[4] = (830_000.0, 810_000.0);
         let mut s = seats(blue, red);
         s[3].hp = 400;
-        t.step(&Sample { tick: 30, seats: s.clone(), towers: towers.clone(), kills: vec![] });
+        t.step(&Sample { tick: 30, seats: s.clone(), towers: towers.clone(), kills: vec![], map: Map::Native });
         // the ADC falls to red's top laner with one assist
         s[3].alive = false;
         s[3].hp = 0;
         let adc_down = Kill { tick: 40, killer_team: 1, killer_role: Some(0), victim_role: Some(3), assists: 1 };
-        t.step(&Sample { tick: 45, seats: s.clone(), towers: towers.clone(), kills: vec![adc_down] });
+        t.step(&Sample { tick: 45, seats: s.clone(), towers: towers.clone(), kills: vec![adc_down], map: Map::Native });
         // 2 s later blue's jungler kills red's top laner there, alone: the same fight
         red[0] = (815_000.0, 805_000.0);
         let mut s2 = seats(blue, red);
         s2[3].alive = false;
-        t.step(&Sample { tick: 150, seats: s2.clone(), towers: towers.clone(), kills: vec![] });
+        t.step(&Sample { tick: 150, seats: s2.clone(), towers: towers.clone(), kills: vec![], map: Map::Native });
         s2[5].alive = false;
         let top_down = Kill { tick: 160, killer_team: 0, killer_role: Some(1), victim_role: Some(0), assists: 0 };
-        t.step(&Sample { tick: 165, seats: s2, towers, kills: vec![top_down] });
+        t.step(&Sample { tick: 165, seats: s2, towers, kills: vec![top_down], map: Map::Native });
         t.finish();
         let c = &t.c;
         assert_eq!((c.deaths, c.early), ([1, 0, 0, 1, 0], [1, 0, 0, 1, 0]));
@@ -792,14 +824,14 @@ mod tests {
         // blue's ADC farms alone at mid map; red's jungler and mid laner jump him; blue's support is far away
         let blue = [(100_000.0, 100_000.0), (150_000.0, 700_000.0), (200_000.0, 500_000.0), (500_000.0, 500_000.0), (100_000.0, 900_000.0)];
         let red = [(900_000.0, 100_000.0), (520_000.0, 500_000.0), (500_000.0, 480_000.0), (900_000.0, 900_000.0), (950_000.0, 950_000.0)];
-        t.step(&Sample { tick: 15, seats: seats(blue, red), towers: vec![], kills: vec![] });
+        t.step(&Sample { tick: 15, seats: seats(blue, red), towers: vec![], kills: vec![], map: Map::Native });
         let mut s = seats(blue, red);
         s[3].alive = false;
         let gank = Kill { tick: 20, killer_team: 1, killer_role: Some(1), victim_role: Some(3), assists: 1 };
-        t.step(&Sample { tick: 30, seats: s.clone(), towers: vec![], kills: vec![gank] });
+        t.step(&Sample { tick: 30, seats: s.clone(), towers: vec![], kills: vec![gank], map: Map::Native });
         // a minion or a tower kill: no team, counted by position only
         let tower = Kill { tick: 40_000, killer_team: 9, killer_role: None, victim_role: Some(2), assists: 0 };
-        t.step(&Sample { tick: 40_005, seats: s, towers: vec![], kills: vec![tower] });
+        t.step(&Sample { tick: 40_005, seats: s, towers: vec![], kills: vec![tower], map: Map::Native });
         t.finish();
         let c = &t.c;
         assert_eq!((c.deaths, c.early), ([0, 0, 1, 1, 0], [0, 0, 0, 1, 0]), "the mid death came after 10:00");
@@ -818,12 +850,37 @@ mod tests {
         let red = [(510_000.0, 510_000.0), (900_000.0, 900_000.0), (900_000.0, 900_000.0), (900_000.0, 900_000.0), (900_000.0, 900_000.0)];
         // red's top laner stays next to blue's ADC for 8 s: one dive of 5 s, then a new one only after the gap
         for k in 1..=32 {
-            t.step(&Sample { tick: k * SAMPLE, seats: seats(blue, red), towers: vec![], kills: vec![] });
+            t.step(&Sample { tick: k * SAMPLE, seats: seats(blue, red), towers: vec![], kills: vec![], map: Map::Native });
         }
         t.finish();
         assert_eq!(t.c.dives, 2, "{:?}", t.c);
         assert_eq!(t.c.peeled, 2, "the support stands next to the diver");
         assert_eq!(civil(0), (1970, 1, 1));
         assert_eq!(civil(20_765), (2026, 11, 8));
+    }
+
+    #[test]
+    fn on_the_rift_red_s_half_is_on_the_map() {
+        // a dive by red's top tower on the Rift (past 1200000): blue's ADC, red's top laner, blue's support beside him
+        let blue = [(0.0, 0.0), (0.0, 0.0), (0.0, 0.0), (1_300_000.0, 400_000.0), (1_330_000.0, 410_000.0)];
+        let red = [(1_320_000.0, 400_000.0), (1_450_000.0, 160_000.0), (1_450_000.0, 160_000.0), (1_450_000.0, 160_000.0), (1_450_000.0, 160_000.0)];
+        let run = |map: Map| {
+            let mut t = Tracker::default();
+            for k in 1..=4 {
+                t.step(&Sample { tick: k * SAMPLE, seats: seats(blue, red), towers: vec![], kills: vec![], map });
+            }
+            t.finish();
+            t.c
+        };
+        let rift = run(Map::Rift);
+        assert_eq!((rift.dives, rift.peeled), (1, 1), "{rift:?}");
+        assert!(rift.contact[3] > 0 && rift.alive[3] > 0);
+        // the game's own map's limit (1200000): nobody there, as before (nothing stands there on that map)
+        let native = run(Map::Native);
+        assert_eq!((native.dives, native.contact[3], native.alive[3]), (0, 0, 0));
+        // parked far past the Rift too: off the map on both
+        let parked = Seat { team: 0, role: Some(3), alive: true, pos: (3_000_000.0, 10.0), hp: 1 };
+        assert!(!here_on(&parked, Map::Rift.limit()) && here_on(&Seat { pos: (1_300_000.0, 10.0), ..parked }, Map::Rift.limit()));
+        assert_eq!(Sample::default().map, Map::Native);
     }
 }

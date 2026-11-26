@@ -575,6 +575,8 @@ mod tests {
         // the pack's Summoner's Rift layout moves the dragon pit; a third-party map has its nexuses elsewhere
         assert!(!is_base_map(&NEXUS, Some((656_000, 656_000))));
         assert!(!is_base_map(&[(120_000, 1_500_000), (1_500_000, 120_000)], Some(SERPEN)));
+        // Rin 峡谷 0.1.65 的两个水晶和小龙坑（放大 1.2 倍以后）：不是原版地图，不长地形
+        assert!(!is_base_map(&[(206_201, 1_724_334), (1_736_789, 210_352)], Some((1_294_986, 1_363_908))));
         assert!(!is_base_map(&[NEXUS[0]], Some(SERPEN)) && !is_base_map(&[], None));
         // the tests' own little world (mock.rs) is no 5v5 map: nothing of this in the other tests
         assert!(!is_base_map(&[(0, 0), (0, 0)], Some((700_000, 300_000))));

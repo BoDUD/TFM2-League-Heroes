@@ -13,13 +13,17 @@
 //!
 //! 挑人：范围内的友方英雄（不含施法者），先挑有危险的（生命不高于 `LOW`%、或身边 `CROWD_R` 内有 `CROWD` 个以上敌方英雄）里
 //! 生命比例最低的；都没危险就挑离敌方英雄最近的（正在打的那个）。一个都没有就什么都不做，主包后面「给自己」的那段照常。
+//! 两张 5v5 地图（2026-11-10）：小精灵从璐璐站的地方飞出，夹在这一场的地图里（`game_places::terrain::map_of_sim`：游戏自己的
+//! 960000 见方，Rin 的召唤师峡谷 1614545 见方；以前一律按 960000，峡谷上过了 960000 就从半张图的边上飞出来）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_support_pick.log`。
 
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_support_pick";
@@ -32,6 +36,7 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_support_pick") {
 pub const LOW: usize = 50;
 pub const CROWD: usize = 2;
 pub const CROWD_R: f64 = 25_000.0;
+/// 游戏自己的 5v5 地图边长；峡谷的看 `Map::extent`。
 const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -91,6 +96,19 @@ fn head(sim: &StableSim<'_>, me: usize) -> String {
     format!("[{kind} m={} s={}] t={} #{me}", m(o.match_id), m(o.set_index), sim.tick())
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: Lulu's Whimsy pix flies from where she stands on the Rift's {:.0} square (not the game's own \
+                      {MAP:.0}); {} ==", map.extent(), rift_status()));
+    }
+    map
+}
+
 // ===================== 挑人 =====================
 
 type Pt = (f64, f64);
@@ -132,6 +150,12 @@ pub fn pick_heal(allies: &[Ally]) -> Option<Ally> {
 
 fn pos(e: &StableEntity<'_, '_>) -> Pt {
     (e.pos().0 as f64, e.pos().1 as f64)
+}
+
+/// A spot on `map` in whole units (a projectile's start).
+pub fn upos(map: Map, p: Pt) -> (u64, u64) {
+    let e = map.extent();
+    (p.0.round().clamp(0.0, e - 1.0) as u64, p.1.round().clamp(0.0, e - 1.0) as u64)
 }
 
 fn allies(sim: &StableSim<'_>, me: usize, reach: f64) -> Vec<Ally> {
@@ -211,11 +235,12 @@ impl StableEffectType for Support {
                 let Some((team, at)) = sim.get_entity(caster).map(|e| (e.team(), pos(&e))) else { return };
                 sim.add_buff(caster, &BuffV1::timed("league_lulu_e_got", 1));
                 sim.play_sfx("league_lulu_e_cast", caster, &InputTargetV1::target(caster));
+                let (x, y) = upos(map_here(sim), at);
                 let spec = ProjectileSpawnV1 {
                     caster_id: caster,
                     team,
-                    x: at.0.round().clamp(0.0, MAP - 1.0) as u64,
-                    y: at.1.round().clamp(0.0, MAP - 1.0) as u64,
+                    x,
+                    y,
                     radius: 1_000,
                     speed: 4_500,
                     move_kind: ProjectileMoveKindV1::Target.code(),
@@ -302,5 +327,15 @@ mod tests {
     fn heals_go_to_the_most_missing() {
         assert_eq!(pick_heal(&[a(1, 500, 0, 0.0), a(2, 300, 0, 0.0)]).map(|x| x.id), Some(2));
         assert_eq!(pick_heal(&[a(1, 1000, 0, 0.0)]), None);
+    }
+
+    #[test]
+    fn the_pix_starts_where_lulu_stands_on_either_map() {
+        // the game's own map: held at its edge, as before
+        assert_eq!(upos(Map::Native, (970_000.4, -3.0)), (MAP as u64 - 1, 0));
+        assert_eq!(upos(Map::Native, (480_000.4, 12.6)), (480_000, 13));
+        // the Rift: past 960000 is where she stands, its own edge at 1614545
+        assert_eq!(upos(Map::Rift, (1_300_000.4, 1_500_000.0)), (1_300_000, 1_500_000));
+        assert_eq!(upos(Map::Rift, (2_000_000.0, 5.0)), (Map::Rift.extent() as u64 - 1, 5));
     }
 }
