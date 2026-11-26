@@ -46,6 +46,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, Map};
 use mod_api_stable::*;
 
 pub mod feed;
@@ -104,6 +105,9 @@ const REFRESH: usize = 120;
 const KEEP_EVERY: usize = 6;
 /// 创意工坊那个 mod 的记录：开局 `CONFLICT_EARLY` tick 里每 30 tick 看一次水晶，之后每 600 tick。
 const CONFLICT_EARLY: usize = 1_800;
+/// Rin 峡谷 0.1.65 的时间表（mod 里的 herald.json / 发布清单.json）：8:00 上河道大龙坑三只虚空巢虫，14:45 退场；15:00 峡谷先锋，
+/// 19:45 退场；20:00 莫甘德（我们的纳什男爵）。小龙照游戏数据库的时间在下河道的小龙坑，和它们不在一个坑。
+const RIFT_BARON_T: usize = 20 * 3_600;
 /// 龙魂触发的日志一份模拟前这么多行、之后每这么多行一行。
 const PROC_FIRST: usize = 30;
 const PROC_EVERY: usize = 25;
@@ -147,6 +151,18 @@ const LOG_FIRST: usize = 40;
 const LOG_EVERY: usize = 100;
 
 static COUNTS: LazyLock<Mutex<HashMap<&'static str, usize>>> = LazyLock::new(|| Mutex::new(HashMap::new()));
+
+/// 这次启动见过的地图 mod 自己的野怪名字（每个名字记一行日志）。
+static OTHERS: LazyLock<Mutex<Vec<String>>> = LazyLock::new(|| Mutex::new(Vec::new()));
+
+fn remember_other(name: &str) -> bool {
+    let mut seen = OTHERS.lock().unwrap_or_else(|e| e.into_inner());
+    if seen.iter().any(|n| n == name) || seen.len() >= 16 {
+        return false;
+    }
+    seen.push(name.to_string());
+    true
+}
 
 pub(crate) fn counted(kind: &'static str) -> Option<usize> {
     let mut c = COUNTS.lock().unwrap_or_else(|e| e.into_inner());
@@ -481,6 +497,16 @@ enum Camp {
 }
 
 impl Camp {
+    /// 这只野怪是不是游戏自己的小龙 / 莫甘德：名字里带 serpen（小龙），带 epic 或 morgard（莫甘德）；读不到名字的照旧算。
+    /// 地图 mod 自己加的史诗野怪也可能是这两种实体（Rin 峡谷 0.1.65 的 rift_voidgrub_L / R、tfm2_rift_herald），
+    /// 不能当成小龙、更不能当成纳什男爵（用户 11-26：「增加了虚空潮虫的话 我们大小龙也要调一下进行适配了吧」）。
+    fn own(self, name: Option<&str>) -> bool {
+        name.is_none_or(|n| match self {
+            Camp::Serpen => n.contains("serpen"),
+            Camp::Epic => n.contains("epic") || n.contains("morgard"),
+        })
+    }
+
     fn index(self) -> usize {
         self as usize
     }
@@ -623,6 +649,8 @@ struct Sim {
     /// 小龙坑在哪（第一次看见小龙时记下：认地图用）；元素峡谷的地形（第二条元素亚龙被拿下后）。
     pit: Option<(u64, u64)>,
     terrain: rift::Terrain,
+    /// 这一场的地图（读阵容那一 tick 认的：塔和水晶在原版地图外就是峡谷）。
+    map: Map,
 }
 
 impl Sim {
@@ -673,6 +701,7 @@ impl Sim {
             rebuilt: false,
             pit: None,
             terrain: rift::Terrain::default(),
+            map: Map::Native,
         }
     }
 
@@ -729,6 +758,11 @@ impl Sim {
         }
         self.pls = vec![Pl::default(); seats.len()];
         self.seats = seats;
+        self.map = map_of_sim(sim);
+        if self.map == Map::Rift {
+            say(screen.is_some(), "rift", format!("{} MAP sim #{} Rin's Summoner's Rift: the map's own void grubs (8:00-14:45) and Rift Herald (15:00-19:45) hold the top pit before Baron Nashor (20:00); our drakes are the game's serpent in the bottom pit, on the database's timer - the grubs and the Herald are left alone",
+                                                 head(sim), self.no));
+        }
         let order: Vec<&str> = self.order.iter().map(|e| e.key()).collect();
         say(screen.is_some(), "match", format!("{} MATCH sim #{} drakes in this order: {}, {}, then the rift's {} until the soul{}",
                                                head(sim), self.no, order[0], order[1], order[2],
@@ -869,13 +903,24 @@ impl Sim {
                     _ => continue,
                 },
             };
+            let name = e.name();
+            if !camp.own(name.as_deref()) {
+                // 地图 mod 的巢虫、先锋：不碰，一次启动每个名字记一行（好知道它们在游戏里算哪种实体）
+                let name = name.unwrap_or_default();
+                if remember_other(&name) {
+                    say(screen.is_some(), "other", format!("{} OTHER sim #{} #{} '{name}' kind {:?} at {:?}: the map's own monster, not a drake / Baron - left alone",
+                                                           head(sim), self.no, e.id(), e.kind(), e.pos()));
+                }
+                continue;
+            }
             if e.is_alive() {
-                found.push((camp, e.id(), e.pos(), e.name().unwrap_or_default()));
+                found.push((camp, e.id(), e.pos(), name.unwrap_or_default()));
             }
         }
         for (camp, ent, pos, name) in found {
             match camp {
                 Camp::Serpen if self.serpen.is_none() => {
+                    self.rebase(sim, camp);
                     let element = rules::next_element(&self.order, self.drakes, self.soul.is_some());
                     sim.add_buff(ent, &BuffV1::named(&rules::marker(element)));
                     self.serpen = Some(Alive { ent, element: Some(element), pos, born: now });
@@ -897,12 +942,26 @@ impl Sim {
                     }
                 }
                 Camp::Epic if self.epic.is_none() => {
+                    self.rebase(sim, camp);
                     self.epic = Some(Alive { ent, element: None, pos, born: now });
                     self.dirty = true;
                     say(screen.is_some(), "spawn", format!("{} SPAWN sim #{} Baron Nashor #{ent} '{name}'", head(sim), self.no));
+                    // 峡谷上大龙坑前面是巢虫和先锋，地图自己把莫甘德压到 20:00；早出来说明地图没压住，记下来
+                    if self.map == Map::Rift && now < RIFT_BARON_T {
+                        say(screen.is_some(), "rift_early", format!("{} WARN sim #{} Baron Nashor up at {}:{:02} on the Rift, before the map's 20:00 (the void grubs 8:00-14:45 and the Rift Herald 15:00-19:45 share his pit)",
+                                                                    head(sim), self.no, now / 3600, now / 60 % 60));
+                    }
                 }
                 _ => {}
             }
+        }
+    }
+
+    /// 自己的龙刚刷出来：统计的底数重取一次。地图 mod 的巢虫、先锋被打死时游戏可能也记进 epic_secure / serpen_secure，
+    /// 不重取的话下一次拿龙两队都涨，认不出是谁拿的。原版地图上两次拿龙之间没有别的，重取的数和原来一样。
+    fn rebase(&mut self, sim: &StableSim<'_>, camp: Camp) {
+        if let Some(sums) = self.secure_sums(sim, camp.stat()) {
+            self.secure[camp.index()] = sums;
         }
     }
 

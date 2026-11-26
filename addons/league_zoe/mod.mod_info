@@ -12,9 +12,9 @@
     }
   ],
   "description": "Test build of Zoe as in League (needs League of Legends Heroes): replaces the main pack's Zoe so Paddle Star is thrown out first and redirected at the target, growing with the whole distance it flew (the main pack: a straight star, three steps by flight time), Sleepy Trouble Bubble flies farther over a wall and its sleep breaks on any damage, that hit landing again as true damage (the main pack: a plain 2 s sleep), and Spell Thief picks up spell shards that enemy champions drop when they cast their ult (a summoner spell, three missiles and a burst of speed; Portal Jump no longer triggers it). Other champions are untouched. Writes a log for testing.",
-  "last_updated": "2026-11-20",
+  "last_updated": "2026-11-26",
   "mod_id": "league_zoe",
   "mod_type": "native",
   "name": "League Heroes: Zoe's sleep, redirected Paddle Star and Spell Thief shards (test)",
-  "version": "0.8.0"
+  "version": "0.8.1"
 }
