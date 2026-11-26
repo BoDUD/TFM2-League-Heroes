@@ -12,14 +12,18 @@
 //! - 他死了就不炸（落点只是画面）。
 //!
 //! 数字和主包 P 表的值写在这里（`R_*`），主包改了这里一起改（`tests::the_numbers_match_the_kit` 读主包的参数表核对）。
+//! 两张 5v5 地图（2026-11-10）：落点拉回的是这一场的地图（`game_places::terrain::map_of_sim`）——游戏自己的 960000 见方，
+//! Rin 的召唤师峡谷 1614545 见方（以前一律拉回 960000，峡谷上 960000 以外的落点都被拉到半张图的边上）。
 //! 日志：`%APPDATA%\TeamSamoyed\TeamfightManager2\data\league_gragas.log`，每次启动游戏重写。
 
 use std::collections::HashMap;
 use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::PathBuf;
+use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_gragas";
@@ -56,7 +60,7 @@ pub const BODY: f64 = 6_000.0;
 pub const CHAMP_SCORE: f64 = 10.0;
 pub const BACK_SCORE: f64 = 1.0;
 pub const UNIT_SCORE: f64 = 0.5;
-/// 地图边长（坐标 0..MAP）。
+/// 游戏自己的 5v5 地图边长（坐标 0..MAP）；峡谷的看 `Map::extent`。
 pub const MAP: f64 = 960_000.0;
 
 // ===================== 日志 =====================
@@ -141,6 +145,19 @@ fn pt(p: (f64, f64)) -> String {
     format!("({:.0},{:.0})", p.0, p.1)
 }
 
+/// 这次启动已经在日志里说过峡谷了。
+static RIFT_TOLD: AtomicBool = AtomicBool::new(false);
+
+/// 这一场的地图；第一次碰到峡谷（一次启动）时日志写一行。
+fn map_here(sim: &StableSim<'_>) -> Map {
+    let map = map_of_sim(sim);
+    if map == Map::Rift && !RIFT_TOLD.swap(true, Ordering::Relaxed) {
+        wlog(format!("== Rift: the cask's spot is kept on the Rift's {:.0} square (not the game's own {MAP:.0}); {} ==",
+                     map.extent(), rift_status()));
+    }
+    map
+}
+
 // ===================== 落点 =====================
 
 pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
@@ -167,22 +184,33 @@ pub fn score(me: (f64, f64), spot: (f64, f64), foes: &[Foe]) -> f64 {
         .sum()
 }
 
-/// 拉回地图上（坐标 0..MAP）：酒桶飞到、爆炸的就是这一点。
+/// 拉回游戏自己的地图上（坐标 0..MAP）：[`onto`] 的游戏自己的地图。
 pub fn on_map(p: (f64, f64)) -> (f64, f64) {
-    (p.0.clamp(0.0, MAP - 1.0), p.1.clamp(0.0, MAP - 1.0))
+    onto(Map::Native, p)
+}
+
+/// 拉回 `map` 上（坐标 0..边长）：酒桶飞到、爆炸的就是这一点。
+pub fn onto(map: Map, p: (f64, f64)) -> (f64, f64) {
+    let e = map.extent();
+    (p.0.clamp(0.0, e - 1.0), p.1.clamp(0.0, e - 1.0))
+}
+
+/// 游戏自己的地图上的 [`best_spot_on`]。
+pub fn best_spot(me: (f64, f64), target: (f64, f64), foes: &[Foe]) -> (f64, f64) {
+    best_spot_on(Map::Native, me, target, foes)
 }
 
 /// 最好的落点：每个够得着的敌方英雄身后 0 / BEHIND_1 / BEHIND_2 处，分最高的；同分取更靠后的（离他更远）。
 /// `target` 是大招的目标：没有更好的点时就落在它身后。
 /// 落点先拉回地图上再打分（0.1.2，2026-11-03 的日志：`CASK at (-15810,300765) (target (0,298307)...`——目标贴着地图边，
-/// 身后的点在地图外，打分按地图外那一点算，酒桶和爆炸却被 `upos` 拉到了地图边上）。
-pub fn best_spot(me: (f64, f64), target: (f64, f64), foes: &[Foe]) -> (f64, f64) {
+/// 身后的点在地图外，打分按地图外那一点算，酒桶和爆炸却被 `upos` 拉到了地图边上）；拉回的是这一场的地图 `map`。
+pub fn best_spot_on(map: Map, me: (f64, f64), target: (f64, f64), foes: &[Foe]) -> (f64, f64) {
     let mut best: Option<((f64, f64), f64, f64)> = None;
     let anchors = std::iter::once(target).chain(foes.iter().filter(|f| f.champion).map(|f| f.at));
     for c in anchors {
         let Some(u) = unit((c.0 - me.0, c.1 - me.1)) else { continue };
         for off in [0.0, BEHIND_1, BEHIND_2] {
-            let spot = on_map((c.0 + u.0 * off, c.1 + u.1 * off));
+            let spot = onto(map, (c.0 + u.0 * off, c.1 + u.1 * off));
             if dist(me, spot) > REACH {
                 continue;
             }
@@ -197,7 +225,7 @@ pub fn best_spot(me: (f64, f64), target: (f64, f64), foes: &[Foe]) -> (f64, f64)
             }
         }
     }
-    best.map_or(on_map(target), |b| b.0)
+    best.map_or(onto(map, target), |b| b.0)
 }
 
 // ===================== 小工具 =====================
@@ -215,8 +243,14 @@ fn input_pos(input: &InputTargetV1) -> Option<(f64, f64)> {
     (input.kind == InputTargetKindV1::Pos.code()).then_some((input.x as f64, input.y as f64))
 }
 
+/// The game's own map's [`upos_on`] (the tests' spots).
+#[cfg(test)]
 fn upos(p: (f64, f64)) -> (u64, u64) {
-    let p = on_map(p);
+    upos_on(Map::Native, p)
+}
+
+fn upos_on(map: Map, p: (f64, f64)) -> (u64, u64) {
+    let p = onto(map, p);
     (p.0.round() as u64, p.1.round() as u64)
 }
 
@@ -258,9 +292,10 @@ fn cask(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         wlog(format!("{} cask: no target in the input (kind {})", head(sim, caster), input.kind));
         return;
     };
-    let spot = best_spot(me, target, &list);
-    let (x, y) = upos(me);
-    let (tx, ty) = upos(spot);
+    let map = map_here(sim);
+    let spot = best_spot_on(map, me, target, &list);
+    let (x, y) = upos_on(map, me);
+    let (tx, ty) = upos_on(map, spot);
     let d = dist(me, spot);
     let spec = ProjectileSpawnV1 {
         caster_id: caster,
@@ -451,6 +486,29 @@ mod tests {
         let s = best_spot(me, t, &[champ(t.0, t.1)]);
         assert!(inside(s) && dist(s, t) <= R_R + BODY, "{s:?}");
         assert_eq!(upos((-5.0, MAP + 10.0)), (0, MAP as u64 - 1));
+    }
+
+    #[test]
+    fn on_the_rift_the_spot_stays_on_its_bigger_square() {
+        let rift = Map::Rift.extent();
+        // past 960000 is the Rift's ground, not the edge of the map
+        assert_eq!(onto(Map::Rift, (1_300_000.0, 1_500_000.0)), (1_300_000.0, 1_500_000.0));
+        assert_eq!(onto(Map::Rift, (-1.0, 2_000_000.0)), (0.0, rift - 1.0));
+        assert_eq!(upos_on(Map::Rift, (1_614_000.4, MAP + 10.0)), (1_614_000, MAP as u64 + 10));
+        // a target in the Rift's far half: the spot behind it is scored and thrown there, not at the game's own edge
+        let me = (1_100_000.0, 800_000.0);
+        let t = (1_150_000.0, 820_000.0);
+        let s = best_spot_on(Map::Rift, me, t, &[champ(t.0, t.1)]);
+        assert!(s.0 > t.0 && s.0 < rift && dist(s, t) <= R_R + BODY, "{s:?}");
+        assert_eq!(best_spot(me, t, &[champ(t.0, t.1)]).0, MAP - 1.0, "the game's own map pulls it to its edge");
+        // and on the Rift's own far edge
+        let me = (1_540_000.0, 800_000.0);
+        let t = (1_600_000.0, 820_000.0);
+        let s = best_spot_on(Map::Rift, me, t, &[champ(t.0, t.1)]);
+        assert!(s.0 <= rift - 1.0 && dist(s, t) <= R_R + BODY, "{s:?}");
+        // the game's own map: the same as before
+        let (me, t) = ((27_000.0, 305_000.0), (0.0, 298_307.0));
+        assert_eq!(best_spot_on(Map::Native, me, t, &[champ(t.0, t.1)]), best_spot(me, t, &[champ(t.0, t.1)]));
     }
 
     #[test]

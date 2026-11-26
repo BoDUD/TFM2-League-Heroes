@@ -1,5 +1,5 @@
-//! 本包改的游戏文字（`text/object.i18n`、`text/ui.i18n`、`text/strategy.i18n`：莫尔加德 -> 纳什男爵 / 巴龍 / Baron Nashor，
-//! 双角巨蛇 -> 元素亚龙 / 元素亞龍 / Elemental Drake）的检查。工作区没有 JSON 库，这里一个只认对象和字符串的小读法（i18n 文件
+//! 本包改的游戏文字（`text/object.i18n`、`text/ui.i18n`、`text/strategy.i18n`：莫尔加德 -> 纳什男爵 / 巴龍 / Baron Nashor /
+//! 내셔 남작 / バロンナッシャー，双角巨蛇 -> 元素亚龙 / 元素亞龍 / Elemental Drake / 원소 드래곤 / エレメンタルドラゴン）的检查。工作区没有 JSON 库，这里一个只认对象和字符串的小读法（i18n 文件
 //! 里只有这两样）。
 
 use super::rules::{self, DRAKES};
@@ -131,18 +131,22 @@ fn placeholders(s: &str) -> Vec<String> {
     v
 }
 
-const LANGS: [(&str, Lang); 3] = [("zh-hans", Lang::Hans), ("zh-hant", Lang::Hant), ("en", Lang::En)];
+const LANGS: [(&str, Lang); 5] =
+    [("zh-hans", Lang::Hans), ("zh-hant", Lang::Hant), ("en", Lang::En), ("ko", Lang::Ko), ("ja", Lang::Ja)];
 
-/// The game's own names (0.7.0's text/object, text/ui, text/strategy) that must be gone from what we merge in.
+/// The game's own names (0.7.0's text/object, text/ui, text/strategy; Korean and Japanese from 0.7.4) that must be gone
+/// from what we merge in.
 fn native_names(lang: &str) -> &'static [&'static str] {
     match lang {
         "zh-hans" => &["莫尔加德", "双角巨蛇", "瑟彭", "塞尔彭"],
         "zh-hant" => &["莫加德", "莫爾加德", "蛇彭", "瑟彭", "塞爾彭"],
+        "ko" => &["모르가드", "세르펜"],
+        "ja" => &["モルガード", "セルペン"],
         _ => &["Morgard", "Serpen"],
     }
 }
 
-/// Every key of the game's text/ui that names the Serpen or Morgard (game 0.7.0, all three languages).
+/// Every key of the game's text/ui that names the Serpen or Morgard (game 0.7.0, all five languages).
 const UI_KEYS: [&str; 21] = [
     "database_edit.number_field.epic_jungle",
     "database_edit.number_field.serpen_jungle",
@@ -168,12 +172,12 @@ const UI_KEYS: [&str; 21] = [
 ];
 
 #[test]
-fn the_names_are_overridden_in_all_three_languages() {
+fn the_names_are_overridden_in_all_five_languages() {
     for file in ["object", "ui", "strategy"] {
         let f = load(file);
         let mut langs: Vec<&str> = f.iter().map(|x| x.0.as_str()).collect();
         langs.sort();
-        assert_eq!(langs, vec!["en", "zh-hans", "zh-hant"], "{file}");
+        assert_eq!(langs, vec!["en", "ja", "ko", "zh-hans", "zh-hant"], "{file}");
         for (lang, kv) in &f {
             for (k, v) in kv {
                 assert!(!v.trim().is_empty(), "{file} {lang} {k} empty");
@@ -197,6 +201,8 @@ fn the_names_are_overridden_in_all_three_languages() {
         };
         assert_eq!(keys("zh-hans"), keys("en"), "{file}");
         assert_eq!(keys("zh-hant"), keys("en"), "{file}");
+        assert_eq!(keys("ko"), keys("en"), "{file}");
+        assert_eq!(keys("ja"), keys("en"), "{file}");
         for k in keys("en") {
             let p = placeholders(get(&f, "en", &k));
             for (l, _) in LANGS {
@@ -218,9 +224,12 @@ fn the_names_are_overridden_in_all_three_languages() {
     assert_eq!(get(&ui, "zh-hans", "match.log.red_serpen"), "<#f7b1b8ff>红方<>击杀了元素亚龙！");
     assert_eq!(get(&ui, "zh-hant", "ingame.epic"), "巴龍擊殺");
     assert_eq!(get(&ui, "en", "set_result.serpen"), "Elemental Drake");
+    assert_eq!(get(&ui, "ko", "match.log.red_serpen"), "<#f7b1b8ff>레드 팀<>이 원소 드래곤을 처치했습니다!");
+    assert_eq!(get(&ui, "ja", "match.log.blue_epic"), "<#adb9ffff>ブルーチーム<>がバロンナッシャーを倒しました！");
     let obj = load("object");
     for (l, lang, baron, drake) in [("zh-hans", Lang::Hans, "纳什男爵", "元素亚龙"), ("zh-hant", Lang::Hant, "巴龍", "元素亞龍"),
-                                    ("en", Lang::En, "Baron Nashor", "Elemental Drake")] {
+                                    ("en", Lang::En, "Baron Nashor", "Elemental Drake"), ("ko", Lang::Ko, "내셔 남작", "원소 드래곤"),
+                                    ("ja", Lang::Ja, "バロンナッシャー", "エレメンタルドラゴン")] {
         assert_eq!(get(&obj, l, "epic.name"), baron);
         assert_eq!(get(&obj, l, "serpen.name"), drake);
         // the screen's language is read from this very name
@@ -239,7 +248,9 @@ fn the_descriptions_carry_the_gameplay_numbers() {
             let part = format!("{} {}", words::element(lang, e), words::stack_effect(lang, e));
             assert!(drakes.contains(&part), "{l}: {part:?} not in {drakes}");
         }
-        assert!(drakes.contains(&format!(" {} ", rules::SOUL_AT)), "{l}");
+        // 韩语的数字贴着量词写（4마리）
+        let soul_at = if lang == Lang::Ko { format!(" {}마리", rules::SOUL_AT) } else { format!(" {} ", rules::SOUL_AT) };
+        assert!(drakes.contains(&soul_at), "{l}");
         let baron = get(&obj, l, "epic.buff_desc");
         for n in [words::secs(rules::BARON_T), format!("{}%", rules::BARON_PCT), format!("{}%", rules::MINION_REDUCE),
                   format!("{}%", rules::MINION_ATTACK)] {

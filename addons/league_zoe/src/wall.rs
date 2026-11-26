@@ -4,7 +4,8 @@
 //! 落下。数据的投射物射程是死的，所以副本里放两颗气泡：平常的 `e_len`，和长 `e_wall` 的那颗；她开始踢（目标身上挂着
 //! `league_zoe_e_aim`）时这里看她到目标这条线，前 `e_len` 的空地以内有一段墙、能穿出去，就给她挂 `league_zoe_e_far`，
 //! 出手时数据踢长的那颗。墙是游戏内置的格子（`maps.rs`，同闪现的落点）：三张图里挑英雄站进墙里最少的那张（斯卡纳附加包的
-//! 挑法）。
+//! 挑法）。召唤师峡谷（Rin 的地图 mod，0.1.65 起）用作者的墙体文件（`game_places::terrain::rift_walls`，地形本身，不是往外长
+//! 一格的站位格），没有这个文件时峡谷上不踢长的那颗。
 
 use super::Pt;
 
@@ -33,8 +34,13 @@ pub fn grid_of(champions: &[Pt]) -> &'static [&'static str] {
 }
 
 /// 气泡从 `from` 朝 `to` 踢出去，前 `open` 的空地以内碰到的第一段墙有多长（能从另一边穿出去才算，地图边上的不算）。
-/// 没有墙、墙太薄（`WALL_MIN` 以下）或者穿不出去就是 None。
+/// 没有墙、墙太薄（`WALL_MIN` 以下）或者穿不出去就是 None。墙是游戏自己的格子 `rows`（960000 见方）。
 pub fn crossing(rows: &[&str], from: Pt, to: Pt, open: f64) -> Option<f64> {
+    crossing_by(|x, y| is_wall(rows, x, y), 960_000.0, from, to, open)
+}
+
+/// 同 [`crossing`]，墙由 `wall` 说，地图 `side` 见方（峡谷：作者的墙体文件、1937454）。
+pub fn crossing_by(wall: impl Fn(f64, f64) -> bool, side: f64, from: Pt, to: Pt, open: f64) -> Option<f64> {
     let (dx, dy) = (to.0 - from.0, to.1 - from.1);
     let l = (dx * dx + dy * dy).sqrt();
     if l < 1.0 {
@@ -45,14 +51,14 @@ pub fn crossing(rows: &[&str], from: Pt, to: Pt, open: f64) -> Option<f64> {
     let mut t = 0.0;
     let mut entered: Option<f64> = None;
     // 墙里那段不算射程，最远看到出了地图为止
-    while t < 960_000.0 * 1.5 {
+    while t < side * 1.5 {
         t += STEP;
         let (x, y) = (from.0 + ux * t, from.1 + uy * t);
-        let outside = x < 0.0 || y < 0.0 || x >= 960_000.0 || y >= 960_000.0;
+        let outside = x < 0.0 || y < 0.0 || x >= side || y >= side;
         if outside {
             return None;
         }
-        let w = is_wall(rows, x, y);
+        let w = wall(x, y);
         match (entered, w) {
             (None, true) => {
                 if used >= open {
@@ -92,6 +98,20 @@ mod tests {
         assert!((run - 64_000.0).abs() <= STEP, "{run}");
         // the row below has no wall: nothing to cross
         assert_eq!(crossing(&ROWS, (70_000.0, 2.5 * CELL), (300_000.0, 2.5 * CELL), 85_000.0), None);
+    }
+
+    /// 峡谷（0.1.65，1937454 见方）：墙由作者的墙体文件说，960000 以外照样能穿；出了峡谷才算到边。
+    #[test]
+    fn on_the_rift_the_walls_file_and_its_side() {
+        // a wall 30000 thick at x 1300000..1330000 across the whole map's height
+        let wall = |x: f64, _y: f64| (1_300_000.0..1_330_000.0).contains(&x);
+        let side = 1_937_454.0;
+        let run = crossing_by(wall, side, (1_250_000.0, 1_500_000.0), (1_500_000.0, 1_500_000.0), 85_000.0).unwrap();
+        assert!((run - 30_000.0).abs() <= STEP, "{run}");
+        // the game's own map ends at 960000: the same kick out there is off its map
+        assert_eq!(crossing_by(wall, 960_000.0, (1_250_000.0, 1_500_000.0), (1_500_000.0, 1_500_000.0), 85_000.0), None);
+        // the Rift's edge
+        assert_eq!(crossing_by(|_, _| false, side, (1_900_000.0, 800_000.0), (2_100_000.0, 800_000.0), 85_000.0), None);
     }
 
     #[test]

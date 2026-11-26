@@ -448,7 +448,8 @@ unsafe fn apply(ch: &Change, alias: Option<&[u8]>) -> Option<&'static str> {
 
 /// 界面文字里小龙的名字：远古巨龙在场（屏幕上这一刻的那一条是远古巨龙）时换掉（用户 2026-11-26：「击杀完远古巨龙后还是
 /// 提示的击杀的元素亚龙」——击杀记录、点选面板这些是游戏自己的字，一直是「元素亚龙」）。换成的不比原来长：就地改。
-const ELDER_NAMES: [(&str, &str); 3] = [("元素亚龙", "远古巨龙"), ("元素亞龍", "遠古巨龍"), ("Elemental Drake", "Elder Dragon")];
+const ELDER_NAMES: [(&str, &str); 5] = [("元素亚龙", "远古巨龙"), ("元素亞龍", "遠古巨龍"), ("Elemental Drake", "Elder Dragon"),
+                                        ("원소 드래곤", "장로 드래곤"), ("エレメンタルドラゴン", "エルダードラゴン")];
 /// 只看这么长以内的文字（击杀记录一行、名字）。
 const TEXT_MAX: usize = 512;
 
@@ -738,6 +739,9 @@ mod tests {
         assert_eq!(elder_text("<#f7b1b8ff>红方<>击杀了元素亚龙！".as_bytes()).unwrap(), "<#f7b1b8ff>红方<>击杀了远古巨龙！".as_bytes());
         assert_eq!(elder_text("元素亞龍".as_bytes()).unwrap(), "遠古巨龍".as_bytes());
         assert_eq!(elder_text(b"Red killed the Elemental Drake!").unwrap(), b"Red killed the Elder Dragon!");
+        assert_eq!(elder_text("<#adb9ffff>블루 팀<>이 원소 드래곤을 처치했습니다!".as_bytes()).unwrap(),
+                   "<#adb9ffff>블루 팀<>이 장로 드래곤을 처치했습니다!".as_bytes());
+        assert_eq!(elder_text("エレメンタルドラゴン撃破".as_bytes()).unwrap(), "エルダードラゴン撃破".as_bytes());
         assert_eq!(elder_text("纳什男爵".as_bytes()), None);
         assert_eq!(elder_text(&[0xff, 0xfe]), None, "not text");
         for (a, b) in ELDER_NAMES {

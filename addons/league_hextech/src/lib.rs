@@ -39,6 +39,7 @@ pub mod fx;
 pub mod fx_atlas;
 pub mod hd;
 pub mod kit;
+pub mod kj;
 pub mod pending;
 pub mod procs;
 pub mod rules;
