@@ -10,7 +10,8 @@ Ezreal Q, Ekko E, Darius W, Riven E, Lee Sin W, Lux W, Vayne Q, Twisted Fate Q, 
 Samira W, Kayn E, Lucian W, Kai'Sa E, Evelynn Q, etc.) even though Riot's zh_CN voice bank has real cast voice events for them.
 
 Wiring gives each VO clip a `.sound_info` of its own, `league_<slug>_<slot>_vo` (tools/kit/vo_gate.py), takes it out of
-the spell's `.sound_info` if it is there, and registers its clip override in `league/mod.override_info`. The packers
+the spell's `.sound_info` if it is there, and registers the clip and the line in `league/mod.override_info` (the game
+finds a sound only through its `asset/base/sound/sfx/<name>` entry). The packers
 (tools/package_mod.py, addons/league_addons/assemble.py) then play the line through tools/kit/vo_gate.py where the
 spell's sound plays: at most once every 10 s per hero and spell, as the kits' own lines (2026-11-26: wired as one more
 clip in the spell's `.sound_info` it was said at every cast - Ezreal's Q all match long). No `.data_champion` edits.
@@ -181,9 +182,11 @@ def wire_repo():
             with open(vo_path, "w", encoding="utf-8", newline="\n") as f:
                 f.write(json.dumps(vo, indent=2, ensure_ascii=False) + "\n")
             wired += 1
-        key = f"asset/base/sound/sfx/{clip}"
-        if key not in ov:
-            ov[key] = {"remapping": f"asset/league/sound/sfx/{clip}", "type": "override"}
+        # the clip and the line's .sound_info: the game finds a sound only through its override entry
+        for name in (clip, voice_name(slug, slot)):
+            key = f"asset/base/sound/sfx/{name}"
+            if key not in ov:
+                ov[key] = {"remapping": f"asset/league/sound/sfx/{name}", "type": "override"}
     # Keep keys sorted stably as repo does? Preserve insertion / sort cleanly
     with open(ov_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(json.dumps(ov, indent=2, ensure_ascii=False) + "\n")
@@ -246,6 +249,8 @@ def extract_all(lol_dir, vgmstream, lang="zh_CN", install_mods=None):
                 with open(lp(os.path.join(sfx_dir, f"{si}.sound_info")), "w", encoding="utf-8", newline="\n") as f:
                     f.write(json.dumps(src_si, separators=(",", ":"), ensure_ascii=False))
             ov[f"asset/base/sound/sfx/{clip}"] = {"remapping": f"asset/league/sound/bgm/{clip}", "type": "override"}
+            ov[f"asset/base/sound/sfx/{voice_of[clip]}"] = {"remapping": f"asset/league/sound/sfx/{voice_of[clip]}",
+                                                             "type": "override"}
         with open(ov_path, "w", encoding="utf-8", newline="\n") as f:
             f.write(json.dumps(ov, separators=(",", ":"), ensure_ascii=False))
         print(f"Installed {len(extracted)} streamed MP3s + .sound_info + mod.override_info -> {install_mods}")
