@@ -8,7 +8,7 @@
     },
     {
       "mod_id": "league",
-      "version": ">=0.176.0"
+      "version": ">=0.472.0"
     }
   ],
   "description": "Test build of Vex as in League V26.13 (needs League of Legends Heroes): replaces the main pack's Vex so Gloom sits on each enemy (Looming Darkness, and any enemy champion or monster dashing or blinking near her) and pops on her next attack, Mistral Bolt or Personal Space hit on that enemy (by level; less on minions and monsters), shortening Doom's wait 25% (10% off a non-champion, and a Looming Darkness kill too); Doom's cooldown and fear go by level, the fear runs away from her or from Looming Darkness's spot and slows more the farther it is; Shadow Surge surges onto a champion it can kill and comes back when its marked champion dies within 8 s. Other champions are untouched. Writes a log for testing.",
