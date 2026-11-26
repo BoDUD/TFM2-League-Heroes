@@ -85,11 +85,11 @@ P = {
     # 越远越大（p_fs_lo% 到 p_fs_hi%，p_fs_d 外都是 p_fs_hi%）；暮气挂在 p_dash_r 内突进 / 闪现的人身上，引爆伤害 g_lo 到 g_hi
     # （按等级）+ g_ratio%，对非英雄打 g_u_lo% 到 g_u_hi%，缩短终焉等待 g_cut% / g_cut_u%；E 打死英雄 / 别的缩短 e_cut_c% /
     # e_cut%；愁煞标记后 r_reset tick 内阵亡，r_free tick 后能再放
-    "p_cd1": 1030, "p_fear4": 90, "p_fs_lo": 60, "p_fs_hi": 99, "p_fs_d": 80000,
+    "p_cd1": 1200, "p_fear4": 90, "p_fs_lo": 60, "p_fs_hi": 99, "p_fs_d": 80000,
     "p_dash_r": 160000, "g_lo": 26, "g_hi": 107, "g_u_lo": 40, "g_u_hi": 60, "g_cut": 25, "g_cut_u": 10,
     "e_cut": 10, "e_cut_c": 25, "r_reset": 480, "r_free": 30, "r_kill": 100, "r_crowd": 1,
     # 副本里愁煞的冷却（附加包能刷新它）
-    "r_cd_c": 2100,
+    "r_cd_c": 2520,
     "native": 0,
 }
 # 附加包被动读的参数（passive.params，全是非负整数）
@@ -268,7 +268,7 @@ def build(p):
             return [down, buff("f_e" if kind == "e" else "f_q", 2)]
         return [down, fear(p["p_fear"]), buff("p_fslow", p["p_fear"], move_speed_mult=-p["p_fslow"])]
 
-    # Gloom (data's stand-in): her first attack / Q / W hit on a champion inside E's window deals the Gloom damage
+    # 暮气（主包的替代做法）：E 开的窗口里，她第一下打中英雄的普攻、Q 或 W 补暮气伤害
     pop = NONE if native else sw("g_win", combine(*rm("g_win"), ap(p["g_dmg"], p["g_ratio"]), view("g_pop"),
                                                   tsfx("g_pop")))
 
@@ -346,7 +346,7 @@ def build(p):
                             delayed(p["e_rel"] - 1, alive(doomed(darkness(False), darkness(True))))))
 
     # ------------------------------------------------------------------ ult: R Shadow Surge
-    # she lands with Personal Space when it is ready (League's R -> W); 愁煞不引爆暮气（英雄联盟只有普攻和 Q、W）
+    # 生人勿近好了就落地放一次（英雄联盟的 R → W）；愁煞自己不引爆暮气（英雄联盟只有普攻和 Q、W）
     strike = [ap(p["r2_dmg"], p["r2_ratio"]), view("r_hit"), tsfx("r_hit")] + (
         [sw("w_cd", NONE, space())] if p["r_w"] else [])
     # 停在他 r_stop 外：佐伊大招的跳——一条看不见的线碰到第一个英雄就停、终点把她放过去，再从那里打

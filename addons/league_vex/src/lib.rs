@@ -5,7 +5,8 @@
 //! 被动 `league_vex:gloom`：
 //!
 //! - **暮气**：溟濛渐染打中的敌人挂 `league_vex_g_mark`（`g_t` tick，主包也挂）；她 `p_dash_r` 以内突进或闪现的敌方英雄和野怪
-//!   （一 tick 里移动了 `DASH_STEP` 到 `BLINK_MAX`，被击退、拉拽、击飞的不算）也被挂上。副本里她的普攻、Q、W 打中的单位挂
+//!   （连着两 tick 平均每 tick 走了 `DASH_STEP` 以上、也是他移速的 `DASH_X` 倍以上，一步不超过 `BLINK_MAX`；被击退、拉拽、
+//!   击飞的不算）也被挂上。副本里她的普攻、Q、W 打中的单位挂
 //!   2 tick 的 `league_vex_v_hit`（E、R 不挂：英雄联盟里它们不引爆）；带暮气的单位被她打中就**引爆**：摘掉暮气，补魔法伤害
 //!   （`g_lo` 到 `g_hi` 按等级 + `g_ratio`% 法强，对非英雄只打 `g_u_lo`% 到 `g_u_hi`%），终焉的等待缩短 `g_cut`%（非英雄 `g_cut_u`%）。
 //! - **终焉**：数据用掉终焉时给她挂 `league_vex_p_wait`（`p_cd1` tick）；本包看到新挂上的就按等级改成英雄联盟的比例
@@ -162,7 +163,7 @@ pub struct Params {
 impl Default for Params {
     fn default() -> Self {
         Self {
-            p_cd1: 1030, p_fear: 45, p_fear4: 90, p_fs_lo: 60, p_fs_hi: 99, p_fs_d: 80000, p_dash_r: 160000, g_t: 360,
+            p_cd1: 1200, p_fear: 45, p_fear4: 90, p_fs_lo: 60, p_fs_hi: 99, p_fs_d: 80000, p_dash_r: 160000, g_t: 360,
             g_lo: 26, g_hi: 107, g_ratio: 25, g_u_lo: 40, g_u_hi: 60, g_cut: 25, g_cut_u: 10, e_cut: 10, e_cut_c: 25,
             e_r: 25000, e_fly: 18, r_reset: 480, r_free: 30, r_wait: 8, r_kill: 100, r_crowd: 1, r2_dmg: 164,
             r2_ratio: 50, w_dmg: 105, w_ratio: 30,
@@ -246,11 +247,11 @@ pub fn fear_ticks(p: &Params, level: usize) -> usize {
     lo + (hi - lo) * rank4(level) / 3
 }
 
-/// 恐惧时的减速 %：离她越远越大。
+/// 恐惧时的减速 %：离她 0 时 `p_fs_lo`，`p_fs_d` 以外 `p_fs_hi`，中间按距离（英雄联盟只写了「60%–99%，按离她的远近」，
+/// 没写哪头近，两头都能配）。
 pub fn fear_slow(p: &Params, dist: f64) -> usize {
-    let (lo, hi) = (p.p_fs_lo, p.p_fs_hi.max(p.p_fs_lo));
-    let d = dist.clamp(0.0, p.p_fs_d as f64);
-    lo + ((hi - lo) as f64 * d / p.p_fs_d as f64).round() as usize
+    let d = dist.clamp(0.0, p.p_fs_d as f64) / p.p_fs_d as f64;
+    (p.p_fs_lo as f64 + (p.p_fs_hi as f64 - p.p_fs_lo as f64) * d).round() as usize
 }
 
 /// 引爆暮气的魔法伤害（减免前）：她的等级、法强，打的是不是英雄。
@@ -639,7 +640,7 @@ impl StablePassive for Gloom {
         let level = e.level();
         let tick = sim.tick();
         let seen = scan(sim, team);
-        // Gloom pops, fears and the reset go on after her death (her bolts still flying); only a living Vex marks a dash
+        // 她死了以后引爆、恐惧、刷新照样算（她的弹还在飞）；突进只有她活着时才挂暮气
         self.doom(sim, me, alive, level);
         self.detonate(sim, me, &seen, ap, level);
         self.dashes(sim, me, &seen, pos, alive);
@@ -705,24 +706,28 @@ mod tests {
     #[test]
     fn doom_goes_by_level_as_in_league() {
         let p = Params::default();
-        // 25 / 22 / 19 / 16 s from p_cd1 at level 1
-        assert_eq!([1, 4, 5, 7, 8, 10, 11, 12].map(|l| doom_cd(&p, l)), [1030, 1030, 906, 906, 782, 782, 659, 659]);
-        // 0.75 / 1 / 1.25 / 1.5 s
+        // 1 级 p_cd1 起，照英雄联盟 25 / 22 / 19 / 16 秒的比例
+        assert_eq!([1, 4, 5, 7, 8, 10, 11, 12].map(|l| doom_cd(&p, l)), [1200, 1200, 1056, 1056, 912, 912, 768, 768]);
+        // 0.75 / 1 / 1.25 / 1.5 秒
         assert_eq!([1, 5, 8, 11].map(|l| fear_ticks(&p, l)), [45, 60, 75, 90]);
     }
 
     #[test]
-    fn the_fear_slows_more_the_farther_from_her() {
-        let p = Params::default();
+    fn the_fear_slow_goes_by_her_distance() {
+        let p = Params { p_fs_lo: 60, p_fs_hi: 99, ..Params::default() };
         assert_eq!(fear_slow(&p, 0.0), 60);
         assert_eq!(fear_slow(&p, 40_000.0), 80);
         assert_eq!(fear_slow(&p, 80_000.0), 99);
         assert_eq!(fear_slow(&p, 200_000.0), 99);
+        let q = Params { p_fs_lo: 99, p_fs_hi: 60, ..Params::default() };
+        assert_eq!(fear_slow(&q, 0.0), 99);
+        assert_eq!(fear_slow(&q, 40_000.0), 80);
+        assert_eq!(fear_slow(&q, 120_000.0), 60);
     }
 
     #[test]
     fn a_pop_goes_by_level_and_hits_units_for_less() {
-        let p = Params::default();
+        let p = Params { g_lo: 26, g_hi: 107, g_ratio: 25, g_u_lo: 40, g_u_hi: 60, ..Params::default() };
         assert_eq!(gloom_damage(&p, 1, 100, true), 26 + 25);
         assert_eq!(gloom_damage(&p, 12, 100, true), 107 + 25);
         assert_eq!(gloom_damage(&p, 1, 100, false), 51 * 40 / 100);

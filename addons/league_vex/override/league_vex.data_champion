@@ -11,7 +11,7 @@
   "passive": {
     "passive_ref": "league_vex:gloom",
     "params": {
-      "p_cd1": 1030,
+      "p_cd1": 1200,
       "p_fear": 45,
       "p_fear4": 90,
       "p_fs_lo": 60,
@@ -442,7 +442,7 @@
                                                                       "name": "league_vex_p_wait",
                                                                       "duration": {
                                                                         "Time": {
-                                                                          "tick": 1030
+                                                                          "tick": 1200
                                                                         }
                                                                       }
                                                                     },
@@ -840,7 +840,7 @@
                                     "name": "league_vex_p_wait",
                                     "duration": {
                                       "Time": {
-                                        "tick": 1030
+                                        "tick": 1200
                                       }
                                     }
                                   },
@@ -1432,7 +1432,7 @@
                                     "name": "league_vex_p_wait",
                                     "duration": {
                                       "Time": {
-                                        "tick": 1030
+                                        "tick": 1200
                                       }
                                     }
                                   },
@@ -1590,7 +1590,7 @@
     "action_name": "ult",
     "description": "#asset/base/text/champion?description.league_vex.ult",
     "duration": 27,
-    "cooltime": 2100,
+    "cooltime": 2520,
     "start_timing": 1,
     "cancelable": false,
     "range": 110000,
@@ -2007,7 +2007,7 @@
                                                                                     "name": "league_vex_p_wait",
                                                                                     "duration": {
                                                                                       "Time": {
-                                                                                        "tick": 1030
+                                                                                        "tick": 1200
                                                                                       }
                                                                                     }
                                                                                   },
@@ -2320,7 +2320,7 @@
                                                                             "name": "league_vex_p_wait",
                                                                             "duration": {
                                                                               "Time": {
-                                                                                "tick": 1030
+                                                                                "tick": 1200
                                                                               }
                                                                             }
                                                                           },
