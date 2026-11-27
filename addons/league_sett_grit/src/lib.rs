@@ -25,6 +25,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_sett_grit";
@@ -285,7 +287,7 @@ pub fn both_sides(me: (u64, u64), foes: &[(u64, u64)]) -> bool {
 
 /// 会被这一下 E 拉过来的敌人在不在 `E_RADIUS` 里（中心距离不超过半径加两人的身体，同主包的 `RangeEffect`）。
 pub fn in_reach(d2: u64, body: usize, foe_body: usize) -> bool {
-    let r = E_RADIUS + body as u64 + foe_body as u64;
+    let r = sk(E_RADIUS) + body as u64 + foe_body as u64;
     d2 <= r * r
 }
 

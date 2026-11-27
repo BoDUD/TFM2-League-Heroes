@@ -45,6 +45,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能范围用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod summon;
@@ -412,7 +414,7 @@ fn burst(sim: &mut StableSim<'_>, me: usize, at: Pt, why: &str) {
     // (id, where, a champion, not to be feared: crowd-control immune or an epic monster, name)
     let hit: Vec<(usize, Pt, bool, bool, String)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
         .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && summon::hittable(u))
-        .filter(|u| len(sub(pos(u), at)) <= BOOM_R)
+        .filter(|u| len(sub(pos(u), at)) <= sk(BOOM_R))
         .map(|u| (u.id(), pos(&u), u.is_champion(),
                   (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune)
                       || matches!(u.kind(), Some(EntityKindV1::Epic | EntityKindV1::Serpen)),
@@ -454,9 +456,9 @@ fn burst(sim: &mut StableSim<'_>, me: usize, at: Pt, why: &str) {
     }
     let queued = box_ticks().into_iter().filter(|t| sim.queue_effect(&fx("box"), AttackTypeV1::Skill, me, &spot, *t)).count();
     if let Some(k) = tally(sim, "clone burst") {
-        wlog(format!("{} CLONE BURST #{k} at {} ({why}): {damage} magic to {} enemies within {BOOM_R:.0}; feared {FEAR_CHAMP} \
+        wlog(format!("{} CLONE BURST #{k} at {} ({why}): {damage} magic to {} enemies within {boom_r:.0}; feared {FEAR_CHAMP} \
                       ticks: [{}], {FEAR_OTHER} ticks: {others} others{read_back}; {queued} of {BOX_SHOTS} box shots queued",
-                     head(sim, me), summon::pt(at), hit.len(), champs.join(", ")));
+                     head(sim, me), summon::pt(at), hit.len(), champs.join(", "), boom_r = sk(BOOM_R)));
     }
 }
 
@@ -479,7 +481,7 @@ impl StableEffectType for BoxFx {
         let Some((team, ap)) = sim.get_entity(caster).map(|e| (e.team(), e.stat().magic_power)) else { return };
         let hit: Vec<(usize, bool, f64, String, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && summon::hittable(u))
-            .filter(|u| len(sub(pos(u), at)) <= BOX_R)
+            .filter(|u| len(sub(pos(u), at)) <= sk(BOX_R))
             .map(|u| (u.id(), u.is_champion(), len(sub(pos(&u), at)), u.name().unwrap_or_default(),
                       (0..u.cc_count()).filter_map(|i| u.cc_at(i)).any(|c| c.kind == CcKindV1::Fear.code())))
             .collect();
@@ -492,8 +494,8 @@ impl StableEffectType for BoxFx {
             // the champions' distances from the blast shot by shot: a fear that works walks them away from it
             let champs: Vec<String> = hit.iter().filter(|h| h.1).take(5)
                 .map(|h| format!("#{} {} {:.0} away{}", h.0, h.3, h.2, if h.4 { " (feared)" } else { "" })).collect();
-            wlog(format!("{} CLONE BOX #{k} at {}: {damage} magic to {} enemies within {BOX_R:.0}; champions: [{}]",
-                         head(sim, caster), summon::pt(at), hit.len(), champs.join(", ")));
+            wlog(format!("{} CLONE BOX #{k} at {}: {damage} magic to {} enemies within {box_r:.0}; champions: [{}]",
+                         head(sim, caster), summon::pt(at), hit.len(), champs.join(", "), box_r = sk(BOX_R)));
         }
     }
 }
@@ -823,7 +825,7 @@ impl StablePassive for Backstab {
         let mut asks = Vec::new();
         for (id, p, ask) in &foes {
             let t = self.trails.entry(*id).or_default();
-            if t.back().is_some_and(|b| len(sub(*b, *p)) > 20_000.0) {
+            if t.back().is_some_and(|b| len(sub(*b, *p)) > sk(20_000.0)) {
                 t.clear(); // a recall, a respawn or a blink: no walking direction across it
             }
             t.push_back(*p);

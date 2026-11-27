@@ -24,6 +24,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "tft_sevika";
@@ -533,7 +534,7 @@ impl StableEffectType for Punch {
         if take(sim, me, &sv("p_triple")) {
             put(sim, me, &BuffV1::timed(&sv("e_tri"), CAST_T));
         }
-        let end = toward(at, to, (p.e_range as u64 + OVERSHOOT) as i64);
+        let end = toward(at, to, (p.e_range as u64 + sk(OVERSHOOT)) as i64);
         let spec = ProjectileSpawnV1 {
             caster_id: me,
             team,

@@ -33,6 +33,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{Arc, LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self as places, Map};
 use mod_api_stable::*;
 
@@ -957,7 +958,7 @@ pub(crate) fn try_w(sim: &mut StableSim<'_>, me: usize, foe: Option<usize>, why:
     let Some(here) = alive_at(sim, me) else { return false };
     let p = params_of(sim, me);
     let (hp, max) = sim.get_entity(me).map_or((1, 1), |e| e.hp());
-    let crowd = foes(sim, me).iter().filter(|f| f.champion && dist(f.at, here) <= CROWD_R).count();
+    let crowd = foes(sim, me).iter().filter(|f| f.champion && dist(f.at, here) <= sk(CROWD_R)).count();
     let target = foe.and_then(|t| foe_of(sim, t));
     let spot = Spot { my_hp: pct(hp, max), foes_near: crowd, champion: target.is_some_and(|f| f.champion),
                       target_hp: target.map_or(100, |f| pct(f.hp, f.max)) };
@@ -1070,11 +1071,11 @@ fn out_of_combat(sim: &mut StableSim<'_>, me: usize, p: &Params) {
     let Some(el) = held(sim, me) else { return };
     let Some(here) = alive_at(sim, me) else { return };
     let team = sim.get_entity(me).map_or(0, |e| e.team());
-    if foes(sim, me).iter().any(|f| f.champion && sim.is_visible(team, f.id) && dist(f.at, here) <= OC_FOE) {
+    if foes(sim, me).iter().any(|f| f.champion && sim.is_visible(team, f.id) && dist(f.at, here) <= sk(OC_FOE)) {
         return;
     }
     let Some(map) = current_map(sim) else { return };
-    if terrain::nearest_point(&map, el.kind(), here.0, here.1, OC_NEAR).is_none() {
+    if terrain::nearest_point(&map, el.kind(), here.0, here.1, sk(OC_NEAR)).is_none() {
         return;
     }
     let mut b = BuffV1::timed(&qy("w_ms"), OC_EVERY + 5);

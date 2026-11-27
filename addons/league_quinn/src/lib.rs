@@ -38,6 +38,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
 
@@ -60,13 +61,13 @@ pub const R_RIDE_T: usize = 360;
 pub const END_LEAD: usize = 2;
 /// 旋翔掠杀踢中时副本挂的信号：本包把她往冲过来的方向翻回去（冲刺停在目标身上、和目标重合，数据的 MoveBack 没有方向、挪 0）。
 pub const VAULT: &str = "league_quinn_e_vault";
-/// 每 tick 挪多远、挪几 tick（build_quinn.P 的 e_back / e_back_t，单元测试核对）。
+/// 每 tick 挪多远、挪几 tick（build_quinn.P 的 e_back / e_back_t，单元测试核对）。距离在大地图版跟着乘 1.3（game_places::skill_scale）。
 pub const E_BACK: f64 = 2400.0;
 pub const E_BACK_T: usize = 20;
 /// 出 E 时副本挂的标记和它的时长（build_quinn.P 的 e_dash_t，单元测试核对）：本包看着这段时间里的冲刺。
 pub const DASH: &str = "league_quinn_e_dash";
 pub const DASH_T: usize = 40;
-/// 一 tick 挪了这么多以上就是在冲（e_speed 4000），冲起来以后少于它就是停下了（踢中）。
+/// 一 tick 挪了这么多以上就是在冲（e_speed 4000），冲起来以后少于它就是停下了（踢中）。大地图版跟着乘 1.3。
 pub const DASH_STEP: f64 = 2000.0;
 /// 出 E 后这么多 tick 都没冲起来（贴身踢，冲刺不到一 tick）也翻。
 pub const STILL_T: usize = 10;
@@ -208,7 +209,7 @@ pub fn clamp(map: Map, p: Pt) -> Pt {
 /// 翻回去的一步：从 `at` 朝 `d` 挪 E_BACK，夹在 `map` 上；落点站不住（`ok` 说不行：运行时是 `stand_ok`，峡谷的墙往外长一格；
 /// 游戏自己的地图上总是行）就不挪（None：翻到这里为止，她停在上一个能站的地方）。
 pub fn vault_step(map: Map, at: Pt, d: Pt, ok: impl Fn(Pt) -> bool) -> Option<Pt> {
-    let next = clamp(map, (at.0 + d.0 * E_BACK, at.1 + d.1 * E_BACK));
+    let next = clamp(map, (at.0 + d.0 * sk(E_BACK), at.1 + d.1 * sk(E_BACK)));
     ok(next).then_some(next)
 }
 
@@ -231,7 +232,7 @@ pub fn vault_push(from: Pt, to: Pt) -> Option<(i64, i64, u64, u64)> {
     if d < 1.0 {
         return None;
     }
-    let ticks = (d / E_BACK).ceil().max(1.0);
+    let ticks = (d / sk(E_BACK)).ceil().max(1.0);
     Some(((to.0 - from.0).round() as i64, (to.1 - from.1).round() as i64, (d / ticks).ceil() as u64, ticks as u64))
 }
 
@@ -244,15 +245,16 @@ pub fn stalled(last: Option<Pt>, at: Pt) -> bool {
 /// 自己走的一步：从 `at` 朝 `to` 最多 E_BACK。
 pub fn own_step(at: Pt, to: Pt) -> Pt {
     let off = dist(at, to);
-    if off <= E_BACK {
+    let back = sk(E_BACK);
+    if off <= back {
         return to;
     }
-    (at.0 + (to.0 - at.0) / off * E_BACK, at.1 + (to.1 - at.1) / off * E_BACK)
+    (at.0 + (to.0 - at.0) / off * back, at.1 + (to.1 - at.1) / off * back)
 }
 
 /// 出 E 后第 `ticks` tick、这一 tick 挪了 `step`、之前冲起来过没有（`moved`）：冲刺是不是结束了（该翻了）。
 pub fn dash_over(ticks: usize, moved: bool, step: f64) -> bool {
-    if moved { step < DASH_STEP } else { ticks >= STILL_T }
+    if moved { step < sk(DASH_STEP) } else { ticks >= STILL_T }
 }
 
 /// 踢中后第 `t` tick（踢中那一 tick 是 0）该画后空翻的第几帧；翻完了是 None。
@@ -378,7 +380,7 @@ impl Ride {
                 }
             }
             *ticks += 1;
-            *moved |= step >= DASH_STEP;
+            *moved |= step >= sk(DASH_STEP);
             if *done {
                 why = None;
             } else if why.is_none() && dash_over(*ticks, *moved, step) {

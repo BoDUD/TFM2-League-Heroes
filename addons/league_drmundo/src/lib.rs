@@ -37,6 +37,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
@@ -832,7 +834,7 @@ impl Ai {
         let ult = kind == Some(InputKindV1::Ult);
         let peak = peak_hp(key, now, hp);
         let lost = if peak > hp { (peak - hp) * 100 / max.max(1) } else { 0 };
-        let near = within(&enemies, at, R_NEAR);
+        let near = within(&enemies, at, sk(R_NEAR));
         let p = params();
         // R first: when it is time, cast it - the AI's R as it is, else pressed here (0.1.6: the AI asks for R as a fight
         // starts, at full health, and that one is held; low, it walks or hits and never asks again - 0.1.5's log: one R in
@@ -843,7 +845,7 @@ impl Ai {
             let free = !(0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind)));
             let target = enemies
                 .iter()
-                .filter(|f| dist(f.1, at) <= R_RANGE)
+                .filter(|f| dist(f.1, at) <= sk(R_RANGE))
                 .min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at)))
                 .map(|f| f.0);
             if press_r(ult, ready, free) && (ult || target.is_some()) {
@@ -903,7 +905,7 @@ impl Ai {
         // attack R's target instead; gone from sight: the nearest enemy champion (0.1.1 walked onto his own spot = stood still);
         // nobody to hit: let the base AI cast it
         let target = current.filter(|c| enemies.iter().any(|f| f.0 == *c)).or_else(|| {
-            enemies.iter().filter(|f| dist(f.1, at) <= R_RANGE).min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at))).map(|f| f.0)
+            enemies.iter().filter(|f| dist(f.1, at) <= sk(R_RANGE)).min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at))).map(|f| f.0)
         });
         Some(match target {
             Some(t) => Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), Some(("held", why))),

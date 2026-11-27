@@ -44,6 +44,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
@@ -128,6 +129,7 @@ pub const FROM_T: usize = E_ANIM + 120;
 /// 单位半径读不到时用的值。
 pub const BODY: f64 = 6_000.0;
 /// 一 tick 走了这么远以上算冲刺（走路约 1000，加速后约 1500，冲刺 2500 起）：冲刺撞上柱子停住，走路的绕着柱子走。
+/// 大地图版跟着乘 1.3（冲刺也快了 1.3 倍，走路没变）。
 pub const DASH_STEP: f64 = 2_200.0;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的）。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
@@ -341,7 +343,7 @@ pub enum Hit {
 }
 
 pub fn charge_hit(at: Pt, body: f64, pillars: &[Pt], wall: impl Fn() -> bool) -> Hit {
-    let reach = E_QUAKE_R as f64 + PILLAR_R + body;
+    let reach = sk(E_QUAKE_R) as f64 + PILLAR_R + body;
     if let Some(p) = pillars.iter().copied().filter(|&p| dist(p, at) <= reach).min_by(|a, b| dist(*a, at).total_cmp(&dist(*b, at)))
     {
         return Hit::Pillar(p);
@@ -368,7 +370,7 @@ pub fn hold(pillars: &[Pt], last: Option<Pt>, now: Pt, r: f64) -> Option<Pt> {
     match last {
         Some(l) if dist(p, l) >= PILLAR_R + r => {
             let step = dist(l, now);
-            if step >= DASH_STEP {
+            if step >= sk(DASH_STEP) {
                 return Some(l);
             }
             let side = (l.0 - p.0) * (now.1 - l.1) - (l.1 - p.1) * (now.0 - l.0);
@@ -564,7 +566,7 @@ fn charge(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         .or_else(|| target_of(&input).and_then(|t| pos(sim, t)).and_then(|t| unit((t.0 - at.0, t.1 - at.1))));
     let grid = grid_now(sim);
     let hit = charge_hit(at, body, &points, || match (grid, dir) {
-        (Some(g), Some(d)) => wall_ahead(g, at, d, WALL_REACH, body),
+        (Some(g), Some(d)) => wall_ahead(g, at, d, sk(WALL_REACH), body),
         _ => false,
     });
     match hit {

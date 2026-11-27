@@ -33,6 +33,8 @@ use std::collections::HashMap;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_tryndamere_rage";
@@ -780,7 +782,7 @@ impl StablePlayerAi for UltAi {
             let free = !busy && pl.level() >= 5 && pl.cooldowns().is_some_and(|c| c.3 == 0);
             let (id, team) = (me.id(), me.team());
             ready_saw(&sim, id, free);
-            let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
+            let r2 = (sk(R_RANGE) as u64).saturating_mul(sk(R_RANGE) as u64);
             let target = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|e| e.is_champion() && e.is_alive() && e.team() != team && sim.distance_sq(id, e.id()) <= r2)

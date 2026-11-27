@@ -9,6 +9,8 @@
 //! （champion-data.md；league_unlock_guard 也会兜底）。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use super::{dist, head, noted, on_screen, wlog, Pt, ID, R_ON};
 
@@ -32,7 +34,7 @@ pub fn call(me: Pt, w_ready: bool, spinning: bool, foes: &[(usize, Pt)], towers:
     let under = |p: Pt| towers.iter().any(|&t| dist(t, p) <= TOWER_REACH);
     let me_under = under(me);
     foes.iter()
-        .filter(|(_, p)| dist(me, *p) <= W_RANGE + BODIES)
+        .filter(|(_, p)| dist(me, *p) <= sk(W_RANGE) + BODIES)
         .filter(|(_, p)| me_under || !under(*p))
         .min_by(|a, b| dist(me, a.1).total_cmp(&dist(me, b.1)))
         .map(|(id, _)| *id)

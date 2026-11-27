@@ -25,6 +25,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离 / 速度在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod view;
@@ -63,7 +65,7 @@ pub const UP_T: usize = 20;
 
 /// 隧道里走多久（放逐总 tick）和几 tick 后到出口（之后播破土画面）。
 pub fn tunnel_times(dist: f64) -> (usize, usize) {
-    let total = ((dist / TRAVEL_SPEED).ceil() as usize).max(UP_T + 10);
+    let total = ((dist / sk(TRAVEL_SPEED)).ceil() as usize).max(UP_T + 10);
     (total, total - UP_T)
 }
 
@@ -308,10 +310,10 @@ pub fn trample(list: &mut [Tunnel], foes: &[Pt]) -> Option<usize> {
 /// 她该不该钻这条隧道（她在入口 `near` 旁），返回原因。
 pub fn should_travel(me: Pt, hp_pct: usize, far: Pt, foes: &[Pt]) -> Option<&'static str> {
     let close = |p: Pt, r: f64| foes.iter().any(|f| dist(*f, p) <= r);
-    if hp_pct < ESCAPE_HP && close(me, CHASED_R) && !close(far, CLEAR_R) {
+    if hp_pct < ESCAPE_HP && close(me, sk(CHASED_R)) && !close(far, sk(CLEAR_R)) {
         return Some("escape");
     }
-    if hp_pct >= ENGAGE_HP && !close(me, CLEAR_R) && close(far, ENGAGE_R) && dist(me, far) > 30_000.0 {
+    if hp_pct >= ENGAGE_HP && !close(me, sk(CLEAR_R)) && close(far, sk(ENGAGE_R)) && dist(me, far) > 30_000.0 {
         return Some("engage");
     }
     None
@@ -376,7 +378,7 @@ impl Fury {
             if u.is_champion() && sim.is_visible(team, u.id()) {
                 foes_vis.push((u.id(), p));
             }
-            if dist(p, at) <= FOE_R && u.is_targetable() {
+            if dist(p, at) <= sk(FOE_R) && u.is_targetable() {
                 any_foe_near = true;
             }
         }
@@ -386,7 +388,7 @@ impl Fury {
     /// 脱离战斗赶路时钻进地底，有敌人靠近就破土。
     fn burrow(&mut self, sim: &mut StableSim<'_>, me: usize, s: &Seen, p: &Params) {
         let moved = self.last.is_some_and(|l| dist(l, s.me) > 50.0);
-        let safe = !s.any_foe_near && !s.foes_vis.iter().any(|(_, f)| dist(*f, s.me) <= SAFE_R) && self.travel.is_none()
+        let safe = !s.any_foe_near && !s.foes_vis.iter().any(|(_, f)| dist(*f, s.me) <= sk(SAFE_R)) && self.travel.is_none()
             && !has_buff(sim, me, W_GO) && !has_buff(sim, me, R_HID) && !hard_cc(sim, me);
         self.moving = if safe && moved { self.moving + 1 } else if safe { self.moving } else { 0 };
         let want = safe && (self.burrowed || self.moving >= BURROW_AFTER);
@@ -415,7 +417,7 @@ impl Fury {
             sim.entity_remove_buff(me, BURROW);
             sim.play_view_effect(&rk("q2_cast"), me, &pos_input(s.me), 0, 0, 0);
             if let Some(n) = counted("form") {
-                let why = if s.any_foe_near { "an enemy near" } else if s.foes_vis.iter().any(|(_, f)| dist(*f, s.me) <= SAFE_R) {
+                let why = if s.any_foe_near { "an enemy near" } else if s.foes_vis.iter().any(|(_, f)| dist(*f, s.me) <= sk(SAFE_R)) {
                     "an enemy champion in sight" } else { "an action" };
                 wlog(format!("{} FORM sim: up again ({why}) #{n}", head(sim, me)));
             }
@@ -434,7 +436,7 @@ impl Fury {
         let land = has_buff(sim, me, W_LAND);
         if land && !self.w_land {
             if let Some(from) = self.w_from.take() {
-                if dist(from, s.me) >= TUNNEL_MIN {
+                if dist(from, s.me) >= sk(TUNNEL_MIN) {
                     let t = Tunnel { ends: [from, s.me], stood: [0, 0], ready_at: now + TUNNEL_CD, born: now };
                     let old = add_tunnel(&mut self.tunnels, t);
                     if let Some(old) = &old {

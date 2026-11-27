@@ -35,6 +35,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_galio";
@@ -188,7 +190,7 @@ pub fn choose(allies: &[Ally], r_far: f64) -> Option<usize> {
     let key = |a: &Ally| (if a.in_cc { 0 } else { 1 }, a.hp - 0.1 * a.close as f64);
     allies
         .iter()
-        .filter(|a| a.far >= r_far && a.far <= R_MAX && a.near >= 1)
+        .filter(|a| a.far >= r_far && a.far <= sk(R_MAX) && a.near >= 1)
         .filter(|a| a.in_cc || a.hp < CALM_HP || a.near >= 2)
         .min_by(|a, b| {
             let (ka, kb) = (key(a), key(b));

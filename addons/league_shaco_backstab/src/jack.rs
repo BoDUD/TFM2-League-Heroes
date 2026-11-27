@@ -15,6 +15,8 @@
 //! - 退路：宿主没有 `spawn_unit`、失败、读不成单位、测试开关 `unit=off`——不挂 `W_UNIT`，数据照主包放画面和射击区域。
 //! - 日志：`JACK` 开头的行。
 
+// 盒子的射击范围用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::summon::{self, Event, Flock, Pt};
@@ -60,7 +62,7 @@ pub fn jack_spec(stat: &StatV1, max_hp: usize) -> summon::Spec {
         stat: StatV1 { attack: 0, magic_power: stat.magic_power, hp: (max_hp * JACK_HP_PCT / 100).max(1),
                        defence: stat.defence * JACK_DEF_PCT / 100, magic_resistance: stat.magic_resistance * JACK_MR_PCT / 100,
                        move_speed: 1, hp_regen: 0, stack: 0, crit_chance: 0 },
-        attack: UnitAttackV1 { attack_ratio: 0, attack: 0, range: W_R, cooltime: W_EVERY, duration: JACK_ACT, start_timing: JACK_LANDS,
+        attack: UnitAttackV1 { attack_ratio: 0, attack: 0, range: sk(W_R), cooltime: W_EVERY, duration: JACK_ACT, start_timing: JACK_LANDS,
                                cancelable: false, attack_type: AttackTypeV1::BaseAttack.code() },
     }
 }
@@ -75,7 +77,7 @@ pub fn volley_damage(ap: usize) -> usize {
 pub fn volley(sim: &mut StableSim<'_>, me: usize, at: Pt) -> usize {
     let Some((team, ap)) = sim.get_entity(me).map(|e| (e.team(), e.stat().magic_power)) else { return 0 };
     let dmg = volley_damage(ap);
-    let hit: Vec<usize> = summon::foes_near(sim, team, at, W_R as f64).into_iter()
+    let hit: Vec<usize> = summon::foes_near(sim, team, at, sk(W_R) as f64).into_iter()
         .filter(|f| f.kind != "tower" && f.kind != "nexus")
         .map(|f| f.id)
         .collect();

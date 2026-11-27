@@ -39,6 +39,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
@@ -499,13 +500,13 @@ pub fn plan_exit(p: &Params, g: &Grid, me: (f64, f64), foes: &[(f64, f64)], home
     rays()
         .filter(|d| d.0 * away.0 + d.1 * away.1 >= cos)
         .flat_map(|d| {
-            let wall = g.over(me, d, WALL_REACH, p.e_far as f64).map(|to| (to, true));
+            let wall = g.over(me, d, sk(WALL_REACH), p.e_far as f64).map(|to| (to, true));
             let plain = (me.0 + d.0 * p.e_plain as f64, me.1 + d.1 * p.e_plain as f64);
             let plain = g.clear(plain).then(|| (plain, g.blocked(me, plain)));
             [wall, plain].into_iter().flatten()
         })
-        .filter(|&(to, _)| foes.is_empty() || gap(to) >= now + ESCAPE_GAIN)
-        .map(|(to, wall)| ((to, wall), gap(to) + HOME_W * homeward(to) + if wall { WALL_BONUS } else { 0.0 }))
+        .filter(|&(to, _)| foes.is_empty() || gap(to) >= now + sk(ESCAPE_GAIN))
+        .map(|(to, wall)| ((to, wall), gap(to) + HOME_W * homeward(to) + if wall { sk(WALL_BONUS) } else { 0.0 }))
         .max_by(|a, b| a.1.total_cmp(&b.1))
         .map(|(way, _)| way)
 }
@@ -524,7 +525,7 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
         let Some(toward) = unit((t.at.0 - me.0, t.at.1 - me.1)) else { continue };
         let mut best: Option<(f64, (f64, f64), bool)> = None;
         for d in rays().filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos) {
-            let mut s = CLOSER;
+            let mut s = sk(CLOSER);
             while s <= p.e_far as f64 {
                 let to = (me.0 + d.0 * s, me.1 + d.1 * s);
                 let wall = g.blocked(me, to);
@@ -532,7 +533,7 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
                 if (wall || s <= p.e_plain as f64)
                     && (KEEP_AT..=IN_RANGE).contains(&gap)
                     && g.clear(to)
-                    && foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= CROWD_R).count() <= 1
+                    && foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= sk(CROWD_R)).count() <= 1
                 {
                     if best.is_none_or(|b| s < b.0) {
                         best = Some((s, to, wall));

@@ -41,6 +41,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能速度和瞬移门槛用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
@@ -353,7 +355,7 @@ pub fn walk(walked: f64, moved: f64, step: f64) -> (f64, usize) {
     if step <= 0.0 {
         return (0.0, 0);
     }
-    let w = walked + if moved <= JUMP { moved } else { 0.0 };
+    let w = walked + if moved <= sk(JUMP) { moved } else { 0.0 };
     let n = (w / step).floor();
     (w - n * step, n as usize)
 }
@@ -700,7 +702,7 @@ impl Battery {
             x,
             y,
             radius: (self.p.w_lw / 2) as u64,
-            speed: LASER_SPEED,
+            speed: sk(LASER_SPEED),
             move_kind: ProjectileMoveKindV1::Linear.code(),
             target_id: 0,
             target_x: tx,

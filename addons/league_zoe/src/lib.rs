@@ -53,6 +53,8 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map};
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 mod maps;
@@ -1075,7 +1077,7 @@ impl Sparkles {
             let Some(cd) = sim.get_entity(id).and_then(|e| e.cooldown(SkillSlotV1::Ult)) else { continue };
             let now = cd.remaining;
             let was = self.ult_cd.iter().find(|c| c.0 == id).map(|c| c.1);
-            if was.is_some_and(|w| ult_cast(w, now)) && dist(pos, at) <= SHARD_NEAR {
+            if was.is_some_and(|w| ult_cast(w, now)) && dist(pos, at) <= sk(SHARD_NEAR) {
                 if self.shards.len() >= MAX_SHARDS {
                     self.shards.remove(0);
                 }

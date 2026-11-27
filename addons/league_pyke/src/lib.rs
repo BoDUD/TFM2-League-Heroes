@@ -31,6 +31,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_pyke";
@@ -157,7 +158,7 @@ pub fn plan(ult_target: Option<usize>, foes: &[Foe], t: usize, ult_ready: bool) 
 // ===================== AI 钩子 =====================
 
 fn foes_in_reach(sim: &StableSim<'_>, me: usize, team: usize) -> Vec<Foe> {
-    let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
+    let r2 = (sk(R_RANGE) as u64).saturating_mul(sk(R_RANGE) as u64);
     (0..sim.entity_count())
         .filter_map(|i| sim.entity_at(i))
         .filter(|e| e.is_champion() && e.is_alive() && e.team() != team && sim.distance_sq(me, e.id()) <= r2)

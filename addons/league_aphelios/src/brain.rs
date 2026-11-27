@@ -4,6 +4,9 @@
 //!
 //! 距离都是中心距离（引擎判范围时还加两边的体积，所以这里比数据的射程宽一点）。
 
+// 下面的技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
+
 /// 五把武器的编号（`lib.rs` 的 WEAPONS 顺序）。
 pub const CAL: usize = 0;
 pub const SEV: usize = 1;
@@ -81,7 +84,7 @@ fn in_cone(me: (f64, f64), toward: (f64, f64), foes: &[Foe], r: f64, cos: f64, p
 
 /// 清线：附近没有敌方英雄时，离自己 `r` 以内（以某个兵为中心 `around` 以内）的小兵野怪够 `n` 个就给出最近的那个。
 fn lane_target(me: (f64, f64), foes: &[Foe], r: f64, around: f64, n: usize) -> Option<usize> {
-    if !champs_within(me, foes, LANE_CLEAR).is_empty() {
+    if !champs_within(me, foes, sk(LANE_CLEAR)).is_empty() {
         return None;
     }
     let minions: Vec<&Foe> = foes.iter().filter(|f| !f.champion && dist(me, f.at) <= r).collect();
@@ -101,26 +104,26 @@ fn lane_target(me: (f64, f64), foes: &[Foe], r: f64, around: f64, n: usize) -> O
 pub fn q_plan(main: usize, off: usize, me: (f64, f64), my_hp: f64, foes: &[Foe]) -> Option<(usize, &'static str)> {
     let near = |r: f64| nearest(me, foes.iter().filter(|f| f.champion && dist(me, f.at) <= r));
     match main {
-        CAL => near(Q_REACH).map(|f| (f.id, "Moonshot at a champion")),
+        CAL => near(sk(Q_REACH)).map(|f| (f.id, "Moonshot at a champion")),
         SEV => {
-            let champs = champs_within(me, foes, SEV_R);
+            let champs = champs_within(me, foes, sk(SEV_R));
             let fight = !champs.is_empty() && (my_hp < 0.7 || champs.len() >= 2 || champs.iter().any(|f| f.hp < 0.5));
             if fight {
-                return near(SEV_R).map(|f| (f.id, "Onslaught in a fight"));
+                return near(sk(SEV_R)).map(|f| (f.id, "Onslaught in a fight"));
             }
-            lane_target(me, foes, SEV_R, SEV_R, 4).map(|t| (t, "Onslaught on a wave"))
+            lane_target(me, foes, sk(SEV_R), sk(SEV_R), 4).map(|t| (t, "Onslaught on a wave"))
         }
         GRAV => {
             // the root takes every marked unit wherever it is; the cast needs some enemy in reach
-            foes.iter().any(|f| f.champion && f.marked && dist(me, f.at) <= R_LOOK).then_some(())?;
-            let t = nearest(me, foes.iter().filter(|f| f.champion && f.marked && dist(me, f.at) <= Q_REACH))
-                .or_else(|| nearest(me, foes.iter().filter(|f| dist(me, f.at) <= Q_REACH)))?;
+            foes.iter().any(|f| f.champion && f.marked && dist(me, f.at) <= sk(R_LOOK)).then_some(())?;
+            let t = nearest(me, foes.iter().filter(|f| f.champion && f.marked && dist(me, f.at) <= sk(Q_REACH)))
+                .or_else(|| nearest(me, foes.iter().filter(|f| dist(me, f.at) <= sk(Q_REACH))))?;
             Some((t.id, "Binding Eclipse on a marked champion"))
         }
         INF => {
             let mut best: Option<(&Foe, usize)> = None;
-            for c in champs_within(me, foes, INF_R) {
-                let n = in_cone(me, c.at, foes, INF_R, INF_COS, |f| f.champion);
+            for c in champs_within(me, foes, sk(INF_R)) {
+                let n = in_cone(me, c.at, foes, sk(INF_R), INF_COS, |f| f.champion);
                 if best.is_none_or(|b| n > b.1) {
                     best = Some((c, n));
                 }
@@ -134,13 +137,13 @@ pub fn q_plan(main: usize, off: usize, me: (f64, f64), my_hp: f64, foes: &[Foe])
                 }
                 return None;
             }
-            let t = lane_target(me, foes, INF_R, INF_R, 3)?;
+            let t = lane_target(me, foes, sk(INF_R), sk(INF_R), 3)?;
             let at = foes.iter().find(|f| f.id == t)?.at;
-            (in_cone(me, at, foes, INF_R, INF_COS, |f| !f.champion) >= 3).then_some((t, "Duskwave on a wave"))
+            (in_cone(me, at, foes, sk(INF_R), INF_COS, |f| !f.champion) >= 3).then_some((t, "Duskwave on a wave"))
         }
-        CRE => near(CRE_R)
+        CRE => near(sk(CRE_R))
             .map(|f| (f.id, "Sentry at a champion close"))
-            .or_else(|| lane_target(me, foes, Q_REACH, CRE_SHOOT, 4).map(|t| (t, "Sentry on a wave"))),
+            .or_else(|| lane_target(me, foes, sk(Q_REACH), sk(CRE_SHOOT), 4).map(|t| (t, "Sentry on a wave"))),
         _ => None,
     }
 }
@@ -174,10 +177,10 @@ pub struct Swap {
 
 pub fn swap_plan(s: &Swap, me: (f64, f64), my_hp: f64, foes: &[Foe]) -> Option<&'static str> {
     let champs = |r: f64| champs_within(me, foes, r).len();
-    if s.r_armed && champs(R_LOOK) > 0 && r_score(s.off, my_hp) > r_score(s.main, my_hp) {
+    if s.r_armed && champs(sk(R_LOOK)) > 0 && r_score(s.off, my_hp) > r_score(s.main, my_hp) {
         return Some("R armed: the better gift in the main hand");
     }
-    if s.cal_cast && s.main == CAL && champs(Q_REACH + 20_000.0) > 0 {
+    if s.cal_cast && s.main == CAL && champs(sk(Q_REACH + 20_000.0)) > 0 {
         return Some("Moonshot away: the off hand pops the mark");
     }
     if !s.main_q && s.off_q && q_plan(s.off, s.main, me, my_hp, foes).is_some() {

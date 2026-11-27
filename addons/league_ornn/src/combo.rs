@@ -10,6 +10,7 @@
 //! 被控住、正在放技能（施法动作 `Animation`）或被强制位移时什么都不做；格子的冷却自己看（引擎的「输入合法」不看冷却）。
 //! 大招两段在一次施法里（主包数据：公羊回到身边就头槌），这里不管。
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::{dist, has_buff, head, n, pillars_of, pos, tally, who, wlog, Pt, E_QUAKE_R, E_RANGE, ID, PILLAR_R, Q_RANGE};
@@ -22,6 +23,10 @@ pub const COMBO_PRIORITY: i32 = 110;
 pub const PRESS_FRESH: usize = 30;
 /// 敌方英雄离柱子这么近（中心距离），冲过去撞他就撞得到柱子。
 pub const NEAR_PILLAR: f64 = E_QUAKE_R as f64 + PILLAR_R - 4_000.0;
+/// 大地图版的 `NEAR_PILLAR`：只有地震半径乘 1.3，柱子还是一个身体那么粗。
+fn near_pillar() -> f64 {
+    NEAR_PILLAR + (sk(E_QUAKE_R) - E_QUAKE_R) as f64
+}
 /// 他的普攻射程（主包 atk_range）。
 pub const ATK_RANGE: f64 = 25_000.0;
 
@@ -78,7 +83,7 @@ fn nearest<'a>(me: &Me, foes: &'a [Unit], f: impl Fn(&Unit) -> bool) -> Option<&
 pub fn by_pillar<'a>(me: &Me, foes: &'a [Unit]) -> Option<&'a Unit> {
     let near = |u: &Unit| me.pillars.iter().map(|&p| dist(p, u.at)).fold(f64::INFINITY, f64::min);
     foes.iter()
-        .filter(|u| u.champion && reach(me, u, E_RANGE as f64) && near(u) <= NEAR_PILLAR)
+        .filter(|u| u.champion && reach(me, u, sk(E_RANGE) as f64) && near(u) <= near_pillar())
         .min_by(|a, b| near(a).total_cmp(&near(b)))
 }
 
@@ -96,8 +101,8 @@ pub fn call(me: &Me, foes: &[Unit], want: Want) -> Option<Call> {
     if let Want::E(t) = want {
         if me.pillars.is_empty() && me.q_ready {
             let aim = t.and_then(|t| foes.iter().find(|u| u.id == t))
-                .filter(|u| reach(me, u, Q_RANGE as f64))
-                .or_else(|| nearest(me, foes, |u| u.champion && reach(me, u, Q_RANGE as f64)));
+                .filter(|u| reach(me, u, sk(Q_RANGE) as f64))
+                .or_else(|| nearest(me, foes, |u| u.champion && reach(me, u, sk(Q_RANGE) as f64)));
             if let Some(u) = aim {
                 return Some(Call::PressQ(u.at, u.id, "Q first: the pillar for the charge"));
             }

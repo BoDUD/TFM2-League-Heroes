@@ -34,6 +34,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 最远从多远开球（副本 Q 的射程）套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod view;
@@ -241,7 +243,7 @@ pub fn contact(d: f64, r_me: f64, r_u: f64) -> bool {
 
 /// AI 钩子该从这个距离开球：Q_OPEN 到 Q_FAR 之间（近的游戏 AI 自己会按）。
 pub fn open_from(d2: u64) -> bool {
-    d2 > Q_OPEN * Q_OPEN && d2 <= Q_FAR * Q_FAR
+    d2 > Q_OPEN * Q_OPEN && d2 <= sk(Q_FAR).pow(2)
 }
 
 /// 目标离最近的敌方（对他来说是敌方，也就是我方）防御塔不到 TOWER_GUARD：不开球滚过去。

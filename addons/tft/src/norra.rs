@@ -32,6 +32,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use crate::sim_tag::{due, forget, wait, Key, Rows, SimTag};
@@ -332,7 +334,8 @@ pub fn surge_bonus(p: &Params, max_hp: usize) -> usize {
 
 /// The trinkets round a landing point: (piece, where) - left, the landing point, right.
 pub fn trinket_spots(at: (u64, u64)) -> [(i64, (u64, u64)); 3] {
-    let side = |s: i64| (s, ((at.0 as i64 + s * TRINKET_DX).max(0) as u64, at.1));
+    let dx = sk(TRINKET_DX);
+    let side = |s: i64| (s, ((at.0 as i64 + s * dx).max(0) as u64, at.1));
     [side(-1), side(0), side(1)]
 }
 
@@ -642,7 +645,7 @@ impl Volley {
                 team,
                 x: from.0,
                 y: from.1,
-                radius: BALL_RADIUS,
+                radius: sk(BALL_RADIUS),
                 speed,
                 move_kind: ProjectileMoveKindV1::Linear.code(),
                 target_id: 0,

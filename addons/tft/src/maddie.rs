@@ -21,6 +21,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use crate::sim_tag::{Key, SimTag};
@@ -343,7 +345,8 @@ fn put(sim: &mut StableSim<'_>, id: usize, buff: &BuffV1) {
 fn fire(sim: &mut StableSim<'_>, me: usize, to: (u64, u64), picture: &str, effect: &str, width: u64, speed: u64,
         reach: u64, penetrate: bool, lift: u64) -> bool {
     let Some((team, at)) = sim.get_entity(me).map(|e| (e.team(), e.pos())) else { return false };
-    let len = isqrt(dist_sq(at, to)).saturating_add(OVERSHOOT).min(reach.saturating_add(OVERSHOOT));
+    let over = sk(OVERSHOOT);
+    let len = isqrt(dist_sq(at, to)).saturating_add(over).min(reach.saturating_add(over));
     let end = line_end(at, to, len);
     let spec = ProjectileSpawnV1 {
         caster_id: me,

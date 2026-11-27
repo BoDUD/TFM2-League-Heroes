@@ -58,6 +58,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_karthus";
@@ -642,7 +644,7 @@ struct Tally {
 /// 单位（中心 `at`、半径 `r`）碰到立在 `wall` 的痛苦之墙没有（0.5.1）：墙是 `W_HW` 宽、`W_HH` 高的竖直长方形（游戏的 `Rect`：
 /// 宽高是整个的，外面再加单位自己的半径，champion-data）。
 pub fn in_wall(at: (u64, u64), r: u64, wall: (u64, u64)) -> bool {
-    at.0.abs_diff(wall.0) <= W_HW / 2 + r && at.1.abs_diff(wall.1) <= W_HH / 2 + r
+    at.0.abs_diff(wall.0) <= sk(W_HW) / 2 + r && at.1.abs_diff(wall.1) <= sk(W_HH) / 2 + r
 }
 
 /// 灵体的画面面朝哪边（效果图不会镜像，左右各画一张）：最近的敌方英雄在右边（或没有）就朝右。
@@ -833,7 +835,7 @@ impl DeathDefied {
         // E Defile, burning the whole spirit (League's spirit keeps it on, free)
         if now >= self.cast.e_next {
             self.cast.e_next = now + E_PER;
-            let (champs, others) = foes_near(sim, team, here, E_R, false);
+            let (champs, others) = foes_near(sim, team, here, sk(E_R), false);
             for id in champs.iter().chain(&others).map(|f| f.0) {
                 sim.deal_damage_typed(me, id, e_damage(power), DamageTypeV1::Ap, AttackTypeV1::Skill);
                 sim.play_view_effect(&sn("e_hit"), me, &InputTargetV1::target(id), 0, 0, 0);
@@ -848,7 +850,7 @@ impl DeathDefied {
         let (due, keep): (Vec<_>, Vec<_>) = std::mem::take(&mut self.cast.booms).into_iter().partition(|b| b.1 <= now);
         self.cast.booms = keep;
         for (spot, _) in due {
-            let (champs, others) = foes_near(sim, team, (spot.0 as f64, spot.1 as f64), Q_R, false);
+            let (champs, others) = foes_near(sim, team, (spot.0 as f64, spot.1 as f64), sk(Q_R), false);
             let hit: Vec<usize> = champs.iter().chain(&others).map(|f| f.0).collect();
             let dmg = q_damage(power, hit.len());
             for &id in &hit {
@@ -861,7 +863,7 @@ impl DeathDefied {
             sim.play_sfx(&sn("q_boom"), me, &InputTargetV1::pos(spot.0, spot.1));
         }
         if now >= self.cast.q_next {
-            let (champs, others) = foes_near(sim, team, here, Q_RANGE, false);
+            let (champs, others) = foes_near(sim, team, here, sk(Q_RANGE), false);
             if let Some(spot) = champs.first().or(others.first()).and_then(|f| sim.get_entity(f.0)).map(|e| e.pos()) {
                 self.cast.q_next = now + Q_CD;
                 self.cast.booms.push((spot, now + Q_DELAY));
@@ -874,7 +876,7 @@ impl DeathDefied {
         // ready (no `w_cd` flag), on the nearest enemy champion within W_R; the wall stands W_T ticks and every W_EVERY ticks
         // slows the enemies touching it W_SLOW% (W_SLOW_T) and cuts their magic resistance W_MR% (W_MR_T), as the kit's zone
         if w_ready && k + W_LATE < self.p.p_t {
-            let (champs, _) = foes_near(sim, team, here, W_R, false);
+            let (champs, _) = foes_near(sim, team, here, sk(W_R), false);
             if let Some(spot) = champs.first().and_then(|f| sim.get_entity(f.0)).map(|e| e.pos()) {
                 sim.add_buff(me, &BuffV1::timed(&sn("w_cd"), W_CD));
                 self.cast.walls.push((spot, now + W_T));
@@ -1396,10 +1398,10 @@ fn foes_by_distance(sim: &StableSim<'_>, team: usize, at: (f64, f64)) -> Vec<(us
 pub fn hold_pick(foes: &[(usize, f64)], ready: [bool; 2]) -> Vec<(InputKindV1, usize)> {
     let mut out = Vec::new();
     if ready[0] {
-        out.extend(foes.iter().filter(|f| f.1 <= Q_RANGE).map(|f| (InputKindV1::Skill, f.0)));
+        out.extend(foes.iter().filter(|f| f.1 <= sk(Q_RANGE)).map(|f| (InputKindV1::Skill, f.0)));
     }
     if ready[1] {
-        out.extend(foes.iter().filter(|f| f.1 <= E_RANGE).map(|f| (InputKindV1::Skill2, f.0)));
+        out.extend(foes.iter().filter(|f| f.1 <= sk(E_RANGE)).map(|f| (InputKindV1::Skill2, f.0)));
     }
     out.extend(foes.first().map(|f| (InputKindV1::Attack, f.0)));
     out
@@ -1574,7 +1576,7 @@ pub const STEP_OUT: f64 = 15000.0;
 
 /// 没有别的可打时往哪走：离灵体不到 `E_R + STEP_OUT` 就从灵体往自己这边退到那么远（叠在一起时往左），够远了就站着（None）。
 pub fn step_out(me: (f64, f64), spirit: (f64, f64)) -> Option<(f64, f64)> {
-    let keep = E_R + STEP_OUT;
+    let keep = sk(E_R) + STEP_OUT;
     let d = dist(me, spirit);
     if d >= keep {
         return None;

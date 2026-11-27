@@ -40,6 +40,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
@@ -56,6 +57,7 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_poppy") {
 };
 
 /// 坚定风采：护甲魔抗 %、低血线 %、光环半径、挡下突进的伤害（固定、法强 %）、击飞、缚地、减速 %。
+/// 这里的距离、速度在大地图版跟着乘 1.3（game_places::skill_scale；副本的被动参数不读，读的是这些数）。
 pub const W_DEF: usize = 16;
 pub const W_LOW: usize = 40;
 pub const W_R: usize = 35_000;
@@ -260,7 +262,8 @@ pub fn wall_travel(grid: &Grid, at: Pt, dir: Pt, reach: f64, body: f64) -> Optio
 
 /// 一 tick 走了 `step` 算不算突进：他走路一 tick 走 `walk`（移速，buff 算在内），走得再快也只是走路；闪现、传送那么远的不算。
 pub fn is_dash(step: f64, walk: f64) -> bool {
-    (DASH_STEP.max(walk * DASH_WALK)..=BLINK_MAX).contains(&step)
+    // 大地图版突进跟着快 1.3 倍，两道线一起乘；走路不乘
+    (sk(DASH_STEP).max(walk * DASH_WALK)..=sk(BLINK_MAX)).contains(&step)
 }
 
 /// 钢铁大使的护盾：等级 `level`、最大生命 `max_hp`。
@@ -408,11 +411,12 @@ fn charge(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     let (Some(her), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let dir = unit((at.0 - her.0, at.1 - her.1)).unwrap_or((1.0, 0.0));
-    let reach = (E_KB_SPEED * E_KB_T) as f64;
+    let speed = sk(E_KB_SPEED);
+    let reach = (speed * E_KB_T) as f64;
     let wall = grid_now(sim).and_then(|(g, _)| wall_travel(g, at, dir, reach, body));
     match wall {
         Some(len) => {
-            let ticks = if len >= 1.0 { shove(sim, target, dir, len, E_KB_SPEED) } else { 0 };
+            let ticks = if len >= 1.0 { shove(sim, target, dir, len, speed) } else { 0 };
             sim.add_buff(target, &BuffV1::timed(&n("e_due"), ticks.max(1)));
             sim.add_buff(target, &BuffV1::timed(&n("e_go"), ticks + 4));
             if let Some(k) = counted("charge") {
@@ -420,7 +424,7 @@ fn charge(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
             }
         }
         None => {
-            shove(sim, target, dir, reach, E_KB_SPEED);
+            shove(sim, target, dir, reach, speed);
             if let Some(k) = counted("charge") {
                 wlog(format!("{} CHARGE #{target} at {}: no wall within {reach:.0}, pushed, no stun #{k}", head(sim, me), pt(at)));
             }
@@ -445,20 +449,20 @@ fn verdict(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     let home = if moba { home_of(sim, team, &towers) } else { None };
     match home.and_then(|h| unit((h.0 - at.0, h.1 - at.1)).map(|d| (h, d))) {
         Some((h, dir)) => {
-            let len = (R_FAR as f64).min(dist(h, at));
+            let len = (sk(R_FAR) as f64).min(dist(h, at));
             // 2026-11-13: knocked up FIRST - a knock-up given to a moving unit stops its move (champion-data.md), so the
             // carry given first was cancelled by it (the data's Verdict went this way round: "an Airborne beside the
             // Knockback still lets it carry them - measured")
-            let ticks = ((len / R_FAR_SPEED as f64).ceil() as usize).max(1);
+            let ticks = ((len / sk(R_FAR_SPEED) as f64).ceil() as usize).max(1);
             sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, ticks.max(R_AIR) as u64));
-            let ticks = shove(sim, target, dir, len, R_FAR_SPEED);
+            let ticks = shove(sim, target, dir, len, sk(R_FAR_SPEED));
             if let Some(k) = counted("verdict") {
                 wlog(format!("{} VERDICT #{target} at {}: toward his nexus {} - {len:.0} in {ticks} ticks #{k}", head(sim, me), pt(at), pt(h)));
             }
         }
         None => {
             sim.apply_cc(target, &CcV1::of_kind(CcKindV1::Airborne, R_AIR as u64));
-            sim.entity_knockback(me, target, R_KB_SPEED, R_KB_T);
+            sim.entity_knockback(me, target, sk(R_KB_SPEED), R_KB_T);
             sim.add_buff(target, &BuffV1::timed(&n("push"), R_KB_T + 2));
             if let Some(k) = counted("verdict") {
                 wlog(format!("{} VERDICT #{target} at {}: knocked away from her (no nexus here) #{k}", head(sim, me), pt(at)));
@@ -590,7 +594,7 @@ impl StablePassive for Steadfast {
             .collect();
         for &(foe, at, body, speed) in &foes {
             Self::walls(sim, me, foe);
-            let near = dist(at, her) <= W_R as f64 + body + BLINK_MAX;
+            let near = dist(at, her) <= sk(W_R) as f64 + body + sk(BLINK_MAX);
             let before = self.seen.get(&foe).copied();
             if near {
                 self.seen.insert(foe, (t, at, speed));
@@ -598,7 +602,7 @@ impl StablePassive for Steadfast {
                 self.seen.remove(&foe);
             }
             let Some((t0, from, speed0)) = before else { continue };
-            if !aura || t0 + 1 != t || dist(at, her) > W_R as f64 + body {
+            if !aura || t0 + 1 != t || dist(at, her) > sk(W_R) as f64 + body {
                 continue;
             }
             let step = dist(from, at);

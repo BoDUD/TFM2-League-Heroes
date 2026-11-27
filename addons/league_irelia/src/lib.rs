@@ -29,6 +29,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_irelia";
@@ -209,7 +211,7 @@ pub fn pick_hop(me: (f64, f64), ad: usize, c: &Unit, units: &[Unit], p: &Params)
         .filter(|u| !u.champion && u.hp > 0)
         .filter(|u| dist(me, u.at) <= p.q_range as f64 + u.r)
         .filter(|u| q_damage(ad, u.def, p) >= u.hp)
-        .filter(|u| dist(u.at, c.at) + HOP_GAIN < mine)
+        .filter(|u| dist(u.at, c.at) + sk(HOP_GAIN) < mine)
         .min_by(|a, b| dist(a.at, c.at).total_cmp(&dist(b.at, c.at)))
         .copied()
 }

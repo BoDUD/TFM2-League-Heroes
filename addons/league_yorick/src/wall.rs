@@ -147,14 +147,14 @@ pub fn hold(r: &Ring, inside: bool, last: Option<Pt>, now: Pt, ghost: bool) -> H
         return Hold::Ghost(r.side_of(now));
     }
     let step = last.map_or(0.0, |l| dist(l, now));
-    if step > BLINK {
+    if step > sk(BLINK) {
         return Hold::Leapt(r.side_of(now));
     }
     if r.allowed(inside, now) {
         return Hold::Free;
     }
     match last {
-        Some(l) if step >= DASH_STEP && r.allowed(inside, l) => Hold::Back(l),
+        Some(l) if step >= sk(DASH_STEP) && r.allowed(inside, l) => Hold::Back(l),
         _ => Hold::Slide(r.face(inside, now)),
     }
 }

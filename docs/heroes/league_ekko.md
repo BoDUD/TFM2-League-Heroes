@@ -55,7 +55,7 @@
 
 ### 艾克时间倒转附加包
 
-[艾克时间倒转附加包](../../addons/league_ekko_rewind/README.md)：`league_ekko_rewind` v0.1.4
+[艾克时间倒转附加包](../../addons/league_ekko_rewind/README.md)：`league_ekko_rewind` v0.1.5
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

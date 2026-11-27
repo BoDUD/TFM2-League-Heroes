@@ -24,6 +24,8 @@
 mod maps;
 
 use game_places::terrain;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 pub type Pt = (f64, f64);
 
@@ -177,7 +179,7 @@ pub fn landing(g: &Grid, from: Pt, dir: Pt, want: f64) -> f64 {
         return len;
     }
     let mut t = len;
-    while t <= len + WALL_PAST && g.on_map(at(t)) {
+    while t <= len + sk(WALL_PAST) && g.on_map(at(t)) {
         if !g.is_wall(at(t)) {
             let past = t + MARGIN;
             return if g.on_map(at(past)) && !g.is_wall(at(past)) { past } else { t };
@@ -282,9 +284,9 @@ fn under_enemy_tower(s: &Scene, at: Pt) -> bool {
 
 /// 该逃了吗。
 pub fn wants_out(s: &Scene) -> bool {
-    let close = near(&s.foes, s.me, ESC_R2);
-    (s.hp <= ESC_HP && near(&s.foes, s.me, ESC_R) >= 1)
-        || (s.hp <= ESC_HP2 && close >= ESC_N && close > near(&s.allies, s.me, ESC_R2))
+    let close = near(&s.foes, s.me, sk(ESC_R2));
+    (s.hp <= ESC_HP && near(&s.foes, s.me, sk(ESC_R)) >= 1)
+        || (s.hp <= ESC_HP2 && close >= ESC_N && close > near(&s.allies, s.me, sk(ESC_R2)))
 }
 
 fn rays() -> impl Iterator<Item = Pt> {
@@ -304,7 +306,7 @@ pub fn escape(s: &Scene, reach: f64, g: &Grid) -> Option<Plan> {
     let home = |q: Pt| s.ally_towers.iter().map(|t| dist(q, *t)).fold(400_000.0, f64::min);
     let now = gap(s.me);
     // away from the enemies near him (their centre)
-    let close: Vec<&Champ> = s.foes.iter().filter(|f| dist(s.me, f.at) <= ESC_R2 * 1.5).collect();
+    let close: Vec<&Champ> = s.foes.iter().filter(|f| dist(s.me, f.at) <= sk(ESC_R2) * 1.5).collect();
     let centre = if close.is_empty() {
         s.me
     } else {
@@ -315,15 +317,15 @@ pub fn escape(s: &Scene, reach: f64, g: &Grid) -> Option<Plan> {
     rays()
         .filter_map(|d| {
             let len = landing(g, s.me, d, reach);
-            (len >= MIN_FLIGHT).then_some((d, len))
+            (len >= sk(MIN_FLIGHT)).then_some((d, len))
         })
         .map(|(d, len)| {
             let q = along(s.me, d, len);
-            let score = gap(q).min(ESC_FAR) + ESC_STRAIGHT * (d.0 * away.0 + d.1 * away.1) - 0.2 * home(q)
+            let score = gap(q).min(sk(ESC_FAR)) + ESC_STRAIGHT * (d.0 * away.0 + d.1 * away.1) - 0.2 * home(q)
                 - if under_enemy_tower(s, q) { 100_000.0 } else { 0.0 };
             (d, len, gap(q), score)
         })
-        .filter(|c| c.2 >= now + ESC_GAIN)
+        .filter(|c| c.2 >= now + sk(ESC_GAIN))
         .max_by(|a, b| a.3.total_cmp(&b.3))
         .map(|(dir, len, ..)| Plan { why: Why::Escape, dir, len })
 }
@@ -331,12 +333,13 @@ pub fn escape(s: &Scene, reach: f64, g: &Grid) -> Option<Plan> {
 /// 飞到 `f` 前面 [`KEEP`] 的地方：方向和飞多远（落点修过墙；太短、到不了就没有）。
 fn toward(s: &Scene, reach: f64, g: &Grid, f: &Champ) -> Option<(Pt, f64, Pt)> {
     let d = dist(s.me, f.at);
-    if d > reach + KEEP {
+    let keep = sk(KEEP);
+    if d > reach + keep {
         return None;
     }
     let dir = unit((f.at.0 - s.me.0, f.at.1 - s.me.1))?;
-    let len = landing(g, s.me, dir, (d - KEEP).min(reach));
-    (len >= MIN_FLIGHT).then(|| (dir, len, along(s.me, dir, len)))
+    let len = landing(g, s.me, dir, (d - keep).min(reach));
+    (len >= sk(MIN_FLIGHT)).then(|| (dir, len, along(s.me, dir, len)))
 }
 
 /// 追残血：龙息够不着、飞得到的残血敌方英雄（生命最低的先，一样就近的先），落点旁除了他最多一名敌方英雄，不在敌方塔下。
@@ -346,10 +349,10 @@ pub fn chase(s: &Scene, reach: f64, g: &Grid) -> Option<Plan> {
     }
     s.foes
         .iter()
-        .filter(|f| f.hp <= CHASE_HP && dist(s.me, f.at) >= CHASE_MIN)
+        .filter(|f| f.hp <= CHASE_HP && dist(s.me, f.at) >= sk(CHASE_MIN))
         .filter_map(|f| toward(s, reach, g, f).map(|(dir, len, land)| (f, dir, len, land)))
         .filter(|(f, _, _, land)| {
-            s.foes.iter().filter(|o| o.id != f.id && dist(*land, o.at) <= CROWD_R).count() <= 1
+            s.foes.iter().filter(|o| o.id != f.id && dist(*land, o.at) <= sk(CROWD_R)).count() <= 1
                 && !under_enemy_tower(s, *land)
         })
         .min_by(|a, b| a.0.hp.total_cmp(&b.0.hp).then(dist(s.me, a.0.at).total_cmp(&dist(s.me, b.0.at))))
@@ -364,10 +367,10 @@ pub fn engage(s: &Scene, reach: f64, g: &Grid) -> Option<Plan> {
     }
     s.foes
         .iter()
-        .filter(|f| dist(s.me, f.at) >= ENGAGE_MIN && near(&s.allies, f.at, ALLY_R) >= 1)
+        .filter(|f| dist(s.me, f.at) >= sk(ENGAGE_MIN) && near(&s.allies, f.at, sk(ALLY_R)) >= 1)
         .filter_map(|f| toward(s, reach, g, f).map(|(dir, len, land)| (f, dir, len, land)))
         .filter(|(_, _, _, land)| {
-            near(&s.foes, *land, CROWD_R) <= near(&s.allies, *land, CROWD_R + 20_000.0) + 2 && !under_enemy_tower(s, *land)
+            near(&s.foes, *land, sk(CROWD_R)) <= near(&s.allies, *land, sk(CROWD_R + 20_000.0)) + 2 && !under_enemy_tower(s, *land)
         })
         .min_by(|a, b| a.0.hp.total_cmp(&b.0.hp).then(dist(s.me, a.0.at).total_cmp(&dist(s.me, b.0.at))))
         .map(|(f, dir, len, _)| Plan { why: Why::Engage(f.id), dir, len })

@@ -14,6 +14,7 @@
 
 use std::collections::HashMap;
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::{grid_now, head, tally, unit, wall_travel, wlog, Grid, Pt, E_BOLT_SPEED, E_KB_SPEED, E_KB_T, E_RANGE, E_START, ID};
@@ -24,7 +25,7 @@ pub const PRIORITY: i32 = 110;
 pub const LEAD_MAX: f64 = 24_000.0;
 /// 速度按这么多 tick 之内的上一个位置算（再久的不算：他可能死过、闪现过）。
 pub const VEL_SPAN: usize = 6;
-/// 一 tick 走超过这么远的不算速度（闪现、传送）。
+/// 一 tick 走超过这么远的不算速度（闪现、传送）。大地图版跟着乘 1.3（冲刺也快了）。
 pub const VEL_MAX: f64 = 4_000.0;
 /// 身体之间不到这么远算贴脸（近战英雄的普攻 23000～28000 是中心之间，减去两人的身体约 6000～12000）。
 pub const PEEL_GAP: f64 = 8_000.0;
@@ -78,7 +79,7 @@ pub enum Call {
 
 /// 重箭打到 `d` 远的人要几 tick（出手 + 飞）。
 pub fn hit_ticks(d: f64) -> usize {
-    E_START + (d / E_BOLT_SPEED as f64).ceil() as usize
+    E_START + (d / sk(E_BOLT_SPEED) as f64).ceil() as usize
 }
 
 /// 照速度 `vel` 走 `ticks` tick 后他在哪：最多 `LEAD_MAX`，路上碰到墙就停在墙前。
@@ -93,7 +94,7 @@ pub fn lead(grid: &Grid, at: Pt, vel: Pt, ticks: usize) -> Pt {
 /// 薇恩在 `me` 把站在 `at`、身体 `r` 的人往后推：身后的墙多远（`condemn` 的同一个判断），没墙就 None。
 pub fn wall_behind(grid: &Grid, me: Pt, at: Pt, r: f64) -> Option<f64> {
     let dir = unit((at.0 - me.0, at.1 - me.1))?;
-    wall_travel(grid, at, dir, (E_KB_SPEED * E_KB_T) as f64, r)
+    wall_travel(grid, at, dir, (sk(E_KB_SPEED) * E_KB_T) as f64, r)
 }
 
 /// 这一箭约打多少（物理伤害按护甲减）。
@@ -219,7 +220,7 @@ impl StablePlayerAi for Condemn {
                 }
                 let at = (u.pos().0 as f64, u.pos().1 as f64);
                 let vel = match self.seen.get(&u.id()) {
-                    Some(&(t0, p0)) if t0 < tick && tick - t0 <= VEL_SPAN && dist(p0, at) <= VEL_MAX * (tick - t0) as f64 => {
+                    Some(&(t0, p0)) if t0 < tick && tick - t0 <= VEL_SPAN && dist(p0, at) <= sk(VEL_MAX) * (tick - t0) as f64 => {
                         let k = (tick - t0) as f64;
                         ((at.0 - p0.0) / k, (at.1 - p0.1) / k)
                     }
@@ -237,7 +238,7 @@ impl StablePlayerAi for Condemn {
             if !e.is_alive() || !ready || held {
                 return None;
             }
-            let reach = |f: &Foe| dist((e.pos().0 as f64, e.pos().1 as f64), f.at) <= E_RANGE as f64 + e.radius() as f64 + f.r;
+            let reach = |f: &Foe| dist((e.pos().0 as f64, e.pos().1 as f64), f.at) <= sk(E_RANGE) as f64 + e.radius() as f64 + f.r;
             // the AI's own E target, wherever it stands (held below when nobody the push works on is in reach)
             let e_at = ai_e.and_then(|t| sim.get_entity(t)).map(|u| (u.id(), (u.pos().0 as f64, u.pos().1 as f64)));
             // immune to crowd control: the push does nothing to them

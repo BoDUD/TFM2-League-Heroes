@@ -25,6 +25,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_pantheon";
@@ -152,7 +154,7 @@ pub const R_MAX: f64 = 363_000.0;
 pub fn choose(spots: &[Spot], r_min: f64) -> Option<usize> {
     spots
         .iter()
-        .filter(|s| s.far >= r_min && s.far <= R_MAX && s.allies >= 1)
+        .filter(|s| s.far >= r_min && s.far <= sk(R_MAX) && s.allies >= 1)
         .max_by(|a, b| {
             a.foes.cmp(&b.foes).then(b.hp.partial_cmp(&a.hp).unwrap_or(std::cmp::Ordering::Equal))
         })
@@ -397,7 +399,7 @@ impl Will {
         }
         // the shield faces the nearest enemy champion (he turns it toward the fight)
         let foes = champions(sim, team, false);
-        if let Some(&(_, f)) = foes.iter().filter(|f| dist(at, f.1) <= FACE_REACH).min_by(|a, b| {
+        if let Some(&(_, f)) = foes.iter().filter(|f| dist(at, f.1) <= sk(FACE_REACH)).min_by(|a, b| {
             dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal)
         }) {
             let d = dist(at, f);

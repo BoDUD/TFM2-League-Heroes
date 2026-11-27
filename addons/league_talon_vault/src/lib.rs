@@ -44,6 +44,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
@@ -454,7 +455,7 @@ pub fn plan_escape(p: &Params, g: &Grid, me: (f64, f64), foes: &[Foe]) -> Option
         .filter(|d| d.0 * away.0 + d.1 * away.1 >= cos)
         .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
         .map(|(to, _)| (to, gap(to)))
-        .filter(|&(_, gp)| gp >= now + ESCAPE_GAIN)
+        .filter(|&(_, gp)| gp >= now + sk(ESCAPE_GAIN))
         .max_by(|a, b| a.1.total_cmp(&b.1))
         .map(|(to, _)| Plan { to, chase: None })
 }
@@ -500,9 +501,9 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
             .filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos)
             .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
             .map(|(to, _)| to)
-            .filter(|&to| dist(to, t.at) + CLOSER <= now)
+            .filter(|&to| dist(to, t.at) + sk(CLOSER) <= now)
             .filter(|&to| {
-                foes.iter().filter(|f| f.id != t.id && (dist(to, f.at) <= CROWD_R || dist(t.at, f.at) <= CROWD_R)).count()
+                foes.iter().filter(|f| f.id != t.id && (dist(to, f.at) <= sk(CROWD_R) || dist(t.at, f.at) <= sk(CROWD_R))).count()
                     <= 1
             })
             .min_by(|a, b| dist(*a, t.at).total_cmp(&dist(*b, t.at)));

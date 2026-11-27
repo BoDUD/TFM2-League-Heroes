@@ -55,7 +55,7 @@
 
 ### 卡萨丁附加包
 
-[卡萨丁附加包](../../addons/league_kassadin/README.md)：`league_kassadin` v0.1.3
+[卡萨丁附加包](../../addons/league_kassadin/README.md)：`league_kassadin` v0.1.4
 
 主包 `league` 保持纯数据。用户问被动「看看rust能做吗」，附加包做哪几项「你看着办吧」——这个附加包用原生代码做主包数据做不到的三件事：
 

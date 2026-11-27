@@ -36,6 +36,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离 / 突进判断在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_vex";
@@ -273,7 +275,7 @@ pub fn doom_after_cut(left: usize, pct: usize) -> usize {
 
 /// 这一 tick 走了 `step`、上一 tick 走了 `prev`、移速 `ms`：算不算突进 / 闪现（传送、回城、复活那么远的不算）。
 pub fn is_dash(step: f64, prev: f64, ms: usize) -> bool {
-    step <= BLINK_MAX && (step + prev) / 2.0 >= DASH_STEP.max(DASH_X * ms as f64)
+    step <= sk(BLINK_MAX) && (step + prev) / 2.0 >= sk(DASH_STEP).max(DASH_X * ms as f64)
 }
 
 /// 被别人推着走，不是自己突进：有强制位移却没在放技能。这个引擎里英雄自己的突进也是强制位移，但同时带着施法动作；
@@ -586,7 +588,7 @@ impl Gloom {
             if w_ready {
                 est += after_mr(self.p.w_dmg + self.p.w_ratio * ap / 100, s.mr);
             }
-            let crowd = seen.iter().filter(|o| o.champion && o.alive && o.id != s.id && dist(o.pos, s.pos) <= CROWD_R).count();
+            let crowd = seen.iter().filter(|o| o.champion && o.alive && o.id != s.id && dist(o.pos, s.pos) <= sk(CROWD_R)).count();
             let into = kills(&self.p, s.hp, est) && crowd <= self.p.r_crowd;
             if into {
                 sim.add_buff(me, &BuffV1::timed(&vx("r_in"), self.p.r_wait + 4));

@@ -22,6 +22,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_jarvaniv";
@@ -35,7 +36,7 @@ const VERSION: &str = match option_env!("ADDON_VERSION_league_jarvaniv") {
 /// 单位半径读不到时用的值。
 pub const BODY: u64 = 6000;
 /// 一 tick 里挪了这么远就是闪现 / 飞越（0.1.3）：走路每 tick 几百、数据的冲刺最快几千，加里奥的英雄登场一下 8 万到 30 多万，
-/// 闪现约 4 万。英雄联盟里这类位移越得过天崩地裂的墙。
+/// 闪现约 4 万。英雄联盟里这类位移越得过天崩地裂的墙。大地图版跟着乘 1.3（数据的冲刺也乘了）。
 pub const BLINK: u64 = 15000;
 
 fn sn(x: &str) -> String {
@@ -177,7 +178,7 @@ pub fn clamp(r: &Ring, p: &Params, inside: bool, x: u64, y: u64, body: u64) -> (
 pub fn leapt(last: Option<(u64, u64)>, now: (u64, u64)) -> bool {
     last.is_some_and(|l| {
         let (dx, dy) = (now.0 as f64 - l.0 as f64, now.1 as f64 - l.1 as f64);
-        (dx * dx + dy * dy).sqrt() > BLINK as f64
+        (dx * dx + dy * dy).sqrt() > sk(BLINK) as f64
     })
 }
 

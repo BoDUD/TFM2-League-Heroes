@@ -26,6 +26,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex, Once};
 
+// 大招的范围、掀飞距离和速度用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
@@ -318,11 +320,11 @@ fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
 
 /// 强制位移 `target` 沿 `dir` 走 `len`；返回 tick 数。
 fn shove(sim: &mut StableSim<'_>, target: usize, dir: Pt, len: f64) -> usize {
-    let ticks = ((len / R_PUSH_V as f64).ceil() as usize).max(1);
+    let ticks = ((len / sk(R_PUSH_V) as f64).ceil() as usize).max(1);
     let mut cc = CcV1::of_kind(CcKindV1::ForceMove, ticks as u64);
     cc.dx = (dir.0 * len).round() as i64;
     cc.dy = (dir.1 * len).round() as i64;
-    cc.speed = R_PUSH_V as u64;
+    cc.speed = sk(R_PUSH_V) as u64;
     sim.apply_cc(target, &cc);
     sim.add_buff(target, &BuffV1::timed(&n("r_push"), ticks + 2));
     ticks
@@ -337,7 +339,7 @@ fn foes_round(sim: &StableSim<'_>, me: usize) -> Vec<Foe> {
         .filter_map(|i| sim.entity_at(i))
         .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && !u.is_tower())
         .map(|u| Foe { at: (u.pos().0 as f64, u.pos().1 as f64), body: u.radius() as f64, champion: u.is_champion() })
-        .filter(|f| dist(f.at, at) <= R_R as f64 + f.body)
+        .filter(|f| dist(f.at, at) <= sk(R_R) as f64 + f.body)
         .collect()
 }
 
@@ -354,9 +356,9 @@ fn wall(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         return;
     }
     let (Some(him), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
-    let reach = R_PUSH as f64;
+    let reach = sk(R_PUSH) as f64;
     let Some(grid) = grid_now(sim) else {
-        sim.entity_knockback(me, target, R_PUSH_V, R_PUSH / R_PUSH_V);
+        sim.entity_knockback(me, target, sk(R_PUSH_V), sk(R_PUSH) / sk(R_PUSH_V));
         return;
     };
     let foes = foes_round(sim, me);
@@ -369,7 +371,7 @@ fn wall(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
             sim.add_buff(target, &BuffV1::timed(&n("r_go"), ticks + 4));
             sim.entity_remove_buff(me, &n("r_watch"));
             // 0.1.6: as long as the cast's longest throw (each target reset it to its own: a nearer one cut a farther one's)
-            sim.add_buff(me, &BuffV1::timed(&n("r_watch"), R_PUSH.div_ceil(R_PUSH_V).max(ticks) + 8));
+            sim.add_buff(me, &BuffV1::timed(&n("r_watch"), sk(R_PUSH).div_ceil(sk(R_PUSH_V)).max(ticks) + 8));
             if let Some(k) = counted("throw") {
                 wlog(format!("{} THROW #{target} at {} toward ({:.2}, {:.2}): a wall {len:.0} away, slams in {ticks} ticks #{k}",
                              head(sim, me), pt(at), dir.0, dir.1));

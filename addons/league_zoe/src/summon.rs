@@ -17,6 +17,8 @@
 //! 哪里有墙，只有地图外算墙）。
 
 use game_places::terrain::{Map, Walls};
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 /// 七个召唤师技能。
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -92,20 +94,20 @@ pub fn pick(me_hp: f64, controlled: bool, in_ult: bool, foes: &[Unit], allies: &
             return (Spell::Flash, Some(f.0), "low with a champion on her");
         }
     }
-    let ally_low = allies.iter().filter(|a| a.1 <= NEAR && a.2 < ALLY_LOW).min_by(|a, b| a.2.total_cmp(&b.2)).copied();
+    let ally_low = allies.iter().filter(|a| a.1 <= sk(NEAR) && a.2 < ALLY_LOW).min_by(|a, b| a.2.total_cmp(&b.2)).copied();
     if me_hp < LOW || ally_low.is_some() {
         return (Spell::Heal, ally_low.map(|a| a.0), if me_hp < LOW { "low" } else { "an ally nearly dead" });
     }
-    if let Some(f) = foes.iter().filter(|f| f.1 <= NEAR && f.2 < KILL).min_by(|a, b| a.2.total_cmp(&b.2)) {
+    if let Some(f) = foes.iter().filter(|f| f.1 <= sk(NEAR) && f.2 < KILL).min_by(|a, b| a.2.total_cmp(&b.2)) {
         return (Spell::Ignite, Some(f.0), "a champion nearly dead");
     }
     if let Some(f) = close {
         return (Spell::Exhaust, Some(f.0), "a champion on her");
     }
-    if me_hp < HURT && nearest.is_some_and(|f| f.1 <= NEAR) {
+    if me_hp < HURT && nearest.is_some_and(|f| f.1 <= sk(NEAR)) {
         return (Spell::Barrier, None, "hurt in a fight");
     }
-    if nearest.is_none_or(|f| f.1 > FAR) {
+    if nearest.is_none_or(|f| f.1 > sk(FAR)) {
         return (Spell::Ghost, None, "nobody near");
     }
     let target = nearest.map(|f| f.0);
@@ -161,7 +163,8 @@ pub fn flash_spot_on(ground: Ground<'_>, me: (u64, u64), from: (u64, u64)) -> Op
     let (dx, dy) = (mx - from.0 as f64, my - from.1 as f64);
     let l = (dx * dx + dy * dy).sqrt();
     let base = if l > 1.0 { dy.atan2(dx) } else { 0.0 };
-    for d in [FLASH_D, FLASH_D / 2.0] {
+    let flash = sk(FLASH_D);
+    for d in [flash, flash / 2.0] {
         for turn in [0.0, 30.0, -30.0, 60.0, -60.0, 90.0, -90.0f64] {
             let a = base + turn.to_radians();
             let (x, y) = (mx + d * a.cos(), my + d * a.sin());

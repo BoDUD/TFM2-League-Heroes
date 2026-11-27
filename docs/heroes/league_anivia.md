@@ -55,7 +55,7 @@
 
 ### 艾尼维亚附加包
 
-[艾尼维亚附加包](../../addons/league_anivia/README.md)：`league_anivia` v0.1.12
+[艾尼维亚附加包](../../addons/league_anivia/README.md)：`league_anivia` v0.1.13
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

@@ -24,6 +24,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::Map;
 use mod_api_stable::*;
 
@@ -169,6 +171,11 @@ pub const Q_FAR: f64 = 3_000.0 * 19.0;
 /// 大招的射程（主包 r_range）。
 pub const R_REACH: f64 = 65_000.0;
 
+/// 标枪的宽这一版是多少：大地图版只乘 q_w 那 2500，两边身体的 6000 不乘。
+pub fn q_w() -> f64 {
+    sk(Q_W - 6_000.0) + 6_000.0
+}
+
 pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
     ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
 }
@@ -195,9 +202,9 @@ pub struct Foe {
 
 /// 标枪的倍率档（飞得越远越高）：0 近、1 中、2 远。
 pub fn band(d: f64) -> usize {
-    if d < Q_MID {
+    if d < sk(Q_MID) {
         0
-    } else if d < Q_FAR {
+    } else if d < sk(Q_FAR) {
         1
     } else {
         2
@@ -207,13 +214,13 @@ pub fn band(d: f64) -> usize {
 /// 从 `me` 到 `to` 的线上，比 `to` 近的别的单位挡着吗（标枪碰到第一个单位就停）。
 pub fn blocked(me: (f64, f64), to: &Foe, foes: &[Foe]) -> bool {
     let d = dist(me, to.at);
-    foes.iter().any(|f| f.id != to.id && dist(me, f.at) < d && seg_dist(me, to.at, f.at) <= Q_W)
+    foes.iter().any(|f| f.id != to.id && dist(me, f.at) < d && seg_dist(me, to.at, f.at) <= q_w())
 }
 
 /// 标枪的目标：射程内、线上没被挡的敌方英雄，被捕猎的优先，再按倍率档高、血量比例低排。
 pub fn javelin_pick(me: (f64, f64), foes: &[Foe]) -> Option<Foe> {
     foes.iter()
-        .filter(|f| f.champion && dist(me, f.at) <= Q_REACH && !blocked(me, f, foes))
+        .filter(|f| f.champion && dist(me, f.at) <= sk(Q_REACH) && !blocked(me, f, foes))
         .max_by_key(|f| (f.hunted, band(dist(me, f.at)), 100 - f.hp_pct.min(100)))
         .copied()
 }
@@ -221,7 +228,7 @@ pub fn javelin_pick(me: (f64, f64), foes: &[Foe]) -> Option<Foe> {
 /// 猛扑猎杀的目标：射程内的敌方英雄，被捕猎的优先，再按血量比例低排。
 pub fn ult_pick(me: (f64, f64), foes: &[Foe]) -> Option<Foe> {
     foes.iter()
-        .filter(|f| f.champion && dist(me, f.at) <= R_REACH)
+        .filter(|f| f.champion && dist(me, f.at) <= sk(R_REACH))
         .max_by_key(|f| (f.hunted, 100 - f.hp_pct.min(100)))
         .copied()
 }

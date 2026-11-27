@@ -55,7 +55,7 @@
 
 ### 薇古丝附加包
 
-[薇古丝附加包](../../addons/league_vex/README.md)：`league_vex` v0.2.0
+[薇古丝附加包](../../addons/league_vex/README.md)：`league_vex` v0.2.1
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

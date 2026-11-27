@@ -27,6 +27,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod hunt;
@@ -165,7 +167,7 @@ pub fn hp_at_landing(hp: f64, drop: f64) -> f64 {
 pub fn in_danger(a: &Ally, enemies: &[(f64, f64)]) -> bool {
     let line = if a.herself { SELF_HP } else { DANGER_HP };
     !a.undying
-        && enemies.iter().any(|e| dist(a.at, *e) <= DANGER_NEAR)
+        && enemies.iter().any(|e| dist(a.at, *e) <= sk(DANGER_NEAR))
         && (a.hp <= line || (a.drop >= BURST && a.hp <= BURST_LEFT) || hp_at_landing(a.hp, a.drop) <= line)
 }
 
@@ -173,7 +175,7 @@ pub fn in_danger(a: &Ally, enemies: &[(f64, f64)]) -> bool {
 pub fn pick_save(me: (f64, f64), allies: &[Ally], enemies: &[(f64, f64)]) -> Option<Ally> {
     allies
         .iter()
-        .filter(|a| dist(me, a.at) <= IN_CIRCLE && in_danger(a, enemies))
+        .filter(|a| dist(me, a.at) <= sk(IN_CIRCLE) && in_danger(a, enemies))
         .min_by(|a, b| a.hp.total_cmp(&b.hp))
         .copied()
 }
@@ -458,7 +460,7 @@ impl StablePlayerAi for UltAi {
                 if e.team() != team {
                     enemies.push(at);
                     let d = dist(my_at, at);
-                    if e.is_targetable() && d <= R_CAST_RANGE && nearest.is_none_or(|(_, n, _)| d < n) {
+                    if e.is_targetable() && d <= sk(R_CAST_RANGE) && nearest.is_none_or(|(_, n, _)| d < n) {
                         nearest = Some((e.id(), d, e.pos()));
                     }
                     continue;

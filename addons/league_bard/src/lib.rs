@@ -41,6 +41,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
@@ -358,7 +359,7 @@ impl Grid {
         if t > reach {
             return None;
         }
-        let entry = at((t - ENTRY_BACK).max(0.0));
+        let entry = at((t - sk(ENTRY_BACK)).max(0.0));
         while t <= far && self.is_wall(at(t).0, at(t).1) {
             t += STEP;
         }
@@ -460,7 +461,7 @@ pub fn plan_exit(p: &Params, g: &Grid, me: (f64, f64), foes: &[(f64, f64)], home
     rays()
         .filter(|d| d.0 * away.0 + d.1 * away.1 >= cos)
         .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
-        .filter(|&(_, to)| foes.is_empty() || gap(to) >= now + ESCAPE_GAIN)
+        .filter(|&(_, to)| foes.is_empty() || gap(to) >= now + sk(ESCAPE_GAIN))
         .map(|(entry, to)| ((entry, to), gap(to) + HOME_W * homeward(to)))
         .max_by(|a, b| a.1.total_cmp(&b.1))
         .map(|(door, _)| door)
@@ -490,9 +491,9 @@ pub fn plan_chase(p: &Params, g: &Grid, me: (f64, f64), hp_pct: usize, foes: &[F
             .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
             .filter(|&(_, to)| {
                 let d = dist(to, t.at);
-                d + CLOSER <= now && d >= KEEP
+                d + sk(CLOSER) <= now && d >= sk(KEEP)
             })
-            .filter(|&(_, to)| foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= CROWD_R).count() <= 1)
+            .filter(|&(_, to)| foes.iter().filter(|f| f.id != t.id && dist(to, f.at) <= sk(CROWD_R)).count() <= 1)
             .min_by(|a, b| dist(a.1, t.at).total_cmp(&dist(b.1, t.at)));
         if let Some(to) = best {
             return Some((to, t.id));
@@ -520,10 +521,10 @@ pub fn plan_help(
         .iter()
         .filter(|(_, a)| {
             let d = dist(me, *a);
-            d >= HELP_NEAR && d <= HELP_FAR && crowd(*a, FIGHT_R) >= 1
+            d >= sk(HELP_NEAR) && d <= sk(HELP_FAR) && crowd(*a, sk(FIGHT_R)) >= 1
         })
         .collect();
-    fights.sort_by_key(|(_, a)| std::cmp::Reverse(crowd(*a, FIGHT_R)));
+    fights.sort_by_key(|(_, a)| std::cmp::Reverse(crowd(*a, sk(FIGHT_R))));
     let cos = CHASE_DEG.to_radians().cos();
     for &(id, ally) in fights {
         let Some(toward) = unit((ally.0 - me.0, ally.1 - me.1)) else { continue };
@@ -531,7 +532,7 @@ pub fn plan_help(
         let best = rays()
             .filter(|d| d.0 * toward.0 + d.1 * toward.1 >= cos)
             .filter_map(|d| g.vault(me, d, p.e_reach as f64, p.e_far as f64))
-            .filter(|&(_, to)| dist(to, ally) + HELP_GAIN <= now && crowd(to, CROWD_R) <= HELP_CROWD)
+            .filter(|&(_, to)| dist(to, ally) + sk(HELP_GAIN) <= now && crowd(to, sk(CROWD_R)) <= HELP_CROWD)
             .min_by(|a, b| dist(a.1, ally).total_cmp(&dist(b.1, ally)));
         if let Some(to) = best {
             return Some((to, id));
@@ -569,7 +570,7 @@ pub fn pick_objective(p: &Params, me: (f64, f64), objs: &[Obj], foes: &[(f64, f6
     objs.iter()
         .filter(|o| dist(me, o.at) <= p.r_range as f64 && o.hp_pct < TAKEN_HP)
         .filter(|o| !allies.iter().any(|a| dist(*a, o.at) <= p.r_r as f64))
-        .map(|o| (*o, foes.iter().filter(|f| dist(**f, o.at) <= CONTEST_R).count()))
+        .map(|o| (*o, foes.iter().filter(|f| dist(**f, o.at) <= sk(CONTEST_R)).count()))
         .filter(|(_, n)| *n > 0)
         .max_by_key(|(o, n)| (o.epic, *n))
         .map(|(o, _)| o)
@@ -662,7 +663,8 @@ fn bind(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     // built-in 5v5 map has the measured edges that count as terrain too
     let Some(g) = grid_now(sim) else { return };
     let bounds = std::ptr::eq(g, &GRIDS[0]).then_some(MOBA_BOUNDS);
-    let reach = (Q_SPEED * Q_WIN) as f64;
+    // 大地图版跟着乘 1.3（数据里的弹道也乘了）
+    let reach = (sk(Q_SPEED) * Q_WIN) as f64;
     let Some(d) = wall_behind(g, bounds, at, dir, reach) else { return };
     for flag in ["q_two", "q_wall"] {
         sim.entity_remove_buff(me, &bd(flag));

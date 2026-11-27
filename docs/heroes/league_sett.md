@@ -55,7 +55,7 @@
 
 ### 瑟提豪意附加包
 
-[瑟提豪意附加包](../../addons/league_sett_grit/README.md)：`league_sett_grit` v0.1.2
+[瑟提豪意附加包](../../addons/league_sett_grit/README.md)：`league_sett_grit` v0.1.3
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

@@ -55,7 +55,7 @@
 
 ### 奥莉安娜附加包
 
-[奥莉安娜附加包](../../addons/league_orianna/README.md)：`league_orianna` v0.3.5
+[奥莉安娜附加包](../../addons/league_orianna/README.md)：`league_orianna` v0.3.6
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

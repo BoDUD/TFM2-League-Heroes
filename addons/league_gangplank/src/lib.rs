@@ -39,6 +39,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_gangplank";
@@ -829,7 +830,7 @@ impl Scurvy {
         let Some(at) = self.kegs[o] else { return (false, None) };
         let team = sim.get_entity(me).map_or(0, |e| e.team());
         let near = nearest_enemy(sim, team, at);
-        if near.is_some_and(|d| d <= (self.p.e_r + EMPTY_MARGIN) as f64) {
+        if near.is_some_and(|d| d <= (self.p.e_r + sk(EMPTY_MARGIN)) as f64) {
             hand(&mut self.handed, sim.tick(), o, at);
             return (false, near);
         }

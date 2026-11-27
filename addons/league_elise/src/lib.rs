@@ -34,6 +34,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod view;
@@ -518,7 +519,7 @@ impl StableEffectType for VenomFx {
             None => ((0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
                          .filter(|u| u.team() != team && u.is_alive() && summon::hittable(u))
                          .map(|u| (u.id(), summon::dist(summon::at_of(&u), at)))
-                         .filter(|u| u.1 <= VENOM_NEAR)
+                         .filter(|u| u.1 <= sk(VENOM_NEAR))
                          .min_by(|a, b| a.1.total_cmp(&b.1))
                          .map(|u| u.0),
                      " (no unit in the effect's input: the nearest enemy to her)"),

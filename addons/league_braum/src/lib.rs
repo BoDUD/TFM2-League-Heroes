@@ -26,6 +26,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_braum";
@@ -174,15 +176,16 @@ pub fn on_line(me: (f64, f64), to: (f64, f64), champs: &[(f64, f64)]) -> usize {
     if d <= 0.0 {
         return 0;
     }
-    let end = (me.0 + (to.0 - me.0) / d * R_LEN, me.1 + (to.1 - me.1) / d * R_LEN);
-    champs.iter().filter(|c| seg_dist(me, end, **c) <= R_W + BODY).count()
+    let len = sk(R_LEN);
+    let end = (me.0 + (to.0 - me.0) / d * len, me.1 + (to.1 - me.1) / d * len);
+    champs.iter().filter(|c| seg_dist(me, end, **c) <= sk(R_W) + BODY).count()
 }
 
 /// R 的目标：`R_RANGE` 以内、线上英雄最多的那个（`(id, 位置)`）。和 `current` 一样多时留 `current`。
 pub fn best_line(me: (f64, f64), champs: &[(usize, (f64, f64))], current: Option<usize>) -> Option<(usize, usize)> {
     let pts: Vec<(f64, f64)> = champs.iter().map(|c| c.1).collect();
     let mut best: Option<(usize, usize)> = None;
-    for &(id, at) in champs.iter().filter(|c| dist(me, c.1) <= R_RANGE) {
+    for &(id, at) in champs.iter().filter(|c| dist(me, c.1) <= sk(R_RANGE)) {
         let n = on_line(me, at, &pts);
         let better = match best {
             None => true,
@@ -471,7 +474,7 @@ impl Heart {
         }
         // the shield faces the nearest enemy champion (he turns it toward the fight)
         let foes = enemy_champions(sim, team);
-        if let Some(&(_, f)) = foes.iter().filter(|f| dist(at, f.1) <= FACE_REACH).min_by(|a, b| {
+        if let Some(&(_, f)) = foes.iter().filter(|f| dist(at, f.1) <= sk(FACE_REACH)).min_by(|a, b| {
             dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal)
         }) {
             let d = dist(at, f);

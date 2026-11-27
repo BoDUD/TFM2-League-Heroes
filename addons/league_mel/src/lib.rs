@@ -24,6 +24,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod combo;
@@ -422,14 +423,16 @@ impl Reflect {
             self.last.insert(c, now);
             let Some(cu) = sim.get_entity(c) else { continue };
             let (cx, cy) = cu.pos();
-            let fly = (dist(at, (cx as f64, cy as f64)) / BACK_SPEED).ceil().max(1.0) as usize;
+            // 大地图版跟着乘 1.3，飞行时间不变
+            let speed = sk(BACK_SPEED);
+            let fly = (dist(at, (cx as f64, cy as f64)) / speed).ceil().max(1.0) as usize;
             let spec = ProjectileSpawnV1 {
                 caster_id: me,
                 team,
                 x,
                 y: y.saturating_sub(5000),
                 radius: 1_000,
-                speed: BACK_SPEED as u64,
+                speed: speed as u64,
                 move_kind: ProjectileMoveKindV1::Target.code(),
                 target_id: c,
                 target_x: 0,

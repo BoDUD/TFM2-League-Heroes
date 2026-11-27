@@ -29,6 +29,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_katarina";
@@ -269,7 +270,7 @@ pub fn plan_escape(p: &Params, me: (f64, f64), daggers: &[(f64, f64)], foes: &[F
         .copied()
         .filter(|&d| dist(me, d) <= p.e_range as f64)
         .map(|d| (d, gap(d)))
-        .filter(|&(_, g)| g >= now + ESCAPE_GAIN)
+        .filter(|&(_, g)| g >= now + sk(ESCAPE_GAIN))
         .max_by(|a, b| a.1.total_cmp(&b.1))
         .map(|(d, _)| d)
 }
@@ -281,7 +282,7 @@ pub fn plan_strike(p: &Params, me: (f64, f64), hp_pct: usize, daggers: &[(f64, f
         .copied()
         .filter(|&d| {
             let r = dist(me, d);
-            r > WALK && r <= p.e_range as f64
+            r > sk(WALK) && r <= p.e_range as f64
         })
         .filter_map(|d| {
             let near: Vec<&Foe> = foes.iter().filter(|f| dist(d, f.at) <= p.p_r as f64).collect();
@@ -376,7 +377,7 @@ impl Blades {
             }
             let (x, y) = u.pos();
             let d = dist(to, (x as f64, y as f64));
-            if d <= E_HIT_R && best.is_none_or(|b| d < b.0) {
+            if d <= sk(E_HIT_R) && best.is_none_or(|b| d < b.0) {
                 best = Some((d, u.id()));
             }
         }
@@ -485,7 +486,7 @@ impl StablePassive for Blades {
             foes.push(Foe { at: (x as f64, y as f64), hp_pct: hp * 100 / max.max(1) });
         }
         let mine = hp_pct(sim, me);
-        let danger = foes.iter().any(|f| dist(here, f.at) <= SAFE_R);
+        let danger = foes.iter().any(|f| dist(here, f.at) <= sk(SAFE_R));
         if mine < self.p.e_low && danger {
             if let Some(to) = plan_escape(&self.p, here, &daggers, &foes) {
                 self.blink(sim, me, here, to, "out");

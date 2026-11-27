@@ -48,6 +48,8 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
+// 写死的技能距离 / 速度在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod banner;
@@ -362,7 +364,7 @@ pub fn on_line(me: (f64, f64), to: (f64, f64), units: &[Body]) -> Vec<Body> {
             let v = (b.at.0 - me.0, b.at.1 - me.1);
             let along = v.0 * u.0 + v.1 * u.1;
             let off = (v.0 * u.1 - v.1 * u.0).abs();
-            (along > 0.0 && along < len && off <= R_W).then_some((along, *b))
+            (along > 0.0 && along < len && off <= sk(R_W)).then_some((along, *b))
         })
         .collect();
     on.sort_by(|a, b| a.0.total_cmp(&b.0));
@@ -687,7 +689,7 @@ fn locked_id(sim: &StableSim<'_>, me: usize) -> Option<usize> {
 fn bullet_target(sim: &StableSim<'_>, me: usize) -> Option<(usize, bool)> {
     let e = sim.get_entity(me)?;
     let (team, my) = (e.team(), e.id());
-    let reach2 = R_REACH * R_REACH;
+    let reach2 = sk(R_REACH).pow(2);
     let ok = |t: &StableEntity<'_, '_>| {
         t.is_champion() && t.is_alive() && t.is_targetable() && t.team() != team && sim.distance_sq(my, t.id()) <= reach2
     };
@@ -716,7 +718,7 @@ pub fn bullet_end_on(map: Map, from: (f64, f64), to: (f64, f64)) -> (u64, u64) {
     let (dx, dy) = (to.0 - from.0, to.1 - from.1);
     let d = (dx * dx + dy * dy).sqrt();
     let (ux, uy) = if d < 1.0 { (1.0, 0.0) } else { (dx / d, dy / d) };
-    let r = R_REACH as f64;
+    let r = sk(R_REACH) as f64;
     let end = map.extent();
     let room = |p: f64, u: f64| if u > 0.0 { (end - p) / (u * r) } else if u < 0.0 { -p / (u * r) } else { 1.0 };
     let t = room(from.0, ux).min(room(from.1, uy)).clamp(0.0, 1.0);
@@ -727,7 +729,7 @@ pub fn bullet_end_on(map: Map, from: (f64, f64), to: (f64, f64)) -> (u64, u64) {
 /// 最多往前算 LEAD_CAP；一 tick 走得比 V_MAX 还快是位移技能 / 闪现，子弹到之前就停了，不预判）。11-05 的日志：锁定的人
 /// 68-74k 外每 tick 走 ~400，子弹朝他站的地方飞。
 pub fn lead(me: (f64, f64), to: (f64, f64), v: (f64, f64), speed: f64) -> (f64, f64) {
-    if speed <= 0.0 || v.0.hypot(v.1) > V_MAX {
+    if speed <= 0.0 || v.0.hypot(v.1) > sk(V_MAX) {
         return to;
     }
     let mut p = to;
@@ -748,7 +750,7 @@ pub fn lead(me: (f64, f64), to: (f64, f64), v: (f64, f64), speed: f64) -> (f64, 
 pub fn closest_pass(t0: usize, from: (f64, f64), end: (f64, f64), track: &[(usize, (f64, f64))]) -> Option<f64> {
     let len = dist(from, end);
     let u = if len < 1.0 { (0.0, 0.0) } else { ((end.0 - from.0) / len, (end.1 - from.1) / len) };
-    let speed = R_SPEED as f64;
+    let speed = sk(R_SPEED) as f64;
     let steps = (len / speed).ceil() as usize;
     (0..=steps)
         .filter_map(|k| {
@@ -810,15 +812,15 @@ fn aim(sim: &mut StableSim<'_>, me: usize) {
     let Some(to) = sim.get_entity(id).map(|t| t.pos()) else { return };
     let from = (at.0 as f64, at.1 as f64);
     let v = walk_of(sim, me, id);
-    let ahead = lead(from, (to.0 as f64, to.1 as f64), v, R_SPEED as f64);
+    let ahead = lead(from, (to.0 as f64, to.1 as f64), v, sk(R_SPEED) as f64);
     let end = bullet_end_on(map_here(sim), from, ahead);
     let spec = ProjectileSpawnV1 {
         caster_id: me,
         team,
         x: at.0,
         y: at.1,
-        radius: R_W as u64,
-        speed: R_SPEED,
+        radius: sk(R_W) as u64,
+        speed: sk(R_SPEED),
         move_kind: ProjectileMoveKindV1::Linear.code(),
         target_id: 0,
         target_x: end.0,
@@ -1247,7 +1249,7 @@ impl Rogue {
         if sim.tick() % 30 != 0 || self.marks.is_empty() {
             return;
         }
-        let r2 = HASTE_R * HASTE_R;
+        let r2 = sk(HASTE_R).pow(2);
         let near = self.marks.keys().filter_map(|&s| sim.get_player(s).and_then(|p| p.champion())).any(|e| {
             e.is_alive() && sim.distance_sq(me, e.id()) <= r2
         });
@@ -1314,8 +1316,9 @@ impl Rogue {
                     .iter()
                     .map(|&(t0, from, end)| closest_pass(t0, from, end, &self.lock_track).map_or("-".to_string(), |d| format!("{d:.0}")))
                     .collect();
+                let hit = sk(R_W);
                 wlog(format!("{} R MISS #{k}: {lost} of {shots} lost; each bullet's closest pass to the lock #{lock_txt} [{}] \
-                              (a hit needs {R_W:.0}; the lock {state})", head(sim, me), passes.join(", ")));
+                              (a hit needs {hit:.0}; the lock {state})", head(sim, me), passes.join(", ")));
             }
         }
         for name in [R_SHOT, R_ONLOCK, R_ONOTHER] {
@@ -1410,7 +1413,7 @@ impl Rogue {
         }
         let Some(e) = sim.get_entity(me) else { return };
         let (team, attack, at) = (e.team(), e.stat().attack, e.pos());
-        let reach2 = R_REACH * R_REACH;
+        let reach2 = sk(R_REACH).pow(2);
         // (id, d2) of the locked champion; (id, hp ratio, d2) of the weakest
         let mut locked: Option<(usize, u64)> = None;
         let mut weakest: Option<(usize, usize, u64)> = None;
@@ -1448,7 +1451,7 @@ impl Rogue {
             .map(|u| body(&u))
             .collect();
         let from = (at.0 as f64, at.1 as f64);
-        let blockers = on_line(from, lead(from, him.at, self.walk_of(id), R_SPEED as f64), &others);
+        let blockers = on_line(from, lead(from, him.at, self.walk_of(id), sk(R_SPEED) as f64), &others);
         let kill = lethal(attack, &him, n, &blockers);
         let leaving = d2 * 100 >= reach2 * 85;
         if kill || leaving {
@@ -1572,7 +1575,7 @@ fn pick_target(sim: &StableSim<'_>, me: &StableEntity<'_, '_>) -> Result<usize, 
     if hp * 100 < max * 40 {
         return Err("own health below 40%");
     }
-    let (safe2, range2) = (R_SAFE * R_SAFE, R_RANGE * R_RANGE);
+    let (safe2, range2) = (sk(R_SAFE).pow(2), sk(R_RANGE).pow(2));
     let attack = me.stat().attack;
     let mut best: Option<(usize, usize)> = None;
     for i in 0..sim.entity_count() {

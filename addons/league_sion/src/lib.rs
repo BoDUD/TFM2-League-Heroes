@@ -31,6 +31,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod ult;
@@ -323,10 +324,10 @@ fn r_context(sim: &StableSim<'_>, me: usize) -> String {
         }
         let dist = d(u.pos());
         if u.team() == team {
-            allies += (dist <= ult::R_NEAR) as usize;
+            allies += (dist <= sk(ult::R_NEAR)) as usize;
         } else {
             nearest = nearest.min(dist);
-            enemies += (dist <= ult::R_RANGE) as usize;
+            enemies += (dist <= sk(ult::R_RANGE)) as usize;
         }
     }
     let near = if nearest == u64::MAX { "-".to_string() } else { nearest.to_string() };
