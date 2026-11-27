@@ -51,6 +51,7 @@ mod client;
 mod client_ctx;
 mod contract;
 mod draw;
+mod entity_list;
 mod entry;
 mod export;
 mod gameplay;
@@ -92,6 +93,7 @@ pub use gameplay::{
     PassiveVtableV1, SimCtxV1,
 };
 pub use handle::{EntityHandleV1, PlayerHandleV1, ProjectileHandleV1};
+pub use entity_list::{entity_list_stats, EntityListStats};
 pub use json_doc::{
     JsonDocCtxV1, JsonDocVtableV1, MapCustomizerRegV1, MapCustomizerVtableV1, StableJsonDoc,
 };
