@@ -21,6 +21,13 @@
 //! 峡谷上小龙坑被墙围了大半圈、只朝右上方开口，正面朝着镜头的龙等于脸对着墙。那张地图上（读阵容时认出来，[`super::feed::is_rift`]）
 //! 元素亚龙和远古巨龙换成 Codex 第 3 步转身朝右上方的那一套 `league_drake_<元素>_rift`（[`on_map`]，tools/art/dragons_rift_hd.py），
 //! 游戏自带的地图照旧是正面的。纳什男爵两张地图一样。
+//!
+//! 0.5.15（用户 2026-11-27：「小龙头的朝向有的还是不对啊 比如风龙 有的朝向还是看左边的」「风龙朝向还是和原地图一样的 好像其他有的
+//! 元素龙会看左边」）两处：
+//! - 看左边：游戏出招、普攻时把身体转向目标——显示实体值 +0x1bc 的一个字节，1 = 把图水平翻过来画（[`FLIP`]，卢锡安 view.rs 记过）。
+//!   目标在左边时，只画了朝右上方坑口的那一套就被翻成了朝左上。所以画的是那一套时每一步把它写回 0（[`faces_the_pit`]）。
+//! - 和原地图一样：系列赛第二、三局开头游戏还在后台重跑上一局，两场来回切，读阵容时记下的「这一场在峡谷上」被清掉了（feed.rs 的
+//!   `RIFT`），小龙画回了正面那套。
 
 use std::sync::{Mutex, Once};
 
@@ -30,6 +37,9 @@ use game_places::hook::{Ent, NAME_LEN_AT, NAME_PTR, VALUE};
 
 /// The display entity value's body resource name: String {cap, ptr, len} at +0x50 (league_neeko view.rs).
 const RES_CAP: usize = 0x50;
+/// 显示实体值里的朝向（bool：1 = 画成水平翻转，朝左；league_lucian view.rs 的 `FLIP`）。游戏每走一步按横向走的方向、每次出招按
+/// 目标在哪边写它；0.7.3 的身体绘制（rva 0x2751f90）在 0x2752b48 读这个字节。
+const FLIP: usize = 0x1bc;
 /// The native monsters' names: the display entity's resource (and name) is `serpen_monster` / `epic_monster` (league_dragons.log
 /// `SKIN seen`, 2026-11-10; the sprites are ingame/serpen and ingame/epic).
 const SERPEN: &str = "serpen";
@@ -123,6 +133,12 @@ pub fn on_map(sheet: String, rift: bool) -> String {
     }
 }
 
+/// 这个资源名画的是不是峡谷那一套小龙：只画了朝右上方坑口的一面，不能让游戏左右翻过来画（0.5.15）。
+pub fn faces_the_pit(res: &str) -> bool {
+    let (_, last) = split(res);
+    last.starts_with(DRAKE_PREFIX) && last.ends_with(RIFT_SUFFIX)
+}
+
 /// What the drake with entity id `key` should be drawn as: the element its spawn recorded (the display world's entities
 /// carry the simulation's ids), else the last drake / Elder spawn before the screen clock; None when neither is known.
 /// The id comes first: while a replay is wound back or forward the clock reads nothing (2026-11-10's log: the drake back
@@ -211,6 +227,9 @@ static PLAYED: Mutex<Vec<(usize, u64, String)>> = Mutex::new(Vec::new());
 /// (display world, key) of every entity already written out by [`describe`].
 static SEEN: Mutex<Vec<(usize, u64)>> = Mutex::new(Vec::new());
 
+/// (显示世界, 实体号, 翻回去几次)：峡谷那一套小龙被游戏转向左边、本包又转回坑口的（第一次记一行日志，离开画面时写总数）。
+static TURNED: Mutex<Vec<(usize, u64, u32)>> = Mutex::new(Vec::new());
+
 /// One log line of a display entity as it is: its name, its resource and animation read as Strings, and the raw words
 /// from +0x38 to +0xa0 of its value (to see how a monster's differ from a champion's).
 unsafe fn describe(v: usize) -> String {
@@ -220,8 +239,8 @@ unsafe fn describe(v: usize) -> String {
 }
 
 unsafe fn dress(world: usize, ents: &[Ent]) {
-    let (Ok(mut looks), Ok(mut seen), Ok(mut track), Ok(mut played)) =
-        (LOOKS.try_lock(), SEEN.try_lock(), TRACK.try_lock(), PLAYED.try_lock())
+    let (Ok(mut looks), Ok(mut seen), Ok(mut track), Ok(mut played), Ok(mut turned)) =
+        (LOOKS.try_lock(), SEEN.try_lock(), TRACK.try_lock(), PLAYED.try_lock(), TURNED.try_lock())
     else {
         return;
     };
@@ -253,8 +272,8 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
         }
         if !played.iter().any(|p| p.0 == world && p.1 == key && p.2 == anim) && played.len() < 400 {
             played.push((world, key, anim.clone()));
-            wlog(format!("SKIN world {world:#x} #{key}: plays {anim:?} (resource {:?}, screen tick {:?})",
-                         string_at(v + RES_CAP, 160), game_places::clock::screen_tick()));
+            wlog(format!("SKIN world {world:#x} #{key}: plays {anim:?} (resource {:?}, facing byte {}, screen tick {:?})",
+                         string_at(v + RES_CAP, 160), *((v + FLIP) as *const u8), game_places::clock::screen_tick()));
         }
         let want = match kind {
             Kind::Baron => Some(BARON.to_string()),
@@ -279,15 +298,36 @@ unsafe fn dress(world: usize, ents: &[Ent]) {
                              game_places::clock::screen_tick()));
             }
         }
+        // 峡谷那一套只画了朝右上方坑口的一面：游戏打左边的人时把它翻成朝左上，这里翻回去。这个字节只该是 0 / 1，别的值不碰
+        if string_at(v + RES_CAP, 160).is_some_and(|r| faces_the_pit(&r)) {
+            let flip = (v + FLIP) as *mut u8;
+            if *flip == 1 {
+                *flip = 0;
+                match turned.iter_mut().find(|t| t.0 == world && t.1 == key) {
+                    Some(t) => t.2 += 1,
+                    None => {
+                        if turned.len() >= 64 {
+                            turned.remove(0);
+                        }
+                        turned.push((world, key, 1));
+                        wlog(format!("SKIN world {world:#x} #{key}: the game turned it to face left ({anim:?}, a target on its left) - \
+                                      turned back to the pit's opening (screen tick {:?})", game_places::clock::screen_tick()));
+                    }
+                }
+            }
+        }
     }
     track.retain(|t| {
         let stays = t.0 != world || here.contains(&t.1);
         if !stays {
-            wlog(format!("SKIN world {world:#x} #{}: gone (last animation {:?}, screen tick {:?})", t.1, t.2,
-                         game_places::clock::screen_tick()));
+            let back = turned.iter().find(|x| x.0 == t.0 && x.1 == t.1).map_or(0, |x| x.2);
+            wlog(format!("SKIN world {world:#x} #{}: gone (last animation {:?}, screen tick {:?}{})", t.1, t.2,
+                         game_places::clock::screen_tick(),
+                         if back > 0 { format!(", turned back to the pit {back} times") } else { String::new() }));
         }
         stays
     });
+    turned.retain(|x| x.0 != world || here.contains(&x.1));
 }
 
 /// 加载时挂上显示钩子（一个 DLL 只挂一次）。
@@ -369,6 +409,21 @@ mod tests {
         assert_eq!(renamed("serpen_monster", "league_drake_infernal_rift").as_deref(), Some("league_drake_infernal_rift"));
         assert_eq!(renamed("ingame/league_drake_infernal", "league_drake_infernal_rift").as_deref(),
                    Some("ingame/league_drake_infernal_rift"));
+    }
+
+    #[test]
+    fn only_the_sheets_turned_to_the_pit_are_kept_from_being_mirrored() {
+        // 峡谷那一套（六种元素和远古巨龙）不许游戏左右翻
+        for e in [Element::Infernal, Element::Mountain, Element::Ocean, Element::Cloud, Element::Hextech, Element::Chemtech,
+                  Element::Elder] {
+            assert!(faces_the_pit(&format!("asset/base/aseprite_resources/ingame/{}", on_map(sheet_of(e), true))));
+            // 正面那一套、游戏自己的小龙照旧让游戏转向目标
+            assert!(!faces_the_pit(&format!("asset/base/aseprite_resources/ingame/{}", sheet_of(e))));
+        }
+        assert!(!faces_the_pit("ingame/serpen"));
+        assert!(!faces_the_pit("serpen_monster"));
+        assert!(!faces_the_pit("ingame/league_baron"));
+        assert!(!faces_the_pit("league_rift"));
     }
 
     #[test]

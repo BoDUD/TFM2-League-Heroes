@@ -781,10 +781,10 @@ impl Sim {
         if self.map == Map::Rift {
             say(screen.is_some(), "rift", format!("{} MAP sim #{} Rin's Summoner's Rift: the map's own void grubs (8:00-14:45) and Rift Herald (15:00-19:45) hold the top pit before Baron Nashor (20:00); our drakes are the game's serpent in the bottom pit, on the database's timer - the grubs and the Herald are left alone; the drakes there are drawn turned to the pit's opening (league_drake_<element>_rift)",
                                                  head(sim), self.no));
-            // 小龙坑只朝右上方开口：画面换转身朝坑口的那一套（skin.rs）
-            if let Some((m, s)) = screen {
-                feed::on_rift(m, s);
-            }
+        }
+        // 小龙坑只朝右上方开口：画面换转身朝坑口的那一套（skin.rs）。不是峡谷的也记，同一个比赛编号换了地图时不沿用
+        if let Some((m, s)) = screen {
+            feed::set_rift(m, s, self.map == Map::Rift);
         }
         let order: Vec<&str> = self.order.iter().map(|e| e.key()).collect();
         say(screen.is_some(), "match", format!("{} MATCH sim #{} drakes in this order: {}, {}, then the rift's {} until the soul{}",
