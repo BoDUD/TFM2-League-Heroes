@@ -1,0 +1,126 @@
+{
+  "language": "ja",
+  "cast_credit": "https://ragnarok-official.com/chara/odin.html",
+  "official_voice_actor": "速水 奨",
+  "voice_status": "verified_source_cuts",
+  "clips": [
+    {
+      "id": "ravens",
+      "title": "双鸦振翅",
+      "kind": "original_foley",
+      "duration_seconds": 0.38,
+      "wav_sha256": "2157e2db8bdbafea6ce618672a94651a8c86b461ea407ec54e4038c1e19b7987",
+      "mp3_sha256": "b60996a119b80545d2939129864ce59a2aa87c2bd88d0c3b73ef9f11042b9c70"
+    },
+    {
+      "id": "thrust",
+      "title": "冈格尼尔刺击释放",
+      "kind": "original_foley",
+      "duration_seconds": 0.19,
+      "wav_sha256": "b2563fa36879540b1dc2f80bb0a7ab7f4c0ca6980b9b49a08709fee28c004881",
+      "mp3_sha256": "e92db7fa141d038a0972dd0664240f231d137c15fb723a02ab63463e524a4209"
+    },
+    {
+      "id": "thrust_hit",
+      "title": "枪芒命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.24,
+      "wav_sha256": "7aff810edc8a678e500172e43d28a202ebb436ac9408d8d4f5c23ebbb291f0e7",
+      "mp3_sha256": "decdc968c9d9a73fd0cc6b63a64a85da455164fd77512b663ad4cd230d4ea1f0"
+    },
+    {
+      "id": "spear_cast",
+      "title": "冈格尼尔离手",
+      "kind": "original_foley",
+      "duration_seconds": 0.32,
+      "wav_sha256": "0ff37d64a2d798ba5eaab73bb8081a6eccb7f9c65dae20bd02c1243b314f27f5",
+      "mp3_sha256": "891c0c2508c0d1715a548a75e96089842fac6626dd3d36da266d03ea7a1a8335"
+    },
+    {
+      "id": "spear_hit",
+      "title": "冈格尼尔命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.37,
+      "wav_sha256": "ec7f9a675a98a27eb6cd447b6698b6878e7b0a155bbdd6e0d2f561e5bc942b57",
+      "mp3_sha256": "f2999a114e4f47b50eba2b5b3555e5bf81f3e5bb81f1ac8fc7f6e59200176677"
+    },
+    {
+      "id": "ward",
+      "title": "五盾开阵",
+      "kind": "original_foley",
+      "duration_seconds": 0.72,
+      "wav_sha256": "abe3ac45200b9baf413128c3ab183a9143796168a4a38be258089c7269f0a1c9",
+      "mp3_sha256": "d2e273e8261746d4acdccb13688927812b95b37346ba994938a88d647b95d396"
+    },
+    {
+      "id": "ward_hit",
+      "title": "盾阵受击",
+      "kind": "original_foley",
+      "duration_seconds": 0.29,
+      "wav_sha256": "2cc7731d93d5e3e257f89a338b4ba337b23d6616d132a645f7c09e509ba109e3",
+      "mp3_sha256": "afbe0838c361d98108f799c4ae1e7e8460e7bc50486cbfe053cea13ccf35f400"
+    },
+    {
+      "id": "chant",
+      "title": "呪歌蓄力低鸣",
+      "kind": "original_foley",
+      "duration_seconds": 0.69,
+      "wav_sha256": "58469e6bed5d5dc3aeffa1b559c7b9ea981a142a9e1a18c936de01b724f4b5bf",
+      "mp3_sha256": "6357f2477222c0a56553b5b99f44be8cf21a6ab85a217a4c3bf0a281354142bd"
+    },
+    {
+      "id": "field",
+      "title": "落枪震荡",
+      "kind": "original_foley",
+      "duration_seconds": 0.75,
+      "wav_sha256": "5e8d2a51be1a0b5582b27e2c80735609ae6c8201adc4cdb6ca3f2c5f53699721",
+      "mp3_sha256": "3abd3ec136ddb6cafd4ed30be53c98aca1eff3f81a30bbfd2c75661e07b58d4c"
+    },
+    {
+      "id": "fall",
+      "title": "倒地",
+      "kind": "original_foley",
+      "duration_seconds": 0.28,
+      "wav_sha256": "e51e0dbb9ef1759c858bb7c71bff485711a7d49e8da048a1ae75abecdad9c359",
+      "mp3_sha256": "0fdded2bf739721dbedaf48fb64d8697bae52b00fe1ad62210293579a914728d"
+    },
+    {
+      "id": "voice_ambition",
+      "title": "日语原声 · 夙愿",
+      "kind": "native_anime_ja",
+      "duration_seconds": 3.11,
+      "wav_sha256": "67d3dcb8af52801478679ef35521c3566e078f1a47752e523437fe30c5ccf907",
+      "mp3_sha256": "40df17406b1674698833a4a4e4e44620d84f6d568f714a1e3acb369fd604bfbd",
+      "range_seconds": [
+        6.43,
+        9.54
+      ],
+      "source": "https://www.youtube.com/watch?v=o5GRIchY2M4",
+      "publisher": "Warner Bros. Japan Anime",
+      "speaker": "速水 奨",
+      "source_kind": "动画第三季官方第 3 支预告",
+      "speaker_evidence": "预告约 8.5–9.8 秒是奥丁的眼罩、黑长发与开口特写，两句为同一连续发言。",
+      "contains_original_mix": true,
+      "source_audio_sha256": "a46ec6b576532810e8542ca425c12b058a0739701960e44e8b936c943570c770"
+    },
+    {
+      "id": "voice_warning",
+      "title": "日语原声 · 警告",
+      "kind": "native_anime_ja",
+      "duration_seconds": 1.82,
+      "wav_sha256": "2ddc99392d4ba7a0cacadaefe2915773282b49c2e79eb6842a7acd1fae38044f",
+      "mp3_sha256": "6f1ffce1edcbdb84b809b45deb28c6572d19f774ca64b20456958d6331937d0b",
+      "range_seconds": [
+        9.88,
+        11.7
+      ],
+      "source": "https://www.youtube.com/watch?v=o5GRIchY2M4",
+      "publisher": "Warner Bros. Japan Anime",
+      "speaker": "速水 奨",
+      "source_kind": "动画第三季官方第 3 支预告",
+      "speaker_evidence": "预告约 8.5–9.8 秒是奥丁的眼罩、黑长发与开口特写，两句为同一连续发言。",
+      "contains_original_mix": true,
+      "source_audio_sha256": "a46ec6b576532810e8542ca425c12b058a0739701960e44e8b936c943570c770"
+    }
+  ]
+}

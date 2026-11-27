@@ -4492,6 +4492,22 @@
     },
     {
       "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_kintoki",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_kintoki",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_kintoki_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_kintoki_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
       "name": "league_illaoi_soul_ragnarok_kojiro",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_kojiro",
@@ -4551,6 +4567,22 @@
       "name": "league_illaoi_soul_ragnarok_lubu_l",
       "anim": "asset/league/effects/league_illaoi_souls",
       "tag": "ragnarok_lubu_l",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_odin",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_odin",
+      "z": 3,
+      "is_follow": false
+    },
+    {
+      "type": "Animation",
+      "name": "league_illaoi_soul_ragnarok_odin_l",
+      "anim": "asset/league/effects/league_illaoi_souls",
+      "tag": "ragnarok_odin_l",
       "z": 3,
       "is_follow": false
     },

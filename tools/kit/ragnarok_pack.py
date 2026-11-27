@@ -16,9 +16,9 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.normpath(os.path.join(HERE, "..", ".."))
 MOD_ID = "ragnarok"
 MOD = os.path.join(REPO, MOD_ID)
-VERSION = "0.13.0"
+VERSION = "0.14.0"
 NAME = "Record of Ragnarok Heroes"
-HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang", "Beelzebub", "Nikola Tesla", "Leonidas", "Apollo", "Okita Soji", "Susanoo", "Simo Häyhä", "Loki"]
+HEROES = ["Lu Bu", "Thor", "Zeus", "Adam", "Poseidon", "Sasaki Kojiro", "Heracles", "Jack the Ripper", "Raiden Tameemon", "Shiva", "Buddha", "Zerofuku", "Hades", "Qin Shi Huang", "Beelzebub", "Nikola Tesla", "Leonidas", "Apollo", "Okita Soji", "Susanoo", "Simo Häyhä", "Loki", "Sakata Kintoki", "Odin"]
 DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits are our own designs after the manga's "
         "fights: Lu Bu's Shield Breaker counts his blows double against shields and shatters them for real (the pack's "
         "own code, ragnarok.dll); Thor brings down Thor's Hammer and his Mjolnir flies out and back to his hand, awakening on every third skill; Zeus fires the Meteor Jab, swells into his muscle "
@@ -59,10 +59,16 @@ DESC = ("Fighters of Record of Ragnarok for Teamfight Manager 2: {heroes}. Kits 
         "his own life; Simo Häyhä pays with his own organs for god-killing rounds, fires Ilmatar, Lemminkäinen and Mielikki "
         "in turn, vanishes into the snow and ends it with Ukonvasara; Loki's full-power double copies his chained hook, "
         "he leaves a copy in black mist and swaps places with another, and Heimskringla raises an army of copied gods' "
-        "weapons. "
+        "weapons; Sakata Kintoki, the most beloved man in human history, hits harder the more he bleeds with his mother's "
+        "oni blood (the pack's own code), flings a giant axe of light with Golden Lightning Axe - Furious Flash, springs "
+        "past his foe with Demon's Might Slash - Sacrifice and brings down the Golden Light Roaring Thunder Axe that "
+        "shatters every shield, and catches Odin's Gungnir barehanded to throw it back; Odin, the Supreme God, sings his "
+        "Cursed Hymns (the pack's own code): Gungnir hurled with Vindskogull always hits and pierces shields, the five "
+        "shields of Fafnir each stop one blow, Harpaludr makes every body around him obey him, and Idunnar Koppr "
+        "stitches his wounds, his ravens Huginn and Muninn ever behind him. "
         "Sharper frames from ragnarok.dll itself, with or without the League of Legends Heroes and Teamfight Tactics "
         "Heroes packs. Chibi (Q-version) pixel art for every hero, effects, icons and sound effects made for this pack; Japanese voice lines from the "
-        "official promotional recordings (Okita's and Simo's are synthesized: neither has an official recording yet). Non-commercial fan project; Record of Ragnarok (c) its creators and "
+        "official promotional recordings (Okita's and Simo's are synthesized: neither has an official recording yet; Kintoki has none). Non-commercial fan project; Record of Ragnarok (c) its creators and "
         "publishers.")
 
 # the game's tooltip box (lint_mod's TOOLTIP_MAX, the tft pack's numbers)
@@ -208,5 +214,5 @@ def write_mod_info():
         mi["version"] = VERSION
     mi.update({"author": "BoDUD", "dependencies": [{"mod_id": "base", "version": ">=0.4.11"}], "mod_id": MOD_ID,
                "name": NAME, "description": DESC.format(heroes=", ".join(HEROES)), "contains_code": True,
-               "mod_type": "native", "last_updated": "2026-11-26"})
+               "mod_type": "native", "last_updated": "2026-11-27"})
     save(os.path.join(MOD, "mod.mod_info"), dict(sorted(mi.items())))

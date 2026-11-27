@@ -13,10 +13,12 @@ pub mod hades;
 pub mod hd;
 pub mod heracles;
 pub mod jack;
+pub mod kintoki;
 pub mod kojiro;
 pub mod leonidas;
 pub mod loki;
 pub mod lubu;
+pub mod odin;
 pub mod okita;
 pub mod poseidon;
 pub mod qin;
@@ -124,6 +126,8 @@ fn init(host: &StableHost) -> StableMod {
     susanoo::register(host, &mut module);
     simo::register(host, &mut module);
     loki::register(host, &mut module);
+    kintoki::register(host, &mut module);
+    odin::register(host, &mut module);
     #[cfg(windows)]
     module.set_extension(Frame);
     module

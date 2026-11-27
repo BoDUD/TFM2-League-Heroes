@@ -1,0 +1,745 @@
+{
+  "id": "ragnarok_odin",
+  "category": "Magician",
+  "tags": [
+    "AP",
+    "Magic",
+    "Melee",
+    "Shield",
+    "CC"
+  ],
+  "passive": {
+    "passive_ref": "ragnarok_odin:galdr",
+    "params": {
+      "p_hp": 35,
+      "p_heal": 120,
+      "p_ap": 60,
+      "p_t": 120,
+      "p_cd": 5400,
+      "e_t": 240,
+      "e_n": 5
+    }
+  },
+  "sprite": "asset/ragnarok/champions/ragnarok_odin",
+  "anim_prefix": "",
+  "skill_icons": [
+    "asset/ragnarok/icons/ragnarok_odin_skill",
+    "asset/ragnarok/icons/ragnarok_odin_skill2",
+    "asset/ragnarok/icons/ragnarok_odin_ult"
+  ],
+  "stat": {
+    "attack": 78,
+    "magic_power": 65,
+    "hp": 1000,
+    "defence": 28,
+    "magic_resistance": 30,
+    "move_speed": 1050,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "growth": {
+    "attack": 9,
+    "magic_power": 24,
+    "hp": 92,
+    "defence": 5,
+    "magic_resistance": 4,
+    "move_speed": 10,
+    "hp_regen": 0,
+    "stack": 0,
+    "crit_chance": 0
+  },
+  "attack": {
+    "action_name": "attack",
+    "description": "#asset/base/text/champion?description.ragnarok_odin.attack",
+    "duration": 36,
+    "cooltime": 64,
+    "start_timing": 17,
+    "cancelable": true,
+    "range": 32000,
+    "casting_type": "Targeting",
+    "casting_target": "Enemy",
+    "attack_type": "BaseAttack",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Attack",
+          "damage": 0,
+          "attack_ratio": 100,
+          "hp_ratio": 0,
+          "target_hp_ratio": 0,
+          "attack_effect_type": "Target"
+        },
+        {
+          "type": "ApAttack",
+          "damage": 15,
+          "attack_ratio": 25,
+          "hp_ratio": 0,
+          "can_crit": false
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_odin_a"
+        },
+        {
+          "type": "ViewEffect",
+          "name": "ragnarok_odin_a_hit"
+        },
+        {
+          "type": "TargetSfx",
+          "name": "ragnarok_odin_a_hit"
+        }
+      ]
+    }
+  },
+  "skill": {
+    "action_name": "skill",
+    "description": "#asset/base/text/champion?description.ragnarok_odin.skill",
+    "duration": 56,
+    "cooltime": 480,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 60000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 21,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_odin_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_odin_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_odin_q"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "ragnarok_odin_q_spear",
+                        "speed": 6000,
+                        "y_offset": -7700,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "ragnarok_odin_q_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "ragnarok_odin_q_pen",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                },
+                                "magic_resistance_penetration": 100
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 160,
+                              "attack_ratio": 105,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_odin_q_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_odin_q_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_odin_q"
+                      },
+                      {
+                        "type": "TargetProjectile",
+                        "name": "ragnarok_odin_q_spear",
+                        "speed": 6000,
+                        "y_offset": -7700,
+                        "applied_target": "EnemyChampion",
+                        "applied_effects": [
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddBuff",
+                              "buff_state": {
+                                "name": "ragnarok_odin_q_mark",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 2
+                                  }
+                                }
+                              }
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "AddCasterBuff",
+                              "buff_state": {
+                                "name": "ragnarok_odin_q_pen",
+                                "duration": {
+                                  "Time": {
+                                    "tick": 1
+                                  }
+                                },
+                                "magic_resistance_penetration": 100
+                              },
+                              "only_to_enemy": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ApAttack",
+                              "damage": 160,
+                              "attack_ratio": 105,
+                              "hp_ratio": 0,
+                              "can_crit": false
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "ViewEffect",
+                              "name": "ragnarok_odin_q_hit"
+                            }
+                          },
+                          {
+                            "casting_type": "Targeting",
+                            "effect": {
+                              "type": "TargetSfx",
+                              "name": "ragnarok_odin_q_hit"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_odin_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "skill2": {
+    "action_name": "skill2",
+    "description": "#asset/base/text/champion?description.ragnarok_odin.skill2",
+    "duration": 60,
+    "cooltime": 900,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 50000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "Delayed",
+          "tick": 13,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_odin_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_odin_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_odin_e_ward",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_odin_e"
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Combine",
+                        "effects": [
+                          {
+                            "type": "AddCasterBuff",
+                            "buff_state": {
+                              "name": "ragnarok_odin_e_ward",
+                              "duration": {
+                                "Time": {
+                                  "tick": 240
+                                }
+                              }
+                            },
+                            "only_to_enemy": false
+                          },
+                          {
+                            "type": "Sfx",
+                            "name": "ragnarok_odin_e"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_odin_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "ult": {
+    "action_name": "ult",
+    "description": "#asset/base/text/champion?description.ragnarok_odin.ult",
+    "duration": 61,
+    "cooltime": 3000,
+    "start_timing": 1,
+    "cancelable": false,
+    "range": 40000,
+    "casting_type": "Targeting",
+    "casting_target": "EnemyChampion",
+    "attack_type": "Skill",
+    "effect": {
+      "type": "Combine",
+      "effects": [
+        {
+          "type": "AddCasterBuff",
+          "buff_state": {
+            "name": "ragnarok_odin_r_guard",
+            "duration": {
+              "Time": {
+                "tick": 37
+              }
+            },
+            "cc_immune": true
+          },
+          "only_to_enemy": false
+        },
+        {
+          "type": "Sfx",
+          "name": "ragnarok_odin_r_chant"
+        },
+        {
+          "type": "Delayed",
+          "tick": 36,
+          "effects": [
+            {
+              "type": "Combine",
+              "effects": [
+                {
+                  "type": "RandomTarget",
+                  "range": 1,
+                  "casting_target": "AllyOnlySelf",
+                  "from_projectile": false,
+                  "effects": [
+                    {
+                      "type": "AddCasterBuff",
+                      "buff_state": {
+                        "name": "ragnarok_odin_live",
+                        "duration": {
+                          "Time": {
+                            "tick": 1
+                          }
+                        }
+                      },
+                      "only_to_enemy": false
+                    }
+                  ]
+                },
+                {
+                  "type": "SwitchByBuff",
+                  "buff_name": "ragnarok_odin_live",
+                  "effect_buff": {
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_odin_r"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 48000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 180,
+                            "attack_ratio": 95,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "BlockAttack",
+                            "tick": 75
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_odin_r_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_odin_r_mark"
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 59,
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 30,
+                                "attack_ratio": 10,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_odin_r_mark"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 119,
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 60,
+                                "attack_ratio": 20,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_odin_r_mark"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 179,
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 90,
+                                "attack_ratio": 30,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_odin_r_mark"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  "effect_none": {
+                    "type": "RandomTarget",
+                    "range": 1,
+                    "casting_target": "AllyOnlySelf",
+                    "from_projectile": false,
+                    "effects": [
+                      {
+                        "type": "Sfx",
+                        "name": "ragnarok_odin_r"
+                      },
+                      {
+                        "type": "RangeEffect",
+                        "shape": {
+                          "Circle": {
+                            "radius": 48000
+                          }
+                        },
+                        "target": "EnemyWithoutTower",
+                        "apply_type": "AroundCaster",
+                        "effects": [
+                          {
+                            "type": "ApAttack",
+                            "damage": 180,
+                            "attack_ratio": 95,
+                            "hp_ratio": 0,
+                            "can_crit": false
+                          },
+                          {
+                            "type": "BlockAttack",
+                            "tick": 75
+                          },
+                          {
+                            "type": "AddBuff",
+                            "buff_state": {
+                              "name": "ragnarok_odin_r_slow",
+                              "duration": {
+                                "Time": {
+                                  "tick": 180
+                                }
+                              },
+                              "move_speed_mult": -30
+                            }
+                          },
+                          {
+                            "type": "ViewEffect",
+                            "name": "ragnarok_odin_r_mark"
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 59,
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 30,
+                                "attack_ratio": 10,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_odin_r_mark"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 119,
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 60,
+                                "attack_ratio": 20,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_odin_r_mark"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "Delayed",
+                            "tick": 179,
+                            "effects": [
+                              {
+                                "type": "ApAttack",
+                                "damage": 90,
+                                "attack_ratio": 30,
+                                "hp_ratio": 0,
+                                "can_crit": false
+                              },
+                              {
+                                "type": "ViewEffect",
+                                "name": "ragnarok_odin_r_mark"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "RemoveCasterBuff",
+                  "name": "ragnarok_odin_live"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "view_projectiles": [
+    {
+      "type": "Animated",
+      "name": "ragnarok_odin_q_spear",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_proj",
+      "tag": "spear_flight",
+      "repeat": true,
+      "z": 2
+    }
+  ],
+  "view_effects": [
+    {
+      "type": "Animation",
+      "name": "ragnarok_odin_a_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_fx",
+      "tag": "thrust_hit",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_odin_q_hit",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_fx",
+      "tag": "spear_hit",
+      "z": 3,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_odin_e_ward",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_fx",
+      "tag": "ward",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_odin_r_mark",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_fx",
+      "tag": "chant",
+      "z": 2,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_odin_p_ravens",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_fx",
+      "tag": "ravens",
+      "z": -1,
+      "is_follow": true
+    },
+    {
+      "type": "Animation",
+      "name": "ragnarok_odin_p_heal",
+      "anim": "asset/ragnarok/effects/ragnarok_odin_fx",
+      "tag": "chant",
+      "z": -1,
+      "is_follow": true
+    }
+  ],
+  "view_buffs": []
+}
