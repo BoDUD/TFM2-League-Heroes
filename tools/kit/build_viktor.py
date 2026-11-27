@@ -397,16 +397,23 @@ def build(p):
         "Arcane Storm's initial strike (not its ongoing damage)")."""
         r = p["r_r_evo"] if grown else p["r_r"]
         jump = p["r_jump_evo"] if big else p["r_jump_runs"]
+        # 一次大招同一时刻只有一场风暴（用户 2026-11-27：「维克托看到过同时出现三片雷云」）：每一层（depth）一个他身上的
+        # 记号 r_d<depth>，这一层的每一下都要它在；跳到下一个人时收掉它、挂上下一层的。以前跳走靠「下一下没续上 r_live」
+        # 推断上一个人死了，没续上而人还活着时旧的那场照打、新的又起一场，最多三层叠在一起。
+        gate = f"r_d{depth}"
         landing = [burst("r_tick", r, "EnemyWithoutTower", [magic(p["r_tick"], p["r_tick_ratio"]), view("r_hit")]),
                    sfx("r_tick")]
         if depth > 0:
-            # the lock is read back: on a dead caster nothing is added (his flags freeze), so no storm moves then
-            nxt = sw("r_live", NONE, sw("r_on", sw("r_lock", NONE, combine(refresh("r_lock", 3), sw("r_lock", combine(
-                sfx("r_storm"), refresh("r_on", 60 * jump + 30), storm(big, big, jump, False, depth - 1)))))))
+            # the lock is read back: on a dead caster nothing is added (his flags freeze), so no storm moves then;
+            # 只有这一层还在打时才跳，跳走就把这一层收掉（同一层的另一个检查区随后结束也不会再跳一次）
+            nxt = sw("r_live", NONE, sw(gate, sw("r_on", sw("r_lock", NONE, combine(refresh("r_lock", 3), sw("r_lock", combine(
+                *rm(gate), refresh(f"r_d{depth - 1}", 60 * jump + 30),
+                sfx("r_storm"), refresh("r_on", 60 * jump + 30), storm(big, big, jump, False, depth - 1))))))))
             landing.append(zone("r_watch", p["r_jump_r"], 62, 1000, 1000, "EnemyChampion", [], end=[nxt]))
-        run = [on_me(refresh("r_live", 6)), view("r_storm_big" if grown else "r_storm"),
+        # 续 r_live 两条路都走：on_me 和直接挂（风暴骑着的人活着时，哪一条在游戏里管用都续得上）
+        run = [on_me(refresh("r_live", 6)), refresh("r_live", 6), view("r_storm_big" if grown else "r_storm"),
                lob("r_drop", 1, 1000, "EnemyChampion", [], end=landing)]
-        out = [delayed(60, casted(60 * (runs - 1) + 1, 60, *run, kind="Fire"))]
+        out = [delayed(60, casted(60 * (runs - 1) + 1, 60, sw(gate, combine(*run)), kind="Fire"))]
         if first:
             hit = [magic(p["r_dmg"], p["r_ratio"]), evo_slow, view("r_hit")]
             out.insert(0, lob("r_fall", p["r_fall"], 1000, "EnemyChampion", [],
@@ -416,6 +423,7 @@ def build(p):
     def fire(slot):
         rel = p["r_rel"] if slot else 0
         out = [*rm("r_armed"), sfx("r_cast"), voice("vo_r", p), refresh("r_on", rel + 60 * p["r_runs"] + 30),
+               refresh(f"r_d{p['r_jumps']}", rel + 60 * p["r_runs"] + 30),
                delayed(rel, sw("s4", storm(True, False, p["r_runs"], True, p["r_jumps"]),
                                storm(False, False, p["r_runs"], True, p["r_jumps"])))]
         if slot:

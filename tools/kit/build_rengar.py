@@ -260,6 +260,11 @@ def build(p):
     # and the respawn a fight began with a leap only when the AI had just walked through a bush); its passive reads `fight`:
     # out of combat a bush's readiness is this one and stays, in a fight it goes `grace` ticks after he leaves the bush
     act = combine(refresh("fight", p["quiet"]), on_me(delayed(p["quiet"] + 2, sw("fight", NONE, ready))))
+    if p["native"]:
+        # 附加包的副本不要「脱战 3 秒就绪」（用户 2026-11-27：「狮子狗怎么没草丛也能跳？」，选了「只从草丛和大招扑」：
+        # 日志里 340 次扑击 269 次是它给的）。fight 一直挂着，附加包就当他一直在打架：草丛给的就绪出了草丛 grace tick
+        # 就收回（英雄联盟出了草丛就不能跳），R 和复活后第一下照旧。主包（没有附加包读草丛）还是原来的。
+        act = refresh("fight", None)
     life = sw("init", NONE, combine(flag("init", None), ready))
 
     # ------------------------------------------------------------------ the easter egg: the rivals

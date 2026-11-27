@@ -5,11 +5,12 @@
 Rebuilds Rengar with tools/kit/build_rengar.py (its parameter table P), checks that the plain build is the main pack's
 league/champion/league_rengar.data_champion byte for byte (so the copy never drifts from the shipped kit), and writes
 addons/league_rengar_bush/override/league_rengar.data_champion and .../text/champion.i18n: the build with native=1 -
-  * the main pack's readiness all kept: the respawn, R and the "ready after quiet ticks" check (`league_rengar_fight`,
-    back since 0.2.0, 2026-11-03: without it a fight began with a leap only when the AI had just walked through a bush,
-    the players: 「他的跳跃机制非常不稳定，有时候会跳，有时候不跳」);
+  * the respawn's and R's readiness kept; no "ready after quiet ticks" any more (0.2.6, 2026-11-27, the user:
+    「狮子狗怎么没草丛也能跳？」 and picked "only from bushes and R": 269 of 340 logged pounces came from it). It was back
+    from 0.2.0 to 0.2.5 (2026-11-03, the players: 「他的跳跃机制非常不稳定，有时候会跳，有时候不跳」). Every action keeps a
+    permanent `league_rengar_fight` up instead, so the passive treats him as always in a fight;
   * passive = the add-on's league_rengar_bush:bush with {leap_range}: every tick it readies the pounce while he stands
-    in a bush and, in a fight, takes that readiness back when he leaves it;
+    in a bush and, in a fight (always, see above), takes that readiness back when he leaves it;
   * the attack runs the add-on's native league_rengar_bush:aim on its target just before it reads `ready`: at a tower or
     the nexus the readiness is set aside (the pounce's landing never hit one) and comes back for the next unit;
   * the attack's tooltip (the passive) points to description.league_rengar_bush.attack with a "bush build" lead and the
@@ -31,20 +32,15 @@ import setup_rengar as setup  # noqa: E402
 
 MOD_ID = "league_rengar_bush"
 HERO = "league_rengar"
-# lang -> (the lead, the main pack's readiness wording, the same with the bush first). 0.2.0 keeps the out-of-combat
-# readiness, so the wording grew and the leads shrank ("test build" -> "bush build"): zh-hans 130/130, en 334/334 and
-# ja 147/147 sit at TOOLTIP_MAX
+# lang -> (the lead, the main pack's readiness wording, the copy's). 0.2.6 drops the out-of-combat readiness from the
+# copy: in brush, on respawn or after R (the leads stay as 0.2.0 shrank them - "test build" -> "bush build")
 NATIVE = {
-    "zh-hans": ("【草丛版】", "复活、脱战" + setup.A + "{quiet}秒" + setup.E + "或R后",
-                "草丛里、复活、脱战" + setup.A + "{quiet}秒" + setup.E + "或R后"),
-    "zh-hant": ("【草叢版】", "復活、脫戰" + setup.A + "{quiet}秒" + setup.E + "或R後",
-                "草叢裡、復活、脫戰" + setup.A + "{quiet}秒" + setup.E + "或R後"),
+    "zh-hans": ("【草丛版】", "复活、脱战" + setup.A + "{quiet}秒" + setup.E + "或R后", "草丛里、复活或R后"),
+    "zh-hant": ("【草叢版】", "復活、脫戰" + setup.A + "{quiet}秒" + setup.E + "或R後", "草叢裡、復活或R後"),
     "en": ("[Bush] ", "on respawn, after " + setup.A + "{quiet}s" + setup.E + " out of combat or after R",
-           "in brush, on respawn, " + setup.A + "{quiet}s" + setup.E + " out of combat or after R"),
-    "ko": ("[수풀] ", "부활, " + setup.A + "{quiet}초" + setup.E + " 비전투 또는 R 후",
-           "수풀 안, 부활, " + setup.A + "{quiet}초" + setup.E + " 비전투 또는 R 후"),
-    "ja": ("【茂み版】", "復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後",
-           "茂みの中、復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後"),
+           "in brush, on respawn or after R"),
+    "ko": ("[수풀] ", "부활, " + setup.A + "{quiet}초" + setup.E + " 비전투 또는 R 후", "수풀 안, 부활 또는 R 후"),
+    "ja": ("【茂み版】", "復活時、" + setup.A + "{quiet}秒" + setup.E + "非戦闘またはR後", "茂みの中、復活時またはR後"),
 }
 # lang -> (the main pack's Bonetooth Necklace wording in the ult's tooltip, the add-on's: League's takedowns, once per
 # champion, kept through death - src/lib.rs counts them from the kill log)
