@@ -58,8 +58,14 @@ static DRAKES: Mutex<Vec<(u64, u64, usize, Element)>> = Mutex::new(Vec::new());
 /// 游戏还当是在比赛里、时钟也还读得到（用户 2026-11-10：「这东西一局对战结束了 还显示啊」）。
 static ENDED: Mutex<Vec<(u64, u64, usize)>> = Mutex::new(Vec::new());
 /// (比赛, 局)：屏幕那一场是 Rin 的召唤师峡谷（`game_places::terrain::Map::Rift`，读阵容时认出来的）。那里的小龙坑只朝右上方
-/// 开口，小龙换成转身朝坑口的那一套（[`super::skin`]，0.5.12）。
+/// 开口，小龙换成转身朝坑口的那一套（[`super::skin`]，0.5.12），地形按那张地图的一套位置画（[`super::fx`]）。
+///
+/// 0.5.15 起换一场看（[`view`]）、同一场换了种子（[`forget`]）都不清这一条：地图一局只在读阵容时认一次，清掉就再也回不来。
+/// 用户 2026-11-27：「风龙朝向还是和原地图一样的」——日志里一个系列赛的第二、三局开头，游戏还在后台把上一局重跑一遍，两场轮流
+/// 算屏幕上的、来回切了几千次，第二局读阵容时记下的这一条被切走时清掉了，之后小龙画回了原地图那套。
 static RIFT: Mutex<Vec<(u64, u64)>> = Mutex::new(Vec::new());
+/// 地图记号最多留这么多场（满了丢最早的）。
+const RIFT_MOST: usize = 64;
 /// 屏幕那一场画在战场上的特效（[`super::fx`]）：哪个 tick、在哪、哪一种。
 static FXS: Mutex<Vec<Fx>> = Mutex::new(Vec::new());
 /// 特效最多留这么多条（很长的一局）：满了丢掉最早的四分之一。
@@ -94,7 +100,8 @@ pub fn this_run(m: u64, s: u64, seed: u64, tick: usize) -> bool {
     }
 }
 
-/// 这一场画面记录里的一切（事、状态记录、小龙编号、结束、峡谷、特效）都扔掉。
+/// 这一场画面记录里的一切（事、状态记录、小龙编号、结束、特效）都扔掉。在哪张地图上不扔：同一场重新模拟还是那张地图
+/// （[`RIFT`]）。
 fn forget(m: u64, s: u64) {
     if let Ok(mut e) = EVENTS.lock() {
         e.retain(|x| (x.m, x.s) != (m, s));
@@ -108,15 +115,13 @@ fn forget(m: u64, s: u64) {
     if let Ok(mut d) = ENDED.lock() {
         d.retain(|x| (x.0, x.1) != (m, s));
     }
-    if let Ok(mut d) = RIFT.lock() {
-        d.retain(|x| (x.0, x.1) != (m, s));
-    }
     if let Ok(mut f) = FXS.lock() {
         f.retain(|x| (x.m, x.s) != (m, s));
     }
 }
 
-/// 屏幕在放这一场（比赛钩子在每个屏幕模拟里每 tick 记）：换了一场就只留这一场的。-> 是不是换了一场。
+/// 屏幕在放这一场（比赛钩子在每个屏幕模拟里每 tick 记）：换了一场就只留这一场的（在哪张地图上的记号都留着，[`RIFT`]）。
+/// -> 是不是换了一场。
 pub fn view(m: u64, s: u64) -> bool {
     let Ok(mut v) = VIEW.lock() else { return false };
     if *v == Some((m, s)) {
@@ -136,9 +141,6 @@ pub fn view(m: u64, s: u64) -> bool {
     if let Ok(mut d) = ENDED.lock() {
         d.retain(|x| (x.0, x.1) == (m, s));
     }
-    if let Ok(mut d) = RIFT.lock() {
-        d.retain(|x| (x.0, x.1) == (m, s));
-    }
     if let Ok(mut d) = RUN.lock() {
         d.retain(|x| (x.0, x.1) == (m, s));
     }
@@ -148,10 +150,14 @@ pub fn view(m: u64, s: u64) -> bool {
     true
 }
 
-/// 屏幕那一场在 Rin 的召唤师峡谷上。
-pub fn on_rift(m: u64, s: u64) {
+/// 屏幕那一场在不在 Rin 的召唤师峡谷上（读阵容时记；不在的也记，同一个比赛编号换了张地图时不沿用上一次的）。
+pub fn set_rift(m: u64, s: u64, rift: bool) {
     if let Ok(mut d) = RIFT.lock() {
-        if !d.contains(&(m, s)) {
+        d.retain(|x| *x != (m, s));
+        if rift {
+            if d.len() >= RIFT_MOST {
+                d.remove(0);
+            }
             d.push((m, s));
         }
     }
@@ -284,13 +290,15 @@ mod tests {
         push(Event { m: 101, s: 1, tick: 20_972, what: What::Drake { team: 1, element: Element::Chemtech, total: 1 } });
         drake_born(101, 1, 436, Element::Chemtech);
         ended(101, 1, 101_270);
-        on_rift(101, 1);
+        set_rift(101, 1, true);
         // the game's own second run: the same seed, from tick 1 - the same record
         assert!(this_run(101, 1, 1111, 1) && this_run(101, 1, 1111, 50_000));
         assert_eq!(events(101, 1).len(), 1);
-        // watched again: another seed from its start - the record starts over (the map's own state too: it is read again)
+        // watched again: another seed from its start - the record starts over
+        // 0.5.15 起地图记号留着：同一场还是那张地图，新的一遍读阵容时也会再记一次
         assert!(this_run(101, 1, 2222, 1));
-        assert!(events(101, 1).is_empty() && drake_of(101, 1, 436).is_none() && ended_at(101, 1).is_none() && !is_rift(101, 1));
+        assert!(events(101, 1).is_empty() && drake_of(101, 1, 436).is_none() && ended_at(101, 1).is_none());
+        assert!(is_rift(101, 1));
         push(Event { m: 101, s: 1, tick: 21_236, what: What::Drake { team: 0, element: Element::Mountain, total: 1 } });
         // the old run still ticking on is not the screen's any more
         assert!(!this_run(101, 1, 1111, 30_000));
@@ -298,6 +306,33 @@ mod tests {
         assert_eq!(events(101, 1).iter().map(|e| e.tick).collect::<Vec<_>>(), vec![21_236]);
         // another match on screen: its own record
         assert!(this_run(102, 1, 1111, 1) && view(102, 1));
+        clear();
+    }
+
+    /// 0.5.15（用户 2026-11-27：「风龙朝向还是和原地图一样的」）：系列赛第二局开头，游戏还在后台重跑第一局，两场轮流算屏幕上的，
+    /// 日志里来回切了几千次。第二局读阵容时记下的地图得撑过这些切换；以前第一次切走就清掉了，小龙画回原地图那套。
+    #[test]
+    fn the_map_of_a_game_survives_the_screen_switching_back_and_forth() {
+        let _g = super::super::tests::GLOBALS.lock().unwrap_or_else(|e| e.into_inner());
+        clear();
+        assert!(this_run(109, 1, 7, 1) && view(109, 1));
+        set_rift(109, 1, true);
+        // 第二局开始、读阵容（峡谷），第一局后台那一遍还在跑
+        assert!(this_run(109, 2, 8, 1) && view(109, 2));
+        set_rift(109, 2, true);
+        for _ in 0..1000 {
+            assert!(view(109, 1));
+            assert!(view(109, 2));
+        }
+        assert!(is_rift(109, 2) && is_rift(109, 1));
+        // 同一个编号后来换了张地图：不沿用
+        set_rift(109, 1, false);
+        assert!(!is_rift(109, 1) && is_rift(109, 2));
+        // 只留最近 RIFT_MOST 场
+        for m in 0..RIFT_MOST as u64 {
+            set_rift(1000 + m, 1, true);
+        }
+        assert!(!is_rift(109, 2) && is_rift(1000, 1) && is_rift(1000 + RIFT_MOST as u64 - 1, 1));
         clear();
     }
 
