@@ -10,7 +10,10 @@
 //! | 海洋 | 六片新草丛（站在里面、里面没有敌方英雄、刚才没出手：敌人看不见）；四个蜂蜜果实（受了伤的英雄走过去吃掉回血，45 秒再长）；0.5.2 起不再下雨（用户：「算了下雨特效删了吧」） |
 //! | 化学科技 | 六片毒雾草丛（和海洋的草丛一样的规矩，位置不同） |
 //! | 山脉 | 六堆碎石（不挡人：英雄走在上面移速 -30%，[`RUBBLE`]，下来后不到 0.2 秒就没了） |
-//! | 炼狱 | 只有画面（龙坑、男爵坑周围的墙上着火）：游戏烘好的草丛和墙局内改不了 |
+//! | 炼狱 | 龙坑、男爵坑周围的墙上着火，坑边一圈（离坑心 [`FIRE_R`] 以内）里英雄攻击力和法强 +15%（[`FIRE`]，出来后还剩不到半秒；0.5.16 以前只有画面） |
+//!
+//! 炼狱 0.5.16（用户 2026-11-27：「火龙现在地形效果只有特效 没效果 想个办法做个效果？」）：英雄联盟的炼狱峡谷是烧掉草丛、炸开墙，
+//! 游戏烘好的草丛和寻路局内改不了，做不出来；问过之后选了「坑边火圈加伤害」：抢龙、抢男爵的仗更凶。两队都有，小兵、野怪不算。
 //!
 //! 游戏的接口改不了烘好的寻路、草丛和视野，所以都是「模拟出来的」：草丛是 `entity_set_invisible`（敌人丢视野和目标），碎石是
 //! 减速 buff，比赛 AI 不知道有它们。位置只有游戏自带的 5v5 地图的（[`is_base_map`]：两个水晶和小龙坑在原来的地方），
@@ -239,6 +242,21 @@ pub const EMBERS: [(u64, u64); 16] = [
     (400_000, 240_000), (240_000, 400_000), (400_000, 304_000), (304_000, 400_000), (432_000, 304_000), (304_000, 432_000),
     (432_000, 368_000), (368_000, 432_000),
 ];
+/// 炼狱的火圈围着的两个坑：小龙坑、男爵坑（[`Layout::pits`] 的顺序）。
+pub const PITS: [(u64, u64); 2] = [SERPEN, EPIC];
+/// 火圈多大：离坑心这么远以内（两张地图一样；原版小龙坑着火的墙离坑心 11–12 万）。
+pub const FIRE_R: u64 = 120_000;
+/// 火圈里的攻击力、法强（`league_dragons_rift_fire`，每次看到在里面续 [`FIRE_T`] tick，出来后还剩不到半秒）。
+pub const FIRE: &str = "league_dragons_rift_fire";
+pub const FIRE_PCT: i32 = 15;
+pub const FIRE_T: usize = 30;
+
+pub fn fire_buff() -> BuffV1 {
+    let mut b = BuffV1::timed(FIRE, FIRE_T);
+    b.attack_mult = FIRE_PCT;
+    b.magic_power_mult = FIRE_PCT;
+    b
+}
 
 // ===================== Rin 的召唤师峡谷 =====================
 
@@ -286,6 +304,8 @@ pub const RIN_EMBERS: [(u64, u64); 16] = [
     (603_000, 547_000), (600_000, 426_000), (685_000, 516_000), (716_000, 547_000), (768_000, 616_000), (683_000, 629_000),
     (634_000, 637_000), (567_000, 610_000),
 ];
+/// 小龙坑、男爵坑的坑心（Rin 0.1.68 的野怪营地；着火的墙离它们 6–15 万）。
+pub const RIN_PITS: [(u64, u64); 2] = [(1_294_986, 1_363_908), (658_895, 570_935)];
 /// Rin 的地图绕这一点的一半转 180 度和自己重合得最多（walk.bin 92%）：红方的位置 = 这个 - 蓝方的（取整千）。
 pub const RIN_TURN: (u64, u64) = (1_950_000, 1_931_000);
 
@@ -304,6 +324,8 @@ pub struct Layout {
     pub fruits: &'static [(u64, u64)],
     pub rocks: &'static [(u64, u64)],
     pub embers: &'static [(u64, u64)],
+    /// 炼狱的火圈围着的小龙坑、男爵坑（坑心）。
+    pub pits: [(u64, u64); 2],
 }
 
 /// 游戏自带的 5v5 地图。
@@ -316,6 +338,7 @@ pub const NATIVE: Layout = Layout {
     fruits: &FRUITS,
     rocks: &ROCKS,
     embers: &EMBERS,
+    pits: PITS,
 };
 
 /// Rin 的召唤师峡谷。
@@ -328,6 +351,7 @@ pub const RIN: Layout = Layout {
     fruits: &RIN_FRUITS,
     rocks: &RIN_ROCKS,
     embers: &RIN_EMBERS,
+    pits: RIN_PITS,
 };
 
 /// 这一局的地形放哪：Rin 的召唤师峡谷（`map`）、游戏自带的 5v5 地图（两个水晶和小龙坑在原来的地方）；别的地图没有。
@@ -367,6 +391,11 @@ impl Layout {
     /// 这一点在哪片草丛里（第几片）。
     pub fn brush_at(&self, e: Element, p: (u64, u64)) -> Option<usize> {
         self.brush_of(e).iter().position(|c| d2(p, *c) <= BRUSH_R * BRUSH_R)
+    }
+
+    /// 这一点在哪个坑的火圈里（0 小龙坑，1 男爵坑）。
+    pub fn fire_at(&self, p: (u64, u64)) -> Option<usize> {
+        self.pits.iter().position(|c| d2(p, *c) <= FIRE_R * FIRE_R)
     }
 
     /// 这一点（身体半径 `body`）踩在哪堆碎石上（第几块）。
@@ -426,6 +455,8 @@ pub enum Happening {
     Hidden { seat: usize, brush: usize },
     /// 一个英雄踩上了第 `rock` 堆碎石（这一次踩上去；在上面移速 [`RUBBLE_MS`]%）。
     Rubble { seat: usize, rock: usize },
+    /// 一个英雄走进了第 `pit` 个坑（0 小龙坑，1 男爵坑）的火圈（这一次走进去；在里面攻击力、法强 +[`FIRE_PCT`]%）。
+    Fire { seat: usize, pit: usize },
 }
 
 /// 一个座位在地形里记着的（跟着这条命：换了实体就重来）。
@@ -444,8 +475,9 @@ struct Walker {
     /// 本包把他藏到哪个 tick；这一次进草丛说过没有。
     hid_until: usize,
     hid_told: bool,
-    /// 上一次看的时候站在哪堆碎石上。
+    /// 上一次看的时候站在哪堆碎石上、哪个坑的火圈里。
     on_rock: Option<usize>,
+    in_fire: Option<usize>,
 }
 
 /// 一份模拟里的地形：哪种峡谷、从哪个 tick 起、放在哪（哪张地图的那一套），每个座位的状态，每个果实什么时候长好；`END`
@@ -465,6 +497,9 @@ pub struct Terrain {
     pub rubble: usize,
     pub slowed: usize,
     pub winds: usize,
+    /// 走进火圈几次、火圈的 buff 续了几次。
+    pub fire_steps: usize,
+    pub fired: usize,
 }
 
 impl Terrain {
@@ -496,7 +531,7 @@ impl Terrain {
         if self.walkers.len() != seats.len() {
             self.walkers = vec![Walker::default(); seats.len()];
         }
-        if now % SCAN != 0 || element == Element::Infernal {
+        if now % SCAN != 0 {
             return;
         }
         // every champion as it stands now: (entity, where, health + shield, max health)
@@ -514,6 +549,7 @@ impl Terrain {
                 w.ent = None;
                 w.at = None;
                 w.on_rock = None;
+                w.in_fire = None;
                 continue;
             };
             if w.ent != Some(ent) {
@@ -542,7 +578,8 @@ impl Terrain {
             }
             Element::Chemtech => self.brush(sim, now, element, seats, &here, out),
             Element::Mountain => self.rubble(sim, &here, out),
-            _ => {}
+            Element::Infernal => self.fire(sim, &here, out),
+            Element::Elder => {}
         }
         for (i, h) in here.iter().enumerate() {
             // where he stands after this scan (a gate moved him: from there)
@@ -653,6 +690,27 @@ impl Terrain {
                 self.walkers[i].on_rock = Some(rock);
                 self.rubble += 1;
                 out.push(Happening::Rubble { seat: i, rock });
+            }
+        }
+    }
+
+    /// 炼狱：站在坑边火圈里的英雄续上攻击力、法强（和风道一样：一个 buff，在里面就一直续着，不叠层）。
+    fn fire(&mut self, sim: &mut StableSim<'_>, here: &[Option<(usize, (u64, u64), usize, usize)>], out: &mut Vec<Happening>) {
+        for (i, h) in here.iter().enumerate() {
+            let Some((ent, at, _, _)) = *h else { continue };
+            let Some(pit) = self.layout().fire_at(at) else {
+                self.walkers[i].in_fire = None;
+                continue;
+            };
+            if sim.entity_stack_buff(ent, &fire_buff(), 1, true) == 0 {
+                sim.entity_remove_buff(ent, FIRE);
+                sim.add_buff(ent, &fire_buff());
+            }
+            self.fired += 1;
+            if self.walkers[i].in_fire != Some(pit) {
+                self.walkers[i].in_fire = Some(pit);
+                self.fire_steps += 1;
+                out.push(Happening::Fire { seat: i, pit });
             }
         }
     }
@@ -851,6 +909,21 @@ mod tests {
         assert_eq!(RIN.brush_at(Element::Chemtech, RIN_OCEAN_BRUSH[3]), None);
         assert_eq!(RIN.rock_at(RIN_ROCKS[5], BODY), Some(5));
         assert!(RIN.in_wind(RIN_CURRENTS[0].0) && !NATIVE.in_wind(RIN_CURRENTS[0].0));
+    }
+
+    /// 炼狱的火圈（0.5.16）：两个坑心在各自的圈里，两个圈隔得远；原版小龙坑着火的墙离坑心 11–12 万，圈正好到那里；地图中间、
+    /// 水晶不在圈里。
+    #[test]
+    fn the_rings_of_fire_sit_round_the_pits() {
+        for l in [&NATIVE, &RIN] {
+            assert_eq!(l.fire_at(l.pits[0]), Some(0), "{}", l.name);
+            assert_eq!(l.fire_at(l.pits[1]), Some(1), "{}", l.name);
+            assert!(d2(l.pits[0], l.pits[1]) > 4 * FIRE_R * FIRE_R, "{}", l.name);
+        }
+        assert!(EMBERS[..8].iter().all(|e| d2(*e, SERPEN) <= (FIRE_R + 5_000) * (FIRE_R + 5_000)));
+        assert_eq!(NATIVE.fire_at((480_000, 480_000)), None);
+        assert!(NEXUS.iter().all(|n| NATIVE.fire_at(*n).is_none()));
+        assert_eq!(RIN.fire_at((975_000, 965_500)), None);
     }
 
     /// Rin 的召唤师峡谷那一套：和原版一样多，红方的是蓝方的绕地图中心转 180 度（挑的时候两边一起挑），都在地图里、不压兵线，

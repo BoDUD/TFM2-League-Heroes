@@ -781,10 +781,10 @@ impl Sim {
         if self.map == Map::Rift {
             say(screen.is_some(), "rift", format!("{} MAP sim #{} Rin's Summoner's Rift: the map's own void grubs (8:00-14:45) and Rift Herald (15:00-19:45) hold the top pit before Baron Nashor (20:00); our drakes are the game's serpent in the bottom pit, on the database's timer - the grubs and the Herald are left alone; the drakes there are drawn turned to the pit's opening (league_drake_<element>_rift)",
                                                  head(sim), self.no));
-            // 小龙坑只朝右上方开口：画面换转身朝坑口的那一套（skin.rs）
-            if let Some((m, s)) = screen {
-                feed::on_rift(m, s);
-            }
+        }
+        // 小龙坑只朝右上方开口：画面换转身朝坑口的那一套（skin.rs）。不是峡谷的也记，同一个比赛编号换了地图时不沿用
+        if let Some((m, s)) = screen {
+            feed::set_rift(m, s, self.map == Map::Rift);
         }
         let order: Vec<&str> = self.order.iter().map(|e| e.key()).collect();
         say(screen.is_some(), "match", format!("{} MATCH sim #{} drakes in this order: {}, {}, then the rift's {} until the soul{}",
@@ -1210,7 +1210,9 @@ impl Sim {
             Element::Ocean => format!("{} patches of brush, {} honeyfruit", layout.ocean_brush.len(), layout.fruits.len()),
             Element::Chemtech => format!("{} patches of chem-fog", layout.chem_brush.len()),
             Element::Mountain => format!("{} rubble piles, {}% move speed on them", layout.rocks.len(), rift::RUBBLE_MS),
-            _ => "burning walls on screen only".to_string(),
+            Element::Infernal => format!("rings of fire within {} of the pits at {:?}, +{}% attack damage and ability power in them ({} burning walls on screen)",
+                                         rift::FIRE_R, layout.pits, rift::FIRE_PCT, layout.embers.len()),
+            Element::Elder => String::new(),
         };
         say(screen.is_some(), "rift", format!("{} RIFT sim #{} the rift turns {} on {}: {what}, live from t={}{}", head(sim), self.no,
                                               element.key(), layout.name, now + rift::RISE_T, walls_check(self.map, layout)));
@@ -1246,6 +1248,13 @@ impl Sim {
                     say(false, if screen.is_some() { "rubble on screen" } else { "rubble" },
                         format!("{} ROCK sim #{} {} steps onto rubble {rock}: {}% move speed while on it (step {})", head(sim),
                                 self.no, self.who(seat), rift::RUBBLE_MS, self.terrain.rubble));
+                }
+                rift::Happening::Fire { seat, pit } => {
+                    // 和碎石一样：每走进一次一条，只写头几条和之后每 100 条
+                    say(false, if screen.is_some() { "fire on screen" } else { "fire" },
+                        format!("{} FIRE sim #{} {} walks into the ring of fire round the {}: +{}% attack damage and ability power while in it (step {})",
+                                head(sim), self.no, self.who(seat), if pit == 0 { "dragon pit" } else { "Baron pit" }, rift::FIRE_PCT,
+                                self.terrain.fire_steps));
                 }
             }
         }
@@ -1844,7 +1853,7 @@ impl Sim {
         };
         let count = |c: char| self.events.iter().filter(|e| e.1.code() == c).count();
         say(screen.is_some(), "end", format!(
-            "{} END sim #{} (from t={}): order {}/{}/{}{}; blue {} red {}; soul {}; elders {} barons {} executes {}; procs infernal {} mountain {} ocean {} cloud {} hextech {} chemtech {}; burn damage {}, ocean heals {}, shields {}, minion boosts {}, neutralizers hung {}; terrain {}: wind {} gate jumps {} fruit {} (+{}) hides {} rubble steps {} slowed {}; stats {:?} / hits by {:?}",
+            "{} END sim #{} (from t={}): order {}/{}/{}{}; blue {} red {}; soul {}; elders {} barons {} executes {}; procs infernal {} mountain {} ocean {} cloud {} hextech {} chemtech {}; burn damage {}, ocean heals {}, shields {}, minion boosts {}, neutralizers hung {}; terrain {}: wind {} gate jumps {} fruit {} (+{}) hides {} rubble steps {} slowed {} fire steps {} fired {}; stats {:?} / hits by {:?}",
             head(sim), self.no, self.born, self.order[0].key(), self.order[1].key(), self.order[2].key(),
             if self.conflict { " CONFLICT (nothing applied)" } else { "" }, stacks(0), stacks(1),
             self.soul.map_or("none".to_string(), |(t, e)| format!("{} {}", side(t), e.key())), count('K'), count('B'),
@@ -1852,7 +1861,7 @@ impl Sim {
             self.ocean_healed, self.shields, self.boosts, self.neutralized,
             self.terrain.rift.map_or("none".to_string(), |r| format!("{} from t={}", r.0.key(), r.1)), self.terrain.winds,
             self.terrain.jumps, self.terrain.eaten, self.terrain.healed, self.terrain.hides, self.terrain.rubble,
-            self.terrain.slowed, self.stats, self.deal_way));
+            self.terrain.slowed, self.terrain.fire_steps, self.terrain.fired, self.stats, self.deal_way));
     }
 }
 

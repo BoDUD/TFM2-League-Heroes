@@ -1085,18 +1085,39 @@ fn the_mountain_rifts_rubble_slows_and_moves_nobody() {
     assert!(w.has(7, rift::RUBBLE).is_none());
 }
 
-/// Infernal: the burning walls are pictures only - nothing in the simulation moves, hides or speeds up.
+/// 炼狱（0.5.16，用户：「火龙现在地形效果只有特效 没效果 想个办法做个效果？」）：站在任一个坑边火圈里的英雄攻击力、法强 +15%
+/// （一个 buff，在里面一直续着、不叠层）；圈外没有；火起来之前没有；别的峡谷的东西一样都没有（风、门、草丛、碎石）。
 #[test]
-fn the_infernal_rift_changes_nothing_in_the_simulation() {
-    let mut w = rift_world(Element::Infernal, SimOriginKindV1::ServerPresim, true);
-    for (p, at) in [(0, rift::OCEAN_BRUSH[0]), (1, rift::ROCKS[0]), (2, rift::GATES[0].0), (3, (488_000, 488_000))] {
-        place(&mut w, p, at);
-    }
-    advance(&mut w, 5 * rift::SCAN);
-    assert_eq!(w.champ(1).at, rift::ROCKS[0]);
+fn the_infernal_rifts_rings_of_fire_power_champions_up() {
+    let mut w = rift_world(Element::Infernal, SimOriginKindV1::ServerPresim, false);
+    place(&mut w, 0, (rift::SERPEN.0 - 60_000, rift::SERPEN.1));
+    advance(&mut w, rift::SCAN);
+    assert!(w.has(0, rift::FIRE).is_none(), "火还没起来");
+    advance(&mut w, rift::RISE_T);
+    // 蓝方上单在小龙坑边，红方中单在男爵坑边，蓝方打野在河道正中，蓝方中单站在门上，蓝方辅助在海洋的草丛位置
+    place(&mut w, 7, (rift::EPIC.0 + 50_000, rift::EPIC.1 + 50_000));
+    place(&mut w, 1, (480_000, 480_000));
+    place(&mut w, 2, rift::GATES[0].0);
+    place(&mut w, 3, rift::OCEAN_BRUSH[0]);
+    advance(&mut w, rift::SCAN);
+    assert_eq!(w.has(0, rift::FIRE).map(|b| (b.attack_mult, b.magic_power_mult, b.duration_tick)),
+               Some((rift::FIRE_PCT, rift::FIRE_PCT, rift::FIRE_T)));
+    assert!(w.has(7, rift::FIRE).is_some(), "两队都有");
+    assert!(w.has(1, rift::FIRE).is_none() && w.has(2, rift::FIRE).is_none() && w.has(5, rift::FIRE).is_none());
+    advance(&mut w, 10 * rift::SCAN);
+    assert_eq!(w.count(0, rift::FIRE), 1, "续着，不叠层");
+    // 别的峡谷的东西都没有
     assert_eq!(w.champ(2).at, rift::GATES[0].0);
-    assert!(!hidden(&w, 0) && w.has(3, rift::WIND).is_none() && w.has(1, rift::RUBBLE).is_none() && w.heals.is_empty());
-    state(&w, |s| assert_eq!(s.terrain.live(w.tick), Some(Element::Infernal)));
+    assert!(!hidden(&w, 3) && w.has(1, rift::WIND).is_none() && w.has(1, rift::RUBBLE).is_none() && w.heals.is_empty());
+    state(&w, |s| {
+        assert_eq!(s.terrain.live(w.tick), Some(Element::Infernal));
+        assert!(s.terrain.fire_steps >= 2 && s.terrain.fired >= 20);
+    });
+    // 死了的没有
+    w.die(7);
+    w.champ_mut(7).buffs.clear();
+    advance(&mut w, 2 * rift::SCAN);
+    assert!(w.has(7, rift::FIRE).is_none());
 }
 
 #[test]
