@@ -721,8 +721,18 @@ fn watch(sim: &StableSim<'_>) {
 /// mismatches 不是 0 就说明「接着上一帧修补名单」和游戏自己数的对不上过，那条线程已经改回完整数。
 pub fn perf_line(s: mod_api_stable::EntityListStats) -> String {
     format!(
-        "PERF entity list: {} lookups, lists repaired {} / counted the game's way {}, checked {}, mismatches {}",
-        s.lookups, s.repaired, s.exact, s.checked, s.mismatches
+        concat!(
+            "PERF entity list: {} lookups, lists repaired {} / counted the game's way {}, checked {}, mismatches {}; ",
+            "new lists {}, rebuilt for a new frame {} / a new count {}"
+        ),
+        s.lookups,
+        s.repaired,
+        s.exact,
+        s.checked,
+        s.mismatches,
+        s.new_lists,
+        s.for_frame,
+        s.for_count
     )
 }
 

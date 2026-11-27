@@ -62,15 +62,16 @@ impl<'a> StableSim<'a> {
     /// 见 entity_list.rs）。
     pub fn entity_count(&self) -> usize {
         let n = self.raw_entity_count();
-        crate::entity_list::counted(self.state() as usize, self.tick(), n);
+        crate::entity_list::counted(self.state() as usize, self.seed(), self.tick(), n);
         n
     }
 
-    /// 第 index 个单位。游戏的 entity_at(i) 每次从头数 i 步；这里同一帧、单位数没变时查这一帧的名单（按编号排序），
-    /// 见 entity_list.rs（合集 11-27 加）。
+    /// 第 index 个单位。游戏的 entity_at(i) 每次从头数 i 步；这里同一个 state + 种子、同一帧、单位数没变时查这一帧的名单
+    /// （按编号排序），见 entity_list.rs（合集 11-27 加）。
     pub fn entity_at(&self, index: usize) -> Option<StableEntity<'_, 'a>> {
         let handle = crate::entity_list::handle_at(
             self.state() as usize,
+            self.seed(),
             self.tick(),
             index,
             || self.raw_entity_count(),
