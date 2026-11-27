@@ -4561,8 +4561,25 @@
                     "tick": 100
                   },
                   {
-                    "type": "CasterViewEffect",
-                    "name": "league_nunu_r_storm"
+                    "type": "Combine",
+                    "effects": [
+                      {
+                        "type": "RemoveCasterBuff",
+                        "name": "league_nunu_r_storm"
+                      },
+                      {
+                        "type": "AddCasterBuff",
+                        "buff_state": {
+                          "name": "league_nunu_r_storm",
+                          "duration": {
+                            "Time": {
+                              "tick": 102
+                            }
+                          }
+                        },
+                        "only_to_enemy": false
+                      }
+                    ]
                   },
                   {
                     "type": "RangeEffect",
@@ -4645,6 +4662,10 @@
                                               {
                                                 "type": "RemoveCasterBuff",
                                                 "name": "league_nunu_r_ch"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_nunu_r_storm"
                                               },
                                               {
                                                 "type": "RemoveCasterAnimation",
@@ -4801,6 +4822,10 @@
                                                 "name": "league_nunu_r_ch"
                                               },
                                               {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_nunu_r_storm"
+                                              },
+                                              {
                                                 "type": "RemoveCasterAnimation",
                                                 "name": "ult"
                                               },
@@ -4953,6 +4978,10 @@
                                               {
                                                 "type": "RemoveCasterBuff",
                                                 "name": "league_nunu_r_ch"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_nunu_r_storm"
                                               },
                                               {
                                                 "type": "RemoveCasterAnimation",
@@ -5109,6 +5138,10 @@
                                                 "name": "league_nunu_r_ch"
                                               },
                                               {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_nunu_r_storm"
+                                              },
+                                              {
                                                 "type": "RemoveCasterAnimation",
                                                 "name": "ult"
                                               },
@@ -5261,6 +5294,10 @@
                                               {
                                                 "type": "RemoveCasterBuff",
                                                 "name": "league_nunu_r_ch"
+                                              },
+                                              {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_nunu_r_storm"
                                               },
                                               {
                                                 "type": "RemoveCasterAnimation",
@@ -5417,6 +5454,10 @@
                                                 "name": "league_nunu_r_ch"
                                               },
                                               {
+                                                "type": "RemoveCasterBuff",
+                                                "name": "league_nunu_r_storm"
+                                              },
+                                              {
                                                 "type": "RemoveCasterAnimation",
                                                 "name": "ult"
                                               },
@@ -5563,6 +5604,10 @@
                                           {
                                             "type": "RemoveCasterBuff",
                                             "name": "league_nunu_r_ch"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
                                           },
                                           {
                                             "type": "RemoveCasterAnimation",
@@ -6002,8 +6047,25 @@
                 "tick": 150
               },
               {
-                "type": "CasterViewEffect",
-                "name": "league_nunu_r_storm"
+                "type": "Combine",
+                "effects": [
+                  {
+                    "type": "RemoveCasterBuff",
+                    "name": "league_nunu_r_storm"
+                  },
+                  {
+                    "type": "AddCasterBuff",
+                    "buff_state": {
+                      "name": "league_nunu_r_storm",
+                      "duration": {
+                        "Time": {
+                          "tick": 152
+                        }
+                      }
+                    },
+                    "only_to_enemy": false
+                  }
+                ]
               },
               {
                 "type": "RangeEffect",
@@ -6086,6 +6148,10 @@
                                           {
                                             "type": "RemoveCasterBuff",
                                             "name": "league_nunu_r_ch"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
                                           },
                                           {
                                             "type": "RemoveCasterAnimation",
@@ -6242,6 +6308,10 @@
                                             "name": "league_nunu_r_ch"
                                           },
                                           {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
+                                          },
+                                          {
                                             "type": "RemoveCasterAnimation",
                                             "name": "ult"
                                           },
@@ -6394,6 +6464,10 @@
                                           {
                                             "type": "RemoveCasterBuff",
                                             "name": "league_nunu_r_ch"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
                                           },
                                           {
                                             "type": "RemoveCasterAnimation",
@@ -6550,6 +6624,10 @@
                                             "name": "league_nunu_r_ch"
                                           },
                                           {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
+                                          },
+                                          {
                                             "type": "RemoveCasterAnimation",
                                             "name": "ult"
                                           },
@@ -6702,6 +6780,10 @@
                                           {
                                             "type": "RemoveCasterBuff",
                                             "name": "league_nunu_r_ch"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
                                           },
                                           {
                                             "type": "RemoveCasterAnimation",
@@ -6858,6 +6940,10 @@
                                             "name": "league_nunu_r_ch"
                                           },
                                           {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
+                                          },
+                                          {
                                             "type": "RemoveCasterAnimation",
                                             "name": "ult"
                                           },
@@ -7010,6 +7096,10 @@
                                           {
                                             "type": "RemoveCasterBuff",
                                             "name": "league_nunu_r_ch"
+                                          },
+                                          {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
                                           },
                                           {
                                             "type": "RemoveCasterAnimation",
@@ -7166,6 +7256,10 @@
                                             "name": "league_nunu_r_ch"
                                           },
                                           {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
+                                          },
+                                          {
                                             "type": "RemoveCasterAnimation",
                                             "name": "ult"
                                           },
@@ -7320,6 +7414,10 @@
                                             "name": "league_nunu_r_ch"
                                           },
                                           {
+                                            "type": "RemoveCasterBuff",
+                                            "name": "league_nunu_r_storm"
+                                          },
+                                          {
                                             "type": "RemoveCasterAnimation",
                                             "name": "ult"
                                           },
@@ -7466,6 +7564,10 @@
                                       {
                                         "type": "RemoveCasterBuff",
                                         "name": "league_nunu_r_ch"
+                                      },
+                                      {
+                                        "type": "RemoveCasterBuff",
+                                        "name": "league_nunu_r_storm"
                                       },
                                       {
                                         "type": "RemoveCasterAnimation",
@@ -7962,14 +8064,6 @@
     },
     {
       "type": "Animation",
-      "name": "league_nunu_r_storm",
-      "anim": "asset/league/effects/league_nunu_big",
-      "tag": "r_storm",
-      "z": -1,
-      "is_follow": true
-    },
-    {
-      "type": "Animation",
       "name": "league_nunu_r_burst",
       "anim": "asset/league/effects/league_nunu_big",
       "tag": "r_burst",
@@ -8041,6 +8135,14 @@
       "tag": "r_shield",
       "repeat": true,
       "z": 3
+    },
+    {
+      "type": "Animated",
+      "name": "league_nunu_r_storm",
+      "anim": "asset/league/effects/league_nunu_big",
+      "tag": "r_storm",
+      "repeat": true,
+      "z": -1
     }
   ]
 }
