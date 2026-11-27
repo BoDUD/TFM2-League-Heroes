@@ -55,7 +55,7 @@
 
 ### 维克托附加包
 
-[维克托附加包](../../addons/league_viktor/README.md)：`league_viktor` v0.1.0
+[维克托附加包](../../addons/league_viktor/README.md)：`league_viktor` v0.1.1
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

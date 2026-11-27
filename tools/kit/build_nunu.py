@@ -307,7 +307,8 @@ def build(p):
         pulses = list(range(p["r_pp"], t, p["r_pp"]))
         slow = lambda k: around(p["r_r"], "EnemyWithoutTower", buff(
             "r_slow", p["r_pp"] + 2, move_speed_mult=-(p["r_slow0"] + (p["r_slow1"] - p["r_slow0"]) * k // len(pulses))))
-        burst = lambda share: combine(*rm("r_ch"), unanim("ult"), anim("ult_end", p["r_end"]), sfx("r_boom"),
+        # 爆发时连暴风雪的画面一起收掉（引导满了、被打断都一样）
+        burst = lambda share: combine(*rm("r_ch", "r_storm"), unanim("ult"), anim("ult_end", p["r_end"]), sfx("r_boom"),
                                       cview("r_burst"),
                                       around(p["r_r"], "EnemyWithoutTower", ap(p["r_dmg"] * share // 100,
                                                                                p["r_ap"] * share // 100),
@@ -321,7 +322,9 @@ def build(p):
                                                  sw("r_q", delayed(p["r_end"] - 4, alive(anim("attack_bite", p["b_dur"]),
                                                                                          delayed(p["b_hit"] - 1, alive(
                                                                                              bite("EnemyChampion"))))))))))
-        return combine(refresh("r_ch", t + 2), anim("ult", t), cview("r_storm"),
+        # 暴风雪的画面是他身上的一个 buff（r_storm，循环播），引导多久就转多久。以前是放大时播一次的 CasterViewEffect，
+        # 那张图只有 0.66 秒，引导 2.5 秒，后面将近 2 秒冰圈就没了（用户 2026-11-27：「努努大招的动画提前消失」）。
+        return combine(refresh("r_ch", t + 2), anim("ult", t), refresh("r_storm", t + 2),
                        on_me(shield(p["r_sh"], p["r_sh_ap"], t), buff("r_shield", t)), *steps, end)
 
     ult = action("ult", p["r_t"] + 4, p["r_cd"], 1, p["r_range"], "Targeting", "EnemyChampion",
@@ -338,9 +341,9 @@ def build(p):
     views_p = [Pj("e_ball")]
     views_e = [E("a_hit"), E("p_hit"), E("q_hit"), E("e_hit"), E("e_root_hit"), E("w_hit"),
                E("w_dust", FX, -1, False), E("w_burst", BIG, 2, False), E("w_big", BIG, 2, False),
-               E("r_storm", BIG, -1), E("r_burst", BIG, 2, False), E("r_hit")]
+               E("r_burst", BIG, 2, False), E("r_hit")]
     views_b = [B_("p_on", FX, -1), B_("p_buff", FX, -1), B_("e_slow", FX, 3), B_("e_mark", FX, 3),
-               B_("e_root", FX, 3), B_("r_slow", FX, 3), B_("r_shield", FX, 3)]
+               B_("e_root", FX, 3), B_("r_slow", FX, 3), B_("r_shield", FX, 3), B_("r_storm", BIG, -1)]
     return {
         "id": ID, "category": "Tank", "tags": ["AP", "Magic", "Melee", "Tank", "CC"],
         "sprite": f"asset/league/champions/{ID}", "anim_prefix": "",
