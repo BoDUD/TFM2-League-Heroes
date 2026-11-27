@@ -386,11 +386,12 @@ pub fn rift_effect(lang: Lang, e: Element) -> String {
                  format!("巣の入り口とジャングルに瓦礫の山が現れる：その上では移動速度 -{p}%"))
         }
         Element::Infernal => {
-            pick(lang, "龙坑和男爵坑的岩壁燃起烈火（草丛和墙不变）", "龍坑和巴龍坑的岩壁燃起烈火（草叢和牆不變）",
-                 "the pits' walls catch fire (brush and walls stay as they are)",
-                 "드래곤·내셔 남작 둥지의 벽이 불타오름 (수풀과 벽은 그대로)",
-                 "ドラゴンとバロンの巣の壁が燃え上がる（茂みと壁はそのまま）")
-                .to_string()
+            let p = rift::FIRE_PCT;
+            pick(lang, format!("龙坑和男爵坑周围燃起火圈：英雄在火圈里攻击力和法强 +{p}%"),
+                 format!("龍坑和巴龍坑周圍燃起火圈：英雄在火圈裡攻擊力和法強 +{p}%"),
+                 format!("rings of fire round the dragon and Baron pits: +{p}% attack damage and ability power inside them"),
+                 format!("드래곤·내셔 남작 둥지 주위에 불의 고리가 타오름: 고리 안에서 공격력과 주문력 +{p}%"),
+                 format!("ドラゴンとバロンの巣の周りに炎の輪が燃え上がる：輪の中では攻撃力と魔力 +{p}%"))
         }
         Element::Elder => String::new(),
     }
@@ -839,7 +840,10 @@ mod tests {
         assert_eq!(n(Lang::Ko, Element::Hextech).0, "협곡이 마법공학 협곡으로 바뀌었습니다!");
         assert_eq!(n(Lang::Ja, Element::Mountain),
                    ("リフトがマウンテンリフトに変わりました！".to_string(), "巣の入り口とジャングルに瓦礫の山が現れる：その上では移動速度 -30%".to_string()));
-        assert!(n(Lang::Hans, Element::Infernal).1.contains("草丛和墙不变"), "the Infernal rift says what it cannot do");
+        // 0.5.16 起炼狱也有效果了（坑边火圈）
+        assert_eq!(n(Lang::Hans, Element::Infernal),
+                   ("峡谷变成了炼狱峡谷！".to_string(), "龙坑和男爵坑周围燃起火圈：英雄在火圈里攻击力和法强 +15%".to_string()));
+        assert_eq!(n(Lang::En, Element::Infernal).1, "rings of fire round the dragon and Baron pits: +15% attack damage and ability power inside them");
         for e in rules::DRAKES {
             for lang in Lang::ALL {
                 assert!(!rift_effect(lang, e).is_empty() && rift(lang, e).contains(element(lang, e)));
