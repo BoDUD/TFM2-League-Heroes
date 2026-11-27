@@ -1,0 +1,25 @@
+{
+  "hero": "ragnarok_odin",
+  "style": "0.11.0 Q版名册与坂田金时素材比例",
+  "visual_sources": [
+    {
+      "purpose": "老年奥丁角色造型、双鸦及日本语声优",
+      "url": "https://ragnarok-official.com/chara/odin.html"
+    },
+    {
+      "purpose": "第十二回合冈格尼尔及神环封壁设定",
+      "url": "https://www.coamix.co.jp/topics/comiczenon2604"
+    },
+    {
+      "purpose": "奥丁的呪歌设定",
+      "url": "https://www.coamix.co.jp/topics/comiczenon_2609"
+    }
+  ],
+  "generation": {
+    "actor": "ImageGen followed by registered pixel-phase sampling and a separate Gungnir sprite",
+    "card": "ImageGen",
+    "icons": "ImageGen",
+    "vfx": "Original pixel-scale layers"
+  },
+  "decisions": "老年动画体型加漫画招式。诸神的黄昏为本 Mod 呪歌落枪演出。冈格尼尔离手、命中与回收时点由交接约定。"
+}

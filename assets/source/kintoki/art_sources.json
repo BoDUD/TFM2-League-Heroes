@@ -1,0 +1,11 @@
+{
+  "hero": "ragnarok_kintoki",
+  "visual_sources": [
+    {"purpose": "animated face, costume and Japanese cast", "url": "https://ragnarok-official.com/chara/kintoki.html"},
+    {"purpose": "Round 12 weapon silhouette", "url": "https://www.coamix.co.jp/topics/comiczenon2511"},
+    {"purpose": "divinity mark on right hand", "url": "https://www.coamix.co.jp/topics/comiczenon2512"}
+  ],
+  "generation": "Built-in ImageGen; original chibi character animation and card/icon art.",
+  "style_reference": "User's 0.11.0 Ragnarok roster, Apollo and Leonidas",
+  "effects": "Original separate pixel effects for this mod"
+}

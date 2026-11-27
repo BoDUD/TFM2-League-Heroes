@@ -1,0 +1,80 @@
+{
+  "language": "ja",
+  "cast_credit": "https://ragnarok-official.com/chara/kintoki.html",
+  "official_voice_actor": "武内駿輔",
+  "voice_status": "no_verified_japanese_dialogue",
+  "clips": [
+    {
+      "id": "sweep",
+      "title": "横扫释放",
+      "kind": "original_foley",
+      "duration_seconds": 0.26,
+      "wav_sha256": "896d7a56ebeb3a0a0423dbcab87ad0b1fd13fd59db3bb40828eccb2131adb75a",
+      "mp3_sha256": "78229a08dca410270134cfece4ac387b07dcae928fa23a76ec4d1112883d8bfc"
+    },
+    {
+      "id": "sweep_hit",
+      "title": "横扫命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.21,
+      "wav_sha256": "cb21064ea0386c440a41c1b6b44d416c9b861167efc9be70c79976abb6dbfc28",
+      "mp3_sha256": "449e9ac3a0b1de56b5534252015350ff7e286d9c7227b1ce2cac2ea508633a2e"
+    },
+    {
+      "id": "cleave_cast",
+      "title": "重斧下劈",
+      "kind": "original_foley",
+      "duration_seconds": 0.33,
+      "wav_sha256": "cb460e2699a9549520d8e9b39e93e816fcdcede7d749804eadf790088dcfee3a",
+      "mp3_sha256": "b791851bcb0b8d1a2428fb81058af284cf29f10fd412e85881181fd7353bef50"
+    },
+    {
+      "id": "cleave_hit",
+      "title": "重斧落点",
+      "kind": "original_foley",
+      "duration_seconds": 0.43,
+      "wav_sha256": "6d75209061077b9f07c60d6a7f9317cf67cbc8b0a4765d78cf97c43808f048c1",
+      "mp3_sha256": "2e444564f0a27e210e6b292c7224538fb9028704513886cc240142eac41b3e27"
+    },
+    {
+      "id": "rush_trail",
+      "title": "踏步突进",
+      "kind": "original_foley",
+      "duration_seconds": 0.36,
+      "wav_sha256": "1200e8248f368238437de0377df1c308489a80da5aca42959dd6f220acc64a1e",
+      "mp3_sha256": "8bd4d53d18ccb2729947135ad338898852801421f03ab7a57abaa37e512a96a6"
+    },
+    {
+      "id": "rush_hit",
+      "title": "踏步命中",
+      "kind": "original_foley",
+      "duration_seconds": 0.22,
+      "wav_sha256": "a4e2aedf08a9ec56a5b78e93ad291ef02aab2fc98e25c3b548d91bb34e03d341",
+      "mp3_sha256": "e834227e0295c56da0c570e652ff4e7224acaf41aca7fefd7c12a37a7bc4dbd8"
+    },
+    {
+      "id": "divinity",
+      "title": "神性之证升起",
+      "kind": "original_foley",
+      "duration_seconds": 0.62,
+      "wav_sha256": "c3d59439113fb3a3588f565ac084ff96fb49476f79879d78354674ad41229b69",
+      "mp3_sha256": "dcc4568423188ff09ec8ddcc07d8bfa75ebd671b6f82f4f279f96305e34feb89"
+    },
+    {
+      "id": "final_hit",
+      "title": "终结技落地",
+      "kind": "original_foley",
+      "duration_seconds": 0.68,
+      "wav_sha256": "51a5a63e7eb1837570f081efea011351370563f925d4585032c53a4260111123",
+      "mp3_sha256": "5f59e8f9889b0b1d79ae5e5442c6a398d05ff1c7eed2c9d05d6adcee30b3dbdd"
+    },
+    {
+      "id": "fall",
+      "title": "倒地",
+      "kind": "original_foley",
+      "duration_seconds": 0.28,
+      "wav_sha256": "75b20e40e35851f824c1318fa4f44cbe2da785791eaacd4adb222f1d61e5d6ca",
+      "mp3_sha256": "53856f1772ce66446acb393a2c1151dfd16233d4040eb71abee4d0825cb703d4"
+    }
+  ]
+}

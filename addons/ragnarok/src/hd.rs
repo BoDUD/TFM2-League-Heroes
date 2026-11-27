@@ -69,6 +69,11 @@ pub const HEROES: &[(&str, f32, &str)] = &[
     ("ragnarok_susanoo", 2.667, include_str!("../../../ragnarok/champions/ragnarok_susanoo#anim.fanim")),
     ("ragnarok_simo", 2.667, include_str!("../../../ragnarok/champions/ragnarok_simo#anim.fanim")),
     ("ragnarok_loki", 2.667, include_str!("../../../ragnarok/champions/ragnarok_loki#anim.fanim")),
+    // 坂田金时、奥丁（2026-11-27）：Codex 的逻辑像素图集，人画得比上一轮小一圈（站直 44、48 格），两倍最近邻读进来（金时先在原图上
+    // 换成同一个头：tools/art/ragnarok_atlas_fix.py）。PPU 2.4：一个像素 0.83 个游戏像素（全包 0.73），金时连斧 37.5、奥丁连枪 44 个
+    // 游戏像素。用户看了按 1.25 倍重出像素的那一版（「为什么你像素处理后质量这么差」），在 Codex 原样的三种 PPU 里选了 2.4
+    ("ragnarok_kintoki", 2.4, include_str!("../../../ragnarok/champions/ragnarok_kintoki#anim.fanim")),
+    ("ragnarok_odin", 2.4, include_str!("../../../ragnarok/champions/ragnarok_odin#anim.fanim")),
 ];
 
 /// 英雄在高清帧画出来的地方的大小（1.0 = 1 倍帧的大小，不列就是 1.0）。
@@ -128,6 +133,10 @@ pub const EFFECTS: &[(&str, f32, &str)] = &[
     ("ragnarok_susanoo_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_susanoo_fx#anim.fanim")),
     ("ragnarok_simo_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_simo_fx#anim.fanim")),
     ("ragnarok_loki_fx", 2.667, include_str!("../../../ragnarok/effects/ragnarok_loki_fx#anim.fanim")),
+    // 金时、奥丁：特效和人一个比例（Codex 按人画的大小），PPU 同人 2.4。打在人身上的命中、奥丁挂在自己身上的五面盾和
+    // 双鸦、被心弦融歌缠住的敌人身上的符文环在这里；出招的横扫弧、斧落地、神纹、刺击的光、咒歌的符文环和顿地画在他们自己的帧里
+    ("ragnarok_kintoki_fx", 2.4, include_str!("../../../ragnarok/effects/ragnarok_kintoki_fx#anim.fanim")),
+    ("ragnarok_odin_fx", 2.4, include_str!("../../../ragnarok/effects/ragnarok_odin_fx#anim.fanim")),
 ];
 
 /// 画面节点画特效时缩成 1 / PPU 的特效：上面这张只当 view_effects 播，没有 buff 和弹道的画面，走普通的门就行。
@@ -138,7 +147,8 @@ pub const DRAWN_EFFECTS: &[&str] = &["ragnarok_lubu_fx", "ragnarok_thor_fx", "ra
                                          "ragnarok_zerofuku_fx", "ragnarok_hades_fx", "ragnarok_qin_fx",
                                          "ragnarok_beelzebub_fx", "ragnarok_tesla_fx", "ragnarok_leonidas_fx",
                                          "ragnarok_apollo_fx", "ragnarok_okita_fx", "ragnarok_susanoo_fx",
-                                         "ragnarok_simo_fx", "ragnarok_loki_fx"];
+                                         "ragnarok_simo_fx", "ragnarok_loki_fx", "ragnarok_kintoki_fx",
+                                         "ragnarok_odin_fx"];
 
 /// 界面上画 lo_ 帧的地方（选人卡片）缩小画的高个子英雄。
 pub const UI_SIZES: &[(&str, f32)] = &[

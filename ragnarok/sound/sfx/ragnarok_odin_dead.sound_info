@@ -1,0 +1,9 @@
+{
+  "plays": [
+    {
+      "delay": 0.6,
+      "clip": "ragnarok_odin_sfx_fall",
+      "volume": 0.5
+    }
+  ]
+}

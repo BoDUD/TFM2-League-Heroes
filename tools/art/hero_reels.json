@@ -191,6 +191,8 @@
   "ragnarok_susanoo": {"idle": [["skill", [0, 1, 2]], ["attack", [0, 1, 2]]]},
   "ragnarok_simo": {"idle": [["skill", [0, 1, 2]], ["attack", [0, 1, 2]]], "bp": ["attack", "skill2"]},
   "ragnarok_loki": {"idle": [["skill", [0, 1, 2]], ["attack", [0, 1, 2]]]},
+  "ragnarok_kintoki": {"idle": [["skill", [0, 1, 2]], ["attack", [0, 1, 2]]]},
+  "ragnarok_odin": {"idle": [["skill2", [0, 1, 2]], ["attack", [0, 1, 2]]]},
   "tft_norra": {"idle": [["skill2", [1]], ["attack", [0]]]},
   "tft_powder": {"idle": [["skill", [2, 3, 4]], ["attack", [0, 1]]]},
   "tft_alune": {"idle": [["skill2", [0]]], "bp": ["skill2", "attack", "skill", "ult"]},

@@ -1,0 +1,22 @@
+{
+  "actor_frames": 64,
+  "fx_frames": 64,
+  "cell": [
+    120,
+    112
+  ],
+  "hd_multiplier": 4,
+  "timings_checked": true,
+  "binary_alpha": true,
+  "distinct_poses": {
+    "idle": 8,
+    "run": 8,
+    "attack": 8,
+    "skill": 8,
+    "skill2": 8,
+    "ult": 8,
+    "hit": 8,
+    "dead": 8
+  },
+  "voice_status": "no_verified_japanese_dialogue"
+}
