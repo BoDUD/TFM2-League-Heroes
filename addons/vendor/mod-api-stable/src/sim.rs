@@ -58,14 +58,38 @@ impl<'a> StableSim<'a> {
 
     // -- entities --
 
+    /// 游戏这边是从头数一遍（O(n)）。顺便记下这一帧的单位数：变了，[`StableSim::entity_at`] 的名单就作废（合集 11-27 加，
+    /// 见 entity_list.rs）。
     pub fn entity_count(&self) -> usize {
+        let n = self.raw_entity_count();
+        crate::entity_list::counted(self.state() as usize, self.tick(), n);
+        n
+    }
+
+    /// 第 index 个单位。游戏的 entity_at(i) 每次从头数 i 步；这里同一帧、单位数没变时查这一帧的名单（按编号排序），
+    /// 见 entity_list.rs（合集 11-27 加）。
+    pub fn entity_at(&self, index: usize) -> Option<StableEntity<'_, 'a>> {
+        let handle = crate::entity_list::handle_at(
+            self.state() as usize,
+            self.tick(),
+            index,
+            || self.raw_entity_count(),
+            |i| self.raw_entity_at(i),
+            |h| self.raw_entity_is_valid(h),
+        );
+        self.entity(handle)
+    }
+
+    fn raw_entity_count(&self) -> usize {
         slot!(self.sim(), SimVtableV1, entity_count).map_or(0, |f| unsafe { f(self.state()) })
     }
 
-    pub fn entity_at(&self, index: usize) -> Option<StableEntity<'_, 'a>> {
-        let handle = slot!(self.sim(), SimVtableV1, entity_at)
-            .map_or(EntityHandleV1::NULL, |f| unsafe { f(self.state(), index) });
-        self.entity(handle)
+    fn raw_entity_at(&self, index: usize) -> EntityHandleV1 {
+        slot!(self.sim(), SimVtableV1, entity_at).map_or(EntityHandleV1::NULL, |f| unsafe { f(self.state(), index) })
+    }
+
+    fn raw_entity_is_valid(&self, handle: EntityHandleV1) -> bool {
+        slot!(self.sim(), SimVtableV1, entity_is_valid).map_or(false, |f| unsafe { f(self.state(), handle) })
     }
 
     pub fn get_entity(&self, id: usize) -> Option<StableEntity<'_, 'a>> {
@@ -73,9 +97,7 @@ impl<'a> StableSim<'a> {
     }
 
     pub fn entity(&self, handle: EntityHandleV1) -> Option<StableEntity<'_, 'a>> {
-        let valid = slot!(self.sim(), SimVtableV1, entity_is_valid)
-            .map_or(false, |f| unsafe { f(self.state(), handle) });
-        valid.then_some(StableEntity { sim: self, handle })
+        self.raw_entity_is_valid(handle).then_some(StableEntity { sim: self, handle })
     }
 
     // -- players --
