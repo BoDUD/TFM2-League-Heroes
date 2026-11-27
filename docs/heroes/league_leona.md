@@ -55,7 +55,7 @@
 
 ### 蕾欧娜附加包
 
-[蕾欧娜附加包](../../addons/league_leona/README.md)：`league_leona` v0.1.1
+[蕾欧娜附加包](../../addons/league_leona/README.md)：`league_leona` v0.1.2
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

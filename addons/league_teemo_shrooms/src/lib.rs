@@ -28,6 +28,8 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 #[path = "../../league_nidalee/src/bush.rs"]
 pub mod bush;
@@ -298,7 +300,7 @@ impl StablePassive for Shrooms {
             let s = self.field.remove(i);
             sim.play_view_effect(BURST, me, &pos_input(s.at), 0, 0, 0);
             sim.play_sfx(BURST, me, &pos_input(s.at));
-            let hit: Vec<usize> = foes.iter().filter(|f| dist(f.1, s.at) <= CLOUD).map(|f| f.0).collect();
+            let hit: Vec<usize> = foes.iter().filter(|f| dist(f.1, s.at) <= sk(CLOUD)).map(|f| f.0).collect();
             for id in &hit {
                 self.poisoned.insert(*id, (tick + POISON_PERIOD, POISON_TICKS));
                 let mut slow = BuffV1::timed(SLOW.0, SLOW.1);

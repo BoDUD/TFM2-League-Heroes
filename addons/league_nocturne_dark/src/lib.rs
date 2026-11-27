@@ -32,6 +32,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_nocturne_dark";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -177,7 +179,8 @@ fn fpos(p: (u64, u64)) -> (f64, f64) {
 
 /// 看不见就不出手：瞄的位置 `aim` 离出手的人 `me` 超过 `SIGHT`，就改成朝那里走（返回要走去的点）。
 pub fn blinded(me: (f64, f64), aim: (f64, f64)) -> Option<(f64, f64)> {
-    (dist(me, aim) > SIGHT).then_some(aim)
+    // 黑暗里看得见的距离是大招定的，跟着技能距离一起乘
+    (dist(me, aim) > sk(SIGHT)).then_some(aim)
 }
 
 /// 指向点的技能瞄的是谁：点旁边 `AIM_POS` 以内最近的魔腾一方单位。
@@ -199,7 +202,7 @@ pub fn aimed_along(me: (f64, f64), dir: (f64, f64), dark: &[(f64, f64)]) -> Opti
             let (vx, vy) = (u.0 - me.0, u.1 - me.1);
             let d = (vx * vx + vy * vy).sqrt();
             let along = vx * ux + vy * uy;
-            (d > 0.0 && d <= AIM_REACH && along / d >= cos_max).then_some((u, (d * d - along * along).max(0.0)))
+            (d > 0.0 && d <= sk(AIM_REACH) && along / d >= cos_max).then_some((u, (d * d - along * along).max(0.0)))
         })
         .min_by(|a, b| a.1.total_cmp(&b.1))
         .map(|(u, _)| u)

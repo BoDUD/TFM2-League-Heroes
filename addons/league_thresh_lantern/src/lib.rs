@@ -33,6 +33,8 @@ use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
+// 灯笼扔多远、飞多快、拉人多快在大地图版跟着乘 1.3（扔的距离、飞的时间和主包数据一致）
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_thresh_lantern";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -181,7 +183,7 @@ pub fn pull_ticks(d: f64) -> usize {
     if d <= NEAR {
         return 0;
     }
-    ((d - STOP) / PULL_SPEED as f64).ceil().max(1.0) as usize
+    ((d - STOP) / sk(PULL_SPEED) as f64).ceil().max(1.0) as usize
 }
 
 /// 灯放在哪：队友 `ally` 身边，往锤石 `me` 那边挪 `OFFSET`（两人挨得近就挪一半的距离）。
@@ -198,7 +200,7 @@ pub fn spot_by(ally: Pt, me: Pt) -> Pt {
 /// 生命比例最低的。-> (他, 拉几 tick)。
 pub fn grabber(me: Pt, spot: Pt, allies: &[Ally], held: impl Fn(usize) -> bool) -> Option<(Ally, usize)> {
     allies.iter()
-        .filter(|a| dist(a.at, spot) <= GRAB_R && a.danger() && !held(a.id))
+        .filter(|a| dist(a.at, spot) <= sk(GRAB_R) && a.danger() && !held(a.id))
         .map(|a| (*a, pull_ticks(dist(me, a.at))))
         .filter(|&(_, t)| t > 0)
         .min_by_key(|(a, _)| a.hp * 1000 / a.max.max(1))
@@ -228,7 +230,7 @@ fn read_allies(sim: &StableSim<'_>, me: usize) -> Option<(Pt, Vec<Ally>)> {
     let units: Vec<_> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
         .filter(|u| u.is_champion() && u.is_alive()).collect();
     let allies = units.iter()
-        .filter(|u| u.team() == team && u.id() != me && u.is_targetable() && dist(at, pos(u)) <= REACH)
+        .filter(|u| u.team() == team && u.id() != me && u.is_targetable() && dist(at, pos(u)) <= sk(REACH))
         .map(|u| Ally {
             id: u.id(),
             at: pos(u),
@@ -256,7 +258,7 @@ impl StableEffectType for Throw {
             x,
             y,
             radius: 1_000,
-            speed: FLY,
+            speed: sk(FLY),
             move_kind: ProjectileMoveKindV1::Target.code(),
             target_id: a.id,
             target_x: 0,
@@ -318,7 +320,7 @@ fn grab(sim: &mut StableSim<'_>, caster: usize, spot: Pt) -> bool {
     let Some((_, allies)) = read_allies(sim, caster) else { return false };
     let held: Vec<usize> = allies.iter().filter(|a| sim.get_entity(a.id).is_some_and(|e| hard_cc(&e))).map(|a| a.id).collect();
     let Some((a, ticks)) = grabber(at, spot, &allies, |id| held.contains(&id)) else { return false };
-    let pulled = sim.entity_pull(caster, a.id, PULL_SPEED, ticks);
+    let pulled = sim.entity_pull(caster, a.id, sk(PULL_SPEED), ticks);
     if pulled {
         sim.entity_remove_buff(caster, UP);
     }

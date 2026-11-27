@@ -11,6 +11,8 @@
 //! - R「七发齐射」：最后一发走同一份魔弹数据，挂 `r_fired7`：扣 8% 当前生命，不装弹，不动这一轮的计数。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::oathbreaker::hp_after_burn;
 use crate::voice::{Cue, Voice};
@@ -104,7 +106,7 @@ impl SevenfoldPassive {
             if !e.is_alive() || !e.is_champion() || e.team() == team {
                 continue;
             }
-            let reach = CURSE_RANGE + my_r + e.radius() as u64;
+            let reach = sk(CURSE_RANGE) + my_r + e.radius() as u64;
             if dist_sq(at, e.pos()) <= reach.saturating_mul(reach) {
                 fired = true;
                 break;

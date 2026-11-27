@@ -25,6 +25,8 @@ use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
+// 给队友的技能射程（换掉的是数据里的 RandomTarget，那边乘 1.3）在大地图版跟着乘
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_support_pick";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -214,7 +216,7 @@ impl StableEffectType for Support {
         let ap = power(sim, caster);
         match self.0 {
             Step::JannaE => {
-                let Some(a) = pick(&allies(sim, caster, 50_000.0)) else { return };
+                let Some(a) = pick(&allies(sim, caster, sk(50_000.0))) else { return };
                 sim.add_buff(caster, &BuffV1::timed("league_janna_e_lock", 3));
                 let s = 150 + ap * 75 / 100;
                 sim.entity_add_shield(a.id, s, 240);
@@ -224,14 +226,14 @@ impl StableEffectType for Support {
                 note(sim, caster, "JANNA E", &a, format!(", shield {s}"));
             }
             Step::SonaW => {
-                let Some(a) = pick_heal(&allies(sim, caster, 60_000.0)) else { return };
+                let Some(a) = pick_heal(&allies(sim, caster, sk(60_000.0))) else { return };
                 let h = 100 + ap * 40 / 100;
                 sim.heal(caster, a.id, h);
                 sim.play_view_effect("league_sona_w_heal", caster, &InputTargetV1::target(a.id), 0, 0, 0);
                 note(sim, caster, "SONA W", &a, format!(", heal {h}"));
             }
             Step::LuluE(reach) => {
-                let Some(a) = pick(&allies(sim, caster, reach as f64)) else { return };
+                let Some(a) = pick(&allies(sim, caster, sk(reach as f64))) else { return };
                 let Some((team, at)) = sim.get_entity(caster).map(|e| (e.team(), pos(&e))) else { return };
                 sim.add_buff(caster, &BuffV1::timed("league_lulu_e_got", 1));
                 sim.play_sfx("league_lulu_e_cast", caster, &InputTargetV1::target(caster));
@@ -242,7 +244,7 @@ impl StableEffectType for Support {
                     x,
                     y,
                     radius: 1_000,
-                    speed: 4_500,
+                    speed: sk(4_500),
                     move_kind: ProjectileMoveKindV1::Target.code(),
                     target_id: a.id,
                     target_x: 0,

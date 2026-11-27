@@ -12,6 +12,8 @@
 //! - 狼形不说人话，只有低吼。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, dist_sq, has_buff};
@@ -116,7 +118,7 @@ impl BloodmoonPassive {
             if id == target || id == entity || !e.is_alive() || e.team() == team || e.is_tower() || !e.is_targetable() {
                 continue;
             }
-            if within(at, my_r, e.pos(), e.radius() as u64, CLEAVE_RADIUS) {
+            if within(at, my_r, e.pos(), e.radius() as u64, sk(CLEAVE_RADIUS)) {
                 others.push(id);
             }
         }

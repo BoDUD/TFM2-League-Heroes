@@ -158,7 +158,7 @@ impl Scene<'_> {
 
     /// 他这边的人：他身边 `CROWD_R` 内的我方英雄，含他。
     fn ours(&self) -> usize {
-        1 + self.allies.iter().filter(|&&a| dist(self.me.at, a) <= CROWD_R).count()
+        1 + self.allies.iter().filter(|&&a| dist(self.me.at, a) <= sk(CROWD_R)).count()
     }
 
     /// 能冲：目标不在敌方塔下，或已经残血。
@@ -240,14 +240,14 @@ pub fn plan(s: &Scene<'_>) -> Vec<Plan> {
         let ours = s.ours();
         let worth = |f: &Foe| (me.w && me.q && f.hp < R_LOW) || f.hp < R_SOLO || (s.fought(f) && (me.w || me.q));
         let ok = |f: &Foe| {
-            s.diveable(f) && s.foes_within(f.at, CROWD_R) <= ours + 1 && worth(f) && !s.away_from(f)
+            s.diveable(f) && s.foes_within(f.at, sk(CROWD_R)) <= ours + 1 && worth(f) && !s.away_from(f)
         };
         out.extend(s.pick(sk(R_REACH), ok).into_iter().map(|f| Plan::R { target: f.id, full: me.w && me.q }));
     }
     // 3. W-E-Q: league_ult_press's rule (not outnumbered where it lands)
     if me.w && me.q && engage {
         let ours = s.ours();
-        let ok = |f: &Foe| s.diveable(f) && s.foes_within(f.at, CROWD_R) <= ours && !s.away_from(f);
+        let ok = |f: &Foe| s.diveable(f) && s.foes_within(f.at, sk(CROWD_R)) <= ours && !s.away_from(f);
         out.extend(s.pick(sk(W_REACH), ok).into_iter().map(|f| Plan::Open(f.id)));
     }
     // 4. a shadow standing: Q, the marked one first - never while the mark waits for W

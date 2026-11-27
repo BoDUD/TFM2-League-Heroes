@@ -55,7 +55,7 @@
 
 ### 辅助挑人附加包：迦娜、娑娜、璐璐
 
-[辅助挑人附加包：迦娜、娑娜、璐璐](../../addons/league_support_pick/README.md)：`league_support_pick` v0.1.4
+[辅助挑人附加包：迦娜、娑娜、璐璐](../../addons/league_support_pick/README.md)：`league_support_pick` v0.1.5
 
 | 英雄 | 主包（纯数据） | 装了附加包 |
 |---|---|---|
@@ -63,7 +63,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.7（通用附加包，下面只列和娑娜有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.8（通用附加包，下面只列和娑娜有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

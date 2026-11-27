@@ -33,6 +33,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_briar_frenzy";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -156,7 +158,7 @@ fn buff_left(e: &StableEntity<'_, '_>, name: &str) -> Option<usize> {
 
 /// Did the knock-back hit something? (pushed `moved` of `KNOCK_DIST`)
 pub fn blocked(moved: f64) -> bool {
-    moved * 100.0 < BLOCKED * KNOCK_DIST
+    moved * 100.0 < BLOCKED * sk(KNOCK_DIST)
 }
 
 /// 根本没被推动（0.1.2）：推了不到 `UNPUSHED`，是击退没生效（免控、不可位移），不是撞上了墙。11-04 的日志里 660 次 E 有 43 次
@@ -299,13 +301,14 @@ impl StablePassive for Frenzy {
                 sim.play_sfx(E_STUN_FX, me, &InputTargetV1::target(id));
             }
             self.n += 1;
+            let full = sk(KNOCK_DIST);
             if immune {
                 if let Some(k) = noted("immune", on_screen(sim)) {
-                    wlog(format!("{} E #{} on #{id}: pushed {moved:.0} of {KNOCK_DIST:.0}: cc immune / not moved, no stun #{k}",
+                    wlog(format!("{} E #{} on #{id}: pushed {moved:.0} of {full:.0}: cc immune / not moved, no stun #{k}",
                                  head(sim, me), self.n));
                 }
             } else if self.n <= 80 || self.n % 25 == 0 {
-                wlog(format!("{} E #{} on #{id}: pushed {moved:.0} of {KNOCK_DIST:.0}{}", head(sim, me), self.n,
+                wlog(format!("{} E #{} on #{id}: pushed {moved:.0} of {full:.0}{}", head(sim, me), self.n,
                              if hit { " -> hit a wall, STUNNED" } else { " (no wall)" }));
             }
         }

@@ -9,6 +9,8 @@
 
 use std::collections::{HashMap, HashSet, VecDeque};
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{buffs_present, consume_buff, dist_sq, foe_champions};
@@ -95,7 +97,7 @@ impl WhispererPassive {
         let tick = sim.tick();
         let mut queue: VecDeque<(usize, u8)> = initial.into_iter().collect();
         let mut erupted_this_tick: HashSet<usize> = HashSet::new();
-        let rad_sq = BURST_RADIUS * BURST_RADIUS;
+        let rad_sq = sk(BURST_RADIUS) * sk(BURST_RADIUS);
         let dmg = burst_damage(ap);
 
         while let Some((victim, add)) = queue.pop_front() {

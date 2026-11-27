@@ -13,6 +13,8 @@
 //! 还没用上，退还冷却，只剩 `REARM_LEFT` tick，下一架再待命。塞拉斯偷到的 R 身上没有 `p_self`，数据照旧当场断誓。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{buffs_present, can_cast, consume_buff, dist_sq, foe_champions, has_buff};
@@ -175,7 +177,7 @@ impl OathbreakerPassive {
             return;
         };
         let dmg = R_BURST_DMG + ad * R_BURST_AD / 100;
-        let r2 = R_BURST_R * R_BURST_R;
+        let r2 = sk(R_BURST_R) * sk(R_BURST_R);
         // 选不中的（放逐、隐身、无敌）、塔和水晶不挨这一圈
         let foes: Vec<usize> = (0..sim.entity_count())
             .filter_map(|i| sim.entity_at(i))
@@ -208,7 +210,7 @@ impl OathbreakerPassive {
         if !alive || !should_erupt(cur, max) {
             return;
         }
-        let near2 = ERUPT_NEAR * ERUPT_NEAR;
+        let near2 = sk(ERUPT_NEAR) * sk(ERUPT_NEAR);
         let foe_near = foe_champions(sim, team).iter().any(|(_, p)| dist_sq(*p, pos) <= near2);
         if erupt_due(cur, max, foe_near, can_cast(sim, entity)) {
             self.erupt(sim, entity);

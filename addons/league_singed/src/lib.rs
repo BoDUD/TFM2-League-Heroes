@@ -25,6 +25,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex, Once};
 
 use game_places::terrain::{self, Map, Walls};
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 #[allow(dead_code)]
@@ -329,7 +331,7 @@ fn fling(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
         return;
     }
     let (Some(him), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
-    let (dir, reach) = throw_line(him, at, E_BEHIND as f64, (1.0, 0.0));
+    let (dir, reach) = throw_line(him, at, sk(E_BEHIND) as f64, (1.0, 0.0));
     let wall = grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body));
     let len = wall.unwrap_or(reach);
     let end = (at.0 + dir.0 * len, at.1 + dir.1 * len);

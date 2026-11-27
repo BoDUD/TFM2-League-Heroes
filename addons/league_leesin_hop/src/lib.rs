@@ -69,6 +69,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离、速度用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
@@ -341,7 +343,7 @@ fn unit_vec(v: (f64, f64)) -> Option<(f64, f64)> {
 /// 回旋踢该把他踢向哪（从他出发的单位向量）和为什么：他身边 `ALLY_R` 内己方英雄的重心（`allies`，不含李青）；
 /// 没有就最近的己方塔；都没有就踢回李青这边。
 pub fn kick_dir(target: (f64, f64), lee: (f64, f64), allies: &[(f64, f64)], towers: &[(f64, f64)]) -> ((f64, f64), &'static str) {
-    let near: Vec<&(f64, f64)> = allies.iter().filter(|a| dist(**a, target) <= ALLY_R).collect();
+    let near: Vec<&(f64, f64)> = allies.iter().filter(|a| dist(**a, target) <= sk(ALLY_R)).collect();
     if !near.is_empty() {
         let n = near.len() as f64;
         let c = (near.iter().map(|a| a.0).sum::<f64>() / n, near.iter().map(|a| a.1).sum::<f64>() / n);
@@ -450,14 +452,14 @@ pub fn escape_spot<'a>(walls: impl Into<Ground<'a>>, me: (f64, f64), foes: &[(f6
                 return None;
             }
             let mut run = 0.0;
-            while run + 500.0 <= HOP_RANGE {
+            while run + 500.0 <= sk(HOP_RANGE) {
                 let p = (me.0 + dir.0 * (run + 500.0), me.1 + dir.1 * (run + 500.0));
                 if !g.on_map(p) || g.wall(p) {
                     break;
                 }
                 run += 500.0;
             }
-            (run >= HOP_MIN).then(|| (me.0 + dir.0 * run, me.1 + dir.1 * run))
+            (run >= sk(HOP_MIN)).then(|| (me.0 + dir.0 * run, me.1 + dir.1 * run))
         })
         .map(|w| (nearest(w, foes), w))
         .filter(|(m, _)| *m >= now + 15_000.0)
@@ -474,7 +476,7 @@ pub fn chase_spot<'a>(walls: impl Into<Ground<'a>>, me: (f64, f64), target: (f64
     }
     let reach = d - CHASE_STOP;
     let w = (me.0 + (target.0 - me.0) / d * reach, me.1 + (target.1 - me.1) / d * reach);
-    ((HOP_MIN..=HOP_RANGE).contains(&reach) && path_free(walls, me, w)).then_some(w)
+    ((sk(HOP_MIN)..=sk(HOP_RANGE)).contains(&reach) && path_free(walls, me, w)).then_some(w)
 }
 
 // ===================== 模拟里的小工具 =====================
@@ -658,7 +660,7 @@ fn follow(sim: &mut StableSim<'_>, lee: usize) {
     let off = dist(here, spot);
     // 被放逐（巴德的 R 之类，不可选中）时不挪他：游戏 0.6.4 起放逐中的单位不动
     if off > 1.0 && me.is_targetable() {
-        let step = INSEC_SPEED.min(off);
+        let step = sk(INSEC_SPEED).min(off);
         let next = (here.0 + (spot.0 - here.0) / off * step, here.1 + (spot.1 - here.1) / off * step);
         sim.entity_set_pos(lee, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
     }
@@ -700,7 +702,7 @@ fn dash(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
     if !has_cc(sim, lee, &[CcKindV1::ForceMove]) {
         if has_buff(sim, lee, REDO) {
             // 补的那段宿主也没执行：自己一步步挪过去（一直挪到到）
-            let step = INSEC_SPEED.min(off);
+            let step = sk(INSEC_SPEED).min(off);
             let next = (here.0 + (spot.0 - here.0) / off * step, here.1 + (spot.1 - here.1) / off * step);
             sim.entity_set_pos(lee, next.0.round().max(0.0) as u64, next.1.round().max(0.0) as u64);
             sim.entity_remove_buff(lee, REDO);
@@ -710,7 +712,7 @@ fn dash(sim: &mut StableSim<'_>, lee: usize, input: InputTargetV1) {
                 wlog(format!("{} host did not move him ({off:.0} to go): stepping to the spot", head(sim, lee)));
             }
         } else {
-            force_move(sim, lee, here, spot, HOP_SPEED.max(off / 2.0));
+            force_move(sim, lee, here, spot, sk(HOP_SPEED).max(off / 2.0));
             sim.add_buff(lee, &BuffV1::timed(REDO, 2));
         }
     }
@@ -793,8 +795,8 @@ pub fn engage_target<'a>(
         .filter(|f| !moving_away(lee, f.v, f.at) && !moving_away(f.at, f.v, lee))
         .filter(|f| f.hp <= CHASE_HP || !under(f.at))
         .filter(|f| {
-            let crowd = foes.iter().filter(|o| dist(o.at, f.at) <= ENGAGE_CROWD_R).count();
-            crowd < 3 || allies.iter().any(|a| dist(*a, f.at) <= ENGAGE_CROWD_R + 15_000.0)
+            let crowd = foes.iter().filter(|o| dist(o.at, f.at) <= sk(ENGAGE_CROWD_R)).count();
+            crowd < 3 || allies.iter().any(|a| dist(*a, f.at) <= sk(ENGAGE_CROWD_R + 15_000.0))
         })
         .filter_map(|f| chase_spot(walls, lee, f.at).map(|w| (cos(v_lee, (f.at.0 - lee.0, f.at.1 - lee.1)), f.id, w)))
         .max_by(|a, b| a.0.total_cmp(&b.0))
@@ -821,7 +823,7 @@ fn hop(
     let here = mine.at;
     let foe_at: Vec<(f64, f64)> = foes.iter().map(|c| c.at).collect();
     let closest = foe_at.iter().copied().min_by(|a, b| dist(here, *a).total_cmp(&dist(here, *b)));
-    let (spot, why, target) = if mine.hp <= LOW_HP && nearest(here, &foe_at) <= DANGER_R {
+    let (spot, why, target) = if mine.hp <= LOW_HP && nearest(here, &foe_at) <= sk(DANGER_R) {
         // 只在他自己正往远离最近那个敌人的方向跑时 W
         let fleeing = closest.is_some_and(|c| moving_away(here, v_lee, c));
         (fleeing.then(|| escape_spot(walls, here, &foe_at, v_lee)).flatten(), "ESCAPE", None)
@@ -843,7 +845,7 @@ fn hop(
     };
     let w = spot?;
     sim.add_buff(lee, &BuffV1::timed(CD, HOP_CD));
-    let ticks = w_dash(sim, lee, here, w, HOP_SPEED);
+    let ticks = w_dash(sim, lee, here, w, sk(HOP_SPEED));
     let what = target.map_or_else(|| why.to_string(), |id| format!("{why} #{id}"));
     wlog(format!(
         "{} {what} W to {} ({:.0} away, {ticks} ticks), hp {:.0}%, running {:.0}/tick, nearest enemy {:.0} -> {:.0}",
@@ -930,7 +932,7 @@ pub fn intended(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> Option
                 .iter()
                 .filter_map(|m| {
                     let (along, off) = along_off(me, d, m.at);
-                    (along > 0.0 && along <= Q_RANGE + m.r && off <= Q_PICK_OFF).then_some((off, m))
+                    (along > 0.0 && along <= sk(Q_RANGE) + m.r && off <= Q_PICK_OFF).then_some((off, m))
                 })
                 .min_by(|a, b| a.0.total_cmp(&b.0))
                 .map(|(_, m)| *m)
@@ -952,7 +954,7 @@ pub fn intended(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> Option
 pub fn lead(me: (f64, f64), m: &Mark) -> (f64, f64) {
     let mut p = m.at;
     for _ in 0..3 {
-        let t = Q_WIND + dist(me, p) / Q_SPEED;
+        let t = Q_WIND + dist(me, p) / sk(Q_SPEED);
         let (mut dx, mut dy) = (m.v.0 * t, m.v.1 * t);
         let n = dx.hypot(dy);
         if n > Q_LEAD_CAP {
@@ -972,7 +974,7 @@ pub fn blocked(me: (f64, f64), aim: (f64, f64), target: usize, marks: &[Mark]) -
         .filter(|m| m.id != target && m.kind != Kind::Champion)
         .filter_map(|m| {
             let (along, off) = along_off(me, d, m.at);
-            (along > 0.0 && along < n && off <= Q_RADIUS + m.r).then_some((along, m))
+            (along > 0.0 && along < n && off <= sk(Q_RADIUS) + m.r).then_some((along, m))
         })
         .min_by(|a, b| a.0.total_cmp(&b.0))
         .map(|(_, m)| *m)
@@ -994,11 +996,11 @@ pub fn plan_q(input: &InputTargetV1, me: (f64, f64), marks: &[Mark]) -> (QPlan, 
             let p = lead(me, &t);
             let n = dist(me, t.at).max(1.0);
             let d = ((t.at.0 - me.0) / n, (t.at.1 - me.1) / n);
-            if dist(me, p) > Q_RANGE + t.r {
+            if dist(me, p) > sk(Q_RANGE) + t.r {
                 QPlan::Skip("he will be out of reach")
             } else if blocked(me, t.at, t.id, marks).is_some() {
                 QPlan::Skip("a minion or monster is in the way")
-            } else if along_off(me, d, p).1 > Q_RADIUS + t.r {
+            } else if along_off(me, d, p).1 > sk(Q_RADIUS) + t.r {
                 QPlan::Skip("he walks out of the wave")
             } else {
                 QPlan::Keep

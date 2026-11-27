@@ -55,7 +55,7 @@
 
 ### 娜美附加包
 
-[娜美附加包](../../addons/league_nami/README.md)：`league_nami` v0.1.0
+[娜美附加包](../../addons/league_nami/README.md)：`league_nami` v0.1.1
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

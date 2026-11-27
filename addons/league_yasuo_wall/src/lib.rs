@@ -30,6 +30,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
@@ -234,7 +236,7 @@ pub fn pair(prev: &[(usize, Pt)], now: &[(usize, Pt)]) -> Vec<Missile> {
     now.iter()
         .map(|&(c, at)| {
             let best = prev.iter().enumerate()
-                .filter(|(i, p)| !used[*i] && p.0 == c && len(sub(p.1, at)) <= MATCH_R)
+                .filter(|(i, p)| !used[*i] && p.0 == c && len(sub(p.1, at)) <= sk(MATCH_R))
                 .min_by(|a, b| len(sub(a.1 .1, at)).total_cmp(&len(sub(b.1 .1, at))))
                 .map(|(i, _)| i);
             let from = best.map_or(at, |i| {
@@ -260,7 +262,7 @@ pub fn aimed_at(m: &Missile, guarded: &[Guarded]) -> Option<Guarded> {
     guarded.iter().copied().filter(|g| {
         let to = sub(g.at, m.at);
         let d = len(to);
-        (NEAR..=FAR).contains(&d) && dot(v, to) >= 0.9 * d
+        (NEAR..=sk(FAR)).contains(&d) && dot(v, to) >= 0.9 * d
     }).min_by(|a, b| len(sub(a.at, m.at)).total_cmp(&len(sub(b.at, m.at))))
 }
 
@@ -283,7 +285,7 @@ pub fn plan(me: Pt, missiles: &[Missile], guarded: &[Guarded]) -> Option<(Pt, Pt
     }
     let toward = threats.iter().fold((0.0, 0.0), |s, (m, _)| add(s, unit(sub(m.at, me)).unwrap_or((0.0, 0.0))));
     let dir = unit(toward)?;
-    Some((add(me, mul(dir, AHEAD)), dir, threats.len()))
+    Some((add(me, mul(dir, sk(AHEAD))), dir, threats.len()))
 }
 
 /// Along the wall: the side vector, pointing left to right on screen (top to bottom when the wall stands up and down).
@@ -294,7 +296,7 @@ pub fn side_of(dir: Pt) -> Pt {
 
 /// The point at `t` (-1 .. 1) along the bowed wall.
 pub fn along(mid: Pt, dir: Pt, t: f64) -> Pt {
-    add(add(mid, mul(side_of(dir), HALF * t)), mul(dir, BOW * (1.0 - t * t)))
+    add(add(mid, mul(side_of(dir), sk(HALF) * t)), mul(dir, sk(BOW) * (1.0 - t * t)))
 }
 
 /// The wall's line as a polyline (for the blocking test).
@@ -306,7 +308,7 @@ pub fn line(mid: Pt, dir: Pt) -> Vec<Pt> {
 pub fn pieces(mid: Pt, dir: Pt) -> (Vec<Pt>, Vec<Pt>) {
     let n = PIECES as f64;
     let plumes = (0..PIECES).map(|k| along(mid, dir, -1.0 + (2.0 * k as f64 + 1.0) / n)).collect();
-    let dots = (2.0 * HALF / DOT) as usize + 1;
+    let dots = (2.0 * sk(HALF) / DOT) as usize + 1;
     let ground = (0..dots).map(|i| along(mid, dir, -1.0 + 2.0 * i as f64 / (dots - 1) as f64)).collect();
     (plumes, ground)
 }
@@ -469,7 +471,7 @@ impl StablePassive for WallPassive {
             if let Some(&(h0, cc0)) = self.seen.get(&id) {
                 let lost = h0.saturating_sub(h);
                 let near = paths.iter().enumerate()
-                    .find(|(i, (a, b, gone))| !(*gone && spent[*i]) && seg_dist(p, *a, *b) <= HIT_R).map(|(i, x)| (i, x.2));
+                    .find(|(i, (a, b, gone))| !(*gone && spent[*i]) && seg_dist(p, *a, *b) <= sk(HIT_R)).map(|(i, x)| (i, x.2));
                 if let (true, Some((i, gone))) = (lost > 0, near) {
                     spent[i] = gone;
                     sim.entity_set_hp(id, (h + lost).min(max));
@@ -494,7 +496,7 @@ impl StablePassive for WallPassive {
             return;
         }
         let guarded: Vec<Guarded> = champs.iter()
-            .filter(|c| c.1 == team && len(sub(c.2, at)) <= GUARD_R)
+            .filter(|c| c.1 == team && len(sub(c.2, at)) <= sk(GUARD_R))
             .map(|c| Guarded { id: c.0, at: c.2, share: c.3 .0 * 1000 / c.3 .1.max(1) })
             .collect();
         let _ = (hp, max);

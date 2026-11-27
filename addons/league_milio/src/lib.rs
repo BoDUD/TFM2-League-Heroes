@@ -610,7 +610,7 @@ impl Fired {
                     id: *id,
                     dist: dist(w.from, *p),
                     amount: *amount,
-                    by_shot: w.shots.iter().any(|s| dist(*s, *p) <= SHOT_NEAR),
+                    by_shot: w.shots.iter().any(|s| dist(*s, *p) <= sk(SHOT_NEAR)),
                 })
                 .collect();
             if let Some(t) = hit_of(w.sw.target, &drops, w.min) {

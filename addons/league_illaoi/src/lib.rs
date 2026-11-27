@@ -47,6 +47,8 @@ use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
+// 写死的技能距离 / 速度在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
 mod maps;
@@ -697,7 +699,8 @@ fn echo_fx(sim: &mut StableSim<'_>, me: usize, spot: (f64, f64), body: (f64, f64
         x: spot.0.round().max(0.0) as u64,
         y: spot.1.round().max(0.0) as u64,
         radius: 1_000,
-        speed: PULSE_SPEED,
+        // 灵魂线在大地图版长 1.3 倍，鬼手跟着快，飞回去的时间不变
+        speed: sk(PULSE_SPEED),
         move_kind: ProjectileMoveKindV1::Linear.code(),
         target_id: 0,
         target_x: body.0.round().max(0.0) as u64,

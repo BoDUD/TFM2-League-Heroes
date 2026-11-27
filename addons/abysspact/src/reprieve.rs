@@ -15,6 +15,8 @@
 
 use std::collections::HashSet;
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, dist_sq, has_buff, refund_hit};
@@ -232,7 +234,7 @@ impl StablePassive for ReprievePassive {
         // 6 万内有敌方英雄倒下（不管谁杀的）：刑期勾销
         let mut now_alive = HashSet::new();
         let mut absolved = false;
-        let lim = ABSOLVE_RANGE * ABSOLVE_RANGE;
+        let lim = sk(ABSOLVE_RANGE) * sk(ABSOLVE_RANGE);
         for i in 0..sim.entity_count() {
             let Some(e) = sim.entity_at(i) else { continue };
             if e.is_champion() && e.team() != my_team {

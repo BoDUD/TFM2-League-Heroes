@@ -778,7 +778,8 @@ impl StableEffectType for Back {
                 x: ux(from.0),
                 y: ux(from.1),
                 radius: 1_000,
-                speed: BACK_SPEED as u64,
+                // 球离她最远的距离在大地图版乘 1.3，飞回来的速度跟着乘，时间不变
+                speed: sk(BACK_SPEED) as u64,
                 move_kind: ProjectileMoveKindV1::Target.code(),
                 target_id: me,
                 target_x: 0,

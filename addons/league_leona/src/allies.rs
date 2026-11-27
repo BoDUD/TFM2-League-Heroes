@@ -16,6 +16,8 @@ use std::collections::{BTreeMap, VecDeque};
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Mutex;
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 /// 主包的英雄（钩子不挂在她身上：她自己的出手不引爆）；编号的 buff 名的开头；钩子的名字。
@@ -113,7 +115,7 @@ pub fn hit_of(sw: &Swing, drops: &VecDeque<Drop>, from: (f64, f64), ok: impl Fn(
     }
     let dist = |p: (f64, f64)| ((p.0 - from.0).powi(2) + (p.1 - from.1).powi(2)).sqrt();
     window
-        .filter(|d| d.amount >= sw.min && dist(d.at) <= REACH && ok(d.id))
+        .filter(|d| d.amount >= sw.min && dist(d.at) <= sk(REACH) && ok(d.id))
         .min_by(|a, b| dist(a.at).total_cmp(&dist(b.at)).then(a.id.cmp(&b.id)))
         .map(|d| (d.id, d.tick))
 }

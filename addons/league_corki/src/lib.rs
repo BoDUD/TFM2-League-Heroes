@@ -32,6 +32,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 火箭、俯冲的距离和速度用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
 
@@ -234,13 +236,13 @@ pub struct Foe {
 /// 从 `me` 朝 `aim` 的火箭停在哪：线上（宽 R_W + 身体）离他最近的敌人；没人就在射程尽头。
 pub fn stop_at(me: (f64, f64), aim: (f64, f64), foes: &[Foe]) -> (f64, f64) {
     let Some(u) = unit((aim.0 - me.0, aim.1 - me.1)) else { return aim };
-    let reach = R_RANGE + 10_000.0;
+    let reach = sk(R_RANGE) + 10_000.0;
     foes.iter()
         .filter_map(|f| {
             let v = (f.at.0 - me.0, f.at.1 - me.1);
             let along = v.0 * u.0 + v.1 * u.1;
             let off = (v.0 * u.1 - v.1 * u.0).abs();
-            (along > 0.0 && along <= reach && off <= R_W + BODY).then_some((along, f.at))
+            (along > 0.0 && along <= reach && off <= sk(R_W) + BODY).then_some((along, f.at))
         })
         .min_by(|a, b| a.0.total_cmp(&b.0))
         .map_or((me.0 + u.0 * reach, me.1 + u.1 * reach), |x| x.1)
@@ -257,6 +259,10 @@ pub fn blast_score(spot: (f64, f64), r: f64, low: f64, foes: &[Foe]) -> f64 {
 /// How far the spot where the target fell may lie for the missile to fly at it: the AI casts at R_RANGE plus both
 /// bodies (2 x 10000, champion-data.md) and the target walks on for `r_at` ticks before he falls.
 pub const CORPSE_REACH: f64 = R_RANGE + 40_000.0;
+/// 这一版的 `CORPSE_REACH`：大地图版只乘射程那段，身体和他走的那几步不乘。
+pub fn corpse_reach() -> f64 {
+    sk(R_RANGE) + (CORPSE_REACH - R_RANGE)
+}
 
 /// What a missile's aim comes from.
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
@@ -273,20 +279,20 @@ pub enum Aim {
 /// rocket flies on to the spot): where he fell while the game still has his body (within CORPSE_REACH), else the
 /// nearest enemy unit within R_RANGE; None with neither. `best_shot` still tries every champion in range against it.
 pub fn dead_aim(me: (f64, f64), corpse: Option<(f64, f64)>, foes: &[Foe]) -> Option<((f64, f64), Aim)> {
-    if let Some(c) = corpse.filter(|c| dist(me, *c) <= CORPSE_REACH) {
+    if let Some(c) = corpse.filter(|c| dist(me, *c) <= corpse_reach()) {
         return Some((c, Aim::Corpse));
     }
     foes.iter()
         .map(|f| f.at)
-        .filter(|at| dist(me, *at) <= R_RANGE)
+        .filter(|at| dist(me, *at) <= sk(R_RANGE))
         .min_by(|a, b| dist(me, *a).total_cmp(&dist(me, *b)))
         .map(|at| (at, Aim::Nearest))
 }
 
 /// 最好的一发：对射程内每个敌方英雄（和大招的目标）试一条线，火箭停下的地方爆炸分最高的。返回（瞄准点，停下的点，分）。
 pub fn best_shot(me: (f64, f64), target: Option<(f64, f64)>, foes: &[Foe], big: bool) -> Option<((f64, f64), (f64, f64), f64)> {
-    let (r, low) = if big { (R_BIG_R, BIG_LOW_SCORE) } else { (R_R, LOW_SCORE) };
-    let aims = target.into_iter().chain(foes.iter().filter(|f| f.champion && dist(me, f.at) <= R_RANGE).map(|f| f.at));
+    let (r, low) = if big { (sk(R_BIG_R), BIG_LOW_SCORE) } else { (sk(R_R), LOW_SCORE) };
+    let aims = target.into_iter().chain(foes.iter().filter(|f| f.champion && dist(me, f.at) <= sk(R_RANGE)).map(|f| f.at));
     let mut best: Option<((f64, f64), (f64, f64), f64)> = None;
     for aim in aims {
         let stop = stop_at(me, aim, foes);
@@ -493,7 +499,7 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
     let Some((aim, stop, score)) = best_shot(me, target, &list, big) else {
         if tally(sim, "nobody").is_some() {
             let why = if input.kind == InputTargetKindV1::Target.code() {
-                format!(": #{} dead, his body gone or out of reach, no enemy unit within {R_RANGE}", input.target_id)
+                format!(": #{} dead, his body gone or out of reach, no enemy unit within {}", input.target_id, sk(R_RANGE))
             } else {
                 String::new()
             };
@@ -511,7 +517,7 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
         x,
         y,
         radius: 1_000,
-        speed: R_SPEED as u64,
+        speed: sk(R_SPEED) as u64,
         move_kind: ProjectileMoveKindV1::Linear.code(),
         target_id: 0,
         target_x: tx,
@@ -524,7 +530,7 @@ fn shoot(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool
     let (pic, sound, stage) = if big { ("r_big_missile", "r_big", "big_boom") } else { ("r_missile", "r", "boom") };
     sim.play_sfx(&ck(sound), caster, &InputTargetV1::target(caster));
     let flew = sim.spawn_projectile(&ck(pic), &format!("{ID}:pass"), &spec);
-    let ticks = (d / R_SPEED).ceil().max(1.0) as usize;
+    let ticks = (d / sk(R_SPEED)).ceil().max(1.0) as usize;
     // a dead target's fallback has lines of its own (the presims' first LOG_FIRST of each kind)
     let dead = input.target_id;
     let (kind, why) = match (from, target) {
@@ -578,7 +584,7 @@ fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, big: bool)
             (team, magic, phys)
         }
     };
-    let (r, k) = if big { (R_BIG_R, "r_big") } else { (R_R, "r") };
+    let (r, k) = if big { (sk(R_BIG_R), "r_big") } else { (sk(R_R), "r") };
     sim.play_view_effect(&ck(&format!("{k}_boom")), caster, &input, 0, 0, 0);
     sim.play_sfx(&ck(&format!("{k}_boom")), caster, &input);
     let mut n = (0, 0);
@@ -614,7 +620,7 @@ fn fly(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, package: bo
     let Some(me) = alive_at(sim, caster) else { return };
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
     let f = field(sim, caster, team);
-    let (speed, ticks) = if package { (PK_SPEED, PK_TICK) } else { (W_SPEED, W_TICK) };
+    let (speed, ticks) = if package { (sk(PK_SPEED), PK_TICK) } else { (sk(W_SPEED), W_TICK) };
     let reach = speed * ticks as f64;
     let champs: Vec<(f64, f64)> = f.foes.iter().filter(|x| x.1.champion).map(|x| x.1.at).collect();
     let from = input_unit(sim, &input).or_else(|| input_pos(&input));

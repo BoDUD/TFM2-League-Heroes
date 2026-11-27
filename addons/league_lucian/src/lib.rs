@@ -45,6 +45,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 #[cfg(windows)]
 pub mod view;
@@ -141,7 +143,7 @@ pub fn aim_at(me: (u64, u64), foes: &[(u64, u64)]) -> Option<usize> {
         let (dx, dy) = (p.0 as i128 - me.0 as i128, p.1 as i128 - me.1 as i128);
         dx * dx + dy * dy
     };
-    let reach2 = (R_REACH as i128) * (R_REACH as i128);
+    let reach2 = (sk(R_REACH) as i128) * (sk(R_REACH) as i128);
     (0..foes.len()).filter(|&i| d2(foes[i]) <= reach2).min_by_key(|&i| d2(foes[i]))
 }
 

@@ -700,12 +700,12 @@ pub fn fight_on(
     } else {
         return None;
     };
-    let ours = 1 + allies.iter().filter(|&&a| dist(a, me) <= CROWD_R).count();
+    let ours = 1 + allies.iter().filter(|&&a| dist(a, me) <= sk(CROWD_R)).count();
     foes.iter()
         .enumerate()
         .filter(|(_, &f)| dist(f, me) <= reach)
         .filter(|(_, &f)| !towers.iter().any(|&w| dist(w, f) <= TOWER_REACH))
-        .filter(|(_, &f)| foes.iter().filter(|&&o| dist(o, f) <= CROWD_R).count() <= ours + slack)
+        .filter(|(_, &f)| foes.iter().filter(|&&o| dist(o, f) <= sk(CROWD_R)).count() <= ours + slack)
         .min_by(|a, b| dist(*a.1, me).total_cmp(&dist(*b.1, me)))
         .map(|(i, _)| i)
 }

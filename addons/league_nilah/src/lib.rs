@@ -226,7 +226,7 @@ pub fn ult_ready(me: (f64, f64), my_hp_pct: usize, foes: &[Foe], waited: usize) 
     if my_hp_pct <= 40 {
         return (true, "she is low");
     }
-    if !foes.iter().any(|f| f.id != only.id && dist(me, f.at) <= R_COMING) {
+    if !foes.iter().any(|f| f.id != only.id && dist(me, f.at) <= sk(R_COMING)) {
         return (true, "no other enemy champion coming");
     }
     if waited >= R_PATIENCE {

@@ -55,7 +55,7 @@
 
 ### 贝蕾亚附加包
 
-[贝蕾亚附加包](../../addons/league_briar_frenzy/README.md)：`league_briar_frenzy` v0.1.4
+[贝蕾亚附加包](../../addons/league_briar_frenzy/README.md)：`league_briar_frenzy` v0.1.5
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

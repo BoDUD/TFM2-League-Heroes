@@ -321,7 +321,7 @@ pub fn escape(s: &Scene, reach: f64, g: &Grid) -> Option<Plan> {
         })
         .map(|(d, len)| {
             let q = along(s.me, d, len);
-            let score = gap(q).min(sk(ESC_FAR)) + ESC_STRAIGHT * (d.0 * away.0 + d.1 * away.1) - 0.2 * home(q)
+            let score = gap(q).min(sk(ESC_FAR)) + sk(ESC_STRAIGHT) * (d.0 * away.0 + d.1 * away.1) - 0.2 * home(q)
                 - if under_enemy_tower(s, q) { 100_000.0 } else { 0.0 };
             (d, len, gap(q), score)
         })

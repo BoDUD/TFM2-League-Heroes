@@ -29,6 +29,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod view;
@@ -252,7 +254,7 @@ fn stormbringer(sim: &mut StableSim<'_>, me: usize, _input: InputTargetV1) {
     let towers: Vec<usize> = (0..sim.tower_count())
         .map(|i| sim.tower_id_at(i))
         .filter(|&t| sim.get_entity(t).is_some_and(|e| e.is_alive() && e.team() != team))
-        .filter(|&t| pos(sim, t).is_some_and(|p| dist(p, at) <= R_TOWER_R as f64))
+        .filter(|&t| pos(sim, t).is_some_and(|p| dist(p, at) <= sk(R_TOWER_R) as f64))
         .collect();
     for &t in &towers {
         sim.apply_cc(t, &CcV1::stun(R_TOWER_T as u64));
@@ -317,8 +319,8 @@ impl StablePlayerAi for Leap {
                 .filter(|e| e.team() != team && e.is_alive() && e.is_targetable() && e.is_champion())
                 .map(|e| (e.id(), (e.pos().0 as f64, e.pos().1 as f64)))
                 .collect();
-            let was = ai.and_then(|a| champs.iter().find(|c| c.0 == a)).map_or(0, |&(_, p)| in_slam(p, &champs, R_R as f64));
-            let (t, n) = crowd_pick(at, ai, &champs, R_RANGE as f64, R_R as f64)?;
+            let was = ai.and_then(|a| champs.iter().find(|c| c.0 == a)).map_or(0, |&(_, p)| in_slam(p, &champs, sk(R_R) as f64));
+            let (t, n) = crowd_pick(at, ai, &champs, sk(R_RANGE) as f64, sk(R_R) as f64)?;
             if Some(t) == ai || n <= was {
                 if let Some(k) = counted("leap_kept") {
                     let who = ai.map_or("-".to_string(), |a| format!("#{a}"));

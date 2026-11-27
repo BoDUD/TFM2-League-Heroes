@@ -29,6 +29,8 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_brand";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -278,7 +280,7 @@ fn boom(sim: &mut StableSim<'_>, brand: usize, input: InputTargetV1) {
     sim.play_sfx(&n("p_boom"), brand, &spot);
     let hit: Vec<(usize, usize)> = (0..sim.entity_count())
         .filter_map(|i| sim.entity_at(i))
-        .filter(|e| e.is_alive() && e.team() != team && !e.is_tower() && within(e.pos(), at, P_DET_R))
+        .filter(|e| e.is_alive() && e.team() != team && !e.is_tower() && within(e.pos(), at, sk(P_DET_R)))
         .map(|e| (e.id(), e.hp().1))
         .collect();
     for &(id, max_hp) in &hit {
@@ -290,8 +292,9 @@ fn boom(sim: &mut StableSim<'_>, brand: usize, input: InputTargetV1) {
             queue(sim, "burn", brand, on, t);
         }
     }
+    let det_r = sk(P_DET_R);
     wlog(format!(
-        "{} BOOM #{target}: {} enemies within {P_DET_R}, ap {ap} -> {} + {P_DET_HP}% max health magic each",
+        "{} BOOM #{target}: {} enemies within {det_r}, ap {ap} -> {} + {P_DET_HP}% max health magic each",
         head(sim, brand),
         hit.len(),
         P_DET + P_DET_AP * ap / 100

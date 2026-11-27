@@ -33,6 +33,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_aatrox_chain";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -161,7 +163,7 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
 
 /// 在圈外：圈心 `c`，横向半径 `AREA`、上下 `AREA_Y` 的椭圆（和画出来的圈一样）。
 pub fn outside(p: (f64, f64), c: (f64, f64)) -> bool {
-    ((p.0 - c.0) / AREA).powi(2) + ((p.1 - c.1) / AREA_Y).powi(2) > 1.0
+    ((p.0 - c.0) / sk(AREA)).powi(2) + ((p.1 - c.1) / sk(AREA_Y)).powi(2) > 1.0
 }
 
 fn fpos(p: (u64, u64)) -> (f64, f64) {
@@ -225,7 +227,7 @@ pub fn impact_point(target: (f64, f64), projectiles: &[(f64, f64)]) -> Option<(f
     projectiles
         .iter()
         .map(|p| (dist(*p, target), *p))
-        .filter(|(d, _)| *d <= FIND_CHAIN)
+        .filter(|(d, _)| *d <= sk(FIND_CHAIN))
         .min_by(|a, b| a.0.total_cmp(&b.0))
         .map(|(_, p)| p)
 }
@@ -495,7 +497,7 @@ pub fn parse_drag(name: &str) -> Option<f64> {
 
 /// 开始推（拉回、补推）：强制位移 + 标记，推完下一 tick 看一眼。
 fn push(sim: &mut StableSim<'_>, me: usize, here: (f64, f64), c: (f64, f64), d: f64) -> usize {
-    let ticks = force_move(sim, me, here, c, PULL_SPEED);
+    let ticks = force_move(sim, me, here, c, sk(PULL_SPEED));
     sim.add_buff(me, &BuffV1::timed(&drag_name(d), ticks + DRAG_SLACK));
     queue(sim, "drag", me, pos_input(c), ticks + 1);
     ticks

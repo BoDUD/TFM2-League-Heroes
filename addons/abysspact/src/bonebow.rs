@@ -16,6 +16,8 @@
 use std::collections::HashSet;
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{buffs_present, consume_buff, dist_sq, foe_champions};
@@ -120,7 +122,7 @@ pub fn place(p: (u64, u64), off: (i64, i64), field: Option<((u64, u64), (u64, u6
 /// 冲锋：从 `from` 到 `to` 要几 tick、每 tick 多快（强制位移的参数）。
 pub fn charge(from: (u64, u64), to: (u64, u64)) -> (u64, u64) {
     let d = (dist_sq(from, to) as f64).sqrt();
-    let ticks = (d / CHARGE_SPEED as f64).ceil().max(1.0) as u64;
+    let ticks = (d / sk(CHARGE_SPEED) as f64).ceil().max(1.0) as u64;
     let speed = (d / ticks as f64).ceil() as u64;
     (ticks, speed)
 }
@@ -316,7 +318,7 @@ impl BonebowPassive {
         let due: Vec<Charge> = self.charges.iter().copied().filter(|c| tick >= c.at).collect();
         self.charges.retain(|c| tick < c.at);
         let dmg = funeral_damage(ad);
-        let rad_sq = FUNERAL_RADIUS * FUNERAL_RADIUS;
+        let rad_sq = sk(FUNERAL_RADIUS) * sk(FUNERAL_RADIUS);
         for c in due {
             let Some(at) = sim.get_entity(c.id).filter(|e| e.is_alive()).map(|e| e.pos()) else { continue };
             // 强制位移没把它挪过去（被定住之类）就在落点炸
