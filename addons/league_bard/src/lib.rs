@@ -401,7 +401,8 @@ impl Grid {
         while t <= far && self.is_rock(at(t).0, at(t).1) {
             t += STEP;
         }
-        if t - start < MIN_ROCK {
+        // 只在峡谷上（有真墙那层）要求穿够厚：游戏自己的地图一格就是 32000，照旧
+        if self.rock.is_some() && t - start < MIN_ROCK {
             return None;
         }
         let mut land = t + MARGIN;
@@ -672,7 +673,8 @@ pub const Q_WIN: usize = 9;
 /// 5v5 地图四边的可走范围（卡蜜尔附加包量的，波比附加包用的同一份）：弹道飞出去也算碰到地形。
 pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 932_000.0);
 
-/// 从 `at` 沿 `dir`（单位向量）飞 `reach`：碰到墙格、或飞出地图（`bounds`：5v5 的四边），返回飞了多远；一路都没有就是 None。
+/// 从 `at` 沿 `dir`（单位向量）飞 `reach`：碰到真墙、或飞出地图（`bounds`：5v5 的四边），返回飞了多远；一路都没有就是 None。
+/// 弹道碰的是地形本身：峡谷上看真墙（墙往外长的那一圈是人站不住的地方，不是墙；游戏自己的地图两者一样）。
 pub fn wall_behind(
     g: &Grid,
     bounds: Option<(f64, f64, f64, f64)>,
@@ -684,7 +686,7 @@ pub fn wall_behind(
     while s <= reach + 0.5 {
         let (x, y) = (at.0 + dir.0 * s, at.1 + dir.1 * s);
         let out = x < 0.0 || y < 0.0 || bounds.is_some_and(|(x0, y0, x1, y1)| x < x0 || y < y0 || x > x1 || y > y1);
-        if out || g.is_wall(x, y) {
+        if out || g.is_rock(x, y) {
             return Some(s);
         }
         s += STEP;

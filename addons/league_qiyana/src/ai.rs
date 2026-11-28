@@ -257,6 +257,7 @@ mod tests {
             bushes: Some(Grid::from_rows(&empty.iter().map(|s| s.as_str()).collect::<Vec<_>>())),
             river: None,
             map: Map::Native,
+            rock: None,
         }
     }
 

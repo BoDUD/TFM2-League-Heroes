@@ -386,7 +386,7 @@ pub fn boom(sim: &mut StableSim<'_>, me: usize, _input: InputTargetV1) {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use super::super::terrain::{rift_grids, Grid, CELL};
+    use super::super::terrain::{rift_grids, rift_layers, Grid, CELL};
     use game_places::terrain::{Map, Walls, RIFT_EXTENT};
 
     fn map(walls: &[(usize, usize)]) -> MapGrids {
@@ -398,6 +398,7 @@ mod tests {
             bushes: Some(Grid::from_rows(&empty.iter().map(|s| s.as_str()).collect::<Vec<_>>())),
             river: None,
             map: Map::Native,
+            rock: None,
         }
     }
 
@@ -517,5 +518,26 @@ mod tests {
         assert_eq!(caught_by(&map(&[]), me_f, him_f.at, &[him_f], &p), vec![3]);
         assert_eq!(caught_by(&bare, me_f, him_f.at, &[him_f], &p), Vec::<usize>::new());
         assert_eq!(push_len(Some(&bare), him_f.at, (1.0, 0.0), 10_000.0, 25_000.0), 25_000.0);
+    }
+
+    /// 2026-11-28：峡谷上两层：被风推的人身体推到真墙边才停、停在长出来的那一圈外面（旧的停在那一圈前面），冲击波照样打到他。
+    #[test]
+    fn on_the_rift_the_wind_pushes_him_to_the_rock_and_the_shockwave_still_catches_him() {
+        let col: Vec<(usize, usize)> = (100..140).map(|y| (250, y)).collect();
+        let rows: Vec<String> =
+            (0..356).map(|y| (0..355).map(|x| if col.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(|s| s.as_str()).collect();
+        let rock = Walls::from_rows(&rows, 60_000.0 / 11.0, (30_000.0 / 11.0, 0.0), (RIFT_EXTENT, RIFT_EXTENT));
+        let m = rift_layers(Some(&rock), Some(&rock.padded()), None);
+        let old = rift_grids(Some(&rock.padded()), None);
+        let p = Params::default();
+        let (face, y) = (30_000.0 / 11.0 + 250.0 * 60_000.0 / 11.0, 120.5 * 60_000.0 / 11.0);
+        let me = (face - 57_600.0, y);
+        let him = champ(1, (face - 32_500.0, y));
+        let full = (p.r_kb_speed * p.r_kb_t) as f64;
+        let len = push_len(Some(&m), him.at, (1.0, 0.0), him.r, full);
+        assert!((len - (32_500.0 - him.r - 1_000.0)).abs() <= 1_000.0 && !m.is_wall(him.at.0 + len, y), "{len}");
+        assert!(len - push_len(Some(&old), him.at, (1.0, 0.0), him.r, full) >= 4_000.0);
+        assert_eq!(caught_by(&m, me, him.at, &[him], &p), vec![1]);
     }
 }
