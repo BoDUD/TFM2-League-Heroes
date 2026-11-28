@@ -27,6 +27,9 @@
 //! 1000000 以外（`game_places::terrain::map_of_sim`）就是峡谷，5v5 换成峡谷的墙格（[`rift_grid`]：作者的墙体坐标.json，
 //! 自己的格子边长 60000/11 和原点，格子外算墙；没有 5v5 那四边的石墙石堆）。峡谷不经过地图文档，文档读到的墙是游戏自己
 //! 那张（或旧的），峡谷上从不用它。没有墙体文件时峡谷上不知道哪里有墙：只有地图边（0..1614545 外）算墙，不钩墙、只钩塔。
+//! 2026-11-28：峡谷上分两层（[`rift_layers`]）——钩子咬的是真墙（`rift_walls`），她被拉到、挂着、扑出去、逃开都看墙往外长
+//! 一格的那层（`rift_ground`，英雄中心站不住的地方）。以前两样都拿长了一格的那层：钩子咬在墙前一格多的空地上，贴着墙边擦过
+//! 那一圈也算钩到墙。钩子碰到真墙之前擦过别处那一圈又出来的方向不钩（她会先撞上那一圈）。
 //!
 //! v3 → v4：v3 的钩点可以离目标 50000、目标可以在 85000 外，钩完拉过去（30~45 tick，英雄每 tick 走
 //! 1000）人早走远了，只好挂在墙上不动；贴身的目标也会去钩 36000 外的墙再扑回来；v4 收紧了钩点、
@@ -60,7 +63,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
-use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, rift_walls, Map, Walls};
 use mod_api_stable::*;
 // 写死的技能距离在大地图版跟着乘 1.3（这里的 E 整个是本包做的）
 use game_places::skill_scale::sk;
@@ -246,14 +249,17 @@ fn watched(sim: &StableSim<'_>) -> bool {
 // ===================== 墙格子 =====================
 
 /// 一张墙格子：`cells[y][x]`，非 0 为墙，每格 `cell` 见方、第 (0, 0) 格的角在 `origin`（游戏自己的图 32000、(0, 0)；
-/// 峡谷 60000/11、(30000/11, 0)）；格子外算墙。`bounds`（x0, y0, x1, y1）外是地图四边画出来的墙
+/// 峡谷 72000/11、(36000/11, 0)）；格子外算墙。`bounds`（x0, y0, x1, y1）外是地图四边画出来的墙
 /// （5v5 的上下石墙、左右石堆）：只给钩子用，走路和冲刺的路线照旧只看格子。
+/// `cells` 是英雄中心站不住的格子；`rock` 是真墙（钩子咬的地形）。游戏自己的图两者一样（`rock` 为 None）；峡谷上 `cells`
+/// 是墙往外长一格（`rift_ground`），`rock` 是墙体文件本身的墙（`rift_walls`）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<i64>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
     pub cell: f64,
     pub origin: (f64, f64),
+    pub rock: Option<Vec<Vec<bool>>>,
 }
 
 impl Grid {
@@ -264,6 +270,7 @@ impl Grid {
             bounds: None,
             cell: CELL,
             origin: (0.0, 0.0),
+            rock: None,
         }
     }
 
@@ -274,12 +281,18 @@ impl Grid {
             bounds: None,
             cell: w.cell,
             origin: w.origin,
+            rock: None,
         }
+    }
+
+    /// 峡谷的两层：站不住的格子（`ground`，墙往外长一格）和真墙（`rock`），格子一样大、原点一样。
+    pub fn from_layers(rock: &Walls, ground: &Walls) -> Grid {
+        Grid { rock: Some(rock.cells.clone()), ..Grid::from_walls(ground) }
     }
 
     /// 不知道哪里有墙的 `extent` 见方的地图：一整格空地，只有地图外算墙（峡谷没有墙体文件时）。
     pub fn open(extent: f64) -> Grid {
-        Grid { cells: vec![vec![0]], bounds: None, cell: extent, origin: (0.0, 0.0) }
+        Grid { cells: vec![vec![0]], bounds: None, cell: extent, origin: (0.0, 0.0), rock: None }
     }
 
     pub fn builtin(mode: GameModeKindV1) -> Grid {
@@ -314,7 +327,7 @@ impl Grid {
         x >= x0 && y >= y0 && x < x0 + width * self.cell && y < y0 + self.cells.len() as f64 * self.cell
     }
 
-    /// 世界坐标落在墙里（或地图外）吗。
+    /// 世界坐标落在墙里（或地图外）吗（英雄的中心站不住）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
         let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
         if fx < 0.0 || fy < 0.0 {
@@ -325,6 +338,46 @@ impl Grid {
             Some(v) => *v != 0,
             None => true,
         }
+    }
+
+    /// 世界坐标落在真墙里（或地图外）吗：钩子咬的地形。游戏自己的图就是 [`Grid::is_wall`]。
+    pub fn is_rock(&self, x: f64, y: f64) -> bool {
+        let Some(rock) = &self.rock else { return self.is_wall(x, y) };
+        let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
+        if fx < 0.0 || fy < 0.0 {
+            return true;
+        }
+        rock.get(fy as usize).and_then(|row| row.get(fx as usize)).copied().unwrap_or(true)
+    }
+
+    /// 钩子咬得住吗：真墙或四边的墙面（游戏自己的图就是 [`Grid::solid`]）。
+    pub fn hard(&self, x: f64, y: f64) -> bool {
+        self.is_rock(x, y) || self.beyond_edge(x, y)
+    }
+
+    /// 她在 `me`，钩点在 `dir` 方向 `hook` 远：钩子咬进的墙面离她多远。游戏自己的图没有真墙这层，是 None（钩点前
+    /// `WALL_GAP` 就是墙面）；峡谷上隔着长出来的那一圈，是钩点后面第一面真墙（和 [`wall_hits`] 一样从她起每 `RAY_STEP`
+    /// 取一点；`max` 内没有也是 None）。
+    pub fn bite(&self, me: (f64, f64), dir: (f64, f64), hook: f64, max: f64) -> Option<f64> {
+        self.rock.as_ref()?;
+        let at = |d: f64| (me.0 + dir.0 * d, me.1 + dir.1 * d);
+        let mut d = ((hook / RAY_STEP).floor() + 1.0) * RAY_STEP;
+        while d <= max {
+            if self.hard(at(d).0, at(d).1) {
+                let (mut lo, mut hi) = (d - RAY_STEP, d);
+                for _ in 0..12 {
+                    let mid = (lo + hi) / 2.0;
+                    if self.hard(at(mid).0, at(mid).1) {
+                        hi = mid;
+                    } else {
+                        lo = mid;
+                    }
+                }
+                return Some(hi);
+            }
+            d += RAY_STEP;
+        }
+        None
     }
 
     pub fn walls(&self) -> usize {
@@ -363,7 +416,7 @@ pub fn parse_int_grid(json: &str) -> Option<Grid> {
             p.i += 1;
         }
     }
-    (!rows.is_empty()).then_some(Grid { cells: rows, bounds: None, cell: CELL, origin: (0.0, 0.0) })
+    (!rows.is_empty()).then_some(Grid { cells: rows, bounds: None, cell: CELL, origin: (0.0, 0.0), rock: None })
 }
 
 struct Parser<'a> {
@@ -439,8 +492,19 @@ pub fn rift_grid(walls: Option<&Walls>) -> Grid {
     walls.map_or_else(|| Grid::open(Map::Rift.extent()), Grid::from_walls)
 }
 
+/// 峡谷的两层：真墙（`rock`，钩子咬的）和她站不住的那层（`ground`，墙往外长一格）。缺一层就只用另一层（和以前一样）。
+pub fn rift_layers(rock: Option<&Walls>, ground: Option<&Walls>) -> Grid {
+    match (rock, ground) {
+        (Some(r), Some(g)) if r.cells.len() == g.cells.len() && r.cell == g.cell && r.origin == g.origin => {
+            Grid::from_layers(r, g)
+        }
+        (_, Some(g)) => rift_grid(Some(g)),
+        (r, None) => rift_grid(r),
+    }
+}
+
 /// 峡谷的墙，换成本包的格子一次（87000 多格，不每 tick 重建）。
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_layers(rift_walls(), rift_ground()));
 /// 这次启动已经在日志里说过峡谷了。
 static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
 
@@ -619,6 +683,8 @@ pub fn hook_points(grid: &Grid, me: (f64, f64), my_r: f64, posts: &[Post]) -> Ve
 
 /// 从 (x, y) 朝 `RAY_DIRS` 个方向扫，返回 `range` 内每个方向第一面墙前的钩点（不近于 `HOOK_MIN`）。
 /// 5v5 地图的四边（`Grid::bounds` 外）也是墙；没有 `bounds` 的图出了地图边不算墙。起点本身在墙里时返回空。
+/// 峡谷上钩子要在 `range` 内咬到真墙（[`Grid::hard`]）：钩点在贴着那面真墙、她站不住的那一圈前面；路上先擦过别处那一圈
+/// 又出来的方向不钩（她会先撞上那一圈）。游戏自己的图两层一样：照旧是第一面墙前。
 pub fn wall_hits(grid: &Grid, x: f64, y: f64, range: f64) -> Vec<Hit> {
     let mut hits = Vec::new();
     if grid.is_wall(x, y) {
@@ -629,6 +695,8 @@ pub fn wall_hits(grid: &Grid, x: f64, y: f64, range: f64) -> Vec<Hit> {
         let (dx, dy) = (a.cos(), a.sin());
         let at = |d: f64| (x + dx * d, y + dy * d);
         let mut free = 0.0;
+        // 她站不住的那一圈从哪开始（峡谷上钩子穿过它才咬到真墙）
+        let mut ring: Option<f64> = None;
         let mut d = RAY_STEP;
         while d <= range + WALL_GAP {
             let (px, py) = at(d);
@@ -636,9 +704,14 @@ pub fn wall_hits(grid: &Grid, x: f64, y: f64, range: f64) -> Vec<Hit> {
                 break;
             }
             if grid.solid(px, py) {
+                let first = *ring.get_or_insert(d);
+                if !grid.hard(px, py) {
+                    d += RAY_STEP;
+                    continue;
+                }
                 let surface = if grid.is_wall(px, py) { Surface::Wall } else { Surface::Edge };
-                // 二分找墙边
-                let (mut lo, mut hi) = (free, d);
+                // 二分找她站不住的那一圈的边（游戏自己的图就是墙边）
+                let (mut lo, mut hi) = (free, first);
                 for _ in 0..12 {
                     let mid = (lo + hi) / 2.0;
                     if grid.solid(at(mid).0, at(mid).1) {
@@ -652,6 +725,9 @@ pub fn wall_hits(grid: &Grid, x: f64, y: f64, range: f64) -> Vec<Hit> {
                     hits.push(Hit { x: at(hd).0, y: at(hd).1, dist: hd, surface, hostile: false });
                 }
                 break;
+            }
+            if ring.is_some() {
+                break; // 擦过墙边那一圈又出来：钩子没碰到真墙
             }
             free = d;
             d += RAY_STEP;
@@ -910,8 +986,9 @@ fn planned_target(sim: &StableSim<'_>, id: usize) -> Option<usize> {
 fn current_grid(sim: &StableSim<'_>, us: &[Unit]) -> Option<(&'static str, Cow<'static, Grid>)> {
     let map = map_of_sim(sim);
     if map == Map::Rift && !RIFT_SEEN.swap(true, Ordering::Relaxed) {
-        wlog(format!("== Rift: Camille hooks the Rift's walls and towers (no drawn map edges there; with no walls file only \
-                      towers); {} ==", rift_status()));
+        wlog(format!("== Rift: Camille hooks the Rift's rock and towers (her hook bites the walls file's rock, she clings \
+                      clear of the walls grown by a cell; rock layer {}; no drawn map edges there; with no walls file only \
+                      towers); {} ==", if RIFT_GRID.rock.is_some() { "on" } else { "missing" }, rift_status()));
     }
     let points: Vec<(f64, f64)> = us.iter().filter(|u| u.alive).map(|u| u.at).collect();
     grid_of(map, &points)
@@ -1186,13 +1263,17 @@ fn throw(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: b
         return;
     }
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
-    // 钩子咬进墙里（钩点再往前 WALL_GAP + BITE），或落在塔身上（钩点是她贴着塔的位置，再往前她的半径）
+    // 钩子咬进墙里（钩点再往前 WALL_GAP + BITE；峡谷上隔着长出来的那一圈，咬进后面的真墙 BITE），或落在塔身上（钩点是她贴着
+    // 塔的位置，再往前她的半径）
     let d = dist(here, hook).max(1.0);
     let dir = ((hook.0 - here.0) / d, (hook.1 - here.1) / d);
     let us = units(sim);
     let ahead = (hook.0 + dir.0 * (WALL_GAP + 300.0), hook.1 + dir.1 * (WALL_GAP + 300.0));
-    let at_wall = current_grid(sim, &us).is_some_and(|(_, g)| g.solid(ahead.0, ahead.1));
-    let reach = if at_wall { WALL_GAP + BITE } else { my_radius(sim, caster) };
+    let grid = current_grid(sim, &us).map(|(_, g)| g);
+    let reach = match grid.as_ref().filter(|g| g.solid(ahead.0, ahead.1)) {
+        Some(g) => g.bite(here, dir, d, sk(E_RANGE) + WALL_GAP).map_or(WALL_GAP, |b| b - d) + BITE,
+        None => my_radius(sim, caster),
+    };
     let tip = (hook.0 + dir.0 * reach, hook.1 + dir.1 * reach);
     let spec = ProjectileSpawnV1 {
         caster_id: caster,
@@ -1957,12 +2038,89 @@ mod tests {
         assert!(end.0 < side && !g.is_wall(end.0, end.1), "{end:?}");
     }
 
+    /// 钩子咬真墙，她挂在长出来的那一圈前面：以前两样都拿那一圈，钩子咬在墙前一格多的空地上，贴着墙边擦过去、真墙在射程外
+    /// 也钩。
+    #[test]
+    fn on_the_rift_the_hook_bites_rock_and_she_clings_clear_of_the_ground_round_it() {
+        let rock = rift_file(&block(220..223, 200..240));
+        let g = rift_layers(Some(&rock), Some(&rock.padded()));
+        let old = rift_grid(Some(&rock.padded()));
+        assert!(g.rock.is_some() && old.rock.is_none());
+        let face = rock.origin.0 + 220.0 * rock.cell;
+        let top = rock.origin.1 + 200.0 * rock.cell;
+        let east = |hits: Vec<Hit>, me: (f64, f64)| hits.into_iter().find(|h| (h.y - me.1).abs() < 1.0 && h.x > me.0);
+        // 正对着墙：她停在那一圈前 WALL_GAP（站得住），钩子咬进后面的真墙；以前咬在那一圈里的空地上
+        let me = (face - 40_000.0, 1_200_000.0);
+        let hook = east(wall_hits(&g, me.0, me.1, E_RANGE), me).expect("the rock to the east");
+        assert!(!g.is_wall(hook.x, hook.y) && (hook.x - (face - rock.cell - WALL_GAP)).abs() < 30.0, "{hook:?}");
+        let bite = g.bite(me, (1.0, 0.0), hook.dist, E_RANGE + WALL_GAP).expect("the rock behind the ring");
+        let tip = me.0 + bite + BITE;
+        assert!(rock.is_wall(tip, hook.y) && (tip - (face + BITE)).abs() < 30.0, "the hook bites the rock: {tip}");
+        let was = east(wall_hits(&old, me.0, me.1, E_RANGE), me).expect("the old grid hooked it too");
+        assert_eq!(old.bite(me, (1.0, 0.0), was.dist, E_RANGE + WALL_GAP), None, "one layer: WALL_GAP + BITE as before");
+        let old_tip = was.x + WALL_GAP + BITE;
+        assert!(!rock.is_wall(old_tip, was.y), "the old hook bit the air: {old_tip}");
+        // 贴着墙的上沿往东：那一圈里一格真墙都没有。以前钩，现在这个方向不钩
+        let along = (face - 30_000.0, top - 0.5 * rock.cell);
+        assert!(!g.is_wall(along.0, along.1));
+        assert!(east(wall_hits(&old, along.0, along.1, E_RANGE), along).is_some(), "the old grid hooked the grown ring");
+        assert_eq!(east(wall_hits(&g, along.0, along.1, E_RANGE), along), None);
+        // 那一圈在射程内、真墙在射程外：钩子够不着墙
+        let far = (face - E_RANGE - 3_000.0, 1_200_000.0);
+        assert!(east(wall_hits(&old, far.0, far.1, E_RANGE), far).is_some());
+        assert_eq!(east(wall_hits(&g, far.0, far.1, E_RANGE), far), None);
+        // 拉、扑、逃、站还看那一圈：真墙前那一圈里站不住
+        assert!(g.is_wall(face - 2_000.0, 1_200_000.0) && !g.is_rock(face - 2_000.0, 1_200_000.0));
+        assert!(!path_free(&g, hook.at(), (face - 2_000.0, 1_200_000.0)));
+        // 游戏自己的图只有一层：钩子照旧咬进钩点前 WALL_GAP + BITE
+        let moba = Grid::builtin(GameModeKindV1::Moba);
+        assert!(moba.rock.is_none() && moba.bite((60_000.0, 300_000.0), (-1.0, 0.0), 37_000.0, E_RANGE).is_none());
+    }
+
+    /// 峡谷真的墙（开发机设了 `LEAGUE_RIFT_WALLS` 才跑）：每个钩点她都站得住，钩子咬进真墙；以前那层的钩点有的前面两格内都
+    /// 没有真墙（钩在空地上）。
+    #[test]
+    fn on_the_rifts_real_walls_every_hook_bites_rock() {
+        let Some(path) = std::env::var_os(game_places::terrain::RIFT_WALLS_ENV) else { return };
+        let rock = game_places::terrain::load_rift_walls(&[path.into()]).unwrap();
+        let ground = rock.padded();
+        let (g, old) = (rift_layers(Some(&rock), Some(&ground)), rift_grid(Some(&ground)));
+        assert!(g.rock.is_some());
+        let (mut hooks, mut air) = (0, 0);
+        let side = Map::Rift.extent();
+        let mut y = 20_000.0;
+        while y < side {
+            let mut x = 20_000.0;
+            while x < side {
+                for h in wall_hits(&g, x, y, E_RANGE) {
+                    let dir = ((h.x - x) / h.dist, (h.y - y) / h.dist);
+                    let b = g.bite((x, y), dir, h.dist, E_RANGE + WALL_GAP).unwrap_or(0.0);
+                    assert!(!g.is_wall(h.x, h.y) && b > h.dist + WALL_GAP && rock.is_wall(x + dir.0 * b, y + dir.1 * b),
+                            "({x},{y}) -> {h:?}, the rock {b} on");
+                    hooks += 1;
+                }
+                for h in wall_hits(&old, x, y, E_RANGE) {
+                    let dir = ((h.x - x) / h.dist, (h.y - y) / h.dist);
+                    if (0..27).all(|i| {
+                        let s = WALL_GAP + i as f64 * RAY_STEP;
+                        !rock.is_wall(h.x + dir.0 * s, h.y + dir.1 * s)
+                    }) {
+                        air += 1;
+                    }
+                }
+                x += 120_000.0;
+            }
+            y += 120_000.0;
+        }
+        assert!(hooks > 1_000 && air > 100, "{hooks} hooks on rock, {air} old hooks in the air");
+    }
+
     #[test]
     fn the_rift_takes_its_own_grid_never_the_documents() {
         let (name, g) = grid_of(Map::Rift, &[(1_500_000.0, 1_500_000.0)]).unwrap();
         assert_eq!(name, "Rift");
         assert!(matches!(g, Cow::Borrowed(_)) && std::ptr::eq(&*g, &*RIFT_GRID), "converted once, not per call");
-        assert_eq!(*g, rift_grid(rift_ground()));
+        assert_eq!(*g, rift_layers(rift_walls(), rift_ground()));
         assert_eq!(g.bounds, None);
         let (name, g) = grid_of(Map::Native, &[(48_000.0, 272_000.0), (96_000.0, 864_000.0), (480_000.0, 480_000.0)]).unwrap();
         assert_eq!((name, g.bounds, g.cell), ("Moba", Some(MOBA_BOUNDS), CELL));

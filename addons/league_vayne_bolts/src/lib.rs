@@ -20,6 +20,9 @@
 //! 恶魔审判撞墙才晕（用户 2026-11-02：「薇恩要改成不E到墙壁不能眩晕」，照英雄联盟）：主包每一箭推完都晕一下（数据看不到墙）。
 //! 副本把重箭的击退换成本包的 `league_vayne_bolts:condemn`（目标 = 被打中的英雄）：沿击退的方向查墙（卡蜜尔附加包的墙格、
 //! 5v5 地图的四边，同波比附加包的英勇冲锋；峡谷地图上是峡谷的墙格，`game_places::terrain`，没有墙体文件时只有地图四边外算墙）。
+//! 2026-11-28：峡谷上分两层，同波比附加包——撞的是真墙（`terrain::rift_walls`），推到的地方不进墙往外长一格的那一圈
+//! （`terrain::rift_ground`）；以前只拿那一圈当墙、身体再另算一次，擦过那一圈也算撞墙，人停在离墙大半个身子的地方就晕。
+//! AI 预判他走到哪还是看那一圈（走路的中心进不去）。
 //! 推 `E_KB_SPEED` x `E_KB_T` 的路上碰到墙：推到墙边，给薇恩加
 //! `league_vayne_e_wall`，到墙的那一刻（`queue_effect` 排好的 `league_vayne_bolts:pin`）把他按在墙边；主包第 `E_KB_T` tick
 //! 的撞墙伤害和眩晕只在薇恩身上有这个标志时打出。没碰到墙：照主包击退，不伤不晕。
@@ -376,17 +379,26 @@ pub const MOBA_BOUNDS: (f64, f64, f64, f64) = (22_500.0, 26_000.0, 937_500.0, 93
 
 /// 地图的墙格：游戏自己的三张图（卡蜜尔附加包的内置地图，波比、杰斯、巴德附加包同样用它；每格 `CELL`，从 (0, 0) 起；5v5 地图
 /// 另加四边），或峡谷的墙格（[`Grid::rift`]：格子有它自己的边长和起点）。
+/// `cells` 是英雄的中心站不住的格子；`rock` 是真墙（推的人撞上的地形）。游戏自己的地图两者一样（`rock` 为 None）；
+/// 峡谷上 `cells` 是墙往外长一格（`terrain::rift_ground`），`rock` 是墙体文件本身的墙（`terrain::rift_walls`）。
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
     /// 一格的边长、格子 (0, 0) 的角（游戏自己的地图：`CELL`、(0, 0)）。
     pub cell: f64,
     pub origin: Pt,
+    pub rock: Option<Vec<Vec<bool>>>,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str], bounds: Option<(f64, f64, f64, f64)>) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds, cell: CELL, origin: (0.0, 0.0) }
+        Grid {
+            cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(),
+            bounds,
+            cell: CELL,
+            origin: (0.0, 0.0),
+            rock: None,
+        }
     }
 
     /// 0 = 5v5（四边也是墙），1 = 单线，2 = 死斗。
@@ -402,16 +414,42 @@ impl Grid {
     /// 算墙（整张图一格空地）——恶魔审判在峡谷上找不到墙，不会像以前拿游戏自己的墙格那样把 960000 以外全当成墙。
     pub fn rift(walls: Option<&Walls>) -> Grid {
         match walls {
-            Some(w) => Grid { cells: w.cells.clone(), bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)), cell: w.cell, origin: w.origin },
+            Some(w) => Grid {
+                cells: w.cells.clone(),
+                bounds: Some((0.0, 0.0, w.extent.0, w.extent.1)),
+                cell: w.cell,
+                origin: w.origin,
+                rock: None,
+            },
             None => {
                 let e = terrain::RIFT_EXTENT;
-                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0) }
+                Grid { cells: vec![vec![false]], bounds: Some((0.0, 0.0, e, e)), cell: e, origin: (0.0, 0.0), rock: None }
             }
         }
     }
 
-    /// 世界坐标落在墙里吗（地图外、5v5 的四边外、格子外都算墙）。
+    /// 峡谷的两层：站不住的格子（`ground`，墙往外长一格）和真墙（`rock`，墙体文件）。缺一层就只用另一层（和以前一样）。
+    pub fn rift_layers(rock: Option<&Walls>, ground: Option<&Walls>) -> Grid {
+        match (rock, ground) {
+            (Some(r), Some(g)) if r.cells.len() == g.cells.len() && r.cell == g.cell && r.origin == g.origin => {
+                Grid { rock: Some(r.cells.clone()), ..Grid::rift(Some(g)) }
+            }
+            (_, Some(g)) => Grid::rift(Some(g)),
+            (r, None) => Grid::rift(r),
+        }
+    }
+
+    /// 世界坐标落在墙里吗（英雄的中心站不住；地图外、5v5 的四边外、格子外都算墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        self.at_layer(&self.cells, x, y)
+    }
+
+    /// 世界坐标落在真墙里吗（推的人撞上的地形；游戏自己的地图就是 [`Grid::is_wall`]）。
+    pub fn is_rock(&self, x: f64, y: f64) -> bool {
+        self.at_layer(self.rock.as_ref().unwrap_or(&self.cells), x, y)
+    }
+
+    fn at_layer(&self, layer: &[Vec<bool>], x: f64, y: f64) -> bool {
         if x < 0.0 || y < 0.0 {
             return true;
         }
@@ -424,7 +462,7 @@ impl Grid {
         if fx < 0.0 || fy < 0.0 {
             return true;
         }
-        self.cells.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
+        layer.get(fy as usize).and_then(|r| r.get(fx as usize)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
@@ -445,11 +483,31 @@ pub fn current(grids: &[Grid], units: &[Pt]) -> Option<usize> {
 }
 
 /// 从 `at` 沿 `dir` 推 `reach`（身体半径 `body`）：`Some(走多远)` 路上撞墙（推到墙边为止），`None` 一路没墙。
+/// 撞的是真墙（[`Grid::is_rock`]）；峡谷上推到的地方在英雄中心站不住的那一圈里，就沿来路退到圈外。
 pub fn wall_travel(grid: &Grid, at: Pt, dir: Pt, reach: f64, body: f64) -> Option<f64> {
     let mut s = STEP;
     while s <= reach + body + 0.5 {
+        if grid.is_rock(at.0 + dir.0 * s, at.1 + dir.1 * s) {
+            let mut len = (s - body - WALL_GAP).max(0.0);
+            if grid.rock.is_some() {
+                while len > 0.0 && grid.is_wall(at.0 + dir.0 * len, at.1 + dir.1 * len) {
+                    len = (len - STEP).max(0.0);
+                }
+            }
+            return Some(len);
+        }
+        s += STEP;
+    }
+    None
+}
+
+/// 走路的中心沿 `dir` 走 `reach`：`Some(走多远)` 路上碰到站不住的格子（停在它前面 `WALL_GAP`），`None` 一路都走得通。
+/// AI 预判他走到哪用（峡谷上是长了一格的那一圈；游戏自己的地图就是墙格）。
+pub fn walk_travel(grid: &Grid, at: Pt, dir: Pt, reach: f64) -> Option<f64> {
+    let mut s = STEP;
+    while s <= reach + 0.5 {
         if grid.is_wall(at.0 + dir.0 * s, at.1 + dir.1 * s) {
-            return Some((s - body - WALL_GAP).max(0.0));
+            return Some((s - WALL_GAP).max(0.0));
         }
         s += STEP;
     }
@@ -507,7 +565,7 @@ pub(crate) fn unit_points(sim: &StableSim<'_>) -> Vec<Pt> {
 
 /// 游戏自己的三张图（建一次）；峡谷的墙格（第一次用时读墙体文件，建一次：近 9 万格，不每 tick 重建）。
 static BUILTIN: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+static RIFT: LazyLock<Grid> = LazyLock::new(|| Grid::rift_layers(terrain::rift_walls(), terrain::rift_ground()));
 /// 这次启动第一次碰到峡谷时在日志里记一行。
 static RIFT_SEEN: Once = Once::new();
 
@@ -517,8 +575,9 @@ pub(crate) fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
     match terrain::map_of_sim(sim) {
         Map::Rift => {
             RIFT_SEEN.call_once(|| {
-                wlog(format!("== Rift: Condemn stuns on the Rift's walls and the AI looks for them there; {} ==",
-                             terrain::rift_status()))
+                wlog(format!("== Rift: Condemn stuns on the Rift's rock (its walls file; he stops clear of the walls grown by \
+                              a cell; rock layer {}) and the AI looks for it there; {} ==",
+                             if RIFT.rock.is_some() { "on" } else { "missing" }, terrain::rift_status()))
             });
             Some(&*RIFT)
         }
@@ -744,6 +803,77 @@ mod tests {
         assert_eq!(wall_travel(&open, (left - 15_000.0, 1_300_000.0), (1.0, 0.0), reach, 6_000.0), None);
         assert_eq!(wall_travel(&open, at, (0.0, -1.0), reach, 6_000.0), None);
         assert!(wall_travel(&open, (terrain::RIFT_EXTENT - 20_000.0, 800_000.0), (1.0, 0.0), reach, 6_000.0).is_some());
+    }
+
+    /// 2026-11-28：峡谷上两层。撞的是真墙，推到的地方在长出来的那一圈外面；只碰到那一圈不算撞墙。走路的预判还看那一圈。
+    #[test]
+    fn on_the_rift_condemn_hits_rock_not_the_ring_round_it() {
+        let reach = (E_KB_SPEED * E_KB_T) as f64;
+        let body = 10_000.0;
+        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
+        let rock = rift_walls(&block);
+        let g = Grid::rift_layers(Some(&rock), Some(&rock.padded()));
+        let old = Grid::rift(Some(&rock.padded()));
+        assert!(g.rock.is_some() && old.rock.is_none());
+        // 迎面推向真墙：身体推到墙边才停，停的地方站得住；旧的停在那一圈前面
+        let at = (left - 20_000.0, 1_300_000.0);
+        let to = wall_travel(&g, at, (1.0, 0.0), reach, body).expect("the rock");
+        assert!((to - (20_000.0 - body - WALL_GAP)).abs() <= STEP && !g.is_wall(at.0 + to, at.1), "{to}");
+        let was = wall_travel(&old, at, (1.0, 0.0), reach, body).expect("the ring");
+        assert!(to - was >= 4_000.0, "{was} -> {to}");
+        // 真墙在 38000 外：推满 24000 身体也碰不到墙。旧的只看那一圈就晕，新的照常击退
+        let far = (left - 38_000.0, 1_300_000.0);
+        assert!(wall_travel(&old, far, (1.0, 0.0), reach, body).is_some(), "the old grid stunned here");
+        assert_eq!(wall_travel(&g, far, (1.0, 0.0), reach, body), None);
+        // 走路的中心进不了那一圈：预判照旧停在圈前
+        let walk = walk_travel(&g, far, (1.0, 0.0), 60_000.0).expect("the ring");
+        assert!(!g.is_wall(far.0 + walk, far.1) && g.is_wall(far.0 + walk + 2.0 * STEP, far.1), "{walk}");
+        // 游戏自己的地图只有一层：走路的预判和以前的 wall_travel(.., 0) 一样
+        let n = &Grid::builtin()[0];
+        assert!(n.rock.is_none());
+        assert_eq!(walk_travel(n, (40_000.0, 480_000.0), (-1.0, 0.0), 30_000.0),
+                   wall_travel(n, (40_000.0, 480_000.0), (-1.0, 0.0), 30_000.0, 0.0));
+    }
+
+    /// 峡谷真的墙：开发机设了 `LEAGUE_RIFT_WALLS` 才跑（CI 没有文件，跳过）。墙边每一箭：晕的都撞上了真墙，停的地方站得住；
+    /// 只有一层的旧格子在一路碰不到真墙的地方也晕。
+    #[test]
+    fn on_the_rifts_real_walls_every_condemn_stun_is_at_rock() {
+        if std::env::var_os(terrain::RIFT_WALLS_ENV).is_none() {
+            return;
+        }
+        let g = Grid::rift_layers(terrain::rift_walls(), terrain::rift_ground());
+        let old = Grid::rift(terrain::rift_ground());
+        assert!(g.rock.is_some(), "{}", terrain::rift_status());
+        let (reach, body) = ((E_KB_SPEED * E_KB_T) as f64, 10_000.0);
+        let (mut new_n, mut old_n, mut old_only) = (0, 0, 0);
+        let mut y = 20_000.0;
+        while y < terrain::RIFT_EXTENT {
+            let mut x = 20_000.0;
+            while x < terrain::RIFT_EXTENT {
+                if !g.is_wall(x, y) {
+                    for k in 0..16 {
+                        let a = k as f64 * std::f64::consts::TAU / 16.0;
+                        let d = (a.cos(), a.sin());
+                        let new = wall_travel(&g, (x, y), d, reach, body);
+                        let was = wall_travel(&old, (x, y), d, reach, body);
+                        if let Some(len) = new {
+                            new_n += 1;
+                            let stop = (x + d.0 * len, y + d.1 * len);
+                            assert!(!g.is_wall(stop.0, stop.1), "({x},{y}) {d:?}: stops in the ring at {stop:?}");
+                            assert!(was.is_some(), "({x},{y}) {d:?}: the old grid saw no wall");
+                        }
+                        if was.is_some() {
+                            old_n += 1;
+                            old_only += new.is_none() as usize;
+                        }
+                    }
+                }
+                x += 40_000.0;
+            }
+            y += 40_000.0;
+        }
+        assert!(new_n > 300 && old_only * 10 > old_n, "{new_n} stuns now, {old_n} before ({old_only} without rock)");
     }
 
     #[test]

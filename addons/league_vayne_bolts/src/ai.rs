@@ -17,7 +17,8 @@ use std::collections::HashMap;
 use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
-use super::{grid_now, head, tally, unit, wall_travel, wlog, Grid, Pt, E_BOLT_SPEED, E_KB_SPEED, E_KB_T, E_RANGE, E_START, ID};
+use super::{grid_now, head, tally, unit, walk_travel, wall_travel, wlog, Grid, Pt, E_BOLT_SPEED, E_KB_SPEED, E_KB_T, E_RANGE,
+            E_START, ID};
 
 /// 排在 league_ult_press（100）之后，同别的连招钩子。
 pub const PRIORITY: i32 = 110;
@@ -82,12 +83,12 @@ pub fn hit_ticks(d: f64) -> usize {
     E_START + (d / sk(E_BOLT_SPEED) as f64).ceil() as usize
 }
 
-/// 照速度 `vel` 走 `ticks` tick 后他在哪：最多 `LEAD_MAX`，路上碰到墙就停在墙前。
+/// 照速度 `vel` 走 `ticks` tick 后他在哪：最多 `LEAD_MAX`，路上碰到墙就停在墙前（走路的中心：峡谷上停在长了一格的那一圈前）。
 pub fn lead(grid: &Grid, at: Pt, vel: Pt, ticks: usize) -> Pt {
     let want = (vel.0 * ticks as f64, vel.1 * ticks as f64);
     let len = (want.0 * want.0 + want.1 * want.1).sqrt().min(LEAD_MAX);
     let Some(dir) = unit(want) else { return at };
-    let go = wall_travel(grid, at, dir, len, 0.0).map_or(len, |w| w.min(len));
+    let go = walk_travel(grid, at, dir, len).map_or(len, |w| w.min(len));
     (at.0 + dir.0 * go, at.1 + dir.1 * go)
 }
 
@@ -381,6 +382,23 @@ mod tests {
         // no walls file: nothing behind him on the Rift
         let v = me(left - 60_000.0, 1_300_000.0);
         assert_eq!(call(&Grid::rift(None), &v, &[wall], Want::E(Some(1))), Some(Call::Hold(1)));
+    }
+
+    /// 2026-11-28：峡谷上两层：他身后只有长出来的那一圈够得着、真墙推满也碰不到时，AI 留着 E（以前照放，人离墙还有一截也晕）。
+    #[test]
+    fn on_the_rift_e_waits_for_rock_behind_him() {
+        use super::super::tests::{rift_block, rift_walls};
+        let (block, left) = rift_block(1_300_000.0, 1_300_000.0);
+        let rock = rift_walls(&block);
+        let g = Grid::rift_layers(Some(&rock), Some(&rock.padded()));
+        let old = Grid::rift(Some(&rock.padded()));
+        let v = me(left - 80_000.0, 1_300_000.0);
+        let body = Foe { r: 10_000.0, ..foe(1, left - 38_000.0, 1_300_000.0) };
+        assert!(matches!(call(&old, &v, &[body], Want::E(Some(1))), Some(Call::Wall(1, ..))), "the old grid threw it");
+        assert_eq!(call(&g, &v, &[body], Want::E(Some(1))), Some(Call::Hold(1)));
+        // 真墙够得着时照放
+        let close = Foe { at: (left - 20_000.0, 1_300_000.0), ..body };
+        assert!(matches!(call(&g, &v, &[close], Want::E(Some(1))), Some(Call::Wall(1, ..))));
     }
 
     #[test]

@@ -16,8 +16,10 @@
 //! 内置地图（league_camille_wall 的 maps.rs，泰隆翻墙附加包也用它），当前对局取站进墙里的单位最少的那张。
 //!
 //! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：lib.rs 按这局的塔和水晶判断是哪张图
-//! （`game_places::terrain::map_of_sim`）。Rin 的召唤师峡谷（1614545 见方）用峡谷作者的墙体文件（[`Grid::rift`]，295 x 296
-//! 格、每格 60000/11），没有文件时峡谷上只有地图外算墙（以前拿内置地图：960000 以外都是地图外，峡谷的远半边飞不出去）。
+//! （`game_places::terrain::map_of_sim`）。Rin 的召唤师峡谷（1937454 见方）用峡谷作者的墙体文件（[`Grid::rift`]，295 x 296
+//! 格、每格 72000/11），没有文件时峡谷上只有地图外算墙（以前拿内置地图：960000 以外都是地图外，峡谷的远半边飞不出去）。
+//! 2026-11-28：峡谷上分两层（[`Grid::rift_layers`]）——落点看墙往外长一格的那层（`rift_ground`），日志里的「over a wall」
+//! 看真墙（`rift_walls`）。以前都拿长了一格的那层，两份日志 75 次「over a wall」有 24 次一格真墙都没飞过。
 
 #[allow(dead_code)]
 #[path = "../../league_camille_wall/src/maps.rs"]
@@ -93,19 +95,22 @@ pub fn along(from: Pt, dir: Pt, t: f64) -> Pt {
 // ===================== 墙 =====================
 
 /// 一张墙格子：`cells[y][x]`；`bounds` 外是地图四边画出来的墙（5v5 的；另两张图的四周本来就是格子墙）。每格 `cell`
-/// 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、(0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
+/// 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、(0, 0)；峡谷的墙体文件 72000/11、(36000/11, 0)）。
+/// `cells` 是英雄中心站不住的格子，`rock` 是真墙（飞越的地形）。游戏自己的地图两者一样（`rock` 为 None）；峡谷上 `cells`
+/// 是墙往外长一格（`terrain::rift_ground`），`rock` 是墙体文件本身的墙（`terrain::rift_walls`）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub bounds: Option<(f64, f64, f64, f64)>,
     pub cell: f64,
     pub origin: Pt,
+    pub rock: Option<Vec<Vec<bool>>>,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
         Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), bounds: None, cell: CELL,
-               origin: (0.0, 0.0) }
+               origin: (0.0, 0.0), rock: None }
     }
 
     /// 游戏的三张内置地图：5v5（加四边的墙面）、单线、死斗。
@@ -118,8 +123,19 @@ impl Grid {
     /// 召唤师峡谷的墙：有墙体文件就是文件的墙格（四边在文件里就是墙）；没有就是一格地图大小的空地（只有地图外算墙）。
     pub fn rift(walls: Option<&terrain::Walls>) -> Grid {
         match walls {
-            Some(w) => Grid { cells: w.cells.clone(), bounds: None, cell: w.cell, origin: w.origin },
-            None => Grid { cells: vec![vec![false]], bounds: None, cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
+            Some(w) => Grid { cells: w.cells.clone(), bounds: None, cell: w.cell, origin: w.origin, rock: None },
+            None => Grid { cells: vec![vec![false]], bounds: None, cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0), rock: None },
+        }
+    }
+
+    /// 峡谷的两层：站不住的格子（`ground`，墙往外长一格）和真墙（`rock`，墙体文件）。缺一层就只用另一层（和以前一样）。
+    pub fn rift_layers(rock: Option<&terrain::Walls>, ground: Option<&terrain::Walls>) -> Grid {
+        match (rock, ground) {
+            (Some(r), Some(g)) if r.cells.len() == g.cells.len() && r.cell == g.cell && r.origin == g.origin => {
+                Grid { rock: Some(r.cells.clone()), ..Grid::rift(Some(g)) }
+            }
+            (_, Some(g)) => Grid::rift(Some(g)),
+            (r, None) => Grid::rift(r),
         }
     }
 
@@ -131,25 +147,34 @@ impl Grid {
         p.0 >= self.origin.0 && p.1 >= self.origin.1 && p.0 < w && p.1 < h && inside
     }
 
-    /// 落在墙格里（或地图外）吗。
+    /// 落在墙格里（或地图外）吗：英雄中心站不住。
     pub fn is_wall(&self, p: Pt) -> bool {
+        self.at_layer(&self.cells, p)
+    }
+
+    /// 落在真墙里（或地图外）吗（游戏自己的地图就是 [`Grid::is_wall`]）。
+    pub fn is_rock(&self, p: Pt) -> bool {
+        self.at_layer(self.rock.as_ref().unwrap_or(&self.cells), p)
+    }
+
+    fn at_layer(&self, layer: &[Vec<bool>], p: Pt) -> bool {
         if !self.on_map(p) {
             return true;
         }
         let (cx, cy) = (((p.0 - self.origin.0) / self.cell) as usize, ((p.1 - self.origin.1) / self.cell) as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
+        layer.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(true)
     }
 
     pub fn walls(&self) -> usize {
         self.cells.iter().flatten().filter(|w| **w).count()
     }
 
-    /// `a` 到 `b` 的直线穿过墙格吗（两端不算）。
+    /// `a` 到 `b` 的直线飞越真墙吗（两端不算；日志里的「over a wall」）。
     pub fn crosses(&self, a: Pt, b: Pt) -> bool {
         let n = (dist(a, b) / STEP).floor() as usize;
         (1..n).any(|i| {
             let t = i as f64 / n as f64;
-            self.is_wall((a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t))
+            self.is_rock((a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t))
         })
     }
 }
@@ -467,6 +492,65 @@ mod tests {
         let p = plan(&s, 150_000.0, &g).expect("an escape");
         assert!(p.why == Why::Escape && p.dir.0 < -0.5 && (p.len - 150_000.0).abs() < 1.0, "{p:?}");
         assert_eq!(plan(&s, 150_000.0, &Grid::builtin()[0]), None, "the old grid: no room out there");
+    }
+
+    #[test]
+    fn on_the_rift_over_a_wall_means_over_rock_and_the_landings_stay() {
+        // 真墙：241..245 列、202..237 行（x 1317273..1344545）；站不住的那层是它往外长一格（峡谷的 rift_ground 那样）
+        let rock = rift_walls(&[((1_315_000.0, 1_100_000.0), (1_345_000.0, 1_300_000.0))]);
+        let g = Grid::rift_layers(Some(&rock), Some(&rock.padded()));
+        let old = Grid::rift(Some(&rock.padded()));
+        assert!(g.rock.is_some() && old.rock.is_none());
+        // 穿过真墙：两边都算飞越
+        let from = (1_300_000.0, 1_200_000.0);
+        let land = along(from, (1.0, 0.0), landing(&g, from, (1.0, 0.0), 80_000.0));
+        assert!(g.crosses(from, land) && old.crosses(from, land), "{land:?}");
+        // 贴着墙的上沿飞（201 行只是长出来的那一圈）：一格真墙都没飞过。以前日志写 over a wall，现在不写
+        let edge = (1_300_000.0, 1_099_000.0);
+        let land = along(edge, (1.0, 0.0), landing(&g, edge, (1.0, 0.0), 80_000.0));
+        assert!(old.crosses(edge, land) && !g.crosses(edge, land), "{land:?}");
+        // 落点照旧看长出来的那一圈：落在圈里就往前飞出来，两层和以前一样远
+        for (p, want) in [(from, 47_000.0), (from, 80_000.0), (edge, 80_000.0), (edge, 15_000.0)] {
+            assert_eq!(landing(&g, p, (1.0, 0.0), want), landing(&old, p, (1.0, 0.0), want), "{p:?} {want}");
+        }
+        let len = landing(&g, from, (1.0, 0.0), 47_000.0);
+        assert!(len > 47_000.0 && !g.is_wall(along(from, (1.0, 0.0), len)), "{len}");
+        // 游戏自己的地图只有一层，照旧
+        assert!(Grid::builtin().iter().all(|b| b.rock.is_none()));
+    }
+
+    /// 峡谷真的墙（设了 `LEAGUE_RIFT_WALLS` 才跑）：游戏里的两层。落点和以前一模一样；以前日志里的 over a wall 有的一格
+    /// 真墙都没飞过，现在 over a wall 只算飞越真墙的。
+    #[test]
+    fn on_the_rifts_real_rock_over_a_wall_is_over_rock() {
+        let Some(path) = std::env::var_os(terrain::RIFT_WALLS_ENV) else { return };
+        let rock = terrain::load_rift_walls(&[path.into()]).unwrap();
+        let ground = rock.padded();
+        let (old, g) = (Grid::rift(Some(&ground)), Grid::rift_layers(Some(&rock), Some(&ground)));
+        assert!(g.rock.is_some());
+        let (mut flights, mut old_over, mut over) = (0, 0, 0);
+        let mut y = 20_000.0;
+        while y < terrain::RIFT_EXTENT {
+            let mut x = 20_000.0;
+            while x < terrain::RIFT_EXTENT {
+                if !g.is_wall((x, y)) {
+                    for d in rays() {
+                        let len = landing(&g, (x, y), d, 150_000.0);
+                        assert_eq!(len, landing(&old, (x, y), d, 150_000.0), "({x},{y}) {d:?}");
+                        if len > 0.0 {
+                            let land = along((x, y), d, len);
+                            flights += 1;
+                            old_over += usize::from(old.crosses((x, y), land));
+                            over += usize::from(g.crosses((x, y), land));
+                        }
+                    }
+                }
+                x += 40_000.0;
+            }
+            y += 40_000.0;
+        }
+        println!("{flights} flights: 'over a wall' {old_over} on the old grid, {over} over rock now");
+        assert!(flights > 3_000 && over > 500 && old_over > over, "{flights} flights, {old_over} old, {over} now");
     }
 
     /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。

@@ -16,6 +16,8 @@
 //! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：每一发按这局的塔和水晶判断是哪张图
 //! （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷用峡谷作者的墙体文件
 //! （`terrain::rift_walls`，295 x 296 格、每格 60000/11），没有文件时峡谷上不知道哪里有墙，炮弹总是飞满射程。
+//! 2026-11-28：炮弹撞的是真墙（`rift_walls`）。以前拿的是墙往外长一格的那层（`rift_ground`，英雄中心站不住的地方），炮弹
+//! 在墙前一格多的空地上就停下，贴着墙边飞的也算撞了墙。
 
 use std::collections::HashMap;
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -111,9 +113,9 @@ pub fn current(grids: &[Grid], champions: &[Pt]) -> Option<usize> {
         .map(|(i, _)| i)
 }
 
-/// 游戏的三张内置地图，和峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
+/// 游戏的三张内置地图，和峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。炮弹是投射物，峡谷上撞真墙。
 static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_walls()));
 
 /// 这局的墙：峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
 fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
@@ -433,6 +435,69 @@ mod tests {
         let open = Grid::rift(None);
         assert_eq!(end_of(&open, from, (1.0, 0.0), 70_000.0), ((1_370_000.0, 1_250_000.0), false));
         assert!(!end_of(&open, (1_580_000.0, 800_000.0), (1.0, 0.0), 70_000.0).1, "past the map's edge is no wall either");
+    }
+
+    /// 炮弹撞真墙，不撞墙往外长一格的那层：以前停在墙前一格多的空地上，贴着墙边飞的也停下。
+    #[test]
+    fn on_the_rift_the_shell_stops_at_rock_not_at_the_ground_round_it() {
+        let rock = rift_walls(&[((1_340_000.0, 1_200_000.0), (1_360_000.0, 1_300_000.0))]);
+        let (new, old) = (Grid::rift(Some(&rock)), Grid::rift(Some(&rock.padded())));
+        // 真墙从第 245 列起（中心落在矩形里的格子）
+        let face = rock.origin.0 + 245.0 * rock.cell;
+        let from = (1_300_000.0, 1_250_000.0);
+        let (end, wall) = end_of(&new, from, (1.0, 0.0), 70_000.0);
+        assert!(wall && end.0 >= face - WALL_GAP - 1.0 && end.0 <= face - WALL_GAP + STEP, "WALL_GAP before the rock: {end:?}");
+        let (was, _) = end_of(&old, from, (1.0, 0.0), 70_000.0);
+        assert!(was.0 < face - WALL_GAP - 0.8 * rock.cell, "the old shell stopped a cell short, in the air: {was:?}");
+        // 贴着墙的上沿飞（长出来的那一圈里）：以前算撞墙，现在飞满射程
+        let along = (1_300_000.0, rock.origin.1 + 220.0 * rock.cell - 0.5 * rock.cell);
+        assert!(end_of(&old, along, (1.0, 0.0), 70_000.0).1, "the old grid stopped it on the grown ring");
+        assert_eq!(end_of(&new, along, (1.0, 0.0), 70_000.0), ((along.0 + 70_000.0, along.1), false));
+    }
+
+    /// 峡谷真的墙（开发机设了 `LEAGUE_RIFT_WALLS` 才跑）：每发停下的炮弹前面 `WALL_GAP` 就是真墙；以前那层停下的炮弹有的前面
+    /// 两格内都没有真墙（停在空地上）。
+    #[test]
+    fn on_the_rifts_real_walls_a_stopped_shell_lies_before_rock() {
+        let Some(path) = std::env::var_os(terrain::RIFT_WALLS_ENV) else { return };
+        let rock = terrain::load_rift_walls(&[path.into()]).unwrap();
+        let ground = rock.padded();
+        let (new, old) = (Grid::rift(Some(&rock)), Grid::rift(Some(&ground)));
+        let (mut stopped, mut air) = (0, 0);
+        let mut y = 20_000.0;
+        while y < terrain::RIFT_EXTENT {
+            let mut x = 20_000.0;
+            while x < terrain::RIFT_EXTENT {
+                if !ground.is_wall(x, y) {
+                    for k in 0..16 {
+                        let a = k as f64 * std::f64::consts::TAU / 16.0;
+                        let dir = (a.cos(), a.sin());
+                        if let Some(t) = new.first_wall((x, y), dir, 70_000.0).filter(|t| *t >= WALL_GAP + STEP) {
+                            let (end, wall) = end_of(&new, (x, y), dir, 70_000.0);
+                            let ahead = (end.0 + dir.0 * WALL_GAP, end.1 + dir.1 * WALL_GAP);
+                            assert!(wall && rock.is_wall(ahead.0, ahead.1) && (t - WALL_GAP - 1.0..=t).contains(&dist_to(end, (x, y))),
+                                    "({x},{y}) {dir:?}: {end:?}");
+                            stopped += 1;
+                        }
+                        if let Some(t) = old.first_wall((x, y), dir, 70_000.0) {
+                            if (0..26).all(|i| {
+                                let s = t + i as f64 * STEP;
+                                !rock.is_wall(x + dir.0 * s, y + dir.1 * s)
+                            }) {
+                                air += 1;
+                            }
+                        }
+                    }
+                }
+                x += 40_000.0;
+            }
+            y += 40_000.0;
+        }
+        assert!(stopped > 1_000 && air > 100, "{stopped} shells stopped by rock, {air} stopped in the air by the old grid");
+    }
+
+    fn dist_to(a: Pt, b: Pt) -> f64 {
+        ((a.0 - b.0).powi(2) + (a.1 - b.1).powi(2)).sqrt()
     }
 
     #[test]

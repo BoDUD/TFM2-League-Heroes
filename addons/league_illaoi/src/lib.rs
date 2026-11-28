@@ -24,6 +24,8 @@
 //!   （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧（三张内置地图里挑）；Rin 的召唤师峡谷（1614545 见方）用峡谷
 //!   作者的墙体文件（`terrain::rift_walls`，295 x 296 格、每格 60000/11：找墙边、贴墙靠的 0.35 格都按它的格子），没有文件时
 //!   峡谷上不知道哪里有墙，触手都长在她身边（以前拿内置地图：峡谷近半边贴的是内置地图的墙、那里其实是空地）。
+//!   2026-11-28：触手贴的是真墙（`rift_walls`）。以前拿墙往外长一格的那层（`rift_ground`，英雄中心站不住的地方），触手长在
+//!   离真墙一格多（日志里 7527 到 8930）的空地上。
 //!
 //! - **触手有了身体（0.3.0，2026-11-14；用户：「召唤物的全做啊 剩下的一批英雄也做了啊」）**：英雄联盟的触手能被敌人的普攻打掉，
 //!   刚长出来的 2 秒选不中，自己不出手（只听她的技能）。这里原来触手是一串画面，打不到。稳定 mod API 的 `spawn_unit`（公用部分
@@ -349,8 +351,8 @@ pub fn pick(points: &[(f64, f64)]) -> Walls {
         .unwrap_or_else(|| builtin(GameModeKindV1::Moba))
 }
 
-/// 峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
-static RIFT_WALLS: LazyLock<Walls> = LazyLock::new(|| Walls::rift(terrain::rift_ground()));
+/// 峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。触手长在真墙上，不看英雄站不住的那一圈。
+static RIFT_WALLS: LazyLock<Walls> = LazyLock::new(|| Walls::rift(terrain::rift_walls()));
 
 /// 这局的墙：峡谷（`map`）上是峡谷的（`rift`，第一次要时才取），游戏自己的地图照旧按单位的位置挑（[`pick`]）。
 pub fn walls_for(map: Map, rift: impl FnOnce() -> &'static Walls, points: &[(f64, f64)]) -> Cow<'static, Walls> {
@@ -1293,11 +1295,45 @@ mod tests {
         assert_eq!(w.edge_near((native.0 - 40_000.0, native.1), 60_000.0), None);
     }
 
-    /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。
+    /// `p` 离最近一格墙多远（格子的边）。
+    fn rock_gap(w: &Walls, p: (f64, f64)) -> f64 {
+        let (cx, cy) = (((p.0 - w.origin.0) / w.cell).floor() as i64, ((p.1 - w.origin.1) / w.cell).floor() as i64);
+        let mut best = f64::INFINITY;
+        for y in cy - 3..=cy + 3 {
+            for x in cx - 3..=cx + 3 {
+                if !w.wall_at(x, y) {
+                    continue;
+                }
+                let (x0, y0) = (w.origin.0 + x as f64 * w.cell, w.origin.1 + y as f64 * w.cell);
+                let dx = (x0 - p.0).max(0.0).max(p.0 - x0 - w.cell);
+                let dy = (y0 - p.1).max(0.0).max(p.1 - y0 - w.cell);
+                best = best.min(dx.hypot(dy));
+            }
+        }
+        best
+    }
+
+    /// 触手贴真墙，不贴墙往外长一格的那层（英雄站不住的地方）：以前长在离真墙一格多的空地上。
+    #[test]
+    fn on_the_rift_a_tentacle_stands_against_rock_not_on_the_ground_round_it() {
+        let rock = rift_walls(&[((1_300_000.0, 1_100_000.0), (1_330_000.0, 1_200_000.0))]);
+        let (new, old) = (Walls::rift(Some(&rock)), Walls::rift(Some(&rock.padded())));
+        let her = (1_280_000.0, 1_150_000.0);
+        let e = new.edge_near(her, 60_000.0).expect("the rock's edge");
+        assert!(rock_gap(&new, e) < 0.2 * new.cell && new.is_wall(e.0 + 0.2 * new.cell, e.1), "against the rock: {e:?}");
+        let was = old.edge_near(her, 60_000.0).expect("the old grid's edge");
+        assert!(rock_gap(&new, was) > 1.1 * new.cell, "the old tentacle stood a cell off the rock: {was:?}");
+        assert!(!new.is_wall(was.0 + 0.9 * new.cell, was.1), "open ground between it and the rock");
+    }
+
+    /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。每个墙边都挨着真墙（墙边格子
+    /// 里，最多半格：两边都是墙的格子长在格子中间）；以前那层的墙边都离真墙一格多（2026-11-28 19:32 那份日志里 18 条长在墙边
+    /// 的触手离真墙 7527 到 8930）。
     #[test]
     fn on_the_rifts_real_walls_tentacles_stand_on_their_edges() {
         let Some(path) = std::env::var_os(terrain::RIFT_WALLS_ENV) else { return };
-        let w = Walls::rift(Some(&terrain::load_rift_walls(&[path.into()]).unwrap()));
+        let rock = terrain::load_rift_walls(&[path.into()]).unwrap();
+        let (w, old) = (Walls::rift(Some(&rock)), Walls::rift(Some(&rock.padded())));
         let (mut spots, mut edges) = (0, 0);
         let mut y = 20_000.0;
         while y < terrain::RIFT_EXTENT {
@@ -1307,7 +1343,11 @@ mod tests {
                     spots += 1;
                     if let Some(e) = w.edge_near((x, y), 60_000.0) {
                         assert!(!w.is_wall(e.0, e.1) && dist(e, (x, y)) <= 60_000.0, "({x},{y}) -> {e:?}");
+                        assert!(rock_gap(&w, e) <= 0.5 * w.cell + 1.0, "({x},{y}) -> {e:?} off the rock");
                         edges += 1;
+                    }
+                    if let Some(e) = old.edge_near((x, y), 60_000.0) {
+                        assert!(rock_gap(&w, e) > 1.1 * w.cell, "({x},{y}) -> the old {e:?}");
                     }
                 }
                 x += 40_000.0;
@@ -1315,6 +1355,10 @@ mod tests {
             y += 40_000.0;
         }
         assert!(spots > 300 && edges > spots / 2, "{edges} edges from {spots} spots");
+        // 日志里的触手（m=824 的预模拟）：离真墙一格多
+        for p in [(108_982.0, 1_260_000.0), (76_255.0, 1_705_091.0), (52_364.0, 1_840_255.0), (102_436.0, 1_030_909.0)] {
+            assert!(rock_gap(&w, p) > 1.1 * w.cell, "{p:?}");
+        }
     }
 
     #[test]

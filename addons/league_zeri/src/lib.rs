@@ -33,6 +33,8 @@
 //! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔站在 1000000 以外
 //! （`game_places::terrain::map_of_sim`）就是峡谷，W 照峡谷的墙格化激光（[`rift_grid`]：作者的墙体坐标.json，自己的格子边长和
 //! 原点，格子外算墙；没有 5v5 那四边的墙面）。没有这个文件时不知道哪里有墙：只有飞出地图边（0..1614545 外）才算撞墙。
+//! 2026-11-28 起脉冲撞的是真墙（`rift_walls`），不是墙往外长一格的那层（`rift_ground`，那是英雄中心站不住的地方）：以前
+//! 激光都从墙前一格多的空地上射出，日志里峡谷上 84 道激光有 56 道前方两格内根本没有真墙（擦过墙边那一圈）。
 
 use std::borrow::Cow;
 use std::fs::OpenOptions;
@@ -43,7 +45,7 @@ use std::sync::{LazyLock, Mutex};
 
 // 技能速度和瞬移门槛用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
 use game_places::skill_scale::sk;
-use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_walls, Map, Walls};
 use mod_api_stable::*;
 
 pub mod maps;
@@ -260,8 +262,8 @@ pub fn rift_grid(walls: Option<&Walls>) -> Grid {
     walls.map_or_else(|| Grid::open(Map::Rift.extent()), Grid::from_walls)
 }
 
-/// 峡谷的墙，换成本包的格子一次（87000 多格，不每次 W 重建）。
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
+/// 峡谷的墙，换成本包的格子一次（87000 多格，不每次 W 重建）。脉冲是投射物，撞的是真墙，不是英雄站不住的那一圈。
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_walls()));
 /// 这次启动已经在日志里说过峡谷了。
 static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
 
@@ -1054,12 +1056,57 @@ mod tests {
         assert!(w.0 >= side && w.0 <= side + STEP + 1.0, "{w:?}");
     }
 
+    /// 脉冲撞真墙，不撞墙往外长一格的那层（英雄站不住的地方）：以前激光从墙前一格的空地上射出，贴着墙边飞的脉冲也在
+    /// 那一圈里「撞墙」。
+    #[test]
+    fn on_the_rift_the_pulse_turns_at_rock_not_at_the_ground_round_it() {
+        let rock = rift_file(220..223, 200..240);
+        let (new, old) = (rift_grid(Some(&rock)), rift_grid(Some(&rock.padded())));
+        let face = rock.origin.0 + 220.0 * rock.cell;
+        // 正对着墙：激光从墙面起，以前从墙前一格的空地上起
+        let (a, b) = ((face - 50_000.0, 1_200_000.0), (face + 10_000.0, 1_200_000.0));
+        let w = first_wall(&new, a, b).expect("the rock");
+        assert!(w.0 >= face - 1.0 && w.0 <= face + STEP + 1.0 && rock.is_wall(w.0, w.1), "{w:?}");
+        let was = first_wall(&old, a, b).expect("the old grid turned it too");
+        assert!(was.0 < face - 0.8 * rock.cell && !rock.is_wall(was.0, was.1), "the old laser started in the air: {was:?}");
+        // 贴着墙的上沿飞（长出来的那一圈里，一格真墙都没碰）：以前在空地上化成激光，现在照飞
+        let top = rock.origin.1 + 200.0 * rock.cell;
+        let (a, b) = ((face - 50_000.0, top - 0.5 * rock.cell), (face + 50_000.0, top - 0.5 * rock.cell));
+        assert!(first_wall(&old, a, b).is_some(), "the old grid turned it on the grown ring");
+        assert_eq!(first_wall(&new, a, b), None, "no rock on its way: no laser");
+    }
+
+    /// 日志里的真脉冲（2026-11-28 19:47 那份 league_zeri.log，峡谷上的预模拟）：拿装着的真墙重放。前四道以前在空地上化成
+    /// 激光（前方 30000 内没有真墙），后三道前方一格多才是真墙。开发机设了 `LEAGUE_RIFT_WALLS` 才跑。
+    #[test]
+    fn the_logged_pulses_on_the_rifts_real_walls() {
+        let Some(path) = std::env::var_os(game_places::terrain::RIFT_WALLS_ENV) else { return };
+        let rock = game_places::terrain::load_rift_walls(&[path.into()]).unwrap();
+        let (new, old) = (rift_grid(Some(&rock)), rift_grid(Some(&rock.padded())));
+        let open = [((1_358_266.0, 1_792_269.0), (0.9660, -0.2584)), ((1_764_343.0, 545_747.0), (0.5051, -0.8630)),
+                    ((1_715_601.0, 1_471_975.0), (0.0680, -0.9977)), ((1_040_469.0, 1_669_137.0), (0.1499, 0.9887))];
+        let rocky = [((1_381_606.0, 1_649_871.0), (0.1318, 0.9913)), ((1_383_707.0, 1_328_982.0), (-0.9323, 0.3616)),
+                     ((471_617.0, 1_478_422.0), (-0.4113, -0.9115))];
+        let along = |p: (f64, f64), d: (f64, f64), t: f64| (p.0 + d.0 * t, p.1 + d.1 * t);
+        for (i, &(at, dir)) in open.iter().chain(rocky.iter()).enumerate() {
+            let was = first_wall(&old, along(at, dir, -8_000.0), along(at, dir, 1_000.0)).expect("the old grid's laser");
+            assert!(dist(was, at) <= 1_500.0 && !rock.is_wall(was.0, was.1), "{at:?}: {was:?}");
+            let now = first_wall(&new, along(at, dir, -8_000.0), along(at, dir, 30_000.0));
+            if i < open.len() {
+                assert_eq!(now, None, "{at:?}: no rock ahead, no laser");
+            } else {
+                let w = now.expect("the rock ahead");
+                assert!(rock.is_wall(w.0, w.1) && dist(w, at) >= 5_000.0, "{at:?}: {w:?}");
+            }
+        }
+    }
+
     #[test]
     fn the_rift_takes_its_own_grid() {
         let (name, g) = grid_of(Map::Rift, &[(1_500_000.0, 1_500_000.0)]);
         assert_eq!(name, "Rift");
         assert!(matches!(g, Cow::Borrowed(_)) && std::ptr::eq(&*g, &*RIFT_GRID), "converted once, not per pulse");
-        assert_eq!(*g, rift_grid(rift_ground()));
+        assert_eq!(*g, rift_grid(rift_walls()));
         let (name, g) = grid_of(Map::Native, &[(480_000.0, 480_000.0), (50_000.0, 50_000.0), (900_000.0, 900_000.0)]);
         assert_eq!((name, g.bounds, g.cell), ("Moba", Some(MOBA_BOUNDS), CELL));
     }

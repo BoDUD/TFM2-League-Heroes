@@ -17,6 +17,11 @@
 //! （只剩艾翁的草丛），河道是中间那条斜带按地图大小放大（`RIVER_BAND` x [`Map::scale`]）。地图文档里读到的格子是游戏自己的
 //! 5v5 地图的，峡谷上不用。每张格子带着自己的格子边长和原点（[`Grid::cell`]、[`Grid::origin`]），按格子数的上限
 //! （`WALL_CAP`、`BRUSH_CAP`）按面积换算（[`Grid::cells_for`]）。
+//!
+//! 2026-11-28：峡谷上分两层（[`rift_layers`]）。风（R）碰到的、被风推的人撞上的是真墙（`places::rift_walls`，
+//! [`MapGrids::rock`]）；W 冲到的地方、身边有没有墙、冲击波沿着走的墙边还看墙往外长一格的那层（`places::rift_ground`）。
+//! 以前全拿长了一格的那层：风贴着墙边吹、擦过那一圈就停下炸开，炸的是它没碰到的墙（拿 0.1.86 的墙算：墙边吹的风里旧的
+//! 停下有 23% 一路碰不到真墙）。
 
 use std::collections::{BTreeMap, HashSet, VecDeque};
 use std::sync::atomic::{AtomicBool, Ordering};
@@ -305,11 +310,13 @@ pub struct MapGrids {
     pub river: Option<Grid>,
     /// 哪张地图：游戏自己的（地图文档读到的），或峡谷（[`rift_map`]）。
     pub map: Map,
+    /// 真墙（风、被推的人撞上的地形）：峡谷上是墙体文件本身的墙，`walls` 是它往外长一格；None 就是 `walls`。
+    pub rock: Option<Grid>,
 }
 
 impl Default for MapGrids {
     fn default() -> Self {
-        MapGrids { mode: 0, walls: None, bushes: None, river: None, map: Map::Native }
+        MapGrids { mode: 0, walls: None, bushes: None, river: None, map: Map::Native, rock: None }
     }
 }
 
@@ -353,6 +360,15 @@ impl MapGrids {
 
     /// 墙：墙格子、地图外、5v5 地图四边之外；峡谷的墙格子外也算（作者的格子铺在地图中间，game_places 的 `Walls::is_wall`）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        self.at_layer(self.walls.as_ref(), x, y)
+    }
+
+    /// 真墙（风、被推的人撞上的地形）：峡谷上看 [`MapGrids::rock`]，别处就是 [`MapGrids::is_wall`]。
+    pub fn is_rock(&self, x: f64, y: f64) -> bool {
+        self.at_layer(self.rock.as_ref().or(self.walls.as_ref()), x, y)
+    }
+
+    fn at_layer(&self, layer: Option<&Grid>, x: f64, y: f64) -> bool {
         let size = self.size();
         if x < 0.0 || y < 0.0 || x >= size || y >= size {
             return true;
@@ -362,9 +378,9 @@ impl MapGrids {
                 return true;
             }
         }
-        match (&self.walls, self.map) {
+        match (layer, self.map) {
             (Some(g), Map::Rift) => !g.covers(x, y) || g.at(x, y),
-            (walls, _) => walls.as_ref().is_some_and(|g| g.at(x, y)),
+            (walls, _) => walls.is_some_and(|g| g.at(x, y)),
         }
     }
 
@@ -482,12 +498,18 @@ pub fn nearest_point(m: &MapGrids, kind: Kind, x: f64, y: f64, reach: f64) -> Op
 }
 
 /// 从 `at` 沿 `dir` 走 `reach`（身体半径 `body`）：`Some(走多远)` 路上撞墙（停在墙前 `body` + 1000），`None` 一路没墙
-/// （同薇恩附加包的 wall_travel）。
+/// （同薇恩附加包的 wall_travel）。撞的是真墙（[`MapGrids::is_rock`]）；峡谷上停的地方在长出来的那一圈里，就沿来路退到圈外。
 pub fn wall_travel(m: &MapGrids, at: Pt, dir: Pt, reach: f64, body: f64) -> Option<f64> {
     let mut s = STEP;
     while s <= reach + body + 0.5 {
-        if m.is_wall(at.0 + dir.0 * s, at.1 + dir.1 * s) {
-            return Some((s - body - 1_000.0).max(0.0));
+        if m.is_rock(at.0 + dir.0 * s, at.1 + dir.1 * s) {
+            let mut len = (s - body - 1_000.0).max(0.0);
+            if m.rock.is_some() {
+                while len > 0.0 && m.is_wall(at.0 + dir.0 * len, at.1 + dir.1 * len) {
+                    len = (len - STEP).max(0.0);
+                }
+            }
+            return Some(len);
         }
         s += STEP;
     }
@@ -510,13 +532,13 @@ pub struct Blast {
     pub river: Option<Pt>,
 }
 
-/// 风从 `from` 沿 `dir` 走 `len`，碰到第一面墙就停（[`MapGrids::is_wall`]），记下路过的草丛和河。
+/// 风从 `from` 沿 `dir` 走 `len`，碰到第一面墙就停（真墙，[`MapGrids::is_rock`]），记下路过的草丛和河。
 pub fn windblast(m: &MapGrids, from: Pt, dir: Pt, len: f64) -> Blast {
     let mut b = Blast { from, dir, stop: from, ..Blast::default() };
     let mut s = STEP;
     while s <= len + 0.5 {
         let q = (from.0 + dir.0 * s, from.1 + dir.1 * s);
-        if m.is_wall(q.0, q.1) {
+        if m.is_rock(q.0, q.1) {
             b.wall = Some(q);
             break;
         }
@@ -682,7 +704,7 @@ pub fn shockwave(m: &MapGrids, b: &Blast, span: f64) -> Shock {
 
 /// 峡谷的地图（第一次用到时从 game_places 的墙格子换算一次：约 8.7 万格，不每 tick 重建）。
 static RIFT_MAP: LazyLock<Arc<MapGrids>> =
-    LazyLock::new(|| Arc::new(rift_grids(places::rift_ground(), places::rift_bushes())));
+    LazyLock::new(|| Arc::new(rift_layers(places::rift_walls(), places::rift_ground(), places::rift_bushes())));
 /// 日志里写过峡谷那一行（每次启动一次）。
 static RIFT_SAID: AtomicBool = AtomicBool::new(false);
 
@@ -691,15 +713,29 @@ static RIFT_SAID: AtomicBool = AtomicBool::new(false);
 /// （河道按放大的斜带，[`MapGrids::river_band`]）。
 pub fn rift_grids(walls: Option<&Walls>, bushes: Option<&Walls>) -> MapGrids {
     MapGrids { mode: GameModeKindV1::Moba.code(), walls: walls.map(Grid::from_walls), bushes: bushes.map(Grid::from_walls), river: None,
-               map: Map::Rift }
+               map: Map::Rift, rock: None }
 }
 
-/// 峡谷的地图（[`rift_grids`] 换算一次）；第一次碰到峡谷时在日志里记一行。
+/// 峡谷的两层：真墙（`rock`，墙体文件）给风和被推的人撞，墙往外长一格（`ground`）给站位、W 和冲击波。缺一层就只用另一层
+/// （和以前一样）。
+pub fn rift_layers(rock: Option<&Walls>, ground: Option<&Walls>, bushes: Option<&Walls>) -> MapGrids {
+    match (rock, ground) {
+        (Some(r), Some(g)) if r.cells.len() == g.cells.len() && r.cell == g.cell && r.origin == g.origin => {
+            MapGrids { rock: Some(Grid::from_walls(r)), ..rift_grids(Some(g), bushes) }
+        }
+        (_, Some(g)) => rift_grids(Some(g), bushes),
+        (r, None) => rift_grids(r, bushes),
+    }
+}
+
+/// 峡谷的地图（[`rift_layers`] 换算一次）；第一次碰到峡谷时在日志里记一行。
 pub fn rift_map() -> Arc<MapGrids> {
     let m = RIFT_MAP.clone();
     if !RIFT_SAID.swap(true, Ordering::Relaxed) {
-        let walls = m.walls.as_ref().map_or("none known - only the map's edges are wall".to_string(),
-                                            |g| format!("{} wall cells of {:.1}", g.count(), g.cell));
+        let walls = m.walls.as_ref().map_or("none known - only the map's edges are wall".to_string(), |g| {
+            let rock = m.rock.as_ref().map_or("rock layer missing".to_string(), |r| format!("the wind hits {} rock cells", r.count()));
+            format!("{} wall cells of {:.1} grown by a cell, {rock}", g.count(), g.cell)
+        });
         let brush = m.bushes.as_ref().map_or("no brush data file - only Ivern's brush gives grass".to_string(),
                                              |g| format!("{} brush cells of {:.1}", g.count(), g.cell));
         wlog(format!("== Rift: W and R read the Rift's walls ({walls}) and brush ({brush}), the river \
@@ -727,7 +763,7 @@ impl TerrainReader {
             }
         };
         let m = MapGrids { mode: code, walls, bushes: bushes.as_ref().map(|b| b.1.clone()), river: river.as_ref().map(|r| r.1.clone()),
-                           map: Map::Native };
+                           map: Map::Native, rock: None };
         if first {
             let river_said = match &river {
                 Some((k, g)) => format!("river under `{k}`, {} cells", g.count()),
@@ -759,7 +795,7 @@ mod tests {
 
     fn moba(walls: &[&str], bushes: &[&str]) -> MapGrids {
         MapGrids { mode: GameModeKindV1::Moba.code(), walls: Some(Grid::from_rows(walls)), bushes: Some(Grid::from_rows(bushes)), river: None,
-                   map: Map::Native }
+                   map: Map::Native, rock: None }
     }
 
     /// A 30 x 30 map: `#` at the listed cells.
@@ -904,7 +940,7 @@ mod tests {
     #[test]
     fn a_tie_picks_the_same_map_every_time() {
         let map = |mode: GameModeKindV1, row: &str| MapGrids { mode: mode.code(), walls: Some(Grid::from_rows(&[row])), bushes: None, river: None,
-                                                               map: Map::Native };
+                                                               map: Map::Native, rock: None };
         {
             let mut m = MAPS.lock().unwrap_or_else(|e| e.into_inner());
             m.insert(GameModeKindV1::DeathMatch.code(), Arc::new(map(GameModeKindV1::DeathMatch, "#.")));
@@ -1020,6 +1056,83 @@ mod tests {
                 assert!(dist(*a, *q) > PIC_GAP - 1.0, "{a:?} {q:?}");
             }
         }
+    }
+
+    /// 2026-11-28：峡谷上两层。风迎面吹到真墙跟前才停（旧的停在长出来的那一圈前面）；顺着墙边、只擦过那一圈的风照常吹完，
+    /// 不炸它没碰到的墙（旧的一进那一圈就停下炸开）。
+    #[test]
+    fn on_the_rift_the_wind_hits_rock_not_the_ring_round_it() {
+        let e = places::RIFT_EXTENT;
+        let col: Vec<(usize, usize)> = (100..140).map(|y| (250, y)).collect();
+        let rows: Vec<String> =
+            (0..356).map(|y| (0..355).map(|x| if col.contains(&(x, y)) { '#' } else { '.' }).collect()).collect();
+        let rows: Vec<&str> = rows.iter().map(|s| s.as_str()).collect();
+        let rock = Walls::from_rows(&rows, RCELL, (R0, 0.0), (e, e));
+        let m = rift_layers(Some(&rock), Some(&rock.padded()), None);
+        let old = rift_grids(Some(&rock.padded()), None);
+        assert!(m.rock.is_some() && old.rock.is_none());
+        let face = rc(250.0, 0.0).0;
+        // 迎面：新的停在真墙跟前，旧的停在那一圈前面（差一格）
+        let b = windblast(&m, rc(245.5, 120.5), (1.0, 0.0), 60_000.0);
+        assert!(b.wall.is_some() && b.stop.0 < face && face - b.stop.0 <= STEP + 1.0, "{:?}", b.stop);
+        let was = windblast(&old, rc(245.5, 120.5), (1.0, 0.0), 60_000.0);
+        assert!(was.wall.is_some() && face - was.stop.0 >= RCELL - 1.0, "{:?}", was.stop);
+        // 冲击波照旧沿着那面墙走，贴着墙的人照旧打得到
+        let s = shockwave(&m, &b, 96_000.0);
+        assert!(!s.wall.is_empty() && s.caught(&m, face - 12_000.0, b.stop.1 + 40_000.0, 10_000.0, 12_000.0, 96_000.0).is_some());
+        // 顺着墙边往下吹（离墙面 5200，在那一圈里，碰不到真墙）
+        let along = (face - 5_200.0, rc(0.0, 95.5).1);
+        assert!(!m.is_wall(along.0, along.1) && old.is_wall(along.0, along.1 + 30_000.0) && !m.is_rock(along.0, along.1 + 30_000.0));
+        let graze = windblast(&old, along, (0.0, 1.0), 60_000.0);
+        assert!(graze.wall.is_some() && !shockwave(&old, &graze, 96_000.0).none(), "the old wind burst on the ring");
+        let b = windblast(&m, along, (0.0, 1.0), 60_000.0);
+        assert!(b.wall.is_none() && (b.stop.1 - (along.1 + 60_000.0)).abs() < 1.0, "{:?}", b.stop);
+        assert!(shockwave(&m, &b, 96_000.0).none());
+        // 别的图只有一层：和以前一样
+        assert!(map30(&[(10, 10)], &[]).rock.is_none());
+    }
+
+    /// 峡谷真的墙：开发机设了 `LEAGUE_RIFT_WALLS` 才跑（CI 没有文件，跳过）。风停下的都停在真墙跟前，冲击波沿着那面墙走；
+    /// 只有一层的旧格子有不少风一路碰不到真墙也停下。被风推的人停在那一圈外面。
+    #[test]
+    fn on_the_rifts_real_walls_the_wind_stops_at_rock() {
+        if std::env::var_os(places::RIFT_WALLS_ENV).is_none() {
+            return;
+        }
+        let m = rift_layers(places::rift_walls(), places::rift_ground(), places::rift_bushes());
+        let old = rift_grids(places::rift_ground(), places::rift_bushes());
+        assert!(m.rock.is_some(), "{}", places::rift_status());
+        let (mut new_n, mut old_n, mut old_only) = (0, 0, 0);
+        let mut y = 20_000.0;
+        while y < places::RIFT_EXTENT {
+            let mut x = 20_000.0;
+            while x < places::RIFT_EXTENT {
+                if !m.is_wall(x, y) {
+                    for k in 0..16 {
+                        let a = k as f64 * std::f64::consts::TAU / 16.0;
+                        let d = (a.cos(), a.sin());
+                        let b = windblast(&m, (x, y), d, 60_000.0);
+                        let was = windblast(&old, (x, y), d, 60_000.0);
+                        if let Some(w) = b.wall {
+                            new_n += 1;
+                            assert!(m.is_rock(w.0, w.1) && !m.is_rock(b.stop.0, b.stop.1), "({x},{y}) {d:?}");
+                            assert!(was.wall.is_some(), "({x},{y}) {d:?}: the old wind blew through");
+                            assert!(!shockwave(&m, &b, 96_000.0).none(), "({x},{y}) {d:?}");
+                        }
+                        if was.wall.is_some() {
+                            old_n += 1;
+                            old_only += b.wall.is_none() as usize;
+                        }
+                        if let Some(len) = wall_travel(&m, (x, y), d, 25_000.0, 10_000.0) {
+                            assert!(!m.is_wall(x + d.0 * len, y + d.1 * len), "({x},{y}) {d:?}: pushed into the ring");
+                        }
+                    }
+                }
+                x += 40_000.0;
+            }
+            y += 40_000.0;
+        }
+        assert!(new_n > 300 && old_only * 10 > old_n, "{new_n} winds stop now, {old_n} before ({old_only} without rock)");
     }
 
     #[test]

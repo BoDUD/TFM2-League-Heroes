@@ -374,8 +374,9 @@ impl StableEffectType for CoreFx {
 
 /// 游戏的三张内置地图的墙（每次看局面时按单位的位置挑当前这张）。
 static GRIDS: LazyLock<Vec<flight::Grid>> = LazyLock::new(flight::Grid::builtin);
-/// 召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
-static RIFT_GRID: LazyLock<flight::Grid> = LazyLock::new(|| flight::Grid::rift(terrain::rift_ground()));
+/// 召唤师峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）：落点看往外长一格的那层，「over a wall」看真墙。
+static RIFT_GRID: LazyLock<flight::Grid> =
+    LazyLock::new(|| flight::Grid::rift_layers(terrain::rift_walls(), terrain::rift_ground()));
 
 /// 这一次飞行。
 #[derive(Clone, Debug)]
@@ -433,8 +434,9 @@ fn grid_now(sim: &StableSim<'_>) -> &'static flight::Grid {
     if terrain::map_of_sim(sim) == Map::Rift {
         static MET: AtomicBool = AtomicBool::new(false);
         if !MET.swap(true, Ordering::Relaxed) {
-            wlog(format!("== Rift: Astral Flight lands clear of the Rift's walls (from its walls file; with no file only \
-                          the map's edges count); {} ==", terrain::rift_status()));
+            wlog(format!("== Rift: Astral Flight lands clear of the Rift's walls grown by a cell (from its walls file; \
+                          'over a wall' means over its rock, rock layer {}; with no file only the map's edges count); {} ==",
+                         if RIFT_GRID.rock.is_some() { "on" } else { "missing" }, terrain::rift_status()));
         }
         return &RIFT_GRID;
     }

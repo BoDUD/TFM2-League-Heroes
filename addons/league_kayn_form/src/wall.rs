@@ -9,13 +9,16 @@
 //! 逐 tick 自己走一步（`entity_set_pos`）。掠影步结束、人到了、或者人死了就停。
 //!
 //! 召唤师峡谷（2026-11-10，第三方地图 mod `tfm2_lol_map_test`，用户：「要同时兼容原版地图和这个地图」）：塔站在 1000000 以外
-//! （`game_places::terrain::map_of_sim`）就是峡谷，墙是作者的墙体坐标.json（[`rift_grid`]：自己的格子边长 60000/11 和原点）；
+//! （`game_places::terrain::map_of_sim`）就是峡谷，墙是作者的墙体坐标.json（[`rift_grid`]：自己的格子边长 72000/11 和原点）；
 //! 没有这个文件时不知道哪里有墙，掠影步不穿墙、也不在墙里。
+//! 2026-11-28（巴德的门同一个毛病）：峡谷上分两层（[`rift_layers`]）——「隔着墙」和墙里的暗影雾看真墙（`rift_walls`），
+//! 落点站不站得住看墙往外长一格的那层（`rift_ground`）。以前都拿长了一格的那层：贴着墙边走也算隔墙、也挂暗影雾
+//! （0.1.86 的墙上每个空地朝 8 个方向 60000 外的人：418 次隔墙冲刺有 250 次中间一格真墙都没有）。
 
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::LazyLock;
 
-use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
+use game_places::terrain::{map_of_sim, rift_status, rift_ground, rift_walls, Map, Walls};
 use mod_api_stable::*;
 
 #[path = "../../league_camille_wall/src/maps.rs"]
@@ -31,46 +34,62 @@ pub const NEAR: f64 = 22_000.0;
 /// 直线上每隔这么远看一次是不是墙。
 pub const STEP: f64 = 4_000.0;
 
-/// 一张墙格子：`cells[y][x]`，每格 `cell` 见方、第 (0, 0) 格的角在 `origin`（游戏自己的图 32000、(0, 0)；峡谷 60000/11、
-/// (30000/11, 0)）。
+/// 一张墙格子：`cells[y][x]`，每格 `cell` 见方、第 (0, 0) 格的角在 `origin`（游戏自己的图 32000、(0, 0)；峡谷 72000/11、
+/// (36000/11, 0)）。`cells` 是英雄中心站不住的格子，`rock` 是真墙。游戏自己的图两者一样（`rock` 为 None）；峡谷上 `cells`
+/// 是墙往外长一格（`rift_ground`），`rock` 是墙体文件本身的墙（`rift_walls`）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub cell: f64,
     pub origin: (f64, f64),
+    pub rock: Option<Vec<Vec<bool>>>,
 }
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0) }
+        Grid {
+            cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(),
+            cell: CELL,
+            origin: (0.0, 0.0),
+            rock: None,
+        }
     }
 
     /// 峡谷的墙（墙体坐标.json 读出来的）：它自己的格子边长和原点。
     pub fn from_walls(w: &Walls) -> Grid {
-        Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin }
+        Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin, rock: None }
     }
 
     pub fn builtin() -> [Grid; 3] {
         [Grid::from_rows(&maps::MOBA), Grid::from_rows(&maps::SINGLE_LANE), Grid::from_rows(&maps::DEATH_MATCH)]
     }
 
-    /// 世界坐标落在墙格里吗（地图外不算：只关心树林里的墙）。
+    /// 世界坐标落在墙格里吗（英雄中心站不住；地图外不算：只关心树林里的墙）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        self.at_layer(&self.cells, x, y)
+    }
+
+    /// 世界坐标落在真墙里吗（游戏自己的图就是 [`Grid::is_wall`]）。
+    pub fn is_rock(&self, x: f64, y: f64) -> bool {
+        self.at_layer(self.rock.as_ref().unwrap_or(&self.cells), x, y)
+    }
+
+    fn at_layer(&self, layer: &[Vec<bool>], x: f64, y: f64) -> bool {
         let (fx, fy) = ((x - self.origin.0) / self.cell, (y - self.origin.1) / self.cell);
         if fx < 0.0 || fy < 0.0 {
             return false;
         }
         let (cx, cy) = (fx as usize, fy as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(false)
+        layer.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(false)
     }
 
-    /// 两点之间的直线穿过墙格吗（两端不算）。
+    /// 两点之间的直线穿过真墙吗（两端不算）。
     pub fn crosses(&self, a: (f64, f64), b: (f64, f64)) -> bool {
         let d = dist(a, b);
         let n = (d / STEP).floor() as usize;
         (1..n).any(|i| {
             let t = i as f64 / n as f64;
-            self.is_wall(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
+            self.is_rock(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
         })
     }
 }
@@ -81,11 +100,27 @@ pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
 
 /// 峡谷上的墙：墙体文件的（[`Grid::from_walls`]），没有文件时一格墙都没有（不知道哪里有墙）。
 pub fn rift_grid(walls: Option<&Walls>) -> Grid {
-    walls.map_or_else(|| Grid { cells: Vec::new(), cell: Map::Rift.extent(), origin: (0.0, 0.0) }, Grid::from_walls)
+    walls.map_or_else(|| Grid { cells: Vec::new(), cell: Map::Rift.extent(), origin: (0.0, 0.0), rock: None }, Grid::from_walls)
+}
+
+/// 峡谷的两层：站不住的格子（`ground`，墙往外长一格）和真墙（`rock`，墙体文件）。缺一层就只用另一层（和以前一样）。
+pub fn rift_layers(rock: Option<&Walls>, ground: Option<&Walls>) -> Grid {
+    match (rock, ground) {
+        (Some(r), Some(g)) if r.cells.len() == g.cells.len() && r.cell == g.cell && r.origin == g.origin => {
+            Grid { rock: Some(r.cells.clone()), ..Grid::from_walls(g) }
+        }
+        (_, Some(g)) => rift_grid(Some(g)),
+        (r, None) => rift_grid(r),
+    }
+}
+
+/// 他站在墙里吗（挂穿墙的暗影雾）：真墙里才算，峡谷上贴着墙边那一圈不算。
+pub fn in_rock(grid: &Grid, at: (f64, f64)) -> bool {
+    grid.is_rock(at.0, at.1)
 }
 
 /// 峡谷的墙，换成本包的格子一次（87000 多格，不每 tick 重建）。
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_grid(rift_ground()));
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| rift_layers(rift_walls(), rift_ground()));
 /// 这次启动已经在日志里说过峡谷了。
 static RIFT_SEEN: AtomicBool = AtomicBool::new(false);
 
@@ -181,8 +216,9 @@ impl Walker {
         // the Rift (towers past 1000000): its walls, converted once - never the game's own grids
         let grid: &Grid = if map_of_sim(sim) == Map::Rift {
             if !RIFT_SEEN.swap(true, Ordering::Relaxed) {
-                super::wlog(format!("== Rift: Kayn's Shadow Step cuts through the Rift's walls (none known without the walls \
-                                     file: no cut, no in-wall shadow); {} ==", rift_status()));
+                super::wlog(format!("== Rift: Kayn's Shadow Step cuts through the Rift's rock (landings clear of the walls grown \
+                                     by a cell; rock layer {}; none known without the walls file: no cut, no in-wall shadow); \
+                                     {} ==", if RIFT_GRID.rock.is_some() { "on" } else { "missing" }, rift_status()));
             }
             &RIFT_GRID
         } else {
@@ -198,7 +234,7 @@ impl Walker {
             self.last = None;
             return false;
         }
-        let in_wall = grid.is_wall(here.0, here.1);
+        let in_wall = in_rock(grid, here);
         if self.goal.is_none() {
             let foe = foes.iter().copied().min_by(|a, b| dist(here, *a).total_cmp(&dist(here, *b)));
             if let Some(to) = foe.and_then(|f| through(grid, here, f)) {
@@ -306,5 +342,70 @@ mod tests {
             assert!(!none.crosses(a, b) && through(&none, a, b).is_none());
         }
         assert!(blocked.is_wall(1_210_000.0, 1_200_000.0) && !none.is_wall(1_210_000.0, 1_200_000.0));
+    }
+
+    #[test]
+    fn on_the_rift_he_cuts_only_through_rock_not_the_ground_round_it() {
+        // 真墙：220..222 列、200..239 行（x 1202727..1219091）；站不住的那层是它往外长一格（峡谷的 rift_ground 那样）
+        let rock = rift_file(220..223, 200..240);
+        let ground = rock.padded();
+        let (g, old) = (rift_layers(Some(&rock), Some(&ground)), rift_grid(Some(&ground)));
+        assert!(g.rock.is_some() && old.rock.is_none());
+        // 隔着真墙：照旧穿过去，落在长出来的那一圈外面
+        let (me, foe) = ((1_180_000.0, 1_200_000.0), (1_240_000.0, 1_200_000.0));
+        let to = through(&g, me, foe).expect("through the rock");
+        assert!(!g.is_wall(to.0, to.1) && to.0 > 1_224_545.0 && to.0 < foe.0, "{to:?}");
+        // 贴着墙的上沿（199 行只是长出来的那一圈）：中间一格真墙都没有。以前当成隔墙冲过去，现在不冲
+        let (me, foe) = ((1_180_000.0, 1_088_000.0), (1_240_000.0, 1_088_000.0));
+        assert!(old.crosses(me, foe) && through(&old, me, foe).is_some(), "the old grid cut here");
+        assert!(!g.crosses(me, foe) && through(&g, me, foe).is_none());
+        // 暗影雾：真墙里才挂；走在墙边那一圈里不挂（以前挂）
+        let edge = (1_200_000.0, 1_200_000.0);
+        assert!(in_rock(&g, (1_210_000.0, 1_200_000.0)) && g.is_wall(edge.0, edge.1));
+        assert!(!in_rock(&g, edge) && in_rock(&old, edge));
+        // 游戏自己的图只有一层，照旧
+        let moba = &Grid::builtin()[0];
+        assert!(moba.rock.is_none() && in_rock(moba, (15.5 * CELL, 3.5 * CELL)));
+    }
+
+    /// 峡谷真的墙（设了 `LEAGUE_RIFT_WALLS` 才跑）：游戏里的两层。每个空地朝八个方向 60000 外的人：以前只拿长了一格的
+    /// 那层，有的「隔墙」冲刺中间一格真墙都没有；现在每次都隔着真墙、落在站得住的地方。
+    #[test]
+    fn on_the_rifts_real_rock_every_cut_is_through_rock() {
+        let Some(path) = std::env::var_os(game_places::terrain::RIFT_WALLS_ENV) else { return };
+        let rock = game_places::terrain::load_rift_walls(&[path.into()]).unwrap();
+        let ground = rock.padded();
+        let (old, g) = (rift_grid(Some(&ground)), rift_layers(Some(&rock), Some(&ground)));
+        assert!(g.rock.is_some());
+        let side = Map::Rift.extent();
+        let (mut spots, mut old_n, mut old_bad, mut new_n) = (0, 0, 0, 0);
+        let mut y = 20_000.0;
+        while y < side {
+            let mut x = 20_000.0;
+            while x < side {
+                if !g.is_wall(x, y) {
+                    spots += 1;
+                    for k in 0..8 {
+                        let a = k as f64 * std::f64::consts::TAU / 8.0;
+                        let foe = (x + 60_000.0 * a.cos(), y + 60_000.0 * a.sin());
+                        if g.is_wall(foe.0, foe.1) || !(0.0..side).contains(&foe.0) || !(0.0..side).contains(&foe.1) {
+                            continue;
+                        }
+                        if through(&old, (x, y), foe).is_some() {
+                            old_n += 1;
+                            old_bad += usize::from(!g.crosses((x, y), foe));
+                        }
+                        if let Some(to) = through(&g, (x, y), foe) {
+                            new_n += 1;
+                            assert!(g.crosses((x, y), foe) && !g.is_wall(to.0, to.1), "({x},{y}) -> {foe:?}: {to:?}");
+                        }
+                    }
+                }
+                x += 40_000.0;
+            }
+            y += 40_000.0;
+        }
+        println!("{spots} spots: the old grid's {old_n} cuts, {old_bad} with no rock between; now {new_n} cuts");
+        assert!(spots > 300 && old_bad > 0 && new_n > 100, "{spots} spots, {old_bad} of {old_n} old, {new_n} new");
     }
 }

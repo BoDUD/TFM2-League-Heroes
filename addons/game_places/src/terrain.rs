@@ -837,20 +837,22 @@ mod tests {
     }
 
     /// 真的资料（开发机设了 `LEAGUE_RIFT_WALLS` 才跑，CI 上没有）：墙、寻路网格、草丛都读得到，寻路网格是墙外 5000。
+    /// 数字是 2026-11-28 起装着的那份：walk.bin / brush-fine.bin 取自 0.1.86 源码，墙体坐标在寻路网格改过的那片按它重算
+    /// （D:/TFM2-Workshop/rift_skill/rift_data_0186.py）；0.1.40 那份是 32393 墙、761604 可走、草丛 23016 格、长一格后 46969。
     #[test]
     fn the_real_files_read_when_given() {
         let Some(p) = std::env::var_os(RIFT_WALLS_ENV) else { return };
         let w = load_rift_walls(&[PathBuf::from(p)]).unwrap();
-        assert_eq!((w.cols(), w.rows(), w.count()), (295, 296, 32_393));
+        assert_eq!((w.cols(), w.rows(), w.count()), (295, 296, 32_352));
         assert!((w.extent.0 - RIFT_EXTENT).abs() < 1.0);
         let (walk, brush) = load_fine_in(&data_dir_of(Path::new(&w.source)), w.extent.0);
         let (walk, brush) = (walk.unwrap(), brush.unwrap());
         assert_eq!((walk.cols(), walk.rows()), (1180, 1184));
-        assert_eq!(walk.cells.iter().flatten().filter(|c| !**c).count(), 761_604);
-        assert_eq!((brush.zone_count(), brush.count()), (24, 23_016));
+        assert_eq!(walk.cells.iter().flatten().filter(|c| !**c).count(), 762_101);
+        assert_eq!((brush.zone_count(), brush.count()), (24, 22_981));
         // 墙长一格以后剩下的地方全在作者的寻路网格里：一格都不用多关
         let mut ground = w.padded();
-        assert_eq!(ground.cells.iter().flatten().filter(|c| !**c).count(), 46_969);
+        assert_eq!(ground.cells.iter().flatten().filter(|c| !**c).count(), 46_999);
         assert_eq!(close_unwalkable(&mut ground, &walk), 0);
         // every open fine cell is at least the path radius off every wall cell; no brush cell is in a wall
         for (y, row) in walk.cells.iter().enumerate() {
