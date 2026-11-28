@@ -613,8 +613,14 @@ impl StableEntity<'_, '_> {
 
     pub fn buff_at(&self, index: usize) -> Option<BuffV1> {
         let f = slot!(self.sim.sim(), SimVtableV1, entity_buff_at)?;
-        let mut out = BuffV1::default();
-        unsafe { f(self.sim.state(), self.handle, index, &mut out) }.then_some(out)
+        // 不先清零：成功时游戏把整个 BuffV1（0x118 字节）写满，失败时不读它。原来每读一个 buff 都先清零 0x118 字节。
+        let mut out = std::mem::MaybeUninit::<BuffV1>::uninit();
+        if unsafe { f(self.sim.state(), self.handle, index, out.as_mut_ptr()) } {
+            // SAFETY: 返回 true 时 out 已被写满（游戏的 0x3516810 和地图的快接口都是整块写 0x118 字节）
+            Some(unsafe { out.assume_init() })
+        } else {
+            None
+        }
     }
 
     pub fn cc_at(&self, index: usize) -> Option<CcV1> {
