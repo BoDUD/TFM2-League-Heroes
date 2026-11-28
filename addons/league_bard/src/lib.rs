@@ -18,9 +18,12 @@
 //! 落点不在墙格里（卡蜜尔钩墙附加包的地图）、离地图边至少 `EDGE`、离起点不超过 `e_far`。
 //!
 //! 两张 5v5 地图（2026-11-10，用户：「要同时兼容原版地图和这个地图」）：每次看局面按这局的塔和水晶判断是哪张图
-//! （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷（1614545 见方）用峡谷作者的墙体文件
-//! （`terrain::rift_walls`，295 x 296 格、每格 60000/11），没有文件时峡谷上不知道哪里有墙，就不开门（以前拿内置地图：
+//! （`game_places::terrain::map_of_sim`）。游戏自己的地图照旧；Rin 的召唤师峡谷（1937454 见方）用峡谷作者的墙体文件
+//! （`terrain::rift_walls`，295 x 296 格、每格 72000/11），没有文件时峡谷上不知道哪里有墙，就不开门（以前拿内置地图：
 //! 960000 以外的落点都「不在地图里」，峡谷的远半边从来开不了门，近半边开在内置地图的墙上）。
+//! 0.6.9（2026-11-28，用户：「巴德没有兼容大地图吧 穿梭门会乱放」）：峡谷上分两层——门穿的、「墙后」看的是真墙
+//! （`rift_walls`），落点站不站得住看墙往外长一格的那层（`rift_ground`）。以前两样都拿长了一格的那层，门从墙角、墙边那一圈
+//! 擦过去也算穿墙：那两天日志里 915 道门有 105 道开在空地上，还有一千出头长的门。穿的真墙至少 `MIN_ROCK` 厚。
 //!
 //! 开门：冷却 `e_cd_t`；他先飞到墙前（入口离墙 `ENTRY_BACK`），门在他身后贴着墙打开（buff 画面 `league_bard_e_doorb`，门的 2.5 倍）、`skill2_e` 动作 `e_anim` tick、
 //! 音效；`e_wind` tick 后他和门边 `e_ride` 内的友方英雄一起在 `e_tick` tick 内强制位移过去（队友同样的位移，那里有墙就落在
@@ -288,17 +291,28 @@ pub fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
 }
 
 /// 一张墙格子：`cells[y][x]`（泰隆附加包的那张），每格 `cell` 见方，(0, 0) 格的角在 `origin`（游戏自己的地图 32000、
-/// (0, 0)；峡谷的墙体文件 60000/11、(30000/11, 0)）。
+/// (0, 0)；峡谷的墙体文件 72000/11、(36000/11, 0)）。
+/// `cells` 是英雄的中心站不住的格子；`rock` 是真正的墙（门穿过去的地形）。游戏自己的地图两者一样（`rock` 为 None）；
+/// 峡谷上 `cells` 是墙往外长一格（`terrain::rift_ground`），`rock` 是墙体文件本身的墙（`terrain::rift_walls`）。
 #[derive(Clone, Debug, PartialEq)]
 pub struct Grid {
     pub cells: Vec<Vec<bool>>,
     pub cell: f64,
     pub origin: (f64, f64),
+    pub rock: Option<Vec<Vec<bool>>>,
 }
+
+/// 穿过的真墙至少这么厚才算穿墙（门、追人的「墙后」）：擦过墙角不算。
+pub const MIN_ROCK: f64 = 3_000.0;
 
 impl Grid {
     pub fn from_rows(rows: &[&str]) -> Grid {
-        Grid { cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(), cell: CELL, origin: (0.0, 0.0) }
+        Grid {
+            cells: rows.iter().map(|r| r.chars().map(|c| c == '#').collect()).collect(),
+            cell: CELL,
+            origin: (0.0, 0.0),
+            rock: None,
+        }
     }
 
     pub fn builtin() -> [Grid; 3] {
@@ -308,8 +322,21 @@ impl Grid {
     /// 峡谷的墙：有墙体文件就是文件的墙格；没有就是一格地图大小的空地（不知道哪里有墙：不开门）。
     pub fn rift(walls: Option<&terrain::Walls>) -> Grid {
         match walls {
-            Some(w) => Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin },
-            None => Grid { cells: vec![vec![false]], cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0) },
+            Some(w) => Grid { cells: w.cells.clone(), cell: w.cell, origin: w.origin, rock: None },
+            None => Grid { cells: vec![vec![false]], cell: terrain::RIFT_EXTENT, origin: (0.0, 0.0), rock: None },
+        }
+    }
+
+    /// 峡谷的两层：站不住的格子（`ground`，墙往外长一格）和真墙（`rock`，墙体文件）。以前只拿长了一格的那层当墙，
+    /// 门从墙角、墙边那一圈擦过去也算「穿墙」，开在空地上（用户 2026-11-28：「巴德没有兼容大地图吧 穿梭门会乱放」——
+    /// 那两天的日志里 915 道门有 105 道入口和出口之间没有一格真墙）。缺一层就只用另一层（和以前一样）。
+    pub fn rift_layers(rock: Option<&terrain::Walls>, ground: Option<&terrain::Walls>) -> Grid {
+        match (rock, ground) {
+            (Some(r), Some(g)) if r.cells.len() == g.cells.len() && r.cell == g.cell && r.origin == g.origin => {
+                Grid { cells: g.cells.clone(), cell: g.cell, origin: g.origin, rock: Some(r.cells.clone()) }
+            }
+            (_, Some(g)) => Grid::rift(Some(g)),
+            (r, None) => Grid::rift(r),
         }
     }
 
@@ -325,46 +352,64 @@ impl Grid {
         p.0 >= self.origin.0 + EDGE && p.1 >= self.origin.1 + EDGE && p.0 <= w - EDGE && p.1 <= h - EDGE
     }
 
-    /// 世界坐标落在墙格里吗（地图外不算）。
+    /// 世界坐标落在墙格里吗（英雄的中心站不住；地图外不算）。
     pub fn is_wall(&self, x: f64, y: f64) -> bool {
+        self.at_layer(&self.cells, x, y)
+    }
+
+    /// 世界坐标落在真墙里吗（门穿过的地形；游戏自己的地图就是 [`Grid::is_wall`]）。
+    pub fn is_rock(&self, x: f64, y: f64) -> bool {
+        self.at_layer(self.rock.as_ref().unwrap_or(&self.cells), x, y)
+    }
+
+    fn at_layer(&self, layer: &[Vec<bool>], x: f64, y: f64) -> bool {
         let (x, y) = (x - self.origin.0, y - self.origin.1);
         if x < 0.0 || y < 0.0 {
             return false;
         }
         let (cx, cy) = ((x / self.cell) as usize, (y / self.cell) as usize);
-        self.cells.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(false)
+        layer.get(cy).and_then(|r| r.get(cx)).copied().unwrap_or(false)
     }
 
     pub fn walls(&self) -> usize {
         self.cells.iter().flatten().filter(|w| **w).count()
     }
 
-    /// 两点之间的直线碰到墙格吗（终点也算）。
+    /// 两点之间的直线穿过真墙吗（终点也算）。
     pub fn blocked(&self, a: (f64, f64), b: (f64, f64)) -> bool {
         let n = (dist(a, b) / STEP).ceil().max(1.0) as usize;
         (1..=n).any(|i| {
             let t = i as f64 / n as f64;
-            self.is_wall(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
+            self.is_rock(a.0 + (b.0 - a.0) * t, a.1 + (b.1 - a.1) * t)
         })
     }
 
-    /// 朝 `dir`（单位向量）穿墙（泰隆附加包的翻墙）：`reach` 内碰到墙、一路穿过去，落在墙另一边 `MARGIN` 处；落点不超过
-    /// `far`、不在墙里、在地图里不贴边。返回 (入口：墙前 `ENTRY_BACK` 处，出口)。
+    /// 朝 `dir`（单位向量）穿墙（泰隆附加包的翻墙）：`reach` 内碰到真墙、一路穿过去（至少 `MIN_ROCK` 厚，擦过墙角不算），
+    /// 落在墙另一边 `MARGIN` 处，还在英雄站不住的那一圈里就再往前走出来；落点不超过 `far`、站得住、在地图里不贴边。
+    /// 返回 (入口：真墙前 `ENTRY_BACK` 处，出口)。
     pub fn vault(&self, from: (f64, f64), dir: (f64, f64), reach: f64, far: f64) -> Option<((f64, f64), (f64, f64))> {
         let at = |t: f64| (from.0 + dir.0 * t, from.1 + dir.1 * t);
         let mut t = STEP;
-        while t <= reach && !self.is_wall(at(t).0, at(t).1) {
+        while t <= reach && !self.is_rock(at(t).0, at(t).1) {
             t += STEP;
         }
         if t > reach {
             return None;
         }
         let entry = at((t - sk(ENTRY_BACK)).max(0.0));
-        while t <= far && self.is_wall(at(t).0, at(t).1) {
+        let start = t;
+        while t <= far && self.is_rock(at(t).0, at(t).1) {
             t += STEP;
         }
-        let to = at(t + MARGIN);
-        (t + MARGIN <= far && !self.is_wall(to.0, to.1) && self.roomy(to)).then_some((entry, to))
+        if t - start < MIN_ROCK {
+            return None;
+        }
+        let mut land = t + MARGIN;
+        while land <= far && self.is_wall(at(land).0, at(land).1) && !self.is_rock(at(land).0, at(land).1) {
+            land += STEP;
+        }
+        let to = at(land);
+        (land <= far && !self.is_wall(to.0, to.1) && self.roomy(to)).then_some((entry, to))
     }
 }
 
@@ -393,7 +438,7 @@ pub fn current(grids: &[Grid], champions: &[(f64, f64)]) -> Option<usize> {
 
 /// 游戏的三张内置地图，和峡谷的墙（墙体文件每次启动只读、只换一次，第一次到峡谷上才读）。
 static GRIDS: LazyLock<[Grid; 3]> = LazyLock::new(Grid::builtin);
-static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::rift(terrain::rift_ground()));
+static RIFT_GRID: LazyLock<Grid> = LazyLock::new(|| Grid::rift_layers(terrain::rift_walls(), terrain::rift_ground()));
 
 /// 这局的墙：峡谷上是峡谷的（第一次遇到时日志里记一行），游戏自己的地图照旧从三张内置地图里挑（[`current`]）。
 fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
@@ -401,8 +446,9 @@ fn grid_now(sim: &StableSim<'_>) -> Option<&'static Grid> {
         Map::Rift => {
             static MET: AtomicBool = AtomicBool::new(false);
             if !MET.swap(true, Ordering::Relaxed) {
-                wlog(format!("== Rift: Magical Journey opens on the Rift's walls (from its walls file; with no file no \
-                              wall is known there and no door opens); {} ==", terrain::rift_status()));
+                wlog(format!("== Rift: Magical Journey opens through the Rift's rock (its walls file; landings clear of \
+                              the walls grown by a cell; rock layer {}; with no file no wall is known there and no door \
+                              opens); {} ==", if RIFT_GRID.rock.is_some() { "on" } else { "missing" }, terrain::rift_status()));
             }
             Some(&*RIFT_GRID)
         }
@@ -1330,6 +1376,28 @@ mod tests {
         assert!(id == 7 && dist(to, prey.at) + CLOSER <= dist(me, prey.at) && !g.is_wall(to.0, to.1), "{to:?}");
         let q = ride_exit(&g, me, to, (1_295_000.0, 1_210_000.0)).expect("the ally comes along");
         assert!(!g.is_wall(q.0, q.1) && g.roomy(q), "{q:?}");
+    }
+
+    #[test]
+    fn on_the_rift_a_door_crosses_rock_not_just_the_ground_round_it() {
+        let p = Params::default();
+        // 真墙 30000 厚；英雄站不住的那层是它往外长一格（峡谷的 rift_ground 那样）
+        let rock = rift_walls(&[((1_315_000.0, 1_100_000.0), (1_345_000.0, 1_300_000.0))]);
+        let g = Grid::rift_layers(Some(&rock), Some(&rock.padded()));
+        assert!(g.rock.is_some());
+        let me = (1_300_000.0, 1_200_000.0);
+        let (entry, to) = plan_exit(&p, &g, me, &[(1_280_000.0, 1_200_000.0)], None).expect("a door through the rock");
+        // 真墙的第一列从 241 格起（中心落在矩形里的格子：x 约 1317272）
+        assert!(!g.is_rock(entry.0, entry.1) && entry.0 < 1_317_000.0 && entry.0 > 1_300_000.0,
+                "the door at the rock's face: {entry:?}");
+        // 出口：穿过了真墙（往右或从墙顶出去都行），落在长出来的那一圈外面
+        assert!(!g.is_wall(to.0, to.1) && g.roomy(to) && g.blocked(me, to), "{to:?}");
+        // 贴着墙的上沿往右：只擦过长出来的那一圈，一格真墙都没有。以前（只有那一层）这里开门，现在不开
+        let along = (1_300_000.0, 1_099_000.0);
+        let old = Grid::rift(Some(&rock.padded()));
+        assert!(old.vault(along, (1.0, 0.0), 30_000.0, 80_000.0).is_some(), "the old grid opened a door here");
+        assert_eq!(g.vault(along, (1.0, 0.0), 30_000.0, 80_000.0), None, "no rock on the way: no door");
+        assert!(!g.blocked(along, (1_360_000.0, 1_099_000.0)), "nothing behind it either");
     }
 
     /// 峡谷真的墙：开发者用 `LEAGUE_RIFT_WALLS` 指着作者的墙体文件时才跑（CI 没有文件，跳过）。
