@@ -247,7 +247,26 @@ fn dist2(a: (u64, u64), b: (u64, u64)) -> u64 {
 }
 
 fn has(e: &StableEntity<'_, '_>, name: &str) -> bool {
-    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name)
+    (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| named(&b, name))
+}
+
+/// 和 `b.name() == name` 一样，只是直接比原始名字字节（不是合法 UTF-8 时 name() 是空串，所以找空串时照原来比）。
+fn named(b: &BuffV1, name: &str) -> bool {
+    if name.is_empty() {
+        return b.name().is_empty();
+    }
+    &b.name_buf[..b.name_len.min(b.name_buf.len())] == name.as_bytes()
+}
+
+/// 身上有没有 Locke 的三个标记（银桩、Q、R），一次读完。
+fn marks(e: &StableEntity<'_, '_>) -> (bool, bool, bool) {
+    let (mut p, mut q, mut r) = (false, false, false);
+    for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
+        p |= named(&b, P_HIT);
+        q |= named(&b, Q_MARK);
+        r |= named(&b, R_MARK);
+    }
+    (p, q, r)
 }
 
 // ===================== 被动 =====================
@@ -396,13 +415,15 @@ impl Exorcist {
                 }
                 continue;
             }
-            if has(&c, P_HIT) || has(&c, Q_MARK) || has(&c, R_MARK) {
+            // 三个标记一次读完（原来最多扫 4 遍；这中间不改他身上的 buff）
+            let (p_hit, q_mark, r_mark) = marks(&c);
+            if p_hit || q_mark || r_mark {
                 match self.touched.iter_mut().find(|(t, _)| *t == id) {
                     Some(x) => x.1 = tick,
                     None => self.touched.push((id, tick)),
                 }
             }
-            if has(&c, R_MARK) {
+            if r_mark {
                 let (hp, max) = c.hp();
                 if hp > 0 && hp < exec_line(&self.p, max, self.seals) {
                     // 0.1.4: untargetable or taking no damage (Vladimir's pool): the execute waits, the mark stays
