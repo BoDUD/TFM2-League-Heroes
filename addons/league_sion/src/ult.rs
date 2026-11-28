@@ -22,6 +22,8 @@
 //! 队友还在是救人，`R_NEAR` 内（加两个身体，`allies_near`）的队友 2 名以上是团战、1 名是开团 / 追击、没有就是哪条都不符。
 use std::collections::HashSet;
 
+// 大招的范围用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 /// 主包参数表的数字（单元测试核对 build_sion.P）：冲最多 R_TICK tick，R_B1 / R_B2 分三档伤害，窗口 R_ARM_T tick，轮询 R_POLL。
@@ -78,8 +80,8 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
 pub fn held_pick(me: (f64, f64), my_r: f64, mates: &[Mate], foes: &[((f64, f64), f64)]) -> Option<usize> {
     mates
         .iter()
-        .filter(|m| !m.hard.is_empty() && dist(me, m.at) <= R_SAVE as f64 + my_r + m.r)
-        .filter(|m| foes.iter().any(|&(at, r)| dist(m.at, at) <= R_PEEL as f64 + m.r + r))
+        .filter(|m| !m.hard.is_empty() && dist(me, m.at) <= sk(R_SAVE) as f64 + my_r + m.r)
+        .filter(|m| foes.iter().any(|&(at, r)| dist(m.at, at) <= sk(R_PEEL) as f64 + m.r + r))
         .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)).then(a.id.cmp(&b.id)))
         .map(|m| m.id)
 }
@@ -118,7 +120,7 @@ pub fn counted_reason(held: bool, allies: usize) -> &'static str {
 /// 他身边的队友数，照数据的 `around(r_near, AllyChampion)`：`R_NEAR` 内，加上两个身体。`mates`：活着的友方英雄（不含他）的
 /// 位置和身体半径。
 pub fn allies_near(me: (f64, f64), my_r: f64, mates: &[((f64, f64), f64)]) -> usize {
-    mates.iter().filter(|&&(at, r)| dist(me, at) <= R_NEAR as f64 + my_r + r).count()
+    mates.iter().filter(|&&(at, r)| dist(me, at) <= sk(R_NEAR) as f64 + my_r + r).count()
 }
 
 /// 冲了 `ran` tick 后 `r_go` 没了：撞上（第几档）还是跑满没撞到。

@@ -4,6 +4,9 @@
 //! 150 + 120% 攻击力 + 12% 最大生命，AI 一好就放。副本（`make_override.py`）去掉 12% 最大生命，落剑时本包按目标那时的
 //! 已损失生命补 `R_MISSING`% 的真实伤害；AI 钩子只在这一剑砍得死人时放。数字和主包核对见 `make_override.py`。
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
+
 /// 盖伦的英雄 id。
 pub const HERO: &str = "league_garen";
 /// 主包 R 的固定伤害和攻击力 %（FixedAttack 的 damage / attack_ratio）。
@@ -152,8 +155,8 @@ pub fn hold_move(
     foes: &[(f64, f64)],
     towers: &[(f64, f64)],
 ) -> HoldMove {
-    let theirs = foes.iter().filter(|&&p| dist(p, target) <= CROWD_R).count().max(1);
-    let ours = 1 + allies.iter().filter(|&&p| dist(p, me) <= CROWD_R).count();
+    let theirs = foes.iter().filter(|&&p| dist(p, target) <= sk(CROWD_R)).count().max(1);
+    let ours = 1 + allies.iter().filter(|&&p| dist(p, me) <= sk(CROWD_R)).count();
     if towers.iter().any(|&w| dist(w, target) <= TOWER_REACH) && ours < theirs + DIVE_AHEAD {
         return HoldMove::Back("under its tower");
     }

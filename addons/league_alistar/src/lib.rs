@@ -30,6 +30,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_alistar";
@@ -223,7 +225,7 @@ impl Roar {
             }
         }
         self.near.clear();
-        let r2 = (NEAR as u128) * (NEAR as u128);
+        let r2 = (sk(NEAR) as u128) * (sk(NEAR) as u128);
         for i in 0..sim.entity_count() {
             let Some(u) = sim.entity_at(i) else { continue };
             if u.team() == team || !u.is_alive() || u.is_tower() {
@@ -247,7 +249,7 @@ impl Roar {
         sim.play_sfx(ROAR_SFX, me, &on_me);
         sim.heal(me, me, mine);
         sim.play_view_effect(HEAL_VIEW, me, &on_me, 0, 0, 0);
-        let r2 = (P_R as u128) * (P_R as u128);
+        let r2 = (sk(P_R) as u128) * (sk(P_R) as u128);
         let allies: Vec<usize> = (0..sim.champion_count())
             .map(|i| sim.champion_id_at(i))
             .filter(|&id| id != me)

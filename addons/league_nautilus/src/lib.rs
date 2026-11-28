@@ -37,6 +37,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
@@ -258,19 +260,19 @@ pub enum Hit {
 
 /// 沿 Q 的方向：`foes`（敌方英雄）里离路线 `Q_RAD + BODY` 以内、在墙前的先被钩；否则 `Q_REACH` 内的墙（不近于 `HOOK_MIN`）。
 pub fn trace(g: &Grid, from: (f64, f64), dir: (f64, f64), foes: &[(f64, f64)]) -> Hit {
-    let wall = g.first_wall(from, dir, Q_REACH);
-    let limit = wall.unwrap_or(Q_REACH);
+    let wall = g.first_wall(from, dir, sk(Q_REACH));
+    let limit = wall.unwrap_or(sk(Q_REACH));
     let hits_unit = foes.iter().any(|f| {
         let v = (f.0 - from.0, f.1 - from.1);
         let along = v.0 * dir.0 + v.1 * dir.1;
         let across = (v.0 * dir.1 - v.1 * dir.0).abs();
-        along > 0.0 && along <= limit && across <= Q_RAD + BODY
+        along > 0.0 && along <= limit && across <= sk(Q_RAD) + BODY
     });
     if hits_unit {
         return Hit::Unit;
     }
     match wall {
-        Some(t) if t >= HOOK_MIN => {
+        Some(t) if t >= sk(HOOK_MIN) => {
             let stop = t - GAP;
             Hit::Wall((from.0 + dir.0 * stop, from.1 + dir.1 * stop), t)
         }
@@ -402,7 +404,7 @@ pub fn watching(w: &Watch, here: (f64, f64), tick: usize) -> Watching {
     if dist(w.last, here) >= 1.0 {
         return Watching::Moving;
     }
-    let s = Q_DASH.min(d);
+    let s = sk(Q_DASH).min(d);
     Watching::Step((here.0 + (w.to.0 - here.0) / d * s, here.1 + (w.to.1 - here.1) / d * s))
 }
 
@@ -436,7 +438,7 @@ fn hook(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let Some(g) = grid_now(sim) else { return };
     match trace(g, here, dir, &foes) {
         Hit::Wall(stop, t) => {
-            let flight = (t / Q_SPEED).ceil() as usize;
+            let flight = (t / sk(Q_SPEED)).ceil() as usize;
             wlog(format!("{} HOOK the wall: from {} toward ({:.2},{:.2}), wall at {:.0}, pulled to {} in {} ticks", head(sim, caster), pt(here), dir.0, dir.1, t, pt(stop), flight));
             queue(sim, "pull", caster, InputTargetV1::pos(stop.0.round().max(0.0) as u64, stop.1.round().max(0.0) as u64), flight);
         }
@@ -453,7 +455,7 @@ fn pull(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         return;
     }
     let d = dist(here, to);
-    let ticks = (d / Q_DASH).ceil().max(1.0);
+    let ticks = (d / sk(Q_DASH)).ceil().max(1.0);
     let mut anim = CcV1::of_kind(CcKindV1::Animation, Q_ANIM.max(ticks as u64));
     anim.set_name("skill_pull");
     sim.apply_cc(caster, &anim);

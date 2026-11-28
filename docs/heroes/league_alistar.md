@@ -55,7 +55,7 @@
 
 ### 阿利斯塔附加包
 
-[阿利斯塔附加包](../../addons/league_alistar/README.md)：`league_alistar` v0.1.1
+[阿利斯塔附加包](../../addons/league_alistar/README.md)：`league_alistar` v0.1.2
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

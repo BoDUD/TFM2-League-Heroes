@@ -55,7 +55,7 @@
 
 ### 嘉文四世附加包
 
-[嘉文四世附加包](../../addons/league_jarvaniv/README.md)：`league_jarvaniv` v0.1.4
+[嘉文四世附加包](../../addons/league_jarvaniv/README.md)：`league_jarvaniv` v0.1.5
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

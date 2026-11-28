@@ -25,6 +25,8 @@ use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3（大招整个是本包做的）
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_gragas";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -179,7 +181,7 @@ pub struct Foe {
 /// 落在 `spot` 炸得到的敌人的分数（`me` 是古拉加斯）。
 pub fn score(me: (f64, f64), spot: (f64, f64), foes: &[Foe]) -> f64 {
     foes.iter()
-        .filter(|f| dist(f.at, spot) <= R_R + BODY)
+        .filter(|f| dist(f.at, spot) <= sk(R_R) + BODY)
         .map(|f| if f.champion { CHAMP_SCORE + BACK_SCORE * dist(me, f.at) / 10_000.0 } else { UNIT_SCORE })
         .sum()
 }
@@ -209,9 +211,9 @@ pub fn best_spot_on(map: Map, me: (f64, f64), target: (f64, f64), foes: &[Foe]) 
     let anchors = std::iter::once(target).chain(foes.iter().filter(|f| f.champion).map(|f| f.at));
     for c in anchors {
         let Some(u) = unit((c.0 - me.0, c.1 - me.1)) else { continue };
-        for off in [0.0, BEHIND_1, BEHIND_2] {
+        for off in [0.0, sk(BEHIND_1), sk(BEHIND_2)] {
             let spot = onto(map, (c.0 + u.0 * off, c.1 + u.1 * off));
-            if dist(me, spot) > REACH {
+            if dist(me, spot) > sk(REACH) {
                 continue;
             }
             let s = score(me, spot, foes);
@@ -315,8 +317,8 @@ fn cask(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     };
     let flew = sim.spawn_projectile(&gr("r_cask"), &format!("{ID}:pass"), &spec);
     if let Some(n) = counted("cask", on_screen(sim)) {
-        let hit = list.iter().filter(|f| dist(f.at, spot) <= R_R + BODY).count();
-        let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= R_R + BODY).count();
+        let hit = list.iter().filter(|f| dist(f.at, spot) <= sk(R_R) + BODY).count();
+        let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= sk(R_R) + BODY).count();
         wlog(format!(
             "{} CASK #{n} at {} (target {}, {:.0} behind it, {:.0} from him): {} enemies in reach, {} champions{}",
             head(sim, caster),
@@ -349,11 +351,11 @@ fn boom(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     sim.play_sfx(&gr("r_boom"), caster, &input);
     let mut n = (0, 0);
     for (id, f) in foes_of(sim, team) {
-        if dist(f.at, spot) > R_R + BODY {
+        if dist(f.at, spot) > sk(R_R) + BODY {
             continue;
         }
         sim.deal_damage(caster, id, 0, amount, AttackTypeV1::Skill);
-        sim.entity_grab(caster, id, R_GRAB, R_GRAB_T);
+        sim.entity_grab(caster, id, sk(R_GRAB), R_GRAB_T);
         sim.play_view_effect(&gr("r_hit"), caster, &InputTargetV1::target(id), 0, 0, 0);
         n.0 += 1;
         if f.champion {

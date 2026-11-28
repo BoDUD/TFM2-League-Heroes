@@ -17,6 +17,8 @@
 //! 他自己死了：人留在棺材里到放逐结束，在原地出来，不摔。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, has_buff};
@@ -216,7 +218,7 @@ impl UndertakerPassive {
         self.carry = None;
         sim.entity_remove_buff(entity, CARRYING);
         sim.entity_set_pos(c.victim, at.0, at.1);
-        force_move(sim, c.victim, (c.dir.0 * THROW_DIST, c.dir.1 * THROW_DIST), THROW_TICKS);
+        force_move(sim, c.victim, (c.dir.0 * sk(THROW_DIST), c.dir.1 * sk(THROW_DIST)), THROW_TICKS);
         self.slam(sim, entity, c.victim, max_hp);
     }
 

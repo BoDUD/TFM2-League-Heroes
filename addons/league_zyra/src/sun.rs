@@ -19,6 +19,8 @@
 //! 又是两个 DLL，buff 是两边都看得见的地方。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use super::{at, dist, fpos, head, tally, wlog, zy, Kind, Params};
 
@@ -39,6 +41,12 @@ pub const LINE_HIT: f64 = 7_000.0 + BODY;
 pub const UNIT_HIT: f64 = 7_000.0 + BODY;
 pub const R_HIT: f64 = 36_000.0 + BODY;
 pub const W_HIT: f64 = 35_000.0 + BODY;
+
+/// 上面几个命中距离在这一版里的值：蕾欧娜技能的半径在大地图版乘 1.3（数据跟着切），植物的身子 `BODY` 不乘。
+pub fn hit_r(hit: f64) -> f64 {
+    sk(hit - BODY) + BODY
+}
+
 /// R 的阳光区域出现后多少 tick 落下（主包：delay 60，apply 38）。
 pub const R_AT: usize = 37;
 /// 记她身上阳光层数的单位：离还没变大的植物这么近（走到植物上之前就记着，带着别处挂的阳光走过来不算新的）。
@@ -257,19 +265,19 @@ impl Sun {
             }
         }
         for c in blades.into_iter().map(fpos) {
-            hits.extend(near(&self.plants, c, LINE_HIT).into_iter().map(|i| (i, "her E's blade".to_string())));
+            hits.extend(near(&self.plants, c, hit_r(LINE_HIT)).into_iter().map(|i| (i, "her E's blade".to_string())));
         }
         self.fresh = hers.iter().copied().filter(|s| !self.hers.contains(s)).collect();
         self.hers = hers;
         for z in self.r_zones.iter().filter(|z| z.1 == tick) {
-            hits.extend(near(&self.plants, z.0, R_HIT).into_iter().map(|i| (i, "her R's sunlight".to_string())));
+            hits.extend(near(&self.plants, z.0, hit_r(R_HIT)).into_iter().map(|i| (i, "her R's sunlight".to_string())));
         }
         // ---- W: a new eclipse_hold on her is the burst round her
         let mut holds = Vec::new();
         for &(id, pos) in &leonas {
             let n = count(sim, id, ECLIPSE_HOLD);
             if n > self.holds.iter().find(|h| h.0 == id).map_or(n, |h| h.1) {
-                hits.extend(near(&self.plants, pos, W_HIT).into_iter().map(|i| (i, "her W's burst".to_string())));
+                hits.extend(near(&self.plants, pos, hit_r(W_HIT)).into_iter().map(|i| (i, "her W's burst".to_string())));
             }
             holds.push((id, n));
         }
@@ -290,7 +298,7 @@ impl Sun {
                 let n = (0..e.buff_count()).filter_map(|j| e.buff_at(j)).filter(|b| &b.name_buf[..b.name_len.min(BUFF_NAME_CAP)] == SUNLIGHT.as_bytes()).count();
                 let before = self.sunlit.iter().find(|s| s.0 == id).map(|s| s.1);
                 if before.is_some_and(|b| n > b) {
-                    hits.extend(near(&self.plants, pos, UNIT_HIT).into_iter().map(|k| (k, format!("her sunlight on #{id}"))));
+                    hits.extend(near(&self.plants, pos, hit_r(UNIT_HIT)).into_iter().map(|k| (k, format!("her sunlight on #{id}"))));
                 }
                 sunlit.push((id, n));
             }

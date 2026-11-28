@@ -21,6 +21,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_nilah";
@@ -208,12 +210,12 @@ pub struct Foe {
 
 /// E 冲向谁：射程内血量比例最低的敌方英雄。
 pub fn dash_pick(me: (f64, f64), foes: &[Foe]) -> Option<Foe> {
-    foes.iter().filter(|f| dist(me, f.at) <= E_REACH).min_by_key(|f| f.hp_pct).copied()
+    foes.iter().filter(|f| dist(me, f.at) <= sk(E_REACH)).min_by_key(|f| f.hp_pct).copied()
 }
 
 /// R 现在放不放：圈里 2 个以上；1 个时他血少、她血少或附近没别人会来；等太久也放。
 pub fn ult_ready(me: (f64, f64), my_hp_pct: usize, foes: &[Foe], waited: usize) -> (bool, &'static str) {
-    let inside: Vec<&Foe> = foes.iter().filter(|f| dist(me, f.at) <= R_RAD).collect();
+    let inside: Vec<&Foe> = foes.iter().filter(|f| dist(me, f.at) <= sk(R_RAD)).collect();
     if inside.len() >= 2 {
         return (true, "two or more in the spin");
     }
@@ -224,7 +226,7 @@ pub fn ult_ready(me: (f64, f64), my_hp_pct: usize, foes: &[Foe], waited: usize) 
     if my_hp_pct <= 40 {
         return (true, "she is low");
     }
-    if !foes.iter().any(|f| f.id != only.id && dist(me, f.at) <= R_COMING) {
+    if !foes.iter().any(|f| f.id != only.id && dist(me, f.at) <= sk(R_COMING)) {
         return (true, "no other enemy champion coming");
     }
     if waited >= R_PATIENCE {

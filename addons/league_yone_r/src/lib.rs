@@ -30,6 +30,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, stand_ok, stand_spot, Map};
 use mod_api_stable::*;
 
@@ -189,7 +191,7 @@ pub fn landing_in(map: Map, me: Pt, last: Pt, back: f64, spot: impl Fn(Pt) -> Pt
 
 /// The steps a dash of `d` may take: at SPEED a step, `STEP_SPARE` more, at most `STEP_MAX`.
 pub fn dash_budget(d: f64) -> usize {
-    ((d / SPEED).ceil() as usize + STEP_SPARE).min(STEP_MAX)
+    ((d / sk(SPEED)).ceil() as usize + STEP_SPARE).min(STEP_MAX)
 }
 
 /// The champion struck farthest from him (the last one the slash reaches).
@@ -208,7 +210,7 @@ pub fn step_on(map: Map, at: Pt, goal: Pt) -> Option<Pt> {
     if d < ARRIVE {
         return None;
     }
-    let s = SPEED.min(d);
+    let s = sk(SPEED).min(d);
     Some(clamp(map, (at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s)))
 }
 
@@ -224,8 +226,8 @@ pub fn step_in(map: Map, at: Pt, goal: Pt, ok: impl Fn(Pt) -> bool) -> (Option<P
 
 /// Ticks to pull a champion `d` away toward him (0: close enough).
 pub fn pull_ticks(d: f64) -> usize {
-    let far = (d - STOP).min(PULL_MAX);
-    if far <= 0.0 { 0 } else { (far / PULL_SPEED as f64).ceil() as usize }
+    let far = (d - STOP).min(sk(PULL_MAX));
+    if far <= 0.0 { 0 } else { (far / sk(PULL_SPEED) as f64).ceil() as usize }
 }
 
 /// [`pull_ticks`] by the Rift's walls: the pull of the one struck at `from` toward him at `to` ends before its first spot
@@ -240,7 +242,7 @@ pub fn pull_ticks_in(from: Pt, to: Pt, ok: impl Fn(Pt) -> bool) -> usize {
     let (ux, uy) = ((to.0 - from.0) / d, (to.1 - from.1) / d);
     (1..=t)
         .take_while(|&k| {
-            let s = (k as f64 * PULL_SPEED as f64).min(d);
+            let s = (k as f64 * sk(PULL_SPEED) as f64).min(d);
             ok((from.0 + ux * s, from.1 + uy * s))
         })
         .count()
@@ -310,7 +312,7 @@ impl StablePassive for Dash {
                     return;
                 }
                 let goal = last_struck(at, &struck).or_else(|| {
-                    foes.iter().filter(|f| dist(at, f.1) <= REACH)
+                    foes.iter().filter(|f| dist(at, f.1) <= sk(REACH))
                         .min_by(|a, b| dist(at, a.1).total_cmp(&dist(at, b.1))).map(|f| (f.0, f.1))
                 });
                 let Some((who, there)) = goal else {
@@ -368,7 +370,7 @@ impl Dash {
             let Some(there) = sim.get_entity(*id).filter(|u| u.is_alive()).map(|u| pos(&u)) else { continue };
             // 峡谷上拉到墙前为止（拉的每一步都要能站：他停在墙这边时，墙那边被斩中的人不被拉进墙里）
             let t = pull_ticks_in(there, landed, |q| stand_ok(map, q));
-            if t > 0 && sim.entity_pull(me, *id, PULL_SPEED, t) {
+            if t > 0 && sim.entity_pull(me, *id, sk(PULL_SPEED), t) {
                 pulled += 1;
             }
         }

@@ -25,6 +25,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_ekko_rewind";
@@ -317,7 +319,7 @@ impl StablePlayerAi for UltAi {
                     .map(|e| (e.id(), e.pos(), e.hp().0 + e.shield(), e.stat().magic_resistance))
                     .collect();
                 let near: Option<usize> = foes.iter()
-                    .filter(|f| sim.distance_sq(id, f.0) <= R_RANGE * R_RANGE)
+                    .filter(|f| sim.distance_sq(id, f.0) <= sk(R_RANGE).pow(2))
                     .min_by_key(|f| sim.distance_sq(id, f.0))
                     .map(|f| f.0);
                 let target_pos = ai.and_then(|t| sim.get_entity(t)).map(|e| e.pos());
@@ -334,7 +336,7 @@ impl StablePlayerAi for UltAi {
         }
         let spot = self.trail.spot().map_or((now.x, now.y), |s| (s.x, s.y));
         let lost = self.trail.lost();
-        let there: Vec<_> = foes.iter().filter(|f| dist_sq(f.1, spot) <= LAND_R * LAND_R).collect();
+        let there: Vec<_> = foes.iter().filter(|f| dist_sq(f.1, spot) <= sk(LAND_R).pow(2)).collect();
         let kill = there.iter().any(|f| f.2 <= land_damage(power, f.3));
         let yes = go(now.hp, max, lost, there.len(), kill);
         let log = self.last_log.is_none_or(|t| tick >= t + LOG_EVERY);

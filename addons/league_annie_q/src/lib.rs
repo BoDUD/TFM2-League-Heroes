@@ -32,6 +32,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 #[path = "../../league_shaco_backstab/src/summon.rs"]
 pub mod summon;
@@ -223,7 +225,7 @@ fn dist(a: Pt, b: Pt) -> f64 {
 
 /// Whom Tibbers goes on to when his target is gone: the nearest living enemy champion within `TIB_REACH` of `at`.
 pub fn next_target(at: Pt, foes: &[(usize, Pt)]) -> Option<usize> {
-    foes.iter().filter(|f| dist(at, f.1) <= TIB_REACH).min_by(|a, b| dist(at, a.1).total_cmp(&dist(at, b.1))).map(|f| f.0)
+    foes.iter().filter(|f| dist(at, f.1) <= sk(TIB_REACH)).min_by(|a, b| dist(at, a.1).total_cmp(&dist(at, b.1))).map(|f| f.0)
 }
 
 fn pos(e: &StableEntity<'_, '_>) -> Pt {
@@ -331,7 +333,7 @@ fn pulse(sim: &mut StableSim<'_>, annie: usize, unit: usize, at: Pt, team: usize
     sim.play_sfx(TIB_SWIPE, annie, &on);
     let damage = aura_damage(ap);
     let hit: Vec<usize> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
-        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && summon::hittable(u) && dist(pos(u), at) <= TIB_R)
+        .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && summon::hittable(u) && dist(pos(u), at) <= sk(TIB_R))
         .map(|u| u.id()).collect();
     for id in &hit {
         sim.deal_damage_typed(annie, *id, damage, DamageTypeV1::Ap, AttackTypeV1::Skill);
@@ -366,8 +368,8 @@ impl StableEffectType for AuraFx {
         let (n, damage) = pulse(sim, caster, id, at, team, ap);
         let again = sim.queue_effect(&fx("aura"), AttackTypeV1::Skill, caster, &InputTargetV1::target(id), TIB_AURA_EVERY);
         if let Some(k) = tally(sim, "tib orphan aura") {
-            wlog(format!("{} TIBBERS ORPHAN AURA #{k}: {damage} magic to {n} enemies within {TIB_R:.0} of the unit #{id} at {} \
-                          (Annie is dead){}", head(sim, caster), summon::pt(at), if again { "" } else { "; the next one was REFUSED" }));
+            wlog(format!("{} TIBBERS ORPHAN AURA #{k}: {damage} magic to {n} enemies within {:.0} of the unit #{id} at {} \
+                          (Annie is dead){}", head(sim, caster), sk(TIB_R), summon::pt(at), if again { "" } else { "; the next one was REFUSED" }));
         }
     }
 }
@@ -463,7 +465,7 @@ impl Tibbers {
                         (a.0, a.1, a.2, a.3) = (a.0 + 1, a.1 + usize::from(burned > 0), a.2 + burned, a.3 + burned * damage);
                         if let Some(k) = tally(sim, "tib aura") {
                             wlog(format!("{} TIBBERS #{n} AURA #{k}: pulse {} - {damage} magic to {burned} enemies within \
-                                          {TIB_R:.0} of him at {}", head(sim, me), a.0, summon::pt(live.unit.at)));
+                                          {:.0} of him at {}", head(sim, me), a.0, sk(TIB_R), summon::pt(live.unit.at)));
                         }
                     }
                     self.live = Some(live);
@@ -687,7 +689,7 @@ impl StablePassive for Tibbers {
             sim.play_sfx(TIB_SWIPE, me, &on);
             let damage = TIB_BURN + power * TIB_BURN_AP / 100;
             let hit: Vec<usize> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
-                .filter(|u| u.team() != team && u.is_alive() && !u.is_tower() && u.is_targetable() && dist(pos(u), b.at) <= TIB_R)
+                .filter(|u| u.team() != team && u.is_alive() && !u.is_tower() && u.is_targetable() && dist(pos(u), b.at) <= sk(TIB_R))
                 .map(|u| u.id()).collect();
             for id in hit {
                 sim.deal_damage_typed(me, id, damage, DamageTypeV1::Ap, AttackTypeV1::Skill);
@@ -715,10 +717,11 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
     ));
     wlog(format!(
         "TIBBERS: a unit of his own ('{}', spawn_unit) - {}; {TIB_UNIT_LIFE} ticks, {TIB_HIT} + {TIB_HIT_AP}% of her ability power \
-         a hit every {TIB_COOL} ticks, the aura {TIB_AURA} + {TIB_AURA_AP}% every {TIB_AURA_EVERY} ticks within {TIB_R:.0}. Test \
+         a hit every {TIB_COOL} ticks, the aura {TIB_AURA} + {TIB_AURA_AP}% every {TIB_AURA_EVERY} ticks within {:.0}. Test \
          knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(TIB_UNIT),
         if KNOBS.off { "OFF by the test knobs: he rides on the target as before" } else { "ON" },
+        sk(TIB_R),
         LOG_PATH.with_extension("cfg").display(),
         KNOBS.shown()
     ));

@@ -14,6 +14,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_ult_aim";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -144,8 +146,8 @@ impl StablePlayerAi for Malphite {
                 .filter(|e| e.is_champion() && e.is_alive() && e.team() != team && e.is_targetable())
                 .map(|e| e.id())
                 .collect();
-            let reach = MALPHITE_RANGE * MALPHITE_RANGE;
-            let slam = MALPHITE_R * MALPHITE_R;
+            let reach = sk(MALPHITE_RANGE) * sk(MALPHITE_RANGE);
+            let slam = sk(MALPHITE_R) * sk(MALPHITE_R);
             let spots: Vec<Spot> = foes
                 .iter()
                 .filter(|&&f| sim.distance_sq(id, f) <= reach)

@@ -1,6 +1,9 @@
 //! 米利欧附加包的规则本身（不碰 SDK）：`lib.rs` 用它，离线模拟器（经典 SDK 的 game_core 0.5.1）也直接编进同一份文件，
 //! 两边按同一套规则算——被动烧多少、友方这一下打中了谁、谁快要阵亡要不要放 R。
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
+
 // ===================== 热情洋溢！ =====================
 
 /// TFM2 英雄的等级上限（game_setting 的 need_exp 11 级台阶，凯尔的升阶也按 12 级换算）。
@@ -112,7 +115,7 @@ pub fn hit_of(target: Option<usize>, drops: &[Drop], min_amount: usize) -> Optio
     if let Some(t) = target {
         return drops.iter().any(|d| d.id == t).then_some(t);
     }
-    let pool: Vec<&Drop> = drops.iter().filter(|d| d.amount >= min_amount && d.dist <= REACH).collect();
+    let pool: Vec<&Drop> = drops.iter().filter(|d| d.amount >= min_amount && d.dist <= sk(REACH)).collect();
     let shot: Vec<&Drop> = pool.iter().copied().filter(|d| d.by_shot).collect();
     let from = if shot.is_empty() { pool } else { shot };
     from.into_iter().min_by(|a, b| a.dist.total_cmp(&b.dist).then(a.id.cmp(&b.id))).map(|d| d.id)
@@ -213,7 +216,7 @@ impl Why {
 
 /// 他危险吗：`DANGER_NEAR` 内有敌方英雄，且生命低 / 刚被打掉一大截 / 被控制着；别人的不死在身上时不算。
 pub fn danger(a: &Ally, enemies: &[(f64, f64)]) -> Option<Why> {
-    if a.undying || !enemies.iter().any(|e| dist(a.at, *e) <= DANGER_NEAR) {
+    if a.undying || !enemies.iter().any(|e| dist(a.at, *e) <= sk(DANGER_NEAR)) {
         return None;
     }
     if a.hp <= DANGER_HP {
@@ -231,7 +234,7 @@ pub fn danger(a: &Ally, enemies: &[(f64, f64)]) -> Option<Why> {
 pub fn pick_save(me: (f64, f64), allies: &[Ally], enemies: &[(f64, f64)]) -> Option<(Ally, Why)> {
     allies
         .iter()
-        .filter(|a| dist(me, a.at) <= IN_CIRCLE)
+        .filter(|a| dist(me, a.at) <= sk(IN_CIRCLE))
         .filter_map(|a| danger(a, enemies).map(|w| (*a, w)))
         .min_by(|a, b| a.0.hp.total_cmp(&b.0.hp).then(a.0.id.cmp(&b.0.id)))
 }

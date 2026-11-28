@@ -36,6 +36,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_mordekaiser";
@@ -586,7 +588,7 @@ fn realm(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
         }
     }
     let asked = (input.kind == InputTargetKindV1::Target.code()).then_some(input.target_id);
-    let Some(target) = pick_carry(me, &champs, R_RANGE + BODY).or_else(|| pick_carry(me, &immune, R_RANGE + BODY)).or(asked)
+    let Some(target) = pick_carry(me, &champs, sk(R_RANGE) + BODY).or_else(|| pick_carry(me, &immune, sk(R_RANGE) + BODY)).or(asked)
     else {
         wlog(format!("{} R: no enemy champion in reach", head(sim, caster)));
         return;

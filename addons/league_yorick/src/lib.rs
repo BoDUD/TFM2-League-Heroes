@@ -39,6 +39,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离 / 速度在大地图版跟着乘 1.3（wall.rs 经 super::* 也用它）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 #[path = "../../league_shaco_backstab/src/summon.rs"]
@@ -796,7 +798,7 @@ impl Shepherd {
         // deaths: near him at the last scan, not alive now
         let alive: std::collections::HashSet<usize> = seen.iter().map(|s| s.foe.id).collect();
         let gone: Vec<(usize, Pt, bool)> = self.near.iter().filter(|(id, _)| !alive.contains(id)).map(|(id, (at, c))| (*id, *at, *c)).collect();
-        self.near = seen.iter().filter(|s| s.foe.counts && summon::dist(s.foe.at, here) <= GRAVE_NEAR.max(MAID_RANGE + MAID_LEASH))
+        self.near = seen.iter().filter(|s| s.foe.counts && summon::dist(s.foe.at, here) <= sk(GRAVE_NEAR).max(sk(MAID_RANGE) + MAID_LEASH))
             .map(|s| (s.foe.id, (s.foe.at, s.foe.champion))).collect();
         for (id, at, champion) in gone {
             self.died(sim, me, id, at, champion, here);
@@ -841,7 +843,7 @@ impl Shepherd {
     fn died(&mut self, sim: &mut StableSim<'_>, me: usize, id: usize, at: Pt, champion: bool, here: Pt) {
         if let Some(i) = self.q_dug.iter().position(|v| *v == id) {
             self.q_dug.remove(i);
-        } else if summon::dist(at, here) <= GRAVE_NEAR {
+        } else if summon::dist(at, here) <= sk(GRAVE_NEAR) {
             self.deaths += 1;
             let level = sim.get_entity(me).map_or(1, |e| e.level());
             let every = deaths_per_grave(level);
@@ -854,7 +856,7 @@ impl Shepherd {
         // the Maiden's army of the dead
         let Some(her) = self.maiden.live.first().map(|m| (m.unit.id, m.unit.at, m.unit.left(sim.tick()))) else { return };
         let under = self.walkers.live.iter().filter(|m| m.extra.kind == Walk::Escort).count() + self.walkers.waiting();
-        if summon::dist(at, her.1) <= MAID_RANGE && under < ARMY_CAP && her.2 > 60 {
+        if summon::dist(at, her.1) <= sk(MAID_RANGE) && under < ARMY_CAP && her.2 > 60 {
             self.ask_or_hold(sim, me, id, at, Ask::Raise(her.2));
         }
     }
@@ -993,7 +995,7 @@ impl Shepherd {
         let (mut leapt, mut moved, mut far) = (Vec::new(), 0usize, 0usize);
         for id in self.walkers.ids() {
             let Some(w) = sim.get_entity(id).filter(|w| w.is_alive()).map(|w| pos(&w)) else { continue };
-            if !alive || summon::dist(w, at) > LEAP_REACH {
+            if !alive || summon::dist(w, at) > sk(LEAP_REACH) {
                 far += 1;
                 continue;
             }
@@ -1201,7 +1203,7 @@ impl Shepherd {
             .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && (!sight || sim.is_visible(team, u.id())))
             .filter(|u| matches!(u.kind(), Some(EntityKindV1::Champion | EntityKindV1::Minion | EntityKindV1::Jungle | EntityKindV1::Summon)))
             .map(|u| (u.id(), pos(&u), u.is_champion()))
-            .filter(|u| summon::dist(u.1, her) <= MAID_RANGE)
+            .filter(|u| summon::dist(u.1, her) <= sk(MAID_RANGE))
             .collect();
         let pick = foes.iter().filter(|f| f.2).min_by(|a, b| summon::dist(a.1, her).total_cmp(&summon::dist(b.1, her)))
             .or_else(|| foes.iter().min_by(|a, b| summon::dist(a.1, her).total_cmp(&summon::dist(b.1, her)))).copied();
@@ -1210,7 +1212,7 @@ impl Shepherd {
             m.extra.next_bolt = tick + MAID_COOL;
         }
         let spec = ProjectileSpawnV1 { caster_id: me, team, x: her.0.round().max(0.0) as u64, y: her.1.round().max(0.0) as u64,
-                                       speed: BOLT_SPEED, target_id: t, attack_type: AttackTypeV1::Skill.code(),
+                                       speed: sk(BOLT_SPEED), target_id: t, attack_type: AttackTypeV1::Skill.code(),
                                        casting_type: CastingTypeV1::Targeting.code(), casting_target: CastingTargetV1::Enemy.code(),
                                        ..Default::default() };
         let flew = sim.spawn_projectile(R_BOLT, &fx("bolt"), &spec);
@@ -1243,7 +1245,7 @@ impl Shepherd {
         let ms = haste(level) as i32;
         for (id, last, now) in movers {
             let Some(last) = last else { continue };
-            if !marked.iter().any(|f| summon::dist(f.at, now) <= HASTE_NEAR && toward(last, now, f.at)) {
+            if !marked.iter().any(|f| summon::dist(f.at, now) <= sk(HASTE_NEAR) && toward(last, now, f.at)) {
                 continue;
             }
             sim.entity_remove_buff(id, E_MS);
@@ -1420,11 +1422,12 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    let (maid_range, leap_reach) = (sk(MAID_RANGE), sk(LEAP_REACH));
     wlog(format!(
         "UNITS: the Mist Walkers ('{}') and the Maiden of the Mist ('{}') are units (spawn_unit) - {}; the Awakening a walker a grave \
          for {WALK_LIFE} ticks ({WALK_HIT} + {WALK_HIT_AD}% of his attack a bite, {WALK_HP_PCT}% of his health), the Maiden for \
          {MAID_LIFE} ticks ({MAID_HP_PCT}% of his health) behind him, a bolt every {MAID_COOL} ticks ({MAID_HIT} + {MAID_HIT_AD}% \
-         magic, reach {MAID_RANGE:.0}) with 2-4 walkers, the mist's leap within {LEAP_REACH:.0}. Test knobs ({}): {}",
+         magic, reach {maid_range:.0}) with 2-4 walkers, the mist's leap within {leap_reach:.0}. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(WALKER),
         KNOBS.name.as_deref().unwrap_or(MAIDEN_UNIT),
         if KNOBS.off { "OFF by the test knobs: the riding pictures as before" } else { "ON" },

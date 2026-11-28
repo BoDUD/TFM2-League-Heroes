@@ -55,7 +55,7 @@
 
 ### 普朗克附加包
 
-[普朗克附加包](../../addons/league_gangplank/README.md)：`league_gangplank` v0.3.0
+[普朗克附加包](../../addons/league_gangplank/README.md)：`league_gangplank` v0.3.1
 
 |  | 主包（不装附加包） | 装了附加包 |
 |---|---|---|

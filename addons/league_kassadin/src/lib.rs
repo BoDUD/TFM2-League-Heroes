@@ -39,6 +39,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_kassadin";
@@ -57,6 +58,7 @@ fn ks(x: &str) -> String {
 // ===================== 数值（主包 build_kassadin.P） =====================
 
 /// 大招找落点的距离（r_reach）、爆炸半径（r_r）、伤害（r_dmg + r_ratio% 法强，每层 r_st + r_st_ratio%）。
+/// 距离在大地图版跟着乘 1.3（game_places::skill_scale，数据里的也乘了）。
 pub const R_REACH: f64 = 56_000.0;
 pub const R_R: f64 = 20_000.0;
 pub const R_DMG: usize = 100;
@@ -227,7 +229,7 @@ pub fn score(me: (f64, f64), c: &Foe, foes: &[Foe], dmg: usize) -> ((f64, f64), 
     let kill = c.hp > 0 && dmg * 100 / (100 + c.mr) >= c.hp;
     let mut s = if kill { KILL_SCORE } else { 0.0 } + BACK_SCORE * d / 10_000.0;
     for f in foes {
-        if dist(f.at, spot) <= R_R + BODY {
+        if dist(f.at, spot) <= sk(R_R) + BODY {
             s += if f.champion { CHAMP_SCORE } else { UNIT_SCORE };
         }
     }
@@ -237,7 +239,7 @@ pub fn score(me: (f64, f64), c: &Foe, foes: &[Foe], dmg: usize) -> ((f64, f64), 
 /// 最好的落点：塔外、`R_REACH` 以内的敌方英雄里分最高的。None = 没有（落在大招目标身上）。
 pub fn best_spot(me: (f64, f64), foes: &[Foe], towers: &[(f64, f64)], dmg: usize) -> Option<((f64, f64), f64, bool)> {
     let mut best: Option<((f64, f64), f64, bool)> = None;
-    for c in foes.iter().filter(|f| f.champion && dist(me, f.at) <= R_REACH) {
+    for c in foes.iter().filter(|f| f.champion && dist(me, f.at) <= sk(R_REACH)) {
         let (spot, s, kill) = score(me, c, foes, dmg);
         if towers.iter().any(|t| dist(*t, spot) <= TOWER_REACH) {
             continue;
@@ -255,12 +257,12 @@ pub type Unit = (usize, (f64, f64), bool);
 /// 清兵的 R 按给谁：`FARM_CLEAR` 内没有敌方英雄；射程里、不在敌方塔下的小兵 / 野怪里，爆炸（`R_R` + 身体）炸到的小兵 / 野怪
 /// 最多的那个，至少 `FARM_MIN` 个 -> (它, 炸到几个)。
 pub fn farm_target(me: (f64, f64), foes: &[Unit], towers: &[(f64, f64)]) -> Option<(usize, usize)> {
-    if foes.iter().any(|f| f.2 && dist(me, f.1) <= FARM_CLEAR) {
+    if foes.iter().any(|f| f.2 && dist(me, f.1) <= sk(FARM_CLEAR)) {
         return None;
     }
     foes.iter()
-        .filter(|f| !f.2 && dist(me, f.1) <= R_RANGE && !towers.iter().any(|&t| dist(t, f.1) <= TOWER_REACH))
-        .map(|f| (f.0, foes.iter().filter(|g| !g.2 && dist(f.1, g.1) <= R_R + BODY).count()))
+        .filter(|f| !f.2 && dist(me, f.1) <= sk(R_RANGE) && !towers.iter().any(|&t| dist(t, f.1) <= TOWER_REACH))
+        .map(|f| (f.0, foes.iter().filter(|g| !g.2 && dist(f.1, g.1) <= sk(R_R) + BODY).count()))
         .filter(|&(_, n)| n >= FARM_MIN)
         .max_by_key(|&(_, n)| n)
 }
@@ -268,7 +270,7 @@ pub fn farm_target(me: (f64, f64), foes: &[Unit], towers: &[(f64, f64)]) -> Opti
 /// 射程里最近的敌方英雄（AI 对小兵放 R 时改对他放）。
 pub fn champ_in_range(me: (f64, f64), foes: &[Unit]) -> Option<usize> {
     foes.iter()
-        .filter(|f| f.2 && dist(me, f.1) <= R_RANGE)
+        .filter(|f| f.2 && dist(me, f.1) <= sk(R_RANGE))
         .min_by(|a, b| dist(me, a.1).total_cmp(&dist(me, b.1)))
         .map(|f| f.0)
 }
@@ -581,7 +583,7 @@ fn rift(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let x = spot.0.round().max(0.0) as u64;
     let y = spot.1.round().max(0.0) as u64;
     let moved = sim.entity_set_pos(caster, x, y);
-    let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= R_R + BODY).count();
+    let champs = list.iter().filter(|f| f.champion && dist(f.at, spot) <= sk(R_R) + BODY).count();
     if let Some(k) = noted("rift", shown) {
         wlog(format!("{} RIFT {} -> {} ({:.0} away, {} stacks, {dmg} magic before resistance): {} champions in the blast, \
                       {why}{} #{k}", head(sim, caster), pt(me), pt(spot), dist(me, spot), stacks, champs,

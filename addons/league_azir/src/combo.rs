@@ -20,6 +20,8 @@
 //! 回城时（游戏 0.6.5 的 AI 自己决定回城）、被控住或正在放技能时不管。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use super::{az, counted, dist, head, wlog, ID};
 
@@ -96,30 +98,30 @@ pub fn call(me: &Me, foes: &[Unit], allies: &[Unit], towers: &[Pt], ai_wants_r: 
     if me.r_ready {
         // 1. the window E opened: the kick back
         if me.r_win {
-            if let Some(t) = nearest(me.at, foes, R_RANGE + BODIES) {
+            if let Some(t) = nearest(me.at, foes, sk(R_RANGE) + BODIES) {
                 return Some(Call::R(t.id, "insec"));
             }
         }
         // 2. someone on him and he is in trouble: push him off
         if let Some(t) = nearest(me.at, foes, PEEL_R) {
-            let crowd = foes.iter().filter(|u| dist(me.at, u.at) <= CROWD_R).count();
+            let crowd = foes.iter().filter(|u| dist(me.at, u.at) <= sk(CROWD_R)).count();
             if me.hp < PEEL_HP || crowd >= 2 {
                 return Some(Call::R(t.id, "peel"));
             }
         }
         // 3. dash onto one with a friend behind him: E now, R next
-        let backup = me.own_tower || allies.iter().any(|a| dist(me.at, a.at) <= ALLY_R);
+        let backup = me.own_tower || allies.iter().any(|a| dist(me.at, a.at) <= sk(ALLY_R));
         // E hops back (no dash, no window) with ANY enemy champion within e_self of him
-        let hop = foes.iter().any(|u| dist(me.at, u.at) <= E_SELF + HOP_MARGIN);
+        let hop = foes.iter().any(|u| dist(me.at, u.at) <= sk(E_SELF) + HOP_MARGIN);
         if me.e_ready && me.soldier && me.hp >= INSEC_HP && backup && !hop {
             let t = foes
                 .iter()
-                .filter(|u| dist(me.at, u.at) <= E_RANGE + BODIES)
+                .filter(|u| dist(me.at, u.at) <= sk(E_RANGE) + BODIES)
                 .filter(|u| !towers.iter().any(|&w| dist(w, u.at) <= TOWER_REACH))
-                .filter(|u| foes.iter().filter(|v| dist(u.at, v.at) <= CROWD_R).count() <= 2)
+                .filter(|u| foes.iter().filter(|v| dist(u.at, v.at) <= sk(CROWD_R)).count() <= 2)
                 // in E's reach first (no walk on the way, nobody steps up to him meanwhile), then the weakest
                 .min_by(|a, b| {
-                    let far = |u: &Unit| dist(me.at, u.at) > E_RANGE;
+                    let far = |u: &Unit| dist(me.at, u.at) > sk(E_RANGE);
                     far(a).cmp(&far(b)).then(a.hp.total_cmp(&b.hp))
                 });
             if let Some(t) = t {
@@ -237,7 +239,7 @@ impl StablePlayerAi for Shurima {
                 if u.is_tower() {
                     if u.team() != team {
                         towers.push(pt(&u));
-                    } else if dist(me.at, pt(&u)) <= ALLY_R {
+                    } else if dist(me.at, pt(&u)) <= sk(ALLY_R) {
                         me.own_tower = true;
                     }
                     continue;
@@ -261,7 +263,7 @@ impl StablePlayerAi for Shurima {
                 Call::Hold(None) => None,
             };
             let spot = on.and_then(|t| foes.iter().find(|u| u.id == t)).map(|u| (u.at.0.max(0.0) as u64, u.at.1.max(0.0) as u64));
-            let near = allies.iter().filter(|a| dist(me.at, a.at) <= ALLY_R).count();
+            let near = allies.iter().filter(|a| dist(me.at, a.at) <= sk(ALLY_R)).count();
             (c, format!("{} [hp {:.0}%, {near} allies near] on #{}", head(&sim, id), me.hp * 100.0,
                         on.map_or("-".to_string(), |t| t.to_string())), (spot, (me.at.0 as u64, me.at.1 as u64)))
         };

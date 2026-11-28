@@ -19,6 +19,7 @@
 //! [`attack_playing`]，0.3.4 起算上普攻）时也不按、动作一播完就按；AI（或 league_ult_press）这一 tick 已经按了同一个格子
 //! 也不管（Q 扔给谁由数据问 `:q_pick`）。日志 `COMBO`。
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::farm::{at, busy, cc_names, under, NO_CAST};
@@ -141,7 +142,7 @@ pub fn plan(s: &Scene<'_>) -> Option<Plan> {
     if !s.q_ready || s.hp < MIN_HP || !s.controller {
         return None;
     }
-    let reach = if s.armed { Q_REACH } else { ARM_REACH };
+    let reach = if s.armed { sk(Q_REACH) } else { sk(ARM_REACH) };
     let cands: Vec<Foe> = s.foes.iter().filter(|f| dist(s.me, f.at) <= reach).copied().collect();
     let (target, n) = crowd_pick(&cands, s.foes)?;
     let f = cands.iter().find(|f| f.id == target)?;
@@ -231,22 +232,23 @@ impl StablePlayerAi for Combo {
                                 controller };
             let p = plan(&scene)?;
             let place = ball.map_or("beside her", |b| b.w.label());
+            let crowd = sk(CROWD);
             let (input, kind, what) = match p {
                 Plan::Blast { n, kill } => {
                     // the slot wants an enemy champion within its range: the nearest
-                    let t = foes.iter().filter(|f| dist(here, f.at) <= R_SLOT)
+                    let t = foes.iter().filter(|f| dist(here, f.at) <= sk(R_SLOT))
                         .min_by(|a, b| dist(here, a.at).total_cmp(&dist(here, b.at)))?.id;
                     let after = match q_at {
                         Some(t0) if tick <= t0 + AFTER_Q => format!(", {} ticks after the combo's Q", tick - t0),
                         _ => String::new(),
                     };
                     (InputV1::action(InputKindV1::Ult, InputTargetV1::target(t)), "combo r",
-                     format!("R: the ball {place} at {}, {n} enemy champions within {CROWD:.0}{}{after}",
+                     format!("R: the ball {place} at {}, {n} enemy champions within {crowd:.0}{}{after}",
                              point.map_or_else(|| "?".to_string(), pt), if kill { " (the shockwave kills one)" } else { "" }))
                 }
                 Plan::Throw { target, n, kill, arm } => {
                     let far = foes.iter().find(|f| f.id == target).map_or(f64::NAN, |f| dist(here, f.at));
-                    let about = format!("{} {far:.0} away, {n} enemy champions within {CROWD:.0} of him{}", who(&sim, target),
+                    let about = format!("{} {far:.0} away, {n} enemy champions within {crowd:.0} of him{}", who(&sim, target),
                                         if kill { ", the shockwave kills him" } else { "" });
                     if arm {
                         (InputV1::action(InputKindV1::Ult, InputTargetV1::target(target)), "combo arm",

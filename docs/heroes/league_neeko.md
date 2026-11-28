@@ -55,7 +55,7 @@
 
 ### 妮蔻附加包
 
-[妮蔻附加包](../../addons/league_neeko/README.md)：`league_neeko` v0.2.3
+[妮蔻附加包](../../addons/league_neeko/README.md)：`league_neeko` v0.2.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

@@ -43,6 +43,8 @@
 //! 判断在 [`call`]、[`clamp`]、[`floor_frame`]、[`end_reason`]（纯计算、单元测试）。
 
 use mod_api_stable::*;
+// 场地的椭圆在大地图版跟着乘 1.3（数据的 r_area 也乘）
+use game_places::skill_scale::sk;
 
 use std::sync::atomic::{AtomicUsize, Ordering};
 
@@ -86,7 +88,7 @@ pub fn dist(a: Pt, b: Pt) -> f64 {
 
 /// How far `p` is from the centre on the arena's picture: 1 on the ellipse's edge, 0.5 halfway, past 1 outside.
 pub fn reach(centre: Pt, p: Pt) -> f64 {
-    (((p.0 - centre.0) / SEMI_X).powi(2) + ((p.1 - centre.1) / SEMI_Y).powi(2)).sqrt()
+    (((p.0 - centre.0) / sk(SEMI_X)).powi(2) + ((p.1 - centre.1) / sk(SEMI_Y)).powi(2)).sqrt()
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -150,10 +152,11 @@ pub fn call(me: Pt, centre: Pt, want: Want, foes: &[Foe]) -> Option<usize> {
 /// test `the_ranges_are_the_copys`.
 pub fn range_of(kind: InputKindV1) -> Option<f64> {
     match kind {
+        // 三个技能的射程是副本数据里的，大地图版跟着乘 1.3；普攻不乘
         InputKindV1::Attack => Some(25_000.0),
-        InputKindV1::Skill => Some(42_000.0),
-        InputKindV1::Skill2 => Some(super::ENGAGE_R),
-        InputKindV1::Ult => Some(35_000.0),
+        InputKindV1::Skill => Some(sk(42_000.0)),
+        InputKindV1::Skill2 => Some(sk(super::ENGAGE_R)),
+        InputKindV1::Ult => Some(sk(35_000.0)),
         _ => None,
     }
 }

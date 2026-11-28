@@ -55,7 +55,7 @@
 
 ### 基兰复活附加包
 
-[基兰复活附加包](../../addons/league_zilean_rewind/README.md)：`league_zilean_rewind` v0.2.1
+[基兰复活附加包](../../addons/league_zilean_rewind/README.md)：`league_zilean_rewind` v0.2.2
 
 主包 `league` 保持纯数据。主包里基兰的 R 由 AI 在敌方英雄 60000 内时放出、**待命** 900 tick（没用上就退还冷却）；
 待命期间他每次出手查一次：附近有**被控制**的友方英雄、或自己被**两名以上**敌方英雄贴身，才给那个人挂 5 秒的时光符文
@@ -73,7 +73,7 @@
 
 ### 游戏 AI 不按的技能替它按
 
-[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.7（通用附加包，下面只列和基兰有关的部分）
+[游戏 AI 不按的技能替它按](../../addons/league_ult_press/README.md)：`league_ult_press` v0.6.8（通用附加包，下面只列和基兰有关的部分）
 
 |  | 装了附加包，什么时候按 |
 |---|---|

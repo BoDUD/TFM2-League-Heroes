@@ -55,7 +55,7 @@
 
 ### 伊莉丝附加包：整身变蜘蛛、挑目标、小蜘蛛是真的单位
 
-[伊莉丝附加包：整身变蜘蛛、挑目标、小蜘蛛是真的单位](../../addons/league_elise/README.md)：`league_elise` v0.2.1
+[伊莉丝附加包：整身变蜘蛛、挑目标、小蜘蛛是真的单位](../../addons/league_elise/README.md)：`league_elise` v0.2.2
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

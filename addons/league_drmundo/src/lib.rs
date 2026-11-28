@@ -37,6 +37,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_drmundo";
@@ -239,13 +241,15 @@ pub fn skill_cost(hp: usize, flat: usize, pct: usize) -> usize {
 /// 都在 4.4k–6.4k 外，早就在圈里，药罐正好在生效那一 tick 捡起来，走不走都一样。现在中心离药罐 CAN_R + 身体 - TANK_EDGE 以内
 /// 不走；`walking`（已经在走）就走到中心进了画出来的圈（CAN_R）才停，不在圈边上一 tick 走、一 tick 停。
 pub fn on_tank(body: f64, walking: bool) -> f64 {
-    if walking { CAN_R } else { (CAN_R + body - TANK_EDGE).max(CAN_R) }
+    // 药罐的圈是数据的 p_can_r，大地图版跟着乘 1.3
+    let r = sk(CAN_R);
+    if walking { r } else { (r + body - TANK_EDGE).max(r) }
 }
 
 /// 去不去捡药罐：生命 %、离药罐多远、身边（SAFE 以内）的敌方英雄数（看不见、选不中的也算：潜进地下的塔姆、隐身的敌人）、
 /// 他是不是已经在走过去、他的身体半径。
 pub fn tank_ok(hp_pct: usize, d: f64, foes_near: usize, walking: bool, body: f64) -> bool {
-    hp_pct < CAN_PCT && d > on_tank(body, walking) && d <= CAN_REACH && foes_near == 0
+    hp_pct < CAN_PCT && d > on_tank(body, walking) && d <= sk(CAN_REACH) && foes_near == 0
 }
 
 /// 这一次 AI 命令走去捡（0.1.8）：`walking` 记下在走，`walks` 数这个药罐走过几回；true = 这个药罐第一回，记 `TANK:` 那一行。
@@ -832,7 +836,7 @@ impl Ai {
         let ult = kind == Some(InputKindV1::Ult);
         let peak = peak_hp(key, now, hp);
         let lost = if peak > hp { (peak - hp) * 100 / max.max(1) } else { 0 };
-        let near = within(&enemies, at, R_NEAR);
+        let near = within(&enemies, at, sk(R_NEAR));
         let p = params();
         // R first: when it is time, cast it - the AI's R as it is, else pressed here (0.1.6: the AI asks for R as a fight
         // starts, at full health, and that one is held; low, it walks or hits and never asks again - 0.1.5's log: one R in
@@ -843,7 +847,7 @@ impl Ai {
             let free = !(0..e.cc_count()).any(|i| e.cc_at(i).is_some_and(|c| NO_CAST.iter().any(|k| k.code() == c.kind)));
             let target = enemies
                 .iter()
-                .filter(|f| dist(f.1, at) <= R_RANGE)
+                .filter(|f| dist(f.1, at) <= sk(R_RANGE))
                 .min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at)))
                 .map(|f| f.0);
             if press_r(ult, ready, free) && (ult || target.is_some()) {
@@ -883,14 +887,14 @@ impl Ai {
         let can = with_state(key, |s| (s.can_seen && s.can_until > now).then_some((s.can_at, s.walking)));
         if let Some((c, walking)) = can.filter(|_| has(sim, me, &md("can"))) {
             let d = dist(at, c);
-            let foes_near = within(&champions_of(sim, team, false), at, SAFE);
+            let foes_near = within(&champions_of(sim, team, false), at, sk(SAFE));
             let body = match e.radius() { 0 => BODY, r => r as f64 };
             if tank_ok(pct(hp, max), d, foes_near, walking, body) {
                 // one TANK line a tank (0.1.8): a walk stopped and started again is counted in TANK GONE
                 let first = with_state(key, |s| walk_start(&mut s.walking, &mut s.walks));
                 let line = first.then(|| {
                     ("tank", format!("TANK: walking to it at {}% hp, {d:.0} away (in it within {:.0}), no enemy champion \
-                                      within {SAFE:.0}", pct(hp, max), on_tank(body, false)))
+                                      within {:.0}", pct(hp, max), on_tank(body, false), sk(SAFE)))
                 });
                 return Some(Plan::Instead(InputV1::move_to(c.0.max(0.0) as u64, c.1.max(0.0) as u64), line));
             }
@@ -903,7 +907,7 @@ impl Ai {
         // attack R's target instead; gone from sight: the nearest enemy champion (0.1.1 walked onto his own spot = stood still);
         // nobody to hit: let the base AI cast it
         let target = current.filter(|c| enemies.iter().any(|f| f.0 == *c)).or_else(|| {
-            enemies.iter().filter(|f| dist(f.1, at) <= R_RANGE).min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at))).map(|f| f.0)
+            enemies.iter().filter(|f| dist(f.1, at) <= sk(R_RANGE)).min_by(|a, b| dist(a.1, at).total_cmp(&dist(b.1, at))).map(|f| f.0)
         });
         Some(match target {
             Some(t) => Plan::Instead(InputV1::action(InputKindV1::Attack, InputTargetV1::target(t)), Some(("held", why))),

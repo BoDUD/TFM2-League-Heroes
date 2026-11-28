@@ -31,6 +31,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 #[cfg(windows)]
@@ -60,6 +61,7 @@ pub const NEAR_ME: u64 = 3000;
 /// `w_cd` 出现后最多再找这么多 tick 的墙心。
 pub const WALL_LOOK: usize = 3;
 /// 一 tick 走了这么远以上算冲刺（走路约 1000，加速后约 1500，冲刺 2500 起；同奥恩附加包的柱子）：冲刺撞上墙停住，走路的贴着墙滑。
+/// 大地图版跟着乘 1.3（冲刺也快了 1.3 倍，走路没变）。
 pub const DASH_STEP: f64 = 2_200.0;
 /// 蛋里的控制（0.1.7，用户 2026-11-11：「冰鸟死后满血复活」）：英雄联盟的蛋「无法行动」——不能动、不能普攻、不能放技能。
 /// 0.1.6 只禁了普攻和技能：数据播的蛋动作（`CasterAnimation`）不定身，AI 带着蛋走开（卢锡安大招的笔记：动作照放、人照滑），
@@ -253,7 +255,7 @@ pub fn hold(walls: &[Wall], p: &Params, last: Option<(u64, u64)>, now: (u64, u64
     match last {
         Some(l) if !inside(w, p, l.0, l.1, r) => {
             let step = (now.0 as f64 - l.0 as f64).hypot(now.1 as f64 - l.1 as f64);
-            if step >= DASH_STEP {
+            if step >= sk(DASH_STEP) {
                 return Some(l);
             }
             let s = slide(w, p, l, now, r);
@@ -295,7 +297,7 @@ pub fn wall_centre(prev: &[(u64, u64)], now: &[(u64, u64)], me: (u64, u64)) -> O
     let near = |a: (u64, u64), b: (u64, u64)| a.0.abs_diff(b.0) < 200 && a.1.abs_diff(b.1) < 200;
     let from_me = |q: (u64, u64)| q.0.abs_diff(me.0).max(q.1.abs_diff(me.1));
     let mut best: Option<((u64, u64), (usize, usize, u64))> = None;
-    for &q in now.iter().filter(|&&q| from_me(q) > NEAR_ME) {
+    for &q in now.iter().filter(|&&q| from_me(q) > sk(NEAR_ME)) {
         let more = now.iter().filter(|&&o| near(o, q)).count();
         let before = prev.iter().filter(|&&o| near(o, q)).count();
         if more <= before || more < 2 {
@@ -327,7 +329,7 @@ pub fn egg_cc_missing(on: &[u32]) -> Vec<CcKindV1> {
 /// 被击退、拉扯这种一 tick 走了 `DASH_STEP` 以上的照走（英雄联盟的蛋也会被位移）。
 pub fn egg_hold(last: (u64, u64), now: (u64, u64), rooted: bool) -> Option<(u64, u64)> {
     let step = (now.0 as f64 - last.0 as f64).hypot(now.1 as f64 - last.1 as f64);
-    (!rooted && step > 0.0 && step < DASH_STEP).then_some(last)
+    (!rooted && step > 0.0 && step < sk(DASH_STEP)).then_some(last)
 }
 
 /// 蛋的形态 `egg_on`（0.1.8 起本包自己挂，`left` tick）：显示钩子（`view.rs`）看到它就把她站着、挨打的画面换成蛋，护甲、魔抗

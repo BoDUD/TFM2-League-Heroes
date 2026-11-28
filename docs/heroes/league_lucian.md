@@ -55,7 +55,7 @@
 
 ### 卢锡安附加包
 
-卢锡安附加包：`league_lucian` v0.2.0
+卢锡安附加包：`league_lucian` v0.2.1
 
 （这个附加包没有 README，下面是它 `mod.mod_info` 里的英文说明）
 

@@ -25,6 +25,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_chogath";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -149,7 +151,7 @@ pub fn bite(max_hp: usize, ap: usize) -> usize {
 /// (champion-data.md, league_garen E). 0.1.4 counted R_RANGE alone, so a champion the AI fed on from 30000-50000 was
 /// "out of range", the Feast held and turned into an attack.
 pub fn reach(my_radius: usize, their_radius: usize) -> u64 {
-    (R_RANGE + my_radius + their_radius) as u64
+    (sk(R_RANGE) + my_radius + their_radius) as u64
 }
 
 /// A squared centre-to-centre distance (`StableSim::distance_sq`) within `reach`.

@@ -48,6 +48,7 @@
 //! - 你看的那场（画面、观战、回放）的行每条都记：以前整次启动每种行只记前 40 行，后台预演先把它用完，你看的那场一行都没有。
 //!   出泉水没骑也记一行 `OUT ON FOOT`（大招还要冷却多久，或者好着为什么没骑；大招还没解锁时不记）。
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::{counted_on, dist, head, on_screen, wlog, Pt, ID, RIDE, R_RIDE_T};
@@ -55,6 +56,7 @@ use super::{counted_on, dist, head, on_screen, wlog, Pt, ID, RIDE, R_RIDE_T};
 /// 在 league_ult_press（100）之后。
 pub const PRIORITY: i32 = 110;
 /// 这么远的一趟就骑上华洛（6 秒、移速 +80%，比走过去快一倍）：游戏的 AI 一步让她走这么远，或者离她那条路的前线还有这么远。
+/// 赶路、救人的远近和追人的最近距离跟着移速走，大地图版不乘；打架、追人的半径乘 1.3（game_places::skill_scale）。
 pub const TRAVEL: f64 = 200_000.0;
 /// 这么近以内有敌方英雄就是在交战：不骑（骑着挨一下就落地）。
 pub const FIGHT_R: f64 = 70_000.0;
@@ -148,15 +150,15 @@ pub fn plan(s: &Scene<'_>) -> Option<Plan> {
             .iter()
             .filter(|f| f.hp <= CHASE_LOW)
             .map(|f| (f.id, dist(me, f.at)))
-            .filter(|f| f.1 >= CHASE_MIN && f.1 <= CHASE_R)
+            .filter(|f| f.1 >= CHASE_MIN && f.1 <= sk(CHASE_R))
             .min_by(|a, b| a.1.total_cmp(&b.1));
         if let Some((target, d)) = low {
-            if s.foes.iter().all(|o| o.id == target || dist(me, o.at) > FIGHT_R) {
+            if s.foes.iter().all(|o| o.id == target || dist(me, o.at) > sk(FIGHT_R)) {
                 return Some(Plan::Chase { target, d });
             }
         }
     }
-    if s.foes.iter().any(|f| dist(me, f.at) <= FIGHT_R) {
+    if s.foes.iter().any(|f| dist(me, f.at) <= sk(FIGHT_R)) {
         return None;
     }
     if s.hp >= MIN_HP {
@@ -228,13 +230,13 @@ pub fn help_target(me: Pt, mates: &[Mate], foes: &[Foe], towers: &[Pt]) -> Optio
             if !(HELP_MIN..=HELP_MAX).contains(&d) {
                 return None;
             }
-            let fight = foes.iter().any(|f| dist(m.at, f.at) <= ALLY_FIGHT);
-            let chased = m.hp < HELP_LOW && foes.iter().any(|f| dist(m.at, f.at) <= CHASED_R);
+            let fight = foes.iter().any(|f| dist(m.at, f.at) <= sk(ALLY_FIGHT));
+            let chased = m.hp < HELP_LOW && foes.iter().any(|f| dist(m.at, f.at) <= sk(CHASED_R));
             if !(fight || chased) || towers.iter().any(|t| dist(m.at, *t) <= TOWER_REACH) {
                 return None;
             }
-            let theirs = foes.iter().filter(|f| dist(m.at, f.at) <= ODDS_R).count();
-            let ours = mates.iter().filter(|o| dist(m.at, o.at) <= ODDS_R).count() + 1;
+            let theirs = foes.iter().filter(|f| dist(m.at, f.at) <= sk(ODDS_R)).count();
+            let ours = mates.iter().filter(|o| dist(m.at, o.at) <= sk(ODDS_R)).count() + 1;
             (theirs <= ours).then_some((m.id, d, theirs))
         })
         .min_by(|a, b| a.1.total_cmp(&b.1))
@@ -282,11 +284,11 @@ pub fn keeps_course(me: Pt, mate: Pt, order: Order) -> bool {
 /// 他身边 `FIGHT_OVER` 内一个敌方英雄都没有了（打完了）。完了就交给游戏的 AI。
 pub fn help_over(me: Pt, mate: Option<Pt>, foes: &[Foe]) -> Option<&'static str> {
     let Some(m) = mate else { return Some("he is down") };
-    if foes.iter().any(|f| dist(me, f.at) <= FIGHT_R) {
+    if foes.iter().any(|f| dist(me, f.at) <= sk(FIGHT_R)) {
         Some("in the fight")
-    } else if dist(me, m) <= ARRIVE_R {
+    } else if dist(me, m) <= sk(ARRIVE_R) {
         Some("there")
-    } else if !foes.iter().any(|f| dist(m, f.at) <= FIGHT_OVER) {
+    } else if !foes.iter().any(|f| dist(m, f.at) <= sk(FIGHT_OVER)) {
         Some("the fight is over")
     } else {
         None
@@ -330,7 +332,7 @@ pub enum Instead {
 /// 已经走到了不算）；再不然打 AI 的目标（走过去）；都没有就站一下。
 pub fn instead(me: Pt, target: Option<(usize, Pt)>, walk_to: Option<Pt>) -> Instead {
     match (target, walk_to) {
-        (Some((t, at)), _) if dist(me, at) <= FIGHT_R => Instead::Attack(t),
+        (Some((t, at)), _) if dist(me, at) <= sk(FIGHT_R) => Instead::Attack(t),
         (_, Some(w)) if dist(me, w) > 1_000.0 => Instead::Walk(w),
         (Some((t, _)), _) => Instead::Attack(t),
         _ => Instead::Stand,
@@ -344,7 +346,7 @@ pub fn instead(me: Pt, target: Option<(usize, Pt)>, walk_to: Option<Pt>) -> Inst
 pub fn hold_target(me: Pt, ai_seen: Option<(usize, Pt)>, foes: &[Foe]) -> Option<(usize, Pt)> {
     ai_seen.or_else(|| {
         foes.iter()
-            .filter(|f| dist(me, f.at) <= FIGHT_R)
+            .filter(|f| dist(me, f.at) <= sk(FIGHT_R))
             .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)))
             .map(|f| (f.id, f.at))
     })
@@ -583,7 +585,7 @@ impl StablePlayerAi for RideAi {
                 self.last_at = None;
                 self.rode_out = false;
             }
-            if self.last_at.is_some_and(|p| dist(p, here) >= TELEPORT) {
+            if self.last_at.is_some_and(|p| dist(p, here) >= sk(TELEPORT)) {
                 // 回城传送回家了：AI 上一次让她走去的地方是回城前的
                 self.walk_to = None;
                 self.walking = false;

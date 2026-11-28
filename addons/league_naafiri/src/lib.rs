@@ -30,6 +30,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod view;
@@ -330,18 +332,18 @@ fn read(sim: &StableSim<'_>, me: usize) -> Option<(Me, Vec<Foe>, bool)> {
         .filter(|u| u.is_champion() && u.is_alive() && u.id() != me)
         .partition(|u| u.team() == team);
     let near = |a: usize, b: usize, r: u64| sim.distance_sq(a, b) <= r.saturating_mul(r);
-    let r = R_RANGE as u64;
+    let r = sk(R_RANGE) as u64;
     let foes = enemies
         .iter()
         .filter(|u| u.is_targetable() && sim.is_visible(team, u.id()) && near(me, u.id(), r))
         .map(|u| {
             let (hp, max) = u.hp();
             Foe { id: u.id(), hp, max, shield: u.shield(), def: u.stat().defence,
-                  allies_near: allies.iter().filter(|a| near(a.id(), u.id(), ALLY_R)).count() }
+                  allies_near: allies.iter().filter(|a| near(a.id(), u.id(), sk(ALLY_R))).count() }
         })
         .collect();
     let m = Me { attack: e.stat().attack, again: has_buff(sim, me, &nf("r_again")),
-                 allies_near: allies.iter().filter(|a| near(a.id(), me, FIGHT_R)).count() };
+                 allies_near: allies.iter().filter(|a| near(a.id(), me, sk(FIGHT_R))).count() };
     Some((m, foes, ready))
 }
 

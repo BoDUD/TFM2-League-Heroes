@@ -36,6 +36,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod combo;
@@ -315,7 +316,7 @@ pub struct Foe {
 
 /// 冲击波在 `at` 放出时人堆里（`CROWD` 内）有几个敌方英雄、有没有打得死的。
 pub fn crowd_at(at: (f64, f64), foes: &[Foe]) -> (usize, bool) {
-    let near: Vec<&Foe> = foes.iter().filter(|f| dist(at, f.at) <= CROWD).collect();
+    let near: Vec<&Foe> = foes.iter().filter(|f| dist(at, f.at) <= sk(CROWD)).collect();
     (near.len(), near.iter().any(|f| f.dies))
 }
 
@@ -323,7 +324,7 @@ pub fn crowd_at(at: (f64, f64), foes: &[Foe]) -> (usize, bool) {
 /// 再离那些人近的（到他们的距离加起来小），再生命比例低的、编号小的。返回（他，他脚下几个，连他自己）。
 pub fn crowd_pick(cands: &[Foe], foes: &[Foe]) -> Option<(usize, usize)> {
     let score = |c: &Foe| {
-        let near = foes.iter().filter(|f| f.id != c.id && dist(c.at, f.at) <= CROWD);
+        let near = foes.iter().filter(|f| f.id != c.id && dist(c.at, f.at) <= sk(CROWD));
         (near.clone().count() + 1, near.map(|f| dist(c.at, f.at)).sum::<f64>())
     };
     cands
@@ -658,10 +659,11 @@ impl StableEffectType for QPick {
                 aim_of(&mut AIMS.lock().unwrap_or_else(|e| e.into_inner()), key, tick).pick = Some(id);
                 if let Some(k) = counted("aim") {
                     let dies = foes.iter().any(|f| f.id == id && f.dies);
+                    let crowd = sk(CROWD);
                     let others: Vec<String> = cands.iter().filter(|c| c.id != id).take(4)
                         .map(|c| format!("{} {}", who(sim, c.id), crowd_pick(std::slice::from_ref(c), &foes).map_or(1, |x| x.1)))
                         .collect();
-                    wlog(format!("{} AIM #{k} -> {}: {n} enemy champions within {CROWD:.0} of him{}; {} in Q range{}; R {}",
+                    wlog(format!("{} AIM #{k} -> {}: {n} enemy champions within {crowd:.0} of him{}; {} in Q range{}; R {}",
                                  head(sim, me), who(sim, id), if dies { ", the shockwave kills him" } else { "" },
                                  cands.len(), if others.is_empty() { String::new() } else { format!(" (others: {})", others.join(", ")) },
                                  r_state(sim, me)));
@@ -689,7 +691,7 @@ impl StableEffectType for Send {
         let from = (x, y);
         // the data's hidden homing leaves her at e_speed: this one leaves the ball and arrives with it
         let eta = (dist(her, to) / p.e_speed.max(1) as f64).max(1.0);
-        let speed = (dist(from, to) / eta).clamp(E_SPEED_MIN, E_SPEED_MAX);
+        let speed = (dist(from, to) / eta).clamp(sk(E_SPEED_MIN), sk(E_SPEED_MAX));
         let team = team_of(sim, me);
         let spec = ProjectileSpawnV1 {
             caster_id: me,
@@ -776,7 +778,8 @@ impl StableEffectType for Back {
                 x: ux(from.0),
                 y: ux(from.1),
                 radius: 1_000,
-                speed: BACK_SPEED as u64,
+                // 球离她最远的距离在大地图版乘 1.3，飞回来的速度跟着乘，时间不变
+                speed: sk(BACK_SPEED) as u64,
                 move_kind: ProjectileMoveKindV1::Target.code(),
                 target_id: me,
                 target_x: 0,

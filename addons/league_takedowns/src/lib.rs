@@ -42,6 +42,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 pub mod view;
 
@@ -384,7 +386,7 @@ impl StablePassive for Twitch {
             self.bursting = false;
             return;
         }
-        let reach = TWITCH_E_REACH * TWITCH_E_REACH;
+        let reach = sk(TWITCH_E_REACH) * sk(TWITCH_E_REACH);
         let foes: Vec<(usize, usize, usize, usize)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|u| u.is_champion() && u.is_alive() && u.team() != team && sim.distance_sq(me, u.id()) <= reach)
             .map(|u| (u.id(), venom_of(&u), u.hp().0 + u.shield(), u.stat().defence))
@@ -563,7 +565,7 @@ impl MasterYi {
         let peak = self.hp_seen.iter().map(|&(_, s)| s).fold(share, f64::max);
         // the enemy look only when the rest says yes
         if !should_meditate(share, peak, true, now >= self.med_ready, free)
-            || !foe_champion_within(sim, me, team, at, YI_MED_NEAR)
+            || !foe_champion_within(sim, me, team, at, sk(YI_MED_NEAR))
         {
             return;
         }

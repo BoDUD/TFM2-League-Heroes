@@ -21,6 +21,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 pub mod plan;
 use plan::{
@@ -193,7 +195,8 @@ impl StablePlayerAi for UltAi {
                 let me = pl.champion().filter(|e| e.is_alive())?;
                 let free = pl.level() >= ULT_LEVEL && cd == Some(0);
                 let (id, team) = (me.id(), me.team());
-                let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
+                let r = sk(R_RANGE) as u64;
+                let r2 = r.saturating_mul(r);
                 let enemy = |e: &StableEntity<'_, '_>| e.is_champion() && e.is_alive() && e.team() != team;
                 let foes: Vec<Foe> = (0..sim.entity_count())
                     .filter_map(|i| sim.entity_at(i))

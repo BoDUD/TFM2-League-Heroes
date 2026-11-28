@@ -22,6 +22,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_executes";
@@ -272,7 +274,7 @@ impl StablePassive for Riven {
         let ready = buff_left(&e, RIVEN_READY).is_some() && buff_left(&e, RIVEN_WAIT).is_none() && e.is_alive();
         if ready {
             let r_left = buff_left(&e, RIVEN_R).unwrap_or(0);
-            let reach = RIVEN_REACH * RIVEN_REACH;
+            let reach = sk(RIVEN_REACH).pow(2);
             let foes: Vec<(usize, usize, usize)> = (0..sim.entity_count())
                 .filter_map(|i| sim.entity_at(i))
                 .filter(|u| u.is_champion() && u.is_alive() && u.team() != team && sim.distance_sq(me, u.id()) <= reach)

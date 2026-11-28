@@ -112,6 +112,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离 / 速度在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 use push_rules::{held, toughness};
 
@@ -1052,7 +1054,7 @@ pub fn carry_plan(w: &Standing, at: Pt, now: usize, wall_speed: usize) -> Option
     }
     let lo = wall_speed.max(1);
     let left = w.from.saturating_sub(now).max(1) as f64;
-    let fast = ((len / left).ceil() as usize).clamp(lo, CARRY_MAX_SPEED.max(lo));
+    let fast = ((len / left).ceil() as usize).clamp(lo, sk(CARRY_MAX_SPEED).max(lo));
     let ticks = ((len / fast as f64).ceil() as usize).max(1);
     let speed = (len / ticks as f64).ceil() as usize;
     Some(((at.0 + w.dir.0 * len, at.1 + w.dir.1 * len), len, ticks, speed))
@@ -1068,7 +1070,7 @@ pub fn ride_left(w: &Standing, at: Pt) -> f64 {
 pub fn next_push(left: f64, before: f64, planned: f64, pushes: usize) -> Next {
     if left <= LAND_NEAR {
         Next::Landed
-    } else if left > planned + RAN_BACK {
+    } else if left > planned + sk(RAN_BACK) {
         Next::RanBack
     } else if pushes >= MAX_PUSHES {
         Next::Spent
@@ -1188,7 +1190,7 @@ fn ride_tick(sim: &mut StableSim<'_>, me: usize, w: &mut Standing, tick: usize) 
             }
         }
         if push {
-            let speed = CARRY_MAX_SPEED.max(w.speed);
+            let speed = sk(CARRY_MAX_SPEED).max(w.speed);
             let ticks = ((left / speed as f64).ceil() as usize).max(1);
             let speed = (left / ticks as f64).ceil() as usize;
             let dest = (at.0 + w.dir.0 * left, at.1 + w.dir.1 * left);
@@ -1354,7 +1356,7 @@ impl StableEffectType for Behind {
         let friends: Vec<Pt> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
             .filter(|u| u.is_champion() && u.is_alive() && u.team() == team && u.id() != me)
             .map(|u| at_of(&u))
-            .filter(|at| dist(*at, here) <= HOME_R)
+            .filter(|at| dist(*at, here) <= sk(HOME_R))
             .collect();
         let home = if friends.is_empty() {
             (0..sim.tower_count()).filter_map(|k| sim.get_entity(sim.tower_id_at(k)))
@@ -1650,7 +1652,7 @@ pub fn anchor(aim: &Aim, target_ok: bool, units: &[(usize, Pt, f64)]) -> Option<
     if target_ok {
         return Some(aim.target);
     }
-    units.iter().filter(|(id, at, _)| *id != aim.target && dist(*at, aim.at) <= ANCHOR_R)
+    units.iter().filter(|(id, at, _)| *id != aim.target && dist(*at, aim.at) <= sk(ANCHOR_R))
         .min_by(|a, b| dist(a.1, aim.at).total_cmp(&dist(b.1, aim.at)))
         .map(|u| u.0)
 }
@@ -1792,7 +1794,7 @@ impl StableEffectType for QPick {
                         wlog(format!("{} Q ANCHOR #{k}: {}", head(sim, me), match found {
                             Some(id) if id == aim.target => format!("#{id}, the unit Q aimed at"),
                             Some(id) => format!("#{} is gone: #{id}, the nearest to where it stood {}", aim.target, pt(aim.at)),
-                            None => format!("#{} is gone and nobody within {ANCHOR_R:.0} of {}: no move", aim.target, pt(aim.at)),
+                            None => format!("#{} is gone and nobody within {:.0} of {}: no move", aim.target, sk(ANCHOR_R), pt(aim.at)),
                         }));
                     }
                     found

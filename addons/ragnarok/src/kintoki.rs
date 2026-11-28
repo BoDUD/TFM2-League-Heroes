@@ -17,6 +17,7 @@ use std::collections::HashMap;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "ragnarok_kintoki";
@@ -27,7 +28,7 @@ pub const ODIN_SPEAR_MARK: &str = "ragnarok_odin_q_mark";
 pub const ODIN_WARD: &str = "ragnarok_odin_e_ward";
 /// 接住以后多久掷回去（拍）：按进地里、借着召回的力道转身掷出
 pub const K_HOLD: usize = 20;
-/// 掷回去的枪每拍飞多远（冈格尼尔自己是 6000）
+/// 掷回去的枪每拍飞多远（冈格尼尔自己是 6000；大地图版两边一起乘 1.3）
 pub const K_SPEED: u64 = 6_000;
 /// 掷回去的弹道打中时做的事（本包的原生效果）
 const SPEAR_BACK: &str = "ragnarok_kintoki:spear_back";
@@ -157,7 +158,7 @@ impl KintokiPassive {
             x: my_pos.0,
             y: my_pos.1,
             radius: 10_000,
-            speed: K_SPEED,
+            speed: sk(K_SPEED),
             move_kind: ProjectileMoveKindV1::Target.code(),
             target_id: t.odin,
             target_x: 0,

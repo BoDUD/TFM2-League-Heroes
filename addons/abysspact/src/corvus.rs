@@ -14,6 +14,8 @@
 
 use std::collections::{HashMap, HashSet};
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{buffs_present, consume_buff, dist_sq};
@@ -60,7 +62,7 @@ pub fn can_catch(id: usize, tick: usize, plagued: &HashMap<usize, usize>, immune
 
 /// 一名友方英雄身边 2 万内有几个染病的敌方英雄（`sick` 是 (位置, 是不是英雄)）。
 pub fn sick_champions_near(ally: (u64, u64), sick: &[((u64, u64), bool)]) -> usize {
-    let r2 = HEAL_RADIUS * HEAL_RADIUS;
+    let r2 = sk(HEAL_RADIUS) * sk(HEAL_RADIUS);
     sick.iter().filter(|(p, champ)| *champ && dist_sq(ally, *p) <= r2).count()
 }
 
@@ -116,7 +118,7 @@ impl CorvusPassive {
         }
 
         // 1. Plague 2% max-HP/s magic DoT + 1.5万 contagion to nearest uninfected enemy
-        let spread_r2 = SPREAD_RADIUS * SPREAD_RADIUS;
+        let spread_r2 = sk(SPREAD_RADIUS) * sk(SPREAD_RADIUS);
         let mut taken: HashSet<usize> = HashSet::new();
         let mut newly_infected: Vec<usize> = Vec::new();
         for &(sid, spos, smax_hp, _) in &sick {
@@ -166,7 +168,7 @@ impl CorvusPassive {
 
         // 3. W「渡鸦」shoulder-perched Raven pecks nearest enemy within 3.2万 once/s & infects
         let peck_dmg = raven_peck_damage(ap);
-        let peck_r2 = PECK_RADIUS * PECK_RADIUS;
+        let peck_r2 = sk(PECK_RADIUS) * sk(PECK_RADIUS);
         for &(aid, apos, _) in &allies {
             let [perched] = buffs_present(sim, aid, [RAVEN_PERCH]);
             if !perched {

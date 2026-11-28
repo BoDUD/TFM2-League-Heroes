@@ -18,6 +18,8 @@
 use std::collections::HashMap;
 use std::sync::Mutex;
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, dist_sq, has_buff};
@@ -451,7 +453,7 @@ impl VesperPassive {
 
     /// 谁刚倒下：身边的点蜡烛，队友记进最近阵亡。
     fn observe(&mut self, sim: &StableSim<'_>, my_player: usize, my_team: usize, my_pos: (u64, u64), tick: usize) -> bool {
-        let r2 = CANDLE_RADIUS * CANDLE_RADIUS;
+        let r2 = sk(CANDLE_RADIUS).pow(2);
         let mut lit = false;
         for i in 0..sim.player_count() {
             let Some(p) = sim.player_at(i) else { continue };
@@ -487,7 +489,7 @@ impl VesperPassive {
 
     /// 回魂：10 秒内倒在她 6 万内、还没复活的队友，挑最近倒下的那个。
     fn try_revive(&mut self, sim: &mut StableSim<'_>, entity: usize, my_team: usize, my_pos: (u64, u64), tick: usize) -> bool {
-        let r2 = REVIVE_RANGE * REVIVE_RANGE;
+        let r2 = sk(REVIVE_RANGE).pow(2);
         let mut picks: Vec<(usize, (u64, u64), usize)> = self
             .fallen_allies
             .iter()
@@ -515,7 +517,7 @@ impl VesperPassive {
 
     /// 没人可回魂时：身边有队友残血、附近有敌方英雄，就给身边所有队友加盾。
     fn try_shield(&mut self, sim: &mut StableSim<'_>, entity: usize, my_team: usize, my_pos: (u64, u64), ap: usize) -> bool {
-        let r2 = FALLBACK_SHIELD_RANGE * FALLBACK_SHIELD_RANGE;
+        let r2 = sk(FALLBACK_SHIELD_RANGE).pow(2);
         let mut allies = Vec::new();
         let mut hurt = false;
         let mut foe_near = false;

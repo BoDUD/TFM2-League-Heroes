@@ -29,6 +29,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex, Once};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
@@ -836,11 +838,11 @@ impl Ai {
                 let mut best: Option<(Mate, &'static str)> = None;
                 // not one immune to crowd control: the swallow (a banish) does not hold him and R is wasted (0.1.5, the
                 // 2026-11-01 log: Sivir's spell shield up, spat out 3 ticks in)
-                for &(id, p) in mates.iter().filter(|m| dist(at, m.1) <= R_ALLY_R && immune_by(sim, m.0).is_none()) {
+                for &(id, p) in mates.iter().filter(|m| dist(at, m.1) <= sk(R_ALLY_R) && immune_by(sim, m.0).is_none()) {
                     let Some(u) = sim.get_entity(id) else { continue };
                     let (h, mx) = u.hp();
                     let m = Mate { id, at: p, hp: h, max: mx, peak: peak_hp(tag, id, now, h), cc: hard_cc(&u) };
-                    if let Some(why) = in_danger(&m, within(&foes, p, NEAR)) {
+                    if let Some(why) = in_danger(&m, within(&foes, p, sk(NEAR))) {
                         if best.is_none_or(|b| pct(m.hp, m.max) < pct(b.0.hp, b.0.max)) {
                             best = Some((m, why));
                         }
@@ -850,7 +852,7 @@ impl Ai {
                     return Some(Plan::Ult(m.id, format!("ALLY {} ({why}, {}% hp)", who(sim, m.id), pct(m.hp, m.max))));
                 }
                 // 2. an enemy champion with three stacks close by, not immune to crowd control (a spell shield up)
-                let full = foes.iter().filter(|f| dist(at, f.1) <= R_REACH + 8_000.0 && stacks(sim, f.0) >= 3)
+                let full = foes.iter().filter(|f| dist(at, f.1) <= sk(R_REACH) + 8_000.0 && stacks(sim, f.0) >= 3)
                     .filter(|f| immune_by(sim, f.0).is_none())
                     .min_by(|a, b| dist(at, a.1).partial_cmp(&dist(at, b.1)).unwrap_or(std::cmp::Ordering::Equal));
                 if let Some(&(id, _)) = full {
@@ -861,9 +863,9 @@ impl Ai {
             InputKindV1::Skill2 => {
                 let t = current?;
                 let tp = alive_at(sim, t)?;
-                let allies = within(&mates, at, W_ALLY_R);
+                let allies = within(&mates, at, sk(W_ALLY_R));
                 let held = sim.get_entity(t).is_some_and(|u| hard_cc(&u));
-                let crowd = within(&foes, tp, LANDING);
+                let crowd = within(&foes, tp, sk(LANDING));
                 if dive_ok(allies, held, crowd, pct(hp, max)) {
                     return Some(Plan::Keep);
                 }

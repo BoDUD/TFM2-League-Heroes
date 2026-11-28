@@ -47,6 +47,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 use rules::*;
 
@@ -479,7 +481,7 @@ impl Fired {
         let from = at(ally);
         let team = ally.team();
         let target = target.filter(|t| {
-            sim.get_entity(*t).is_some_and(|e| e.is_alive() && foe_unit(&e, team) && dist(from, at(&e)) <= REACH)
+            sim.get_entity(*t).is_some_and(|e| e.is_alive() && foe_unit(&e, team) && dist(from, at(&e)) <= sk(REACH))
         });
         let wait = if slot == 0 { ATTACK_WAIT } else { SKILL_WAIT };
         Some(Swing { start: now, until: now + wait, target, attack: slot == 0 })
@@ -608,7 +610,7 @@ impl Fired {
                     id: *id,
                     dist: dist(w.from, *p),
                     amount: *amount,
-                    by_shot: w.shots.iter().any(|s| dist(*s, *p) <= SHOT_NEAR),
+                    by_shot: w.shots.iter().any(|s| dist(*s, *p) <= sk(SHOT_NEAR)),
                 })
                 .collect();
             if let Some(t) = hit_of(w.sw.target, &drops, w.min) {
@@ -854,7 +856,7 @@ impl StablePlayerAi for UltAi {
                 if e.team() != team {
                     enemies.push(p);
                     let d = dist(my_at, p);
-                    if e.is_targetable() && d <= R_CAST_RANGE && nearest.is_none_or(|(_, n, _)| d < n) {
+                    if e.is_targetable() && d <= sk(R_CAST_RANGE) && nearest.is_none_or(|(_, n, _)| d < n) {
                         nearest = Some((e.id(), d, e.pos()));
                     }
                     continue;

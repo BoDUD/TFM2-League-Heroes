@@ -44,6 +44,7 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+use game_places::skill_scale::sk;
 
 pub mod brain;
 pub mod record;
@@ -354,7 +355,7 @@ impl Moon {
         if let Some(k) = counted("swap") {
             wlog(format!("{} SWAP {} -> {} ({why}; {:.0}% hp, {} enemy champions within {:.0}) #{k}", head(sim, me),
                 WEAPONS[q.main], WEAPONS[q.off], hp * 100.0,
-                foes.iter().filter(|f| f.champion && brain::dist(at, f.at) <= brain::R_LOOK).count(), brain::R_LOOK));
+                foes.iter().filter(|f| f.champion && brain::dist(at, f.at) <= sk(brain::R_LOOK)).count(), sk(brain::R_LOOK)));
         }
     }
 
@@ -557,7 +558,7 @@ impl Hands {
         });
         // 0.2.4: in a fight the AI's own Q / W goes out - a veto keeps the slot ready, the AI asks again every 4 ticks and
         // each veto turned into an attack where he stood, so its walks away never came (brain::fight_near)
-        let fight = brain::fight_near(at, &foes, brain::FIGHT_R);
+        let fight = brain::fight_near(at, &foes, sk(brain::FIGHT_R));
         let veto = |slot: SkillSlotV1, kind: &'static str, why: String| {
             Some(match veto_or_pass(fight, instead) {
                 Veto::Attack(t) => Call::Veto(t, kind, why, slot),

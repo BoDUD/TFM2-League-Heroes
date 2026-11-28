@@ -19,6 +19,7 @@
 
 use std::collections::{HashMap, VecDeque};
 
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use crate::{can_cast, dist_sq};
@@ -167,16 +168,17 @@ impl Press {
     fn target(&self, sim: &StableSim<'_>, arm: &Arm, me: &StableEntity<'_, '_>, foes: &[(usize, (u64, u64), u64)]) -> Option<usize> {
         let sq = |v: u64| v.saturating_mul(v);
         let (mid, team, at) = (me.id(), me.team(), me.pos());
-        let nearest = foes.iter().filter(|f| f.2 <= sq(arm.near)).min_by_key(|f| f.2).map(|f| f.0);
+        // near 跟着这一格的施法距离在大地图版乘 1.3
+        let nearest = foes.iter().filter(|f| f.2 <= sq(sk(arm.near))).min_by_key(|f| f.2).map(|f| f.0);
         match arm.rule {
             Rule::Near => nearest,
             Rule::Revive => {
                 let foe = nearest?;
-                let fallen = self.fallen.values().any(|&(pos, _)| dist_sq(at, pos) <= sq(FALLEN_RANGE));
-                let danger_foe = foes.iter().any(|f| f.2 <= sq(DANGER_RANGE));
+                let fallen = self.fallen.values().any(|&(pos, _)| dist_sq(at, pos) <= sq(sk(FALLEN_RANGE)));
+                let danger_foe = foes.iter().any(|f| f.2 <= sq(sk(DANGER_RANGE)));
                 let hurt = (0..sim.champion_count())
                     .filter_map(|i| sim.get_entity(sim.champion_id_at(i)))
-                    .filter(|e| e.team() == team && e.is_alive() && dist_sq(at, e.pos()) <= sq(DANGER_RANGE))
+                    .filter(|e| e.team() == team && e.is_alive() && dist_sq(at, e.pos()) <= sq(sk(DANGER_RANGE)))
                     .any(|e| e.hp().0.saturating_mul(100) < e.hp().1.saturating_mul(DANGER_PCT));
                 (fallen || (hurt && danger_foe)).then_some(foe)
             }
@@ -184,7 +186,7 @@ impl Press {
                 nearest?;
                 self.hp
                     .iter()
-                    .filter(|(id, _)| sim.get_entity(**id).is_some_and(|e| dist_sq(at, e.pos()) <= sq(REWIND_ONE_RANGE)))
+                    .filter(|(id, _)| sim.get_entity(**id).is_some_and(|e| dist_sq(at, e.pos()) <= sq(sk(REWIND_ONE_RANGE))))
                     .map(|(id, q)| (*id, window_loss(q)))
                     .filter(|&(_, l)| l >= REWIND_ONE_PCT)
                     .max_by_key(|&(_, l)| l)
@@ -195,7 +197,7 @@ impl Press {
                 let total: usize = self
                     .hp
                     .iter()
-                    .filter(|(id, _)| sim.get_entity(**id).is_some_and(|e| dist_sq(at, e.pos()) <= sq(REWIND_ALL_RANGE)))
+                    .filter(|(id, _)| sim.get_entity(**id).is_some_and(|e| dist_sq(at, e.pos()) <= sq(sk(REWIND_ALL_RANGE))))
                     .map(|(_, q)| window_loss(q))
                     .sum();
                 (total >= REWIND_ALL_PCT).then_some(mid)
@@ -203,7 +205,9 @@ impl Press {
             Rule::Anchor => {
                 let foe = nearest?;
                 let siege = crate::has_buff(sim, mid, crate::anchor::SIEGE_BUFF);
-                let p = crate::anchor::Params::default();
+                // 被动读的 safe / danger 在大地图版数据里乘过 1.3，这里的默认值跟着乘；engage 是普攻距离，不乘
+                let d = crate::anchor::Params::default();
+                let p = crate::anchor::Params { safe: sk(d.safe), danger: sk(d.danger), ..d };
                 let closest = foes.iter().map(|f| f.2).min().unwrap_or(u64::MAX);
                 let in_engage = foes.iter().any(|f| f.2 <= sq(p.engage as u64));
                 crate::anchor::want(&p, siege, closest, in_engage, 0).map(|_| foe)

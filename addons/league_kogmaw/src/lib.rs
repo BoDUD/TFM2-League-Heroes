@@ -47,6 +47,8 @@ use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 // the shared part of the summons (league_shaco_backstab's summon.rs); not every item of it is used here
 #[allow(dead_code)]
@@ -194,7 +196,7 @@ pub fn burst_damage(ad: usize) -> usize {
 
 /// How near a unit of radius `radius` the burst reaches (the engine's circles count the unit's radius).
 pub fn reach(radius: usize) -> f64 {
-    (P_R + radius) as f64
+    (sk(P_R) + radius) as f64
 }
 
 pub fn dist(a: Pt, b: Pt) -> f64 {
@@ -640,10 +642,10 @@ fn burst(sim: &mut StableSim<'_>, f: &Form, why: Why) {
 /// copy's p_form, its hit `:burst`); refused, the burst on that champion at once; none near, nothing (the main pack's
 /// RandomTarget found none either).
 fn comet(sim: &mut StableSim<'_>, kog: usize, team: usize, ad: usize, wake: Pt, why: &str) {
-    let Some((target, at, _, name, d)) = nearest_champion(sim, team, wake, P_SEEK as f64) else {
+    let Some((target, at, _, name, d)) = nearest_champion(sim, team, wake, sk(P_SEEK) as f64) else {
         if let Some(k) = tally(sim, "fallback") {
-            wlog(format!("{} VOID FALLBACK #{k} ({why}): no enemy champion within {P_SEEK} of {} - nothing (the main pack's comet \
-                          found none either)", head(sim, kog), summon::pt(wake)));
+            wlog(format!("{} VOID FALLBACK #{k} ({why}): no enemy champion within {} of {} - nothing (the main pack's comet \
+                          found none either)", head(sim, kog), sk(P_SEEK), summon::pt(wake)));
         }
         return;
     };
@@ -770,9 +772,10 @@ fn wake(sim: &mut StableSim<'_>, kog: usize, input: InputTargetV1) {
     add_form(n, Form { id, n: fnum, kog, team: life.team, born: now, life: spec.life, wake: at, ad: life.ad, field, looks: 0,
                        walking: false, at: spot, walked: 0.0, relaid: 0, summoner, stat: spec.stat, engine_walks: false });
     if let Some(k) = tally(sim, "spawn void") {
+        let p_r = sk(P_R);
         wlog(format!(
             "{} VOID SPAWN #{k}: form {fnum} of Kog'Maw #{kog} ({state}, team {}) woke at {}: unit #{id} (summoner #{summoner}{}) {}; his \
-             attack {} (noted at t={}) -> the burst {} true damage within {P_R} + a unit's radius, at the nearest enemy champion \
+             attack {} (noted at t={}) -> the burst {} true damage within {p_r} + a unit's radius, at the nearest enemy champion \
              {P_SPEED} a tick for {FORM_T} ticks at most; simulation number {n}",
             head(sim, kog), life.team, summon::pt(spot), if summoner == kog { ", his own id" } else { ", an ally: his own refused" },
             spec.shown(), life.ad, life.tick, burst_damage(life.ad)));
@@ -970,9 +973,10 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    let p_r = sk(P_R);
     wlog(format!(
         "VOID: the form is a unit ('{}', spawn_unit) - {}; it runs {P_SPEED} a tick at the nearest enemy champion and bursts within \
-         {P_R} + its radius or after {FORM_T} ticks: {P_DMG} + {P_RATIO}% of his attack as true damage to every enemy within {P_R} \
+         {p_r} + its radius or after {FORM_T} ticks: {P_DMG} + {P_RATIO}% of his attack as true damage to every enemy within {p_r} \
          + its radius; no unit: the comet as before. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(UNIT),
         if KNOBS.off { "OFF by the test knobs: the comet as before" } else { "ON" },

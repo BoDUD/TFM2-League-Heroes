@@ -15,6 +15,8 @@
 
 use std::collections::HashMap;
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, dist_sq, has_buff};
@@ -300,7 +302,7 @@ impl StablePassive for EffigyPassive {
         // 2. W 打中的人（它的针数据已经扎了）和身边 4.5 万内最近的另一个敌方英雄连起来
         if let Some((a, apos, ahp)) = link_primary {
             sim.entity_remove_buff(a, LINK_ASK);
-            let max_r2 = SNAP_DIST * SNAP_DIST;
+            let max_r2 = sk(SNAP_DIST) * sk(SNAP_DIST);
             let mut best: Option<(u64, usize, usize)> = None;
             for i in 0..n_ent {
                 let Some(e) = sim.entity_at(i) else { continue };
@@ -334,7 +336,7 @@ impl StablePassive for EffigyPassive {
             let eb = sim.get_entity(lk.b).map(|e| (e.is_alive(), e.pos(), e.hp().0, e.stat().magic_resistance));
             match (ea, eb) {
                 (Some((true, pa, ha, mra)), Some((true, pb, hb, mrb))) if tick < lk.end_tick => {
-                    if dist_sq(pa, pb) > SNAP_DIST * SNAP_DIST {
+                    if dist_sq(pa, pb) > sk(SNAP_DIST) * sk(SNAP_DIST) {
                         // 线崩了：两人一起眩晕，各吃一下
                         let dmg = snap_damage(ap);
                         for t in [lk.a, lk.b] {
@@ -367,7 +369,7 @@ impl StablePassive for EffigyPassive {
 
         // 4. R「拆线」：拔出 7 万内所有的针
         if consume_buff(sim, entity, UNPICK_ASK) {
-            let r2 = UNPICK_RANGE * UNPICK_RANGE;
+            let r2 = sk(UNPICK_RANGE) * sk(UNPICK_RANGE);
             let targets: Vec<(usize, u8, (u64, u64))> = self
                 .needles
                 .iter()
@@ -400,7 +402,7 @@ impl StablePassive for EffigyPassive {
                     x: at.0,
                     y: at.1.saturating_sub(THREAD_LIFT as u64),
                     radius: 1_000,
-                    speed: RETURN_SPEED,
+                    speed: sk(RETURN_SPEED),
                     move_kind: ProjectileMoveKindV1::Target.code(),
                     target_id: entity,
                     target_x: my_pos.0,

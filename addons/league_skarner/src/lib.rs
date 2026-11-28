@@ -43,6 +43,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
@@ -63,7 +64,7 @@ pub const P_N: usize = 3;
 pub const P_T: usize = 240;
 pub const P_P: usize = 60;
 pub const P_PCT: usize = 1;
-/// 以绪塔尔冲击：拖的速度和 tick、撞墙眩晕、撞墙伤害（固定、攻击力 %、最大生命 %）。
+/// 以绪塔尔冲击：拖的速度和 tick、撞墙眩晕、撞墙伤害（固定、攻击力 %、最大生命 %）。速度在大地图版跟着乘 1.3（game_places::skill_scale）。
 pub const E_KB_SPEED: usize = 2_500;
 pub const E_KB_T: usize = 20;
 pub const E_STUN: usize = 40;
@@ -307,10 +308,11 @@ pub fn quake_ticks() -> Vec<usize> {
 /// 被拖着的英雄这一拍走到哪：朝目标点 `to` 走，最多 `R_PULL`（远的先被拽过来，不是一下瞬移）。
 pub fn pull_step(at: Pt, to: Pt) -> Pt {
     let d = dist(at, to);
-    if d <= R_PULL {
+    let pull = sk(R_PULL);
+    if d <= pull {
         to
     } else {
-        (at.0 + (to.0 - at.0) * R_PULL / d, at.1 + (to.1 - at.1) * R_PULL / d)
+        (at.0 + (to.0 - at.0) * pull / d, at.1 + (to.1 - at.1) * pull / d)
     }
 }
 
@@ -324,7 +326,7 @@ pub const STALL_T: usize = 3;
 /// 拖着走的英雄这一拍停下了吗（撞上了地图墙格里没有的墙）：这一拍只走了 `step`，不到 `STALL` 成，并且之前走起来过
 /// （`moved`）、或者已经看了它 `seen_for` 拍还没走起来。
 pub fn stalled(step: f64, moved: bool, seen_for: usize) -> bool {
-    step < E_KB_SPEED as f64 * STALL && (moved || seen_for >= STALL_T)
+    step < sk(E_KB_SPEED) as f64 * STALL && (moved || seen_for >= STALL_T)
 }
 
 /// 被拖着的英雄相对他的位置：保持方向 `off`，离他不超过 `R_GAP`（太近就不动它的距离）。
@@ -490,10 +492,11 @@ fn impact(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
     }
     let (Some(him), Some(at)) = (pos(sim, me), pos(sim, target)) else { return };
     let dir = unit((at.0 - him.0, at.1 - him.1)).unwrap_or((1.0, 0.0));
-    let reach = (E_KB_SPEED * E_KB_T) as f64;
+    let speed = sk(E_KB_SPEED);
+    let reach = (speed * E_KB_T) as f64;
     match grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body)) {
         Some(len) => {
-            let ticks = if len >= 1.0 { shove(sim, target, dir, len, E_KB_SPEED) } else { 0 };
+            let ticks = if len >= 1.0 { shove(sim, target, dir, len, speed) } else { 0 };
             retimed(sim, target, &wall_due_name(me), ticks.max(1));
             retimed(sim, target, &wall_go_name(me), ticks + 4);
             carried(sim, me, target, ticks);
@@ -502,7 +505,7 @@ fn impact(sim: &mut StableSim<'_>, me: usize, input: InputTargetV1) {
             }
         }
         None => {
-            let ticks = shove(sim, target, dir, reach, E_KB_SPEED);
+            let ticks = shove(sim, target, dir, reach, speed);
             carried(sim, me, target, ticks);
             if let Some(k) = counted("impact") {
                 wlog(format!("{} IMPACT #{target} at {}: no wall within {reach:.0}, dragged, no stun #{k}", head(sim, me), pt(at)));
@@ -634,7 +637,7 @@ impl Sovereign {
         let step = dist(at, c.last);
         c.last = at;
         if !stalled(step, c.moved, now.saturating_sub(c.since)) {
-            c.moved |= step >= E_KB_SPEED as f64 * MOVING;
+            c.moved |= step >= sk(E_KB_SPEED) as f64 * MOVING;
             return;
         }
         let ticks = now.saturating_sub(c.since);

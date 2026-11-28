@@ -23,6 +23,8 @@ use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, stand_ok, Map};
 use mod_api_stable::*;
+// 追谁、走到多近跟着 R 的枪的距离（数据里乘 1.3）一起乘
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_samira_r";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -136,10 +138,11 @@ pub fn toward(at: Pt, goal: Pt, step: f64) -> Option<Pt> {
 /// One step from `at` toward `goal`, stopping `KEEP` short of it (None: close enough already), kept on `map`.
 pub fn toward_on(map: Map, at: Pt, goal: Pt, step: f64) -> Option<Pt> {
     let d = dist(at, goal);
-    if d <= KEEP {
+    let keep = sk(KEEP);
+    if d <= keep {
         return None;
     }
-    let s = step.min(d - KEEP);
+    let s = step.min(d - keep);
     let next = (at.0 + (goal.0 - at.0) / d * s, at.1 + (goal.1 - at.1) / d * s);
     let e = map.extent();
     Some((next.0.clamp(0.0, e - 1.0), next.1.clamp(0.0, e - 1.0)))
@@ -157,7 +160,7 @@ pub fn toward_in(map: Map, at: Pt, goal: Pt, step: f64, ok: impl Fn(Pt) -> bool)
 
 /// Whom she walks at: the enemy champion within `CHASE` with the least health + shield (`foes`: id, at, hp + shield).
 pub fn prey(at: Pt, foes: &[(usize, Pt, usize)]) -> Option<(usize, Pt)> {
-    foes.iter().filter(|f| dist(at, f.1) <= CHASE).min_by_key(|f| f.2).map(|f| (f.0, f.1))
+    foes.iter().filter(|f| dist(at, f.1) <= sk(CHASE)).min_by_key(|f| f.2).map(|f| (f.0, f.1))
 }
 
 fn has_buff(e: &StableEntity<'_, '_>, name: &str) -> bool {

@@ -83,6 +83,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_ult_press";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -670,7 +672,7 @@ pub fn nearest_in(me: (f64, f64), range: f64, enemies: &[Unit]) -> Option<usize>
 /// 崔斯特：他一个人（`TF_ALONE` 内没有敌方英雄）、生命够，远处（`TF_MIN_FAR`..`TF_REACH`）有我方英雄 `TF_FIGHT` 内贴着
 /// 敌方英雄 -> `(那个敌方英雄, 那个我方英雄)`，挑离他最近的一组。
 pub fn tf_fight(me: (f64, f64), hp: f64, allies: &[Unit], enemies: &[Unit]) -> Option<(usize, usize)> {
-    if hp < TF_MIN_HP || enemies.iter().any(|u| dist(me, u.at) <= TF_ALONE) {
+    if hp < TF_MIN_HP || enemies.iter().any(|u| dist(me, u.at) <= sk(TF_ALONE)) {
         return None;
     }
     let mut best: Option<(usize, usize, f64)> = None;
@@ -680,7 +682,7 @@ pub fn tf_fight(me: (f64, f64), hp: f64, allies: &[Unit], enemies: &[Unit]) -> O
         }
         for e in enemies {
             let reach = dist(me, e.at);
-            if dist(a.at, e.at) <= TF_FIGHT && reach <= TF_REACH && best.is_none_or(|b| reach < b.2) {
+            if dist(a.at, e.at) <= sk(TF_FIGHT) && reach <= sk(TF_REACH) && best.is_none_or(|b| reach < b.2) {
                 best = Some((e.id, a.id, reach));
             }
         }
@@ -706,13 +708,13 @@ fn on_the_way(a: (f64, f64), b: (f64, f64), p: (f64, f64), lane: f64) -> bool {
 /// 身边有小兵野怪：是剑扫，他在扇形半径 `SAMIRA_Q_CONE` 内才扫得到；不然是开枪：路上没有小兵野怪挡着才打得到。
 pub fn samira_q_reaches(me: (f64, f64), t: (f64, f64), blockers: &[(f64, f64)]) -> bool {
     let d = dist(me, t);
-    if d <= SAMIRA_Q_CLOSE {
+    if d <= sk(SAMIRA_Q_CLOSE) {
         return true;
     }
-    if blockers.iter().any(|&b| dist(me, b) <= SAMIRA_Q_CLOSE) {
-        return d <= SAMIRA_Q_CONE;
+    if blockers.iter().any(|&b| dist(me, b) <= sk(SAMIRA_Q_CLOSE)) {
+        return d <= sk(SAMIRA_Q_CONE);
     }
-    !blockers.iter().any(|&b| on_the_way(me, t, b, SAMIRA_Q_LANE))
+    !blockers.iter().any(|&b| on_the_way(me, t, b, sk(SAMIRA_Q_LANE)))
 }
 
 /// 莎弥拉这一 tick 按什么（先后顺序，引擎接哪个就是哪个）：`ready` = Q、E、R 好了没有，`last_q` = 上一下打中英雄的是 Q，
@@ -724,15 +726,15 @@ pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, alli
                    grade: usize, blockers: &[(f64, f64)]) -> Vec<(char, usize)> {
     let mut plan = Vec::new();
     if ready[2] {
-        if let Some(t) = nearest_in(me, SAMIRA_RANGE, enemies) {
+        if let Some(t) = nearest_in(me, sk(SAMIRA_RANGE), enemies) {
             plan.push(('R', t));
         }
     }
     if ready[1] && hp >= SAMIRA_E_HP {
         let prey = enemies
             .iter()
-            .filter(|t| dist(me, t.at) <= SAMIRA_E_RANGE)
-            .filter(|t| enemies.iter().filter(|u| dist(t.at, u.at) <= SAMIRA_E_RANGE).count() <= SAMIRA_E_CROWD)
+            .filter(|t| dist(me, t.at) <= sk(SAMIRA_E_RANGE))
+            .filter(|t| enemies.iter().filter(|u| dist(t.at, u.at) <= sk(SAMIRA_E_RANGE)).count() <= SAMIRA_E_CROWD)
             .filter(|t| {
                 grade >= SAMIRA_E_GRADE || t.hp <= SAMIRA_E_PREY || allies.iter().any(|a| dist(a.at, t.at) <= SAMIRA_E_TEAM)
             })
@@ -745,7 +747,7 @@ pub fn samira_plan(me: (f64, f64), hp: f64, ready: [bool; 3], last_q: bool, alli
     if ready[0] && !last_q && !at_s {
         let target = enemies
             .iter()
-            .filter(|u| dist(me, u.at) <= SAMIRA_Q_RANGE && samira_q_reaches(me, u.at, blockers))
+            .filter(|u| dist(me, u.at) <= sk(SAMIRA_Q_RANGE) && samira_q_reaches(me, u.at, blockers))
             .min_by(|a, b| dist(me, a.at).total_cmp(&dist(me, b.at)));
         if let Some(t) = target {
             plan.push(('Q', t.id));
@@ -767,7 +769,7 @@ fn samira_blockers(sim: &StableSim<'_>, team: usize, me: (f64, f64), reach: f64)
 
 /// 克格莫：`KOG_RANGE` 内的敌方英雄，生命比例从低到高（前 `KOG_ASK` 个；引擎再看谁最近被我方打过）。
 pub fn kog_targets(me: (f64, f64), enemies: &[Unit]) -> Vec<usize> {
-    let mut v: Vec<&Unit> = enemies.iter().filter(|u| dist(me, u.at) <= KOG_RANGE).collect();
+    let mut v: Vec<&Unit> = enemies.iter().filter(|u| dist(me, u.at) <= sk(KOG_RANGE)).collect();
     v.sort_by(|a, b| a.hp.total_cmp(&b.hp));
     v.into_iter().take(KOG_ASK).map(|u| u.id).collect()
 }
@@ -816,8 +818,8 @@ pub fn hold_target(
     if towers.iter().any(|&w| dist(w, p) <= TOWER_REACH) {
         return None;
     }
-    let theirs = enemies.iter().filter(|u| dist(p, u.at) <= CROWD_R).count();
-    let ours = 1 + allies.iter().filter(|u| dist(me, u.at) <= CROWD_R).count();
+    let theirs = enemies.iter().filter(|u| dist(p, u.at) <= sk(CROWD_R)).count();
+    let ours = 1 + allies.iter().filter(|u| dist(me, u.at) <= sk(CROWD_R)).count();
     (theirs <= ours).then_some(t)
 }
 
@@ -924,8 +926,8 @@ pub fn neglect_ticks(open: usize, in_range: bool, ai_on_champion: bool) -> usize
 /// 被冷落的射手打谁（不打就 `None`）：自己不在敌方塔下、生命不低于 `POKE_MIN_HP`（[`ranged_poke`]），打自己普攻距离 `range` 内
 /// 最近的敌方英雄——不追出射程；她身边 `CROWD_R` 内的敌方英雄比我方英雄（含她）多出不超过 `NEGLECT_OUTNUMBERED` 个。
 pub fn neglect_poke(me: (f64, f64), hp: f64, allies: &[Unit], enemies: &[Unit], towers: &[(f64, f64)], range: f64) -> Option<usize> {
-    let theirs = enemies.iter().filter(|u| dist(me, u.at) <= CROWD_R).count();
-    let ours = 1 + allies.iter().filter(|u| dist(me, u.at) <= CROWD_R).count();
+    let theirs = enemies.iter().filter(|u| dist(me, u.at) <= sk(CROWD_R)).count();
+    let ours = 1 + allies.iter().filter(|u| dist(me, u.at) <= sk(CROWD_R)).count();
     if theirs > ours + NEGLECT_OUTNUMBERED {
         return None;
     }
@@ -969,7 +971,7 @@ impl Scene<'_> {
 
     /// 打 `p` 那里是以少打多：那里 `CROWD_R` 内的敌方英雄多于他身边 `CROWD_R` 内的我方英雄（含他）。
     fn outnumbered_at(&self, p: (f64, f64)) -> bool {
-        self.foes_within(p, CROWD_R) > 1 + self.allies.iter().filter(|u| dist(self.me, u.at) <= CROWD_R).count()
+        self.foes_within(p, sk(CROWD_R)) > 1 + self.allies.iter().filter(|u| dist(self.me, u.at) <= sk(CROWD_R)).count()
     }
 
     /// 在打架：他，或他 `reach` 内的队友，`FIGHT_CONTACT` 内有敌方英雄。
@@ -1010,18 +1012,18 @@ pub fn engage_targets(s: &Scene, range: f64) -> Vec<usize> {
 /// 那里不以少打多），而且值得一刀：目标身边 `YONE_R_LINE` 内有两个以上敌方英雄（一刀斩一串）、目标生命不到 `YONE_R_LOW`，或我方
 /// 有人 `FIGHT_CONTACT` 内贴着他（接团）。一串的在前，再按生命比例从低到高。
 pub fn yone_r(s: &Scene) -> Vec<usize> {
-    let ok = engage_targets(s, YONE_R_RANGE);
+    let ok = engage_targets(s, sk(YONE_R_RANGE));
     let mut v: Vec<&Unit> = s
         .enemies
         .iter()
         .filter(|u| ok.contains(&u.id))
         .filter(|u| {
-            s.foes_within(u.at, YONE_R_LINE) >= 2
+            s.foes_within(u.at, sk(YONE_R_LINE)) >= 2
                 || u.hp < YONE_R_LOW
                 || s.allies.iter().any(|a| dist(a.at, u.at) <= FIGHT_CONTACT)
         })
         .collect();
-    v.sort_by(|a, b| s.foes_within(b.at, YONE_R_LINE).cmp(&s.foes_within(a.at, YONE_R_LINE)).then(a.hp.total_cmp(&b.hp)));
+    v.sort_by(|a, b| s.foes_within(b.at, sk(YONE_R_LINE)).cmp(&s.foes_within(a.at, sk(YONE_R_LINE))).then(a.hp.total_cmp(&b.hp)));
     v.into_iter().map(|u| u.id).collect()
 }
 
@@ -1031,9 +1033,9 @@ pub fn katarina_r(s: &Scene) -> Vec<usize> {
     if s.hp < KAT_R_HP {
         return Vec::new();
     }
-    let crowd = s.foes_within(s.me, KAT_R_RING) >= 2;
+    let crowd = s.foes_within(s.me, sk(KAT_R_RING)) >= 2;
     let tower = s.under_tower(s.me);
-    s.by_distance(KAT_R_REACH)
+    s.by_distance(sk(KAT_R_REACH))
         .into_iter()
         .filter(|t| s.enemies.iter().any(|u| u.id == *t && (crowd || u.hp <= KAT_R_LOW) && (!tower || u.hp <= DIVE_HP)))
         .collect()
@@ -1047,13 +1049,13 @@ pub fn fiddle_r(s: &Scene) -> Option<(usize, (f64, f64), usize)> {
         return None;
     }
     let mut best: Option<(&Unit, usize)> = None;
-    for u in s.enemies.iter().filter(|u| dist(s.me, u.at) <= FIDDLE_R_RANGE) {
-        let n = s.foes_within(u.at, FIDDLE_STORM);
+    for u in s.enemies.iter().filter(|u| dist(s.me, u.at) <= sk(FIDDLE_R_RANGE)) {
+        let n = s.foes_within(u.at, sk(FIDDLE_STORM));
         if (n < 2 && u.hp > FIDDLE_LOW) || s.under_tower(u.at) {
             continue;
         }
-        let ours = 1 + s.allies.iter().filter(|a| dist(u.at, a.at) <= CROWD_R).count();
-        if s.foes_within(u.at, CROWD_R) > ours + 1 {
+        let ours = 1 + s.allies.iter().filter(|a| dist(u.at, a.at) <= sk(CROWD_R)).count();
+        if s.foes_within(u.at, sk(CROWD_R)) > ours + 1 {
             continue;
         }
         if best.is_none_or(|(b, bn)| n > bn || (n == bn && u.hp < b.hp)) {
@@ -1066,7 +1068,7 @@ pub fn fiddle_r(s: &Scene) -> Option<(usize, (f64, f64), usize)> {
 /// 远处引导的大招（泽拉斯 R、烬 R）打谁：他身边 `CHANNEL_SAFE` 内没有敌方英雄、生命不低于 `CHANNEL_HP`；`reach` 内
 /// 生命不到 `CHANNEL_LOW` 的，或我方有人 `FIGHT_CONTACT` 内贴着的敌方英雄，生命比例最低的在前。
 pub fn channel_targets(s: &Scene, reach: f64) -> Vec<usize> {
-    if s.hp < CHANNEL_HP || s.foes_within(s.me, CHANNEL_SAFE) > 0 {
+    if s.hp < CHANNEL_HP || s.foes_within(s.me, sk(CHANNEL_SAFE)) > 0 {
         return Vec::new();
     }
     let v = s
@@ -1082,7 +1084,7 @@ pub fn channel_targets(s: &Scene, reach: f64) -> Vec<usize> {
 
 /// 辛德拉 R 打谁：射程内的敌方英雄，生命不到 `SYNDRA_LOW` 的、被控住的，或射程内有两个以上时任何一个；生命比例最低的在前。
 pub fn syndra_r(s: &Scene) -> Vec<usize> {
-    let all: Vec<&Unit> = s.enemies.iter().filter(|u| dist(s.me, u.at) <= SYNDRA_R_RANGE).collect();
+    let all: Vec<&Unit> = s.enemies.iter().filter(|u| dist(s.me, u.at) <= sk(SYNDRA_R_RANGE)).collect();
     let crowd = all.len() >= 2;
     let v = all.into_iter().filter(|u| crowd || u.hp <= SYNDRA_LOW || s.held.contains(&u.id)).collect();
     lowest_first(s, v)
@@ -1092,8 +1094,8 @@ pub fn syndra_r(s: &Scene) -> Vec<usize> {
 /// 而 `JANNA_THREAT` 内有敌方英雄，或两人以上生命不到 `JANNA_TEAM` 而她身边 `JANNA_THREAT` 内有敌方英雄。生命最低的在前（含她）。
 pub fn janna_r(s: &Scene) -> Vec<usize> {
     let mut team = vec![(s.id, s.me, s.hp)];
-    team.extend(s.allies.iter().filter(|u| dist(s.me, u.at) <= JANNA_R_RANGE).map(|u| (u.id, u.at, u.hp)));
-    let threatened = |p: (f64, f64)| s.foes_within(p, JANNA_THREAT) > 0;
+    team.extend(s.allies.iter().filter(|u| dist(s.me, u.at) <= sk(JANNA_R_RANGE)).map(|u| (u.id, u.at, u.hp)));
+    let threatened = |p: (f64, f64)| s.foes_within(p, sk(JANNA_THREAT)) > 0;
     let save = team.iter().any(|&(_, p, hp)| hp < JANNA_SAVE && threatened(p));
     let hurt = team.iter().filter(|t| t.2 < JANNA_TEAM).count();
     if !(save || (hurt >= 2 && threatened(s.me))) {
@@ -1105,9 +1107,9 @@ pub fn janna_r(s: &Scene) -> Vec<usize> {
 
 /// 娑娜 W：她或 `SONA_HEAL_R` 内的队友生命不到 `SONA_HURT`，射程内的敌方英雄由近到远（格子要一个敌方英雄）。
 pub fn sona_w(s: &Scene) -> Vec<usize> {
-    let hurt = s.hp < SONA_HURT || s.allies.iter().any(|a| dist(s.me, a.at) <= SONA_HEAL_R && a.hp < SONA_HURT);
+    let hurt = s.hp < SONA_HURT || s.allies.iter().any(|a| dist(s.me, a.at) <= sk(SONA_HEAL_R) && a.hp < SONA_HURT);
     if hurt {
-        s.by_distance(SONA_W_RANGE)
+        s.by_distance(sk(SONA_W_RANGE))
     } else {
         Vec::new()
     }
@@ -1115,22 +1117,22 @@ pub fn sona_w(s: &Scene) -> Vec<usize> {
 
 /// 基兰 E：在打架（`Scene::in_contact`）时射程内由近到远；不打架时追射程内生命不到 `CHASE_LOW` 的（最低的在前）。
 pub fn zilean_e(s: &Scene) -> Vec<usize> {
-    if s.in_contact(ZILEAN_E_RANGE) {
-        return s.by_distance(ZILEAN_E_RANGE);
+    if s.in_contact(sk(ZILEAN_E_RANGE)) {
+        return s.by_distance(sk(ZILEAN_E_RANGE));
     }
-    let v = s.enemies.iter().filter(|u| dist(s.me, u.at) <= ZILEAN_E_RANGE && u.hp < CHASE_LOW).collect();
+    let v = s.enemies.iter().filter(|u| dist(s.me, u.at) <= sk(ZILEAN_E_RANGE) && u.hp < CHASE_LOW).collect();
     lowest_first(s, v)
 }
 
 /// 希维尔 E：`SIVIR_WATCH` 内有刚放了技能的敌方英雄（`fresh`），或她生命不到 `SIVIR_LOW` 而 `SIVIR_CLOSE` 内有敌方英雄。
 /// 射程内的敌方英雄，刚放技能的在前、再由近到远。
 pub fn sivir_e(s: &Scene, fresh: &[usize]) -> Vec<usize> {
-    let spell = s.enemies.iter().any(|u| fresh.contains(&u.id) && dist(s.me, u.at) <= SIVIR_WATCH);
-    let desperate = s.hp < SIVIR_LOW && s.foes_within(s.me, SIVIR_CLOSE) > 0;
+    let spell = s.enemies.iter().any(|u| fresh.contains(&u.id) && dist(s.me, u.at) <= sk(SIVIR_WATCH));
+    let desperate = s.hp < SIVIR_LOW && s.foes_within(s.me, sk(SIVIR_CLOSE)) > 0;
     if !spell && !desperate {
         return Vec::new();
     }
-    let mut v = s.by_distance(SIVIR_E_RANGE);
+    let mut v = s.by_distance(sk(SIVIR_E_RANGE));
     v.sort_by_key(|t| !fresh.contains(t));
     v
 }
@@ -1140,7 +1142,7 @@ pub fn vladimir_r(s: &Scene) -> Vec<usize> {
     let v = s
         .enemies
         .iter()
-        .filter(|u| dist(s.me, u.at) <= VLAD_R_RANGE && (u.hp < VLAD_R_LOW || s.foes_within(u.at, VLAD_R_CLOUD) >= 2))
+        .filter(|u| dist(s.me, u.at) <= sk(VLAD_R_RANGE) && (u.hp < VLAD_R_LOW || s.foes_within(u.at, sk(VLAD_R_CLOUD)) >= 2))
         .collect();
     lowest_first(s, v)
 }
@@ -1151,7 +1153,7 @@ const RYZE_ESCAPE: &str = "low on health";
 /// 瑞兹 R（备好式）：逃命——生命不到 `RYZE_FLEE` 而 `RYZE_THREAT` 内有敌方英雄（最近的那个）；去打架——崔斯特的规则。
 pub fn ryze_r(s: &Scene) -> Option<(usize, &'static str)> {
     if s.hp < RYZE_FLEE {
-        return s.by_distance(RYZE_THREAT).first().map(|&t| (t, RYZE_ESCAPE));
+        return s.by_distance(sk(RYZE_THREAT)).first().map(|&t| (t, RYZE_ESCAPE));
     }
     tf_fight(s.me, s.hp, s.allies, s.enemies).map(|(e, _)| (e, "an ally fights far away"))
 }
@@ -1192,39 +1194,39 @@ pub fn plan(name: &str, s: &Scene, ready: [bool; 4], m: &Marks) -> Vec<Plan> {
     };
     use SkillSlotV1::{Skill2, Ult};
     match name {
-        GWEN if w => push("E", Skill2, engage_targets(s, GWEN_E_RANGE), "dash in", true),
-        VIEGO if w => push("E", Skill2, engage_targets(s, VIEGO_E_RANGE), "mist and dash in", true),
+        GWEN if w => push("E", Skill2, engage_targets(s, sk(GWEN_E_RANGE)), "dash in", true),
+        VIEGO if w => push("E", Skill2, engage_targets(s, sk(VIEGO_E_RANGE)), "mist and dash in", true),
         KATARINA => {
             if r {
                 push("R", Ult, katarina_r(s), "lotus", true);
             }
             if w {
-                push("W", Skill2, engage_targets(s, KATARINA_W_RANGE), "shunpo in", true);
+                push("W", Skill2, engage_targets(s, sk(KATARINA_W_RANGE)), "shunpo in", true);
             }
         }
         ORIANNA => {
             if r {
-                push("R", Ult, s.by_distance(ORI_R_NEAR), "arm the shockwave", true);
+                push("R", Ult, s.by_distance(sk(ORI_R_NEAR)), "arm the shockwave", true);
             }
-            if w && s.in_contact(ORI_E_RANGE) {
-                push("E", Skill2, s.by_distance(ORI_E_RANGE), "fight on: shield", false);
+            if w && s.in_contact(sk(ORI_E_RANGE)) {
+                push("E", Skill2, s.by_distance(sk(ORI_E_RANGE)), "fight on: shield", false);
             }
         }
         SIVIR if w => push("E", Skill2, sivir_e(s, &m.fresh), "spell shield", false),
         SONA if w => push("W", Skill2, sona_w(s), "someone hurt: heal", false),
         ZILEAN if w => push("E", Skill2, zilean_e(s), "slow / haste", false),
-        KALISTA if w && m.kalista_rend => push("E", Skill2, s.by_distance(KALISTA_E_RANGE), "spears enough: rend", false),
+        KALISTA if w && m.kalista_rend => push("E", Skill2, s.by_distance(sk(KALISTA_E_RANGE)), "spears enough: rend", false),
         JANNA if r => push("R", Ult, janna_r(s), "monsoon heal", false),
         SYNDRA if r => push("R", Ult, syndra_r(s), "unleashed power", true),
-        XERATH if r => push("R", Ult, channel_targets(s, XERATH_R_REACH), "rite from afar", true),
-        JHIN if r => push("R", Ult, channel_targets(s, JHIN_R_REACH), "curtain call from afar", true),
-        KAYLE if r => push("R", Ult, s.by_distance(KAYLE_R_NEAR), "arm", false),
-        KARMA if r => push("R", Ult, s.by_distance(KARMA_R_NEAR), "mantra", false),
-        EVELYNN if r => push("R", Ult, s.by_distance(EVELYNN_R_NEAR), "arm", true),
-        APHELIOS if r => push("R", Ult, s.by_distance(APHELIOS_R_NEAR), "arm", true),
-        SWAIN if r => push("R", Ult, s.by_distance(SWAIN_R_NEAR), "arm the demon", true),
-        RENATA if r => push("R", Ult, s.by_distance(RENATA_R_NEAR), "arm the takeover", false),
-        WUKONG if r => push("R", Ult, s.by_distance(WUKONG_R_NEAR), "arm the cyclone", true),
+        XERATH if r => push("R", Ult, channel_targets(s, sk(XERATH_R_REACH)), "rite from afar", true),
+        JHIN if r => push("R", Ult, channel_targets(s, sk(JHIN_R_REACH)), "curtain call from afar", true),
+        KAYLE if r => push("R", Ult, s.by_distance(sk(KAYLE_R_NEAR)), "arm", false),
+        KARMA if r => push("R", Ult, s.by_distance(sk(KARMA_R_NEAR)), "mantra", false),
+        EVELYNN if r => push("R", Ult, s.by_distance(sk(EVELYNN_R_NEAR)), "arm", true),
+        APHELIOS if r => push("R", Ult, s.by_distance(sk(APHELIOS_R_NEAR)), "arm", true),
+        SWAIN if r => push("R", Ult, s.by_distance(sk(SWAIN_R_NEAR)), "arm the demon", true),
+        RENATA if r => push("R", Ult, s.by_distance(sk(RENATA_R_NEAR)), "arm the takeover", false),
+        WUKONG if r => push("R", Ult, s.by_distance(sk(WUKONG_R_NEAR)), "arm the cyclone", true),
         YONE if r => push("R", Ult, yone_r(s), "fate sealed", true),
         VLADIMIR if r => push("R", Ult, vladimir_r(s), "hemoplague", true),
         RYZE if r => {
@@ -2075,8 +2077,8 @@ impl UltPress {
                     let last_q = has_buff(&me, SAMIRA_LAST_Q);
                     // the minions and monsters round her only when a Q could go out (a whole scan of the table; `look`
                     // sees champions only)
-                    let blockers = if ready3[0] && !last_q && nearest_in(my_at, SAMIRA_Q_RANGE, &enemies).is_some() {
-                        samira_blockers(&sim, team, my_at, SAMIRA_Q_RANGE + SAMIRA_Q_LANE)
+                    let blockers = if ready3[0] && !last_q && nearest_in(my_at, sk(SAMIRA_Q_RANGE), &enemies).is_some() {
+                        samira_blockers(&sim, team, my_at, sk(SAMIRA_Q_RANGE) + sk(SAMIRA_Q_LANE))
                     } else {
                         Vec::new()
                     };
@@ -2102,8 +2104,8 @@ impl UltPress {
                     }
                     v
                 }
-                CAMILLE if ready[2] => match nearest_in(my_at, CAMILLE_RANGE, &enemies) {
-                    Some(t) if !away_from(t) && dive_ok(t) => vec![(press(InputKindV1::Skill2, t), "E", skill2, format!("{} within {CAMILLE_RANGE:.0}", who(&sim, t)))],
+                CAMILLE if ready[2] => match nearest_in(my_at, sk(CAMILLE_RANGE), &enemies) {
+                    Some(t) if !away_from(t) && dive_ok(t) => vec![(press(InputKindV1::Skill2, t), "E", skill2, format!("{} within {:.0}", who(&sim, t), sk(CAMILLE_RANGE)))],
                     _ => Vec::new(),
                 },
                 // Kog'Maw's and Twisted Fate's R only when ready (unlocked and cooled down), as before 0.4.0: since every

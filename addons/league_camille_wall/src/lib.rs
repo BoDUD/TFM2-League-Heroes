@@ -62,6 +62,8 @@ use std::sync::{LazyLock, Mutex};
 
 use game_places::terrain::{map_of_sim, rift_status, rift_ground, Map, Walls};
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3（这里的 E 整个是本包做的）
+use game_places::skill_scale::sk;
 
 const ID: &str = "league_camille_wall";
 /// 附加包自己的版本（mod.mod_info）：编进 league_addons 时 CARGO_PKG_VERSION 是合集的，合集的 build.rs 把每个附加包的
@@ -590,7 +592,7 @@ pub fn tower_hits(grid: &Grid, me: (f64, f64), my_r: f64, posts: &[Post]) -> Vec
         .filter_map(|p| {
             let d = dist(me, p.at());
             let reach = d - p.r - my_r;
-            if d - p.r > E_RANGE || reach < HOOK_MIN {
+            if d - p.r > sk(E_RANGE) || reach < sk(HOOK_MIN) {
                 return None;
             }
             let end = (me.0 + (p.x - me.0) / d * reach, me.1 + (p.y - me.1) / d * reach);
@@ -607,7 +609,7 @@ pub fn tower_hits(grid: &Grid, me: (f64, f64), my_r: f64, posts: &[Post]) -> Vec
 
 /// 她能钩的所有点：墙和地图四边（被塔挡住的方向不算，那边钩的是塔）和塔。
 pub fn hook_points(grid: &Grid, me: (f64, f64), my_r: f64, posts: &[Post]) -> Vec<Hit> {
-    let mut hits: Vec<Hit> = wall_hits(grid, me.0, me.1, E_RANGE)
+    let mut hits: Vec<Hit> = wall_hits(grid, me.0, me.1, sk(E_RANGE))
         .into_iter()
         .filter(|h| posts.iter().all(|p| segment_dist(p.at(), me, h.at()) > p.r))
         .collect();
@@ -646,7 +648,7 @@ pub fn wall_hits(grid: &Grid, x: f64, y: f64, range: f64) -> Vec<Hit> {
                     }
                 }
                 let hd = lo - WALL_GAP;
-                if (HOOK_MIN..=range).contains(&hd) {
+                if (sk(HOOK_MIN)..=range).contains(&hd) {
                     hits.push(Hit { x: at(hd).0, y: at(hd).1, dist: hd, surface, hostile: false });
                 }
                 break;
@@ -729,7 +731,7 @@ pub fn lead_on(grid: &Grid, f: &Foe, ticks: f64) -> (f64, f64) {
 
 /// 从决定出 E 到 E2 扑出去要多少 tick：出手到钩子飞出、钩子飞、拉过去、挂一下。
 pub fn ticks_to_e2(hook_dist: f64) -> f64 {
-    E_FIRE as f64 + hook_dist / E_SPEED + hook_dist / PULL_SPEED + CLING as f64
+    E_FIRE as f64 + hook_dist / sk(E_SPEED) + hook_dist / sk(PULL_SPEED) + CLING as f64
 }
 
 /// 突进：`ENGAGE_R` 内、不在他们塔下的敌方英雄里挑一个，配一个钩点——
@@ -742,15 +744,15 @@ pub fn ticks_to_e2(hook_dist: f64) -> f64 {
 /// 分数越小越好：扑的距离接近 `DIVE_IDEAL`、钩得近、钩的方向正、扑的时候拐得少，残血的优先。
 pub fn plan_engage(grid: &Grid, hits: &[Hit], me: (f64, f64), foes: &[Foe], friends: &[(f64, f64)]) -> Option<(Hit, usize)> {
     let mut best: Option<(f64, Hit, usize)> = None;
-    for f in foes.iter().filter(|f| !f.guarded && dist(me, f.at()) <= ENGAGE_R) {
-        let crowd = foes.iter().filter(|o| dist(o.at(), f.at()) <= CROWD_R).count();
-        if crowd >= 3 && friends.iter().all(|a| dist(*a, f.at()) > CROWD_R + 15_000.0) {
+    for f in foes.iter().filter(|f| !f.guarded && dist(me, f.at()) <= sk(ENGAGE_R)) {
+        let crowd = foes.iter().filter(|o| dist(o.at(), f.at()) <= sk(CROWD_R)).count();
+        if crowd >= 3 && friends.iter().all(|a| dist(*a, f.at()) > sk(CROWD_R + 15_000.0)) {
             continue;
         }
         for h in hits.iter().filter(|h| !h.hostile || f.low) {
             let p = lead_on(grid, f, ticks_to_e2(h.dist));
             let d = dist(h.at(), p);
-            if !(DIVE_MIN..=DIVE_PLAN).contains(&d) || !path_free(grid, h.at(), p) {
+            if !(sk(DIVE_MIN)..=sk(DIVE_PLAN)).contains(&d) || !path_free(grid, h.at(), p) {
                 continue;
             }
             let to_him = dist(me, p).max(1.0);
@@ -759,11 +761,12 @@ pub fn plan_engage(grid: &Grid, hits: &[Hit], me: (f64, f64), foes: &[Foe], frie
             if cos < TURN_COS || d >= to_him || turn < PULL_DIVE_COS {
                 continue;
             }
-            let score = (d - DIVE_IDEAL).abs()
+            // 分数是按距离算的：拐弯的代价、残血的加分跟着距离一起乘
+            let score = (d - sk(DIVE_IDEAL)).abs()
                 + HOOK_COST * h.dist
-                + TURN_COST * (1.0 - cos)
-                + PULL_DIVE_COST * (1.0 - turn)
-                - if f.low { 8_000.0 } else { 0.0 };
+                + sk(TURN_COST) * (1.0 - cos)
+                + sk(PULL_DIVE_COST) * (1.0 - turn)
+                - if f.low { sk(8_000.0) } else { 0.0 };
             if best.is_none_or(|b| score < b.0) {
                 best = Some((score, *h, f.id));
             }
@@ -778,16 +781,16 @@ pub fn plan_escape(hits: &[Hit], me: (f64, f64), foes: &[Foe]) -> Option<Hit> {
     let now = nearest(me, foes);
     hits.iter()
         .copied()
-        .filter(|h| h.dist >= E_NEAR_R && !h.hostile)
+        .filter(|h| h.dist >= sk(E_NEAR_R) && !h.hostile)
         .map(|h| (nearest(h.at(), foes), h))
-        .filter(|(m, _)| *m >= E_SAFE_R && *m > now)
+        .filter(|(m, _)| *m >= sk(E_SAFE_R) && *m > now)
         .max_by(|a, b| a.0.total_cmp(&b.0))
         .map(|(_, h)| h)
 }
 
 /// 逃跑的第二段：`E_AWAY_R` 内有敌方英雄时，朝能冲开（至少 `FLEE_MIN`）且终点离敌人最远的方向冲。
 pub fn plan_flee(grid: &Grid, me: (f64, f64), foes: &[Foe]) -> Option<(f64, f64)> {
-    let near: Vec<Foe> = foes.iter().copied().filter(|f| dist(me, f.at()) <= E_AWAY_R).collect();
+    let near: Vec<Foe> = foes.iter().copied().filter(|f| dist(me, f.at()) <= sk(E_AWAY_R)).collect();
     if near.is_empty() {
         return None;
     }
@@ -796,8 +799,8 @@ pub fn plan_flee(grid: &Grid, me: (f64, f64), foes: &[Foe]) -> Option<(f64, f64)
         .filter_map(|k| {
             let a = k as f64 * std::f64::consts::TAU / 32.0;
             let dir = (a.cos(), a.sin());
-            let run = free_run(grid, me, dir, E_AWAY_LEN);
-            (run >= FLEE_MIN).then(|| (me.0 + dir.0 * run, me.1 + dir.1 * run))
+            let run = free_run(grid, me, dir, sk(E_AWAY_LEN));
+            (run >= sk(FLEE_MIN)).then(|| (me.0 + dir.0 * run, me.1 + dir.1 * run))
         })
         .map(|end| (nearest(end, &near), end))
         .filter(|(m, _)| *m > now + 5_000.0)
@@ -1101,7 +1104,7 @@ fn decide(sim: &mut StableSim<'_>, caster: usize, escape: bool, vel: &Velocities
     let team = sim.get_entity(caster).map_or(0, |e| e.team());
     let foes = foes_of(&us, team, vel);
     let hp = hp_share(sim, caster);
-    let low = !escape && hp <= LOW_HP && nearest(here, &foes) <= LOW_HP_NEAR;
+    let low = !escape && hp <= LOW_HP && nearest(here, &foes) <= sk(LOW_HP_NEAR);
     let escape = escape || low;
     // her R arena up: no E at all (0.4.14) - an escape hooked her out of her own arena and ended it with the target alive
     // inside (the user 2026-11-17: 「还是有bug啊」)
@@ -1197,7 +1200,7 @@ fn throw(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: b
         x: here.0.round() as u64,
         y: here.1.round() as u64,
         radius: 1_000,
-        speed: E_SPEED as u64,
+        speed: sk(E_SPEED) as u64,
         move_kind: ProjectileMoveKindV1::Linear.code(),
         target_id: 0,
         target_x: tip.0.round().max(0.0) as u64,
@@ -1210,7 +1213,7 @@ fn throw(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: b
     if !sim.spawn_projectile(&camille("e_hook"), &format!("{ID}:noop"), &spec) {
         wlog(format!("{} spawn_projectile(e_hook) refused", head(sim, caster)));
     }
-    let flight = (dist(here, tip) / E_SPEED).ceil() as usize;
+    let flight = (dist(here, tip) / sk(E_SPEED)).ceil() as usize;
     queue(sim, if escape { "pull_escape" } else { "pull" }, caster, input, flight);
 }
 
@@ -1223,7 +1226,7 @@ fn pull(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: bo
     }
     animate(sim, caster, "skill2_dash", E_DASH_ANIM);
     sfx(sim, "e_pull", caster);
-    let ticks = force_move(sim, caster, here, hook, PULL_SPEED);
+    let ticks = force_move(sim, caster, here, hook, sk(PULL_SPEED));
     timed(sim, caster, PULL, ticks + 6);
     queue(sim, if escape { "watch_escape" } else { "watch" }, caster, input, 1);
 }
@@ -1246,7 +1249,7 @@ fn watch(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: b
         }
         return;
     }
-    if !has_cc(sim, caster, &[CcKindV1::ForceMove]) && !step_toward(sim, caster, here, hook, PULL_SPEED, 0.0) {
+    if !has_cc(sim, caster, &[CcKindV1::ForceMove]) && !step_toward(sim, caster, here, hook, sk(PULL_SPEED), 0.0) {
         sim.entity_remove_buff(caster, PULL);
     }
     queue(sim, if escape { "watch_escape" } else { "watch" }, caster, input, 1);
@@ -1271,9 +1274,9 @@ fn e2(sim: &mut StableSim<'_>, caster: usize) {
     let planned = planned_target(sim, caster);
     let foes = foes_of(&us, team, &Velocities::new());
     let clear: Vec<Foe> = foes.into_iter().filter(|f| grid.as_ref().is_none_or(|g| path_free(g, here, f.at()))).collect();
-    let in_reach = |f: &&Foe| dist(here, f.at()) <= E2_RANGE;
+    let in_reach = |f: &&Foe| dist(here, f.at()) <= sk(E2_RANGE);
     let (target, why) = if let Some(f) = clear.iter().find(|f| Some(f.id) == planned) {
-        (Some(*f), if dist(here, f.at()) <= E2_RANGE { "" } else { ", out of reach: dives after him" })
+        (Some(*f), if dist(here, f.at()) <= sk(E2_RANGE) { "" } else { ", out of reach: dives after him" })
     } else if let Some(f) = clear.iter().filter(in_reach).min_by(|a, b| dist(here, a.at()).total_cmp(&dist(here, b.at()))) {
         (Some(*f), ", nearest in reach")
     } else {
@@ -1286,10 +1289,10 @@ fn e2(sim: &mut StableSim<'_>, caster: usize) {
     animate(sim, caster, "skill2_dash", E_DASH_ANIM);
     sfx(sim, "e_pull", caster);
     let d = dist(here, t.at());
-    let dive = (d - CONTACT).clamp(0.0, E2_RANGE - CONTACT);
+    let dive = (d - CONTACT).clamp(0.0, sk(E2_RANGE) - CONTACT);
     let ticks = if dive > ARRIVE {
         let to = (here.0 + (t.x - here.0) / d * dive, here.1 + (t.y - here.1) / d * dive);
-        force_move(sim, caster, here, to, E2_SPEED)
+        force_move(sim, caster, here, to, sk(E2_SPEED))
     } else {
         0
     };
@@ -1313,7 +1316,7 @@ fn flee(sim: &mut StableSim<'_>, caster: usize) {
     };
     animate(sim, caster, "skill2_dash", E_DASH_ANIM);
     sfx(sim, "e_pull", caster);
-    let ticks = force_move(sim, caster, here, end, E2_SPEED);
+    let ticks = force_move(sim, caster, here, end, sk(E2_SPEED));
     timed(sim, caster, DASH, ticks + 4);
     wlog(format!("{} escape dash to {}", head(sim, caster), pt(end)));
     queue(sim, "dash_escape", caster, pos_input(end), 1);
@@ -1344,7 +1347,7 @@ fn dash(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1, escape: bo
         }
         return;
     }
-    if !has_cc(sim, caster, &[CcKindV1::ForceMove]) && !step_toward(sim, caster, here, goal, E2_SPEED, stop - 2_000.0) {
+    if !has_cc(sim, caster, &[CcKindV1::ForceMove]) && !step_toward(sim, caster, here, goal, sk(E2_SPEED), stop - 2_000.0) {
         sim.entity_remove_buff(caster, DASH);
         // 2026-11-13: knocked up, stunned... mid-dive (step_toward refuses a held Camille): the dive is broken - no landing
         // hit, no stun (it used to land on the next tick wherever she was)
@@ -1368,7 +1371,7 @@ fn land(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let ad = E_DMG + attack * E_RATIO / 100;
     let mut hit = Vec::new();
     for u in us.iter().filter(|u| u.alive && u.targetable && !u.tower && u.team != team) {
-        if dist(here, u.at) <= E_RADIUS + u.radius {
+        if dist(here, u.at) <= sk(E_RADIUS) + u.radius {
             sim.deal_damage(caster, u.id, ad, 0, AttackTypeV1::Skill);
             view(sim, "e_hit", caster, u.id);
             hit.push(u.id);
@@ -1379,11 +1382,11 @@ fn land(sim: &mut StableSim<'_>, caster: usize, input: InputTargetV1) {
     let stunned = us
         .iter()
         .filter(enemy_champ)
-        .find(|u| u.id == input.target_id && dist(here, u.at) <= E_RADIUS + u.radius + 6_000.0)
+        .find(|u| u.id == input.target_id && dist(here, u.at) <= sk(E_RADIUS) + u.radius + 6_000.0)
         .or_else(|| {
             us.iter()
                 .filter(enemy_champ)
-                .filter(|u| dist(here, u.at) <= E_RADIUS + u.radius)
+                .filter(|u| dist(here, u.at) <= sk(E_RADIUS) + u.radius)
                 .min_by(|a, b| dist(here, a.at).total_cmp(&dist(here, b.at)))
         })
         .map(|u| u.id);
@@ -1460,12 +1463,12 @@ fn auto_cast(sim: &mut StableSim<'_>, me: usize, vel: &Velocities) {
     let us = units(sim);
     let team = sim.get_entity(me).map_or(0, |e| e.team());
     let foes = foes_of(&us, team, vel);
-    if nearest(here, &foes) > ENGAGE_R {
+    if nearest(here, &foes) > sk(ENGAGE_R) {
         return;
     }
-    let enemies = foes.iter().filter(|f| dist(here, f.at()) <= E_DNG_R).count();
+    let enemies = foes.iter().filter(|f| dist(here, f.at()) <= sk(E_DNG_R)).count();
     let allies =
-        us.iter().filter(|u| u.champion && u.alive && u.team == team && u.id != me && dist(here, u.at) <= E_ALLY_R).count();
+        us.iter().filter(|u| u.champion && u.alive && u.team == team && u.id != me && dist(here, u.at) <= sk(E_ALLY_R)).count();
     let outnumbered = (enemies >= 2 && allies == 0) || (enemies >= 3 && allies <= 1);
     decide(sim, me, outnumbered, vel);
 }

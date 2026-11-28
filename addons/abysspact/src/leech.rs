@@ -18,6 +18,8 @@
 //! - 他倒下：宿主身上的减速、小水蛭标记当场摘掉。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, dist_sq, has_buff};
@@ -129,7 +131,7 @@ fn mini_spec(entity: usize, team: usize, from: (u64, u64), to: (u64, u64), host:
         x: from.0,
         y: from.1.saturating_sub(9_000),
         radius: 1_000,
-        speed: MINI_SPEED,
+        speed: sk(MINI_SPEED),
         move_kind: if host.is_some() { ProjectileMoveKindV1::Target } else { ProjectileMoveKindV1::Linear }.code(),
         target_id: host.unwrap_or(0),
         target_x: to.0,
@@ -273,7 +275,7 @@ impl LeechPassive {
 
     fn start_swarm(&mut self, sim: &mut StableSim<'_>, entity: usize, my_team: usize, my_pos: (u64, u64)) {
         self.clear_attach(sim, entity);
-        let r2 = SWARM_RANGE * SWARM_RANGE;
+        let r2 = sk(SWARM_RANGE) * sk(SWARM_RANGE);
         let mut foes: Vec<(usize, usize)> = Vec::new();
         for i in 0..sim.entity_count() {
             let Some(e) = sim.entity_at(i) else { continue };
@@ -498,7 +500,7 @@ impl StablePassive for LeechPassive {
                 Some((false, dead_pos, _, _, _)) if !att.jumped => {
                     // 宿主死了：跳到 5 万内最近的另一个敌方英雄身上再附 2 秒
                     self.clear_attach(sim, entity);
-                    let r2 = JUMP_RANGE * JUMP_RANGE;
+                    let r2 = sk(JUMP_RANGE) * sk(JUMP_RANGE);
                     let mut next_host: Option<(usize, u64)> = None;
                     for i in 0..sim.entity_count() {
                         let Some(e) = sim.entity_at(i) else { continue };

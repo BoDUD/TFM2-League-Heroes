@@ -26,6 +26,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod plan;
@@ -296,7 +298,7 @@ impl StablePlayerAi for UltAi {
                 // `is_valid_input` does not look at cooldowns (league_pyke): an R order on cooldown holds him still
                 let free = pl.level() >= ULT_LEVEL && cd == Some(0);
                 let (id, team) = (me.id(), me.team());
-                let r2 = (R_RANGE as u64).saturating_mul(R_RANGE as u64);
+                let r2 = (sk(R_RANGE) as u64).saturating_mul(sk(R_RANGE) as u64);
                 let enemy = |e: &StableEntity<'_, '_>| e.is_champion() && e.is_alive() && e.team() != team;
                 let foes: Vec<Foe> = (0..sim.entity_count())
                     .filter_map(|i| sim.entity_at(i))

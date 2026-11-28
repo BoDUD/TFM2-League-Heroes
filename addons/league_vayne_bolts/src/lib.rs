@@ -44,6 +44,7 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex, Once};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map, Walls};
 use mod_api_stable::*;
 
@@ -71,6 +72,7 @@ pub const GO: &str = "league_vayne_sb_go";
 pub const FLAG_T: usize = 3;
 
 /// 恶魔审判的击退：主包 `Knockback` 的速度和 tick（`make_override.py` 核对），撞墙伤害和眩晕是主包第 `E_KB_T` tick 的 `Delayed`。
+/// 下面的速度、射程在大地图版跟着乘 1.3（game_places::skill_scale，主包的数据也乘了）。
 pub const E_KB_SPEED: usize = 3_000;
 pub const E_KB_T: usize = 8;
 /// 恶魔审判的出手：主包第 `E_START` tick 射出重箭（`TargetProjectile`，每 tick `E_BOLT_SPEED`），射程 `E_RANGE`（`make_override.py` 核对）。
@@ -481,7 +483,7 @@ fn buff_names(sim: &StableSim<'_>, id: usize) -> Vec<String> {
 }
 
 pub fn push_plan(len: f64) -> (usize, usize) {
-    let ticks = ((len / E_KB_SPEED as f64).ceil() as usize).max(1);
+    let ticks = ((len / sk(E_KB_SPEED) as f64).ceil() as usize).max(1);
     (ticks, (len / ticks as f64).ceil() as usize)
 }
 
@@ -546,10 +548,10 @@ fn condemn(sim: &mut StableSim<'_>, vayne: usize, input: InputTargetV1) {
     }
     let Some(her) = sim.get_entity(vayne).map(|e| (e.pos().0 as f64, e.pos().1 as f64)) else { return };
     let dir = unit((at.0 - her.0, at.1 - her.1)).unwrap_or((1.0, 0.0));
-    let reach = (E_KB_SPEED * E_KB_T) as f64;
+    let reach = (sk(E_KB_SPEED) * E_KB_T) as f64;
     let wall = grid_now(sim).and_then(|g| wall_travel(g, at, dir, reach, body));
     let Some(len) = wall else {
-        sim.entity_knockback(vayne, target, E_KB_SPEED, E_KB_T);
+        sim.entity_knockback(vayne, target, sk(E_KB_SPEED), E_KB_T);
         if let Some(k) = tally(sim, "free") {
             wlog(format!("{} CONDEMN #{target} at {}: no wall within {reach:.0}, knocked back, no stun #{k}", head(sim, vayne), pt(at)));
         }

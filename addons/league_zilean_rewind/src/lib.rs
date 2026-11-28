@@ -32,6 +32,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_zilean_rewind";
@@ -200,14 +202,14 @@ fn dist(a: (f64, f64), b: (f64, f64)) -> f64 {
 
 /// 有危险吗：身边 `DANGER_NEAR` 内有敌方英雄，生命不到 `DANGER_HP`，或刚被打掉一大截。
 pub fn in_danger(a: &Ally, enemies: &[(f64, f64)]) -> bool {
-    enemies.iter().any(|e| dist(a.at, *e) <= DANGER_NEAR) && (a.hp <= DANGER_HP || (a.drop >= BURST && a.hp <= BURST_LEFT))
+    enemies.iter().any(|e| dist(a.at, *e) <= sk(DANGER_NEAR)) && (a.hp <= DANGER_HP || (a.drop >= BURST && a.hp <= BURST_LEFT))
 }
 
 /// 基兰在 `zilean`：`R_RANGE` 内有危险的己方英雄里生命比例最低的那个。
 pub fn pick_guard(zilean: (f64, f64), allies: &[Ally], enemies: &[(f64, f64)]) -> Option<usize> {
     allies
         .iter()
-        .filter(|a| dist(zilean, a.at) <= R_RANGE && in_danger(a, enemies))
+        .filter(|a| dist(zilean, a.at) <= sk(R_RANGE) && in_danger(a, enemies))
         .min_by(|a, b| a.hp.total_cmp(&b.hp))
         .map(|a| a.id)
 }

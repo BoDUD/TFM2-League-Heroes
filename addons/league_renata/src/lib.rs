@@ -40,6 +40,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_renata";
@@ -253,7 +255,7 @@ pub struct Ally {
 
 /// 危急：身边 DANGER_NEAR 内有敌方英雄，并且被硬控或生命比例不到 DANGER_HP。
 pub fn in_danger(a: &Ally, enemies: &[(f64, f64)]) -> bool {
-    enemies.iter().any(|e| dist(a.at, *e) <= DANGER_NEAR) && (a.held || a.hp < DANGER_HP)
+    enemies.iter().any(|e| dist(a.at, *e) <= sk(DANGER_NEAR)) && (a.held || a.hp < DANGER_HP)
 }
 
 /// 她在 `me`：`reach` 内危急的队友里生命比例最低的那个。
@@ -734,7 +736,7 @@ impl Glasc {
                     Some((f, true)) if has_buff(sim, f, MARK) => Some(f),
                     _ => None,
                 },
-                Some(false) => nearest_marked(sim, team, at, SKILL_REACH),
+                Some(false) => nearest_marked(sim, team, at, sk(SKILL_REACH)),
                 None => None,
             };
             if let Some(f) = foe {
@@ -1015,7 +1017,7 @@ impl StablePlayerAi for Frenzy {
             return None;
         }
         let at = fpos(me.pos());
-        let (friend, to, d) = nearest_friend(&sim, me.id(), me.team(), at, CHASE)?;
+        let (friend, to, d) = nearest_friend(&sim, me.id(), me.team(), at, sk(CHASE))?;
         let now = sim.tick();
         if self.last_log.is_none_or(|t| now >= t + 60) {
             self.last_log = Some(now);

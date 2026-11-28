@@ -32,6 +32,8 @@ use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3（丽桑卓的冰仆）
+use game_places::skill_scale::sk;
 
 /// LeBlanc's Mirror Image clone as a unit (0.3.0).
 pub mod mirror;
@@ -209,7 +211,7 @@ impl Thralls {
             .map(|u| (u.id(), u.is_alive(), (u.pos().0 as f64, u.pos().1 as f64)))
             .collect();
         if alive {
-            let fell = fallen_kinds(&self.seen, &now, at, THRALL_REACH);
+            let fell = fallen_kinds(&self.seen, &now, at, sk(THRALL_REACH));
             // the kill log's last entries: did each one fall by a death (0.2.6, diagnostics)
             let log: Vec<KillLogV1> = if fell.is_empty() {
                 Vec::new()
@@ -247,11 +249,11 @@ impl Thralls {
                 .collect();
             let kinds: Vec<(bool, Pt)> = foes.iter().map(|f| (f.1, f.2)).collect();
             let from = self.bodies.shatter_from(at);
-            let p = lunge(from, &kinds, THRALL_LUNGE);
+            let p = lunge(from, &kinds, sk(THRALL_LUNGE));
             let input = InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64);
             sim.play_view_effect(THRALL_BURST, me, &input, 0, 0, 0);
             sim.play_sfx(THRALL_BURST, me, &input);
-            let hit: Vec<usize> = foes.iter().filter(|f| dist(f.2, p) <= THRALL_R).map(|f| f.0).collect();
+            let hit: Vec<usize> = foes.iter().filter(|f| dist(f.2, p) <= sk(THRALL_R)).map(|f| f.0).collect();
             let damage = THRALL_BASE + power * THRALL_AP / 100;
             for id in &hit {
                 sim.deal_damage_typed(me, *id, damage, DamageTypeV1::Ap, AttackTypeV1::Skill);

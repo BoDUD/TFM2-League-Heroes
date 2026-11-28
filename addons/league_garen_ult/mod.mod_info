@@ -16,5 +16,5 @@
   "mod_id": "league_garen_ult",
   "mod_type": "native",
   "name": "League Heroes: Garen's ult an execute on missing health (test)",
-  "version": "0.2.1"
+  "version": "0.2.2"
 }

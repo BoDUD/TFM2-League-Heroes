@@ -9,6 +9,9 @@
 //! Never when she or the target stands in an enemy tower's reach, she is under LOW_HP %, or more enemy champions than
 //! allied ones (her included) are within FIGHT_R.
 
+// Q 的射程、比人数的范围用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
+
 pub type Pt = (f64, f64);
 
 pub const LANE_T: usize = 600 * 60; // ticks: the first ten minutes
@@ -75,7 +78,7 @@ pub fn plan(tick: usize, me: Pt, my_hp_pct: usize, base: Base, foes: &[Champ], a
     if matches!(base, Base::Other) {
         return (Plan::Keep, Why::NotAttacking);
     }
-    let near = |list: &[Champ]| list.iter().filter(|c| d(c.pos, me) <= FIGHT_R).count();
+    let near = |list: &[Champ]| list.iter().filter(|c| d(c.pos, me) <= sk(FIGHT_R)).count();
     if my_hp_pct < LOW_HP || near(foes) > near(allies) + 1 {
         return (Plan::Keep, Why::Danger);
     }
@@ -85,13 +88,13 @@ pub fn plan(tick: usize, me: Pt, my_hp_pct: usize, base: Base, foes: &[Champ], a
     let mut open: Vec<&Champ> = foes.iter().filter(|c| !under(c.pos, enemy_towers)).collect();
     open.sort_by(|a, b| a.hp_pct.cmp(&b.hp_pct).then(d(a.pos, me).total_cmp(&d(b.pos, me))));
     if q_ready {
-        if let Some(c) = open.iter().find(|c| d(c.pos, me) <= Q_REACH) {
+        if let Some(c) = open.iter().find(|c| d(c.pos, me) <= sk(Q_REACH)) {
             return (Plan::Q(c.id), Why::QPoke);
         }
     }
     match base {
         // the AI's own Q: at a champion in reach rather than the wave
-        Base::Q => match open.iter().find(|c| d(c.pos, me) <= Q_REACH) {
+        Base::Q => match open.iter().find(|c| d(c.pos, me) <= sk(Q_REACH)) {
             Some(c) => (Plan::Q(c.id), Why::QPoke),
             None => (Plan::Keep, Why::NoneInReach),
         },

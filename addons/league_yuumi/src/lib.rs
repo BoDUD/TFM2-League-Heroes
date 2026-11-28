@@ -48,6 +48,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, AtomicU64, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
@@ -505,7 +506,7 @@ fn mates(sim: &StableSim<'_>, team: usize, me: usize) -> Vec<(Mate, (u64, u64))>
     champions(sim, team, true).into_iter().filter(|c| c.0 != me).filter_map(|(id, at)| {
         let (hp, max) = sim.get_entity(id)?.hp();
         let carry = matches!(lanes.get(&id).copied().flatten(), Some(LaneV1::Mid | LaneV1::Bottom));
-        let near = foes.iter().filter(|f| dist(at, f.1) <= FIGHT_R).count();
+        let near = foes.iter().filter(|f| dist(at, f.1) <= sk(FIGHT_R)).count();
         Some((Mate { id, foes: near, hp: if max == 0 { 100 } else { hp * 100 / max }, carry }, at))
     }).collect()
 }
@@ -844,7 +845,7 @@ impl Bond {
             let all = mates(sim, team, me);
             if let Some(&(him, _)) = all.iter().find(|(m, _)| m.id == host) {
                 let near: Vec<Mate> =
-                    all.iter().filter(|(m, p)| m.id != host && dist(at, *p) <= SWITCH_R).map(|(m, _)| *m).collect();
+                    all.iter().filter(|(m, p)| m.id != host && dist(at, *p) <= sk(SWITCH_R)).map(|(m, _)| *m).collect();
                 if let Some((to, why)) = switch_pick(him, &near) {
                     self.switch(sim, me, host, to, him, why, team, tick);
                     self.last_cd = ready_of(sim, me);

@@ -21,6 +21,8 @@
 //! 他埋着的蘑菇由被动记（`FIELDS`，按模拟和玩家），本钩子只读。
 
 use game_places::terrain::Map;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::{bush, dist, field_of, head, tally, wlog, Pt, HERO, ID};
@@ -114,7 +116,7 @@ pub fn sow_spot(me: Pt, spots: &[Pt], shrooms: &[Pt], units: &[Pt], home: Option
     spots
         .iter()
         .copied()
-        .filter(|&s| dist(me, s) <= REACH)
+        .filter(|&s| dist(me, s) <= sk(REACH))
         .filter(|&s| !shrooms.iter().any(|&f| dist(f, s) < SPREAD))
         .filter(|&s| !units.iter().any(|&u| dist(u, s) < CLEAR_R))
         .filter(|&s| home.is_none_or(|h| dist(h, s) >= HOME_R))
@@ -234,7 +236,7 @@ impl StablePlayerAi for Sow {
                 }
                 units.push(pt(&u));
             }
-            if champs.iter().any(|&p| dist(at, p) <= FIGHT_R) {
+            if champs.iter().any(|&p| dist(at, p) <= sk(FIGHT_R)) {
                 return None;
             }
             if self.grid.is_none() {

@@ -18,6 +18,8 @@ use std::sync::atomic::{AtomicU64, Ordering};
 use std::sync::Mutex;
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 /// 主包的英雄（钩子也挂在她身上：祝福给了自己时她的出手也算）；编号的 buff 名的开头；钩子的名字。
 pub const HERO: &str = "league_nami";
@@ -114,7 +116,7 @@ pub fn hit_of(sw: &Swing, drops: &VecDeque<Drop>, from: (f64, f64), ok: impl Fn(
     }
     let dist = |p: (f64, f64)| ((p.0 - from.0).powi(2) + (p.1 - from.1).powi(2)).sqrt();
     window
-        .filter(|d| d.amount >= sw.min && dist(d.at) <= REACH && ok(d.id))
+        .filter(|d| d.amount >= sw.min && dist(d.at) <= sk(REACH) && ok(d.id))
         .min_by(|a, b| dist(a.at).total_cmp(&dist(b.at)).then(a.id.cmp(&b.id)))
         .map(|d| (d.id, d.tick))
 }

@@ -55,7 +55,7 @@
 
 ### 魔腾黑暗附加包
 
-[魔腾黑暗附加包](../../addons/league_nocturne_dark/README.md)：`league_nocturne_dark` v0.4.3
+[魔腾黑暗附加包](../../addons/league_nocturne_dark/README.md)：`league_nocturne_dark` v0.4.4
 
 主包 `league` 保持纯数据。主包里魔腾的 R 让己方所有英雄隐身 3 秒、敌方英雄头上一团黑雾，再飞扑一名敌方英雄。
 这个附加包用原生代码把「黑暗降临」做得更像 League：

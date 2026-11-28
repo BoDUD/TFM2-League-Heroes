@@ -132,23 +132,28 @@ pub(crate) fn kit_param(json: &str, key: &str) -> Option<usize> {
     })
 }
 
-/// 地图上能站的范围：场上所有单位（塔、水晶、泉水都在里面）围出来的框，再夹在地图边线以内
-/// （30 格 × 32000 = 960000，四边各留一个身位，和 league_urgot 一样）。墙在里面看不到。
+/// 地图上能站的范围：场上所有单位（塔、水晶、泉水都在里面）围出来的框，再夹在这局地图的边线以内
+/// （四边各留一个身位，和 league_urgot 一样）。墙在里面看不到。
 pub(crate) fn map_box(sim: &StableSim<'_>) -> ((u64, u64), (u64, u64)) {
+    let units: Vec<(u64, u64)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i)).map(|e| e.pos()).collect();
+    box_of(&units, game_places::terrain::map_of_sim(sim).extent())
+}
+
+/// [`map_box`] 的算法：边长按这局的图（原版 960000，Rin 的峡谷 1937454）。以前写死夹在原版的 948000，
+/// 峡谷远的那半边的落点全被夹回原版地图里（2026-11-27 查大地图版技能距离时发现）。
+pub(crate) fn box_of(units: &[(u64, u64)], extent: f64) -> ((u64, u64), (u64, u64)) {
     const LO: u64 = 12_000;
-    const HI: u64 = 948_000;
+    let hi = (extent as u64).saturating_sub(LO).max(LO);
     let mut b: Option<((u64, u64), (u64, u64))> = None;
-    for i in 0..sim.entity_count() {
-        let Some(e) = sim.entity_at(i) else { continue };
-        let p = e.pos();
+    for &p in units {
         b = Some(match b {
             None => (p, p),
-            Some((lo, hi)) => ((lo.0.min(p.0), lo.1.min(p.1)), (hi.0.max(p.0), hi.1.max(p.1))),
+            Some((lo, h)) => ((lo.0.min(p.0), lo.1.min(p.1)), (h.0.max(p.0), h.1.max(p.1))),
         });
     }
-    let ((lx, ly), (hx, hy)) = b.unwrap_or(((LO, LO), (HI, HI)));
-    let (lx, ly) = (lx.clamp(LO, HI), ly.clamp(LO, HI));
-    ((lx, ly), (hx.clamp(LO, HI).max(lx), hy.clamp(LO, HI).max(ly)))
+    let ((lx, ly), (hx, hy)) = b.unwrap_or(((LO, LO), (hi, hi)));
+    let (lx, ly) = (lx.clamp(LO, hi), ly.clamp(LO, hi));
+    ((lx, ly), (hx.clamp(LO, hi).max(lx), hy.clamp(LO, hi).max(ly)))
 }
 
 /// 把一个算出来的落点（可能出了地图）夹回 [`map_box`] 里。
@@ -330,6 +335,16 @@ pub(crate) fn fanim_ticks(json: &str, tag: &str) -> Option<usize> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn the_rift_box_reaches_its_far_side() {
+        let units = [(20_000, 30_000), (1_900_000, 1_880_000)];
+        // 原版地图：和以前一样夹在 948000
+        assert_eq!(box_of(&units, 960_000.0), ((20_000, 30_000), (948_000, 948_000)));
+        // 峡谷：远的那半边不再被夹回来
+        assert_eq!(box_of(&units, 1_937_454.0), ((20_000, 30_000), (1_900_000, 1_880_000)));
+        assert_eq!(box_of(&[], 960_000.0), ((12_000, 12_000), (948_000, 948_000)));
+    }
 
     #[test]
     fn fanim_ticks_reads_one_tags_frames() {

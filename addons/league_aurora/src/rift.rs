@@ -35,6 +35,8 @@
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::LazyLock;
 
+// 领域的大小用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
@@ -124,9 +126,9 @@ pub enum Place {
 
 pub fn place(c: Pt, me: Pt) -> Place {
     let d = dist(c, me);
-    if d < EDGE {
+    if d < sk(EDGE) {
         Place::Inside
-    } else if d <= EDGE + OUT {
+    } else if d <= sk(EDGE) + sk(OUT) {
         Place::Border
     } else {
         Place::Out
@@ -137,12 +139,13 @@ pub fn place(c: Pt, me: Pt) -> Place {
 pub fn across(c: Pt, me: Pt) -> Pt {
     let d = dist(c, me);
     let u = if d < 1.0 { (1.0, 0.0) } else { ((me.0 - c.0) / d, (me.1 - c.1) / d) };
-    (c.0 - u.0 * LAND, c.1 - u.1 * LAND)
+    let land = sk(LAND);
+    (c.0 - u.0 * land, c.1 - u.1 * land)
 }
 
 /// 这个单位（中心 `u`）碰着边界吗。
 pub fn touches(c: Pt, u: Pt) -> bool {
-    (dist(c, u) - RING).abs() <= BAND
+    (dist(c, u) - sk(RING)).abs() <= BAND
 }
 
 /// 地图的墙格（league_camille_wall 的内置地图，Tahm Kench、Poppy、Gnar 附加包同样用它）；5v5 地图另加四边。每格 `cell`
@@ -320,7 +323,7 @@ pub fn close_early(r: &Rift, now: usize, p: &Params, champions_in_it: usize) -> 
 
 /// 这个敌方英雄还在领域里吗（压在那一圈上的也算）。
 pub fn in_it(c: Pt, u: Pt) -> bool {
-    dist(c, u) < RING + BAND / 2.0
+    dist(c, u) < sk(RING) + BAND / 2.0
 }
 
 fn pt(p: (u64, u64)) -> Pt {
@@ -407,8 +410,8 @@ pub fn update(slot: &mut Option<Rift>, sim: &mut StableSim<'_>, me: usize, p: &P
                 sim.add_buff(me, &b);
             }
             if let Some(n) = counted("rift open", on_screen(sim)) {
-                wlog(format!("{} RIFT OPEN at {}: the shockwave spreads {} ticks, then the rift {} ticks (rank {}), she is {d:.0} from its centre (crosses at {EDGE:.0}) #{n}",
-                             head(sim, me), spot(c), p.r_grow, r.until - r.formed, p.rank(level)));
+                wlog(format!("{} RIFT OPEN at {}: the shockwave spreads {} ticks, then the rift {} ticks (rank {}), she is {d:.0} from its centre (crosses at {:.0}) #{n}",
+                             head(sim, me), spot(c), p.r_grow, r.until - r.formed, p.rank(level), sk(EDGE)));
             }
             *slot = Some(r);
         }

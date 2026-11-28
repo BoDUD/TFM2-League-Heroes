@@ -38,6 +38,8 @@
 
 use std::collections::HashMap;
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::rift::{self, EDGE};
@@ -114,6 +116,10 @@ pub const BODIES: f64 = 12_000.0;
 /// 她的普攻够得着（主包 atk_range + 两个身体）、飞去来咒的射程。
 pub const ATK_REACH: f64 = 55_000.0 + BODIES;
 pub const Q_REACH: f64 = 85_000.0 + BODIES;
+/// 飞去来咒的射程这一版是多少：大地图版只乘射程那段，身体不乘。
+pub fn q_reach() -> f64 {
+    sk(Q_REACH - BODIES) + BODIES
+}
 /// 一套的伤害（主包参数表 P；英雄联盟的按团战经理的数值换算过）。
 pub const R_DMG: usize = 260;
 pub const R_RATIO: usize = 80;
@@ -239,7 +245,7 @@ pub fn combo(me: &Me, u: &Unit) -> f64 {
 /// 身边 `THREAT_R` 内的敌方英雄一套打她多少（粗估：各自两下普攻加一个技能的法强，按她的护甲、魔抗打折）。
 pub fn threat(me: &Me, foes: &[Unit]) -> f64 {
     // 没人时 f64 的和是 -0.0，加 0.0 让日志写 0
-    foes.iter().filter(|u| dist(me.at, u.at) <= THREAT_R)
+    foes.iter().filter(|u| dist(me.at, u.at) <= sk(THREAT_R))
         .map(|u| mitigated(2.0 * u.ad as f64, me.def) + mitigated(150.0 + u.ap as f64, me.mr))
         .sum::<f64>() + 0.0
 }
@@ -303,20 +309,21 @@ fn unit(from: Pt, to: Pt) -> Option<Pt> {
 /// is nearer), and the shockwave goes off `R_AHEAD` toward it from where she lands (the data's `Forward` offset).
 pub fn centre(me: Pt, t: Pt) -> Pt {
     let Some(u) = unit(me, t) else { return me };
-    let land = (me.0 + u.0 * R_LEAP, me.1 + u.1 * R_LEAP);
-    let ahead = if dist(me, t) > R_LEAP { R_AHEAD } else { -R_AHEAD };
+    let (leap, ahead) = (sk(R_LEAP), sk(R_AHEAD));
+    let land = (me.0 + u.0 * leap, me.1 + u.1 * leap);
+    let ahead = if dist(me, t) > leap { ahead } else { -ahead };
     (land.0 + u.0 * ahead, land.1 + u.1 * ahead)
 }
 
 /// R 的射程（算到身体边上）。
 pub fn in_reach(me: Pt, u: &Unit) -> bool {
-    dist(me, u.at) <= R_RANGE + BODIES
+    dist(me, u.at) <= sk(R_RANGE) + BODIES
 }
 
 /// 他身边敌方英雄的人数（不算他）、我方的人数（含她）：不吃亏吗。`allow_one`：他身边只多一个敌人也去。
 fn fair(u: &Unit, foes: &[Unit], allies: &[Unit], allow_one: bool) -> bool {
-    let theirs = foes.iter().filter(|f| f.id != u.id && dist(f.at, u.at) <= CROWD_R).count();
-    let ours = 1 + near(u.at, allies, ALLY_R);
+    let theirs = foes.iter().filter(|f| f.id != u.id && dist(f.at, u.at) <= sk(CROWD_R)).count();
+    let ours = 1 + near(u.at, allies, sk(ALLY_R));
     (allow_one && theirs <= 1) || theirs + 1 <= ours
 }
 
@@ -324,8 +331,8 @@ fn fair(u: &Unit, foes: &[Unit], allies: &[Unit], allow_one: bool) -> bool {
 pub fn aim(me: &Me, t: &Unit, kind: Kind, peeled: bool) -> Call {
     let d = dist(me.at, t.at);
     let running = t.away >= AWAY_FAST;
-    let reach = R_RANGE + BODIES;
-    if d > reach || (d > AIM_FAR && !peeled && !(running && d > reach - EDGE_OF_REACH)) {
+    let reach = sk(R_RANGE) + BODIES;
+    if d > reach || (d > sk(AIM_FAR) && !peeled && !(running && d > reach - EDGE_OF_REACH)) {
         return Call::Closer(t.id, kind);
     }
     Call::R(t.id, kind)
@@ -347,7 +354,7 @@ pub fn call(me: &Me, foes: &[Unit], allies: &[Unit], towers: &[Pt], ai_wants_r: 
         // 2. 这一套打得死他（不进塔，落地就能打死的除外；不冲进他们一堆人里）
         if me.share() >= COMBO_SELF_HP {
             let t = foes.iter()
-                .filter(|u| dist(me.at, u.at) <= R_RANGE + BODIES + if u.away < AWAY_FAST { APPROACH } else { 0.0 })
+                .filter(|u| dist(me.at, u.at) <= sk(R_RANGE) + BODIES + if u.away < AWAY_FAST { APPROACH } else { 0.0 })
                 .filter(|u| combo(me, u) >= COMBO_MARGIN * u.life())
                 .filter(|u| fair(u, foes, allies, true))
                 .filter(|u| instant(me, u) >= u.life() || !(towered(u.at, towers) || towered(centre(me.at, u.at), towers)))
@@ -359,7 +366,7 @@ pub fn call(me: &Me, foes: &[Unit], allies: &[Unit], towers: &[Pt], ai_wants_r: 
         // 3. 队友贴着他：关住他，二打一
         if me.share() >= PICK_SELF_HP {
             let t = foes.iter()
-                .filter(|u| dist(me.at, u.at) <= R_RANGE + BODIES + if u.away < AWAY_FAST { APPROACH } else { 0.0 })
+                .filter(|u| dist(me.at, u.at) <= sk(R_RANGE) + BODIES + if u.away < AWAY_FAST { APPROACH } else { 0.0 })
                 .filter(|u| allies.iter().any(|a| dist(a.at, u.at) <= ENGAGE_R))
                 .filter(|u| combo(me, u) >= PICK_SHARE * u.life())
                 .filter(|u| fair(u, foes, allies, false))
@@ -374,10 +381,10 @@ pub fn call(me: &Me, foes: &[Unit], allies: &[Unit], towers: &[Pt], ai_wants_r: 
             let t = reach.iter()
                 .map(|u| {
                     let c = centre(me.at, u.at);
-                    (*u, c, near(c, foes, TRAP_R))
+                    (*u, c, near(c, foes, sk(TRAP_R)))
                 })
                 .filter(|&(_, c, n)| {
-                    let ours = 1 + near(c, allies, ALLY_R);
+                    let ours = 1 + near(c, allies, sk(ALLY_R));
                     n >= 2 && ours >= 2 && n <= ours + 1 && !towered(c, towers)
                 })
                 .max_by(|a, b| a.2.cmp(&b.2).then(b.0.share().total_cmp(&a.0.share()))
@@ -390,7 +397,7 @@ pub fn call(me: &Me, foes: &[Unit], allies: &[Unit], towers: &[Pt], ai_wants_r: 
         if me.share() >= KILL_SELF_HP {
             let t = reach.iter()
                 .filter(|u| {
-                    u.share() < KILL_HP && near(u.at, foes, CROWD_R) <= 2
+                    u.share() < KILL_HP && near(u.at, foes, sk(CROWD_R)) <= 2
                         && (u.share() < DIVE_HP || !towered(centre(me.at, u.at), towers))
                 })
                 .min_by(|a, b| a.share().total_cmp(&b.share()));
@@ -447,7 +454,7 @@ fn clamp(c: Pt, p: Pt, r: f64) -> Pt {
 /// crossing puts the whole rift between them), or straight away from him when he stands in that way or she is at the
 /// centre.
 pub fn exit_point(me: Pt, c: Pt, t: Pt) -> Pt {
-    let r = EDGE + PAST;
+    let r = sk(EDGE) + PAST;
     if dist(me, c) >= 6_000.0 {
         if let Some(u) = unit(c, me) {
             let b = (c.0 + u.0 * r, c.1 + u.1 * r);
@@ -469,7 +476,7 @@ pub fn steer(me: &Me, c: Pt, age: usize, foes: &[Unit], want: Want, aimed: Optio
     if want == Want::Cast {
         return None;
     }
-    let in_rift = |u: &&Unit| dist(c, u.at) < rift::RING + rift::BAND / 2.0;
+    let in_rift = |u: &&Unit| dist(c, u.at) < sk(rift::RING) + rift::BAND / 2.0;
     let threat = foes.iter().filter(|u| u.share() >= SPARE_HP && dist(me.at, u.at) <= KITE_R)
         .min_by(|a, b| dist(me.at, a.at).total_cmp(&dist(me.at, b.at)));
     let running = threat.is_some_and(|t| me.share() < RUN_FIRST && dist(me.at, t.at) <= PEEL_R);
@@ -477,7 +484,7 @@ pub fn steer(me: &Me, c: Pt, age: usize, foes: &[Unit], want: Want, aimed: Optio
     if me.q_ready && !running && (HEX_AFTER..=HEX_UNTIL).contains(&age) {
         let t = aimed.and_then(|id| foes.iter().find(|u| u.id == id))
             .or_else(|| foes.iter().filter(in_rift).min_by(|a, b| dist(me.at, a.at).total_cmp(&dist(me.at, b.at))))
-            .filter(|u| dist(me.at, u.at) <= Q_REACH);
+            .filter(|u| dist(me.at, u.at) <= q_reach());
         if let Some(t) = t {
             return Some(Steer::Hex(t.id));
         }
@@ -491,7 +498,7 @@ pub fn steer(me: &Me, c: Pt, age: usize, foes: &[Unit], want: Want, aimed: Optio
             return Some(Steer::Kite(exit_point(me.at, c, t.at), t.id));
         }
     }
-    let inner = EDGE - STAY_IN;
+    let inner = sk(EDGE) - STAY_IN;
     let anyone_in = foes.iter().any(|u| in_rift(&u));
     match want {
         Want::Move(p) if dist(c, p) > inner && anyone_in => Some(Steer::Stay(clamp(c, p, inner))),
@@ -752,7 +759,7 @@ impl StablePlayerAi for Realm {
                     let target = on.and_then(|t| foes.iter().find(|u| u.id == t));
                     let spot = target.map(|u| on_map(u.at));
                     let opens = target.map(|u| centre(me.at, u.at));
-                    let crowd = opens.map_or(0, |c| near(c, &foes, TRAP_R));
+                    let crowd = opens.map_or(0, |c| near(c, &foes, sk(TRAP_R)));
                     let at = opens.map_or("-".to_string(), |c| format!("({:.0}, {:.0})", c.0, c.1));
                     let est = target.map_or(String::new(), |u| format!(", combo {:.0} of his {:.0}", combo(&me, u), u.life()));
                     let d = target.map_or(0.0, |u| dist(me.at, u.at));

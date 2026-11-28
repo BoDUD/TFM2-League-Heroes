@@ -55,7 +55,7 @@
 
 ### 雷克塞附加包
 
-[雷克塞附加包](../../addons/league_reksai/README.md)：`league_reksai` v0.1.3
+[雷克塞附加包](../../addons/league_reksai/README.md)：`league_reksai` v0.1.4
 
 |  | 主包（纯数据） | 装了附加包 |
 |---|---|---|

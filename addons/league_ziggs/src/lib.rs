@@ -33,6 +33,9 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
+use game_places::terrain::{map_of_sim, Map};
 use mod_api_stable::*;
 
 const ID: &str = "league_ziggs";
@@ -293,7 +296,17 @@ pub fn unit(v: Pt) -> Option<Pt> {
 }
 
 pub fn on_map(p: Pt) -> Pt {
-    (p.0.clamp(0.0, MAP), p.1.clamp(0.0, MAP))
+    on_map_in(p, MAP)
+}
+
+/// 这局地图最远的坐标：游戏自己的图就是 `MAP`，峡谷按它自己的边长（以前峡谷上也夹到 `MAP`）。
+pub fn edge_of(map: Map) -> f64 {
+    map.extent() - 1.0
+}
+
+/// 夹在这局的地图里（`edge` 见 [`edge_of`]）。
+pub fn on_map_in(p: Pt, edge: f64) -> Pt {
+    (p.0.clamp(0.0, edge), p.1.clamp(0.0, edge))
 }
 
 fn lerp(a: Pt, b: Pt, f: f64) -> Pt {
@@ -320,12 +333,17 @@ pub fn tower_hit(p: &Params, damage: usize) -> usize {
 /// 爆炸把站在 `at` 的单位炸到哪里：从炸点 `centre` 往外，一直到离炸点 `to`（已经那么远的不动）。正好站在炸点上的往 `spare`
 /// 那边去（没有方向可算时）。
 pub fn thrown_to(centre: Pt, at: Pt, to: f64, spare: Pt) -> Option<Pt> {
+    thrown_to_in(centre, at, to, spare, MAP)
+}
+
+/// [`thrown_to`]，夹在这局的地图里。
+pub fn thrown_to_in(centre: Pt, at: Pt, to: f64, spare: Pt, edge: f64) -> Option<Pt> {
     let d = dist(centre, at);
     if d >= to {
         return None;
     }
     let u = unit((at.0 - centre.0, at.1 - centre.1)).or_else(|| unit(spare))?;
-    Some(on_map((centre.0 + u.0 * to, centre.1 + u.1 * to)))
+    Some(on_map_in((centre.0 + u.0 * to, centre.1 + u.1 * to), edge))
 }
 
 /// 贴身往外炸：炸药包放在他和冲上来的敌人之间，离他不超过 `w_gap`、也不过两人的中点。
@@ -341,6 +359,11 @@ pub fn escape_centre(p: &Params, me: Pt, foe: Pt) -> Pt {
 /// 「炸回来」：炸药包落在敌人（爆炸那一刻在 `foe`）身后，把他朝吉格斯炸回 `w_keep` 远。敌人不在 `w_catch_lo`..`w_catch_hi`、
 /// 或者落点扔不到，就没有。
 pub fn catch_centre(p: &Params, me: Pt, foe: Pt) -> Option<Pt> {
+    catch_centre_in(p, me, foe, MAP)
+}
+
+/// [`catch_centre`]，落点要在这局的地图里。
+pub fn catch_centre_in(p: &Params, me: Pt, foe: Pt, edge: f64) -> Option<Pt> {
     let d = dist(me, foe);
     if d < p.w_catch_lo as f64 || d > p.w_catch_hi as f64 {
         return None;
@@ -349,7 +372,7 @@ pub fn catch_centre(p: &Params, me: Pt, foe: Pt) -> Option<Pt> {
     let b = (p.w_keep as f64 + p.w_push as f64 - d).clamp(CATCH_BEHIND, p.w_r as f64);
     let u = unit((foe.0 - me.0, foe.1 - me.1))?;
     let centre = (foe.0 + u.0 * b, foe.1 + u.1 * b);
-    (dist(me, centre) <= p.w_range as f64 && centre == on_map(centre)).then_some(centre)
+    (dist(me, centre) <= p.w_range as f64 && centre == on_map_in(centre, edge)).then_some(centre)
 }
 
 /// 炸药包飞多少 tick。
@@ -411,14 +434,19 @@ fn under_tower(s: &Scene, at: Pt) -> bool {
 
 /// 现在扔不扔、扔到哪（W 好着、3 级以上、没在放别的、没被控住时才问）。先自保，再炸塔，再把残血的炸回来。
 pub fn decide(p: &Params, s: &Scene) -> Option<Throw> {
+    decide_in(p, s, MAP)
+}
+
+/// [`decide`]，落点、推到的地方按这局的地图算。
+pub fn decide_in(p: &Params, s: &Scene, edge: f64) -> Option<Throw> {
     // 1. a champion on him (edge to edge, as the main pack's RandomTarget): the satchel between the two. Not when it
     //    would throw him under an enemy tower or into two more enemies
     let diver = s.foes.iter().filter(|f| dist(s.me, f.at) <= p.w_trig as f64 + s.me_r + f.r)
         .min_by(|a, b| dist(s.me, a.at).total_cmp(&dist(s.me, b.at)));
     if let Some(f) = diver {
         let centre = escape_centre(p, s.me, f.at);
-        let land = thrown_to(centre, s.me, p.w_self as f64, (s.me.0 - f.at.0, s.me.1 - f.at.1)).unwrap_or(s.me);
-        let crowd = s.foes.iter().filter(|o| o.id != f.id && dist(o.at, land) <= LAND_R).count();
+        let land = thrown_to_in(centre, s.me, p.w_self as f64, (s.me.0 - f.at.0, s.me.1 - f.at.1), edge).unwrap_or(s.me);
+        let crowd = s.foes.iter().filter(|o| o.id != f.id && dist(o.at, land) <= sk(LAND_R)).count();
         if under_tower(s, land) || crowd >= 2 {
             return None;
         }
@@ -440,14 +468,14 @@ pub fn decide(p: &Params, s: &Scene) -> Option<Throw> {
         // where he is when the satchel lands: one refinement of the flight time
         let lead = |t: usize| (f.at.0 + f.vel.0 * t as f64, f.at.1 + f.vel.1 * t as f64);
         let first = lead(p.e_rel + flight(p, s.me, f.at));
-        let Some(c0) = catch_centre(p, s.me, first) else { continue };
+        let Some(c0) = catch_centre_in(p, s.me, first, edge) else { continue };
         let then = lead(p.e_rel + flight(p, s.me, c0));
-        let Some(centre) = catch_centre(p, s.me, then) else { continue };
+        let Some(centre) = catch_centre_in(p, s.me, then, edge) else { continue };
         if under_tower(s, then) {
             continue;
         }
-        let theirs = s.foes.iter().filter(|o| dist(o.at, then) <= CROWD_R).count().max(1);
-        let ours = s.allies.iter().filter(|&&a| dist(a, then) <= CROWD_R).count() + 1;
+        let theirs = s.foes.iter().filter(|o| dist(o.at, then) <= sk(CROWD_R)).count().max(1);
+        let ours = s.allies.iter().filter(|&&a| dist(a, then) <= sk(CROWD_R)).count() + 1;
         if theirs > ours {
             continue;
         }
@@ -480,11 +508,16 @@ pub fn air_heights(p: &Params, k: usize) -> Vec<(usize, u64)> {
 
 /// 第二、第三落点：第一落点 `l1` 再往前（从他 `z` 看过去）投掷距离的 `q_b1`%，再往前那一段的 `q_b2`%。他站在落点上就没有。
 pub fn bounces(p: &Params, z: Pt, l1: Pt) -> Option<(Pt, Pt)> {
+    bounces_in(p, z, l1, MAP)
+}
+
+/// [`bounces`]，落点夹在这局的地图里。
+pub fn bounces_in(p: &Params, z: Pt, l1: Pt, edge: f64) -> Option<(Pt, Pt)> {
     let u = unit((l1.0 - z.0, l1.1 - z.1))?;
     let b1 = dist(z, l1) * p.q_b1 as f64 / 100.0;
     let b2 = b1 * p.q_b2 as f64 / 100.0;
-    let l2 = on_map((l1.0 + u.0 * b1, l1.1 + u.1 * b1));
-    let l3 = on_map((l2.0 + u.0 * b2, l2.1 + u.1 * b2));
+    let l2 = on_map_in((l1.0 + u.0 * b1, l1.1 + u.1 * b1), edge);
+    let l3 = on_map_in((l2.0 + u.0 * b2, l2.1 + u.1 * b2), edge);
     Some((l2, l3))
 }
 
@@ -507,9 +540,14 @@ fn fpos(e: &StableEntity<'_, '_>) -> Pt {
     (x as f64, y as f64)
 }
 
-fn upos(p: Pt) -> InputTargetV1 {
-    let p = on_map(p);
+fn upos(p: Pt, edge: f64) -> InputTargetV1 {
+    let p = on_map_in(p, edge);
     InputTargetV1::pos(p.0.round() as u64, p.1.round() as u64)
+}
+
+/// 这局地图最远的坐标（[`edge_of`]）。
+fn edge_now(sim: &StableSim<'_>) -> f64 {
+    edge_of(map_of_sim(sim))
 }
 
 fn input_pos(input: &InputTargetV1) -> Option<Pt> {
@@ -608,7 +646,7 @@ impl Hexplode {
                 let at = fpos(&u);
                 let trail = self.trail.entry(u.id()).or_default();
                 // a blink or a respawn: the old trail says nothing about where he goes
-                if trail.last().is_some_and(|&last| dist(last, at) > 20_000.0) {
+                if trail.last().is_some_and(|&last| dist(last, at) > sk(20_000.0)) {
                     trail.clear();
                 }
                 trail.push(at);
@@ -627,7 +665,7 @@ impl Hexplode {
     }
 
     /// 出手：冷却、动作、声音、一触即发少等三分之一；`rel` tick 后炸药包离手（`:throw`）。
-    fn throw(&mut self, sim: &mut StableSim<'_>, me: usize, t: Throw, s: &Scene) {
+    fn throw(&mut self, sim: &mut StableSim<'_>, me: usize, t: Throw, s: &Scene, edge: f64) {
         let far = !matches!(t.why, Why::Escape(_));
         let (pose, dur, rel) = if far { ("skill2", self.p.e_dur, self.p.e_rel) } else { ("skill_w", self.p.w_dur, self.p.w_rel) };
         refresh(sim, me, &sn("w_cd"), self.p.w_cd);
@@ -644,7 +682,7 @@ impl Hexplode {
         if let Some(flag) = fuse_cut(|name| has(sim, me, name)) {
             sim.entity_remove_buff(me, &sn(flag));
         }
-        queue(sim, "throw", me, upos(t.centre), rel);
+        queue(sim, "throw", me, upos(t.centre, edge), rel);
         if let Some(k) = counted("satchel") {
             let d = dist(s.me, t.centre);
             wlog(format!(
@@ -675,8 +713,9 @@ impl Hexplode {
         if !ready {
             return;
         }
-        if let Some(t) = decide(&self.p, &s) {
-            self.throw(sim, me, t, &s);
+        let edge = edge_now(sim);
+        if let Some(t) = decide_in(&self.p, &s, edge) {
+            self.throw(sim, me, t, &s, edge);
         }
     }
 }
@@ -769,6 +808,7 @@ impl StableEffectType for BlastFx {
         let (team, me_at, me_alive, me_body) = (me.team(), fpos(&me), me.is_alive(), body(&me));
         let ap = me.stat().magic_power as u64;
         let p = params();
+        let edge = edge_now(sim);
         sim.play_view_effect(&sn("w_blast"), caster, &input, 0, 0, 0);
         sim.play_sfx(&sn("w_blast"), caster, &input);
         let damage = (p.w_dmg + p.w_ratio * ap / 100) as usize;
@@ -786,7 +826,7 @@ impl StableEffectType for BlastFx {
         for &(id, at, movable) in &units {
             sim.deal_damage_typed(caster, id, damage, DamageTypeV1::Ap, AttackTypeV1::Skill);
             if movable && !cc_immune(sim, id) && sim.get_entity(id).is_some_and(|u| u.is_alive()) {
-                if let Some(to) = thrown_to(centre, at, p.w_push as f64, spare) {
+                if let Some(to) = thrown_to_in(centre, at, p.w_push as f64, spare, edge) {
                     force_move(sim, id, at, to, p.w_push_t);
                     pushed += 1;
                 }
@@ -813,7 +853,7 @@ impl StableEffectType for BlastFx {
             // standing right on it: away from the nearest enemy caught
             let near = units.iter().map(|u| u.1).min_by(|a, b| dist(*a, me_at).total_cmp(&dist(*b, me_at)));
             let spare = near.map_or((-1.0, 0.0), |n| (me_at.0 - n.0, me_at.1 - n.1));
-            if let Some(to) = thrown_to(centre, me_at, p.w_self as f64, spare) {
+            if let Some(to) = thrown_to_in(centre, me_at, p.w_self as f64, spare, edge) {
                 let ticks = (dist(me_at, to) / p.w_hop.max(1) as f64).ceil() as usize;
                 hop = force_move(sim, caster, me_at, to, ticks);
             }
@@ -851,20 +891,21 @@ impl StableEffectType for QHop {
         let Some(l1) = input_pos(&input) else { return };
         let Some(z) = sim.get_entity(caster).filter(|e| e.is_alive()).map(|e| fpos(&e)) else { return };
         let p = params();
-        let Some((l2, l3)) = bounces(&p, z, l1) else { return };
+        let edge = edge_now(sim);
+        let Some((l2, l3)) = bounces_in(&p, z, l1, edge) else { return };
         // this runs 2 ticks after the first landing (the data's look at q_boom); bounce 2 lands q_t2 after that landing
         let t2 = p.q_t2.max(3);
         for (s, h) in air_heights(&p, 2) {
             if s > 2 {
-                queue(sim, &format!("q_air{h}"), caster, upos(lerp(l1, l2, s as f64 / t2 as f64)), s - 2);
+                queue(sim, &format!("q_air{h}"), caster, upos(lerp(l1, l2, s as f64 / t2 as f64), edge), s - 2);
             }
         }
-        queue(sim, "q_land2", caster, upos(l2), t2 - 2);
+        queue(sim, "q_land2", caster, upos(l2, edge), t2 - 2);
         let t3 = p.q_t3.max(1);
         for (s, h) in air_heights(&p, 3) {
-            queue(sim, &format!("q_air{h}"), caster, upos(lerp(l2, l3, s as f64 / t3 as f64)), t2 - 2 + s);
+            queue(sim, &format!("q_air{h}"), caster, upos(lerp(l2, l3, s as f64 / t3 as f64), edge), t2 - 2 + s);
         }
-        queue(sim, "q_land3", caster, upos(l3), t2 - 2 + t3);
+        queue(sim, "q_land3", caster, upos(l3, edge), t2 - 2 + t3);
         if let Some(k) = counted("q_hop") {
             wlog(format!("{} HOP #{k}: nobody at ({:.0}, {:.0}) {:.0} from him: bounces to ({:.0}, {:.0}) and ({:.0}, {:.0})",
                          head(sim, caster), l1.0, l1.1, dist(z, l1), l2.0, l2.1, l3.0, l3.1));
@@ -1148,6 +1189,20 @@ mod tests {
         let (e2, e3) = bounces(&p(), (900_000.0, 500_000.0), (950_000.0, 500_000.0)).unwrap();
         assert_eq!((e2.0, e3.0), (MAP, MAP));
         assert_eq!(bounces(&p(), (1.0, 1.0), (1.0, 1.0)), None);
+    }
+
+    #[test]
+    fn the_rift_clamps_to_its_own_edge() {
+        // 峡谷比游戏自己的图大：弹跳、推到的地方、炸回来的落点都夹在峡谷里（以前一律夹到 MAP）
+        let rift = edge_of(Map::Rift);
+        assert_eq!(edge_of(Map::Native), MAP);
+        let (e2, e3) = bounces_in(&p(), (1_000_000.0, 500_000.0), (1_050_000.0, 500_000.0), rift).unwrap();
+        assert_eq!((e2.0, e3.0), (1_070_000.0, 1_082_000.0));
+        assert_eq!(thrown_to_in((1_900_000.0, 500_000.0), (1_910_000.0, 500_000.0), 50_000.0, (0.0, 1.0), rift),
+                   Some((rift, 500_000.0)));
+        let far = Scene { me: (1_500_000.0, 500_000.0), ..scene(vec![Foe { at: (1_580_000.0, 500_000.0), ..foe(7, 0.0, 30.0) }]) };
+        assert_eq!(decide_in(&p(), &far, rift).map(|t| (t.why, t.centre)), Some((Why::Catch(7), (1_595_000.0, 500_000.0))));
+        assert_eq!(decide(&p(), &far), None, "clamped to the game's own map, the catch never went out");
     }
 
     #[test]

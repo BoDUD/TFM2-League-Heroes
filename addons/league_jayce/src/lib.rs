@@ -28,6 +28,7 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+use game_places::skill_scale::sk;
 use game_places::terrain::{self, Map};
 use mod_api_stable::*;
 
@@ -340,7 +341,7 @@ pub struct BlowPlan {
 pub fn blow_plan(me: Pt, at: Pt, allies: &[Pt], towers: &[Pt], grid: Option<&Grid>, reach: f64) -> BlowPlan {
     let away = unit((at.0 - me.0, at.1 - me.1)).unwrap_or((1.0, 0.0));
     let straight = |why| BlowPlan { dir: away, why: Why::Away(why), turn: 0.0 };
-    let near: Vec<Pt> = allies.iter().copied().filter(|&a| dist(a, at) <= ALLY_R).collect();
+    let near: Vec<Pt> = allies.iter().copied().filter(|&a| dist(a, at) <= sk(ALLY_R)).collect();
     let centre = (!near.is_empty()).then(|| {
         let n = near.len() as f64;
         (near.iter().map(|a| a.0).sum::<f64>() / n, near.iter().map(|a| a.1).sum::<f64>() / n)
@@ -386,7 +387,7 @@ impl Foe {
 
 /// 电炮的圆（主包 r_w）。0.1.3（2026-11-06）：游戏的投射物每 tick 跳 `speed`、只打圆心在这一 tick 的圆里的单位（不扫中间、
 /// 不算体型），3500 的圆每 tick 飞 9000 会从英雄身上跨过去、飞到头才炸（离他 25000 以外，炸不到）：主包改 8000；挡路也只看
-/// 圆心离线多远（以前加上身体，13500 以内都算挡）。
+/// 圆心离线多远（以前加上身体，13500 以内都算挡）。大地图版跟着乘 1.3（主包的 r_w 也乘了）。
 pub const GATE_W: f64 = 8_000.0;
 /// 生命低于这么多 % 算受了伤（都不低于就挑最远的）。
 pub const WOUNDED: usize = 90;
@@ -399,7 +400,7 @@ pub fn gate_damage(ad: usize, def: usize, p: &Params) -> usize {
 /// 从 `me` 到 `to` 的线上，比 `to` 近的别的敌方英雄挡着吗（电炮碰到第一个英雄就停；圆心离线 GATE_W 以内才算，0.1.3）。
 pub fn blocked(me: Pt, to: &Foe, foes: &[Foe]) -> bool {
     let d = dist(me, to.at);
-    foes.iter().any(|f| f.id != to.id && dist(me, f.at) < d && seg_dist(me, to.at, f.at) <= GATE_W)
+    foes.iter().any(|f| f.id != to.id && dist(me, f.at) < d && seg_dist(me, to.at, f.at) <= sk(GATE_W))
 }
 
 #[derive(Clone, Copy, Debug, PartialEq)]

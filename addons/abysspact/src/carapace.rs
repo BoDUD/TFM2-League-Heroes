@@ -14,6 +14,8 @@
 //! - W「甲鸣」：数据在出手那一下挂 3 tick 的 `w_heal`，这期间打出的每一下伤害按 30% 回血。
 
 use mod_api_stable::*;
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 
 use crate::voice::{Cue, Voice};
 use crate::{consume_buff, dist_sq, has_buff};
@@ -171,7 +173,7 @@ impl CarapacePassive {
             sim.play_view_effect("abysspact_carapace_molt_burst", entity, &InputTargetV1::pos(pos.0, pos.1), 0, 0, 0);
             sim.play_sfx("abysspact_carapace_shell_burst", entity, &InputTargetV1::pos(pos.0, pos.1));
             let dmg = r_burst_damage(ad);
-            for vid in foes_in(sim, my_team, pos, SHELL_RADIUS) {
+            for vid in foes_in(sim, my_team, pos, sk(SHELL_RADIUS)) {
                 sim.deal_damage_typed(entity, vid, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
                 sim.apply_cc(vid, &CcV1::of_kind(CcKindV1::Airborne, R_AIRBORNE_TICKS));
             }
@@ -182,7 +184,7 @@ impl CarapacePassive {
             sim.play_sfx("abysspact_carapace_shell_rattle", entity, &InputTargetV1::pos(pos.0, pos.1));
             let mut taunt = CcV1::of_kind(CcKindV1::Taunt, SHELL_TAUNT_TICKS);
             taunt.target = entity;
-            for vid in foes_in(sim, my_team, pos, SHELL_RADIUS) {
+            for vid in foes_in(sim, my_team, pos, sk(SHELL_RADIUS)) {
                 sim.apply_cc(vid, &taunt);
             }
             let explode_at = sim.tick() + SHELL_EXPLODE_TICKS;
@@ -289,7 +291,7 @@ impl StableEffectType for HuskBlast {
         }
         sim.play_view_effect("abysspact_carapace_shell_explode", caster, &input, 0, 0, 0);
         sim.play_sfx("abysspact_carapace_shell_burst", caster, &input);
-        for vid in foes_in(sim, team, at, SHELL_RADIUS) {
+        for vid in foes_in(sim, team, at, sk(SHELL_RADIUS)) {
             sim.deal_damage_typed(caster, vid, dmg, DamageTypeV1::Ad, AttackTypeV1::Skill);
         }
     }

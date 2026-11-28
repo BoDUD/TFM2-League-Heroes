@@ -25,6 +25,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 const ID: &str = "league_varus_blight";
@@ -226,7 +228,7 @@ fn chain(sim: &mut StableSim<'_>, caster: usize, from: usize) -> usize {
             }
         })
         .collect();
-    let victims = new_victims((x as f64, y as f64), &near, SPREAD_R as f64);
+    let victims = new_victims((x as f64, y as f64), &near, sk(SPREAD_R) as f64);
     if victims.is_empty() {
         return 0;
     }

@@ -30,6 +30,8 @@ use std::path::PathBuf;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use game_places::terrain::{map_of_sim, rift_status, Map};
 use mod_api_stable::*;
 
@@ -234,7 +236,7 @@ pub fn pair(prev: &[(usize, Pt)], now: &[(usize, Pt)]) -> Vec<Missile> {
     now.iter()
         .map(|&(c, at)| {
             let best = prev.iter().enumerate()
-                .filter(|(i, p)| !used[*i] && p.0 == c && len(sub(p.1, at)) <= MATCH_R)
+                .filter(|(i, p)| !used[*i] && p.0 == c && len(sub(p.1, at)) <= sk(MATCH_R))
                 .min_by(|a, b| len(sub(a.1 .1, at)).total_cmp(&len(sub(b.1 .1, at))))
                 .map(|(i, _)| i);
             let from = best.map_or(at, |i| {
@@ -260,7 +262,7 @@ pub fn aimed_at(m: &Missile, guarded: &[Guarded]) -> Option<Guarded> {
     guarded.iter().copied().filter(|g| {
         let to = sub(g.at, m.at);
         let d = len(to);
-        (NEAR..=FAR).contains(&d) && dot(v, to) >= 0.9 * d
+        (NEAR..=sk(FAR)).contains(&d) && dot(v, to) >= 0.9 * d
     }).min_by(|a, b| len(sub(a.at, m.at)).total_cmp(&len(sub(b.at, m.at))))
 }
 
@@ -283,7 +285,7 @@ pub fn plan(me: Pt, missiles: &[Missile], guarded: &[Guarded]) -> Option<(Pt, Pt
     }
     let toward = threats.iter().fold((0.0, 0.0), |s, (m, _)| add(s, unit(sub(m.at, me)).unwrap_or((0.0, 0.0))));
     let dir = unit(toward)?;
-    Some((add(me, mul(dir, AHEAD)), dir, threats.len()))
+    Some((add(me, mul(dir, sk(AHEAD))), dir, threats.len()))
 }
 
 /// Along the wall: the side vector, pointing left to right on screen (top to bottom when the wall stands up and down).
@@ -294,7 +296,7 @@ pub fn side_of(dir: Pt) -> Pt {
 
 /// The point at `t` (-1 .. 1) along the bowed wall.
 pub fn along(mid: Pt, dir: Pt, t: f64) -> Pt {
-    add(add(mid, mul(side_of(dir), HALF * t)), mul(dir, BOW * (1.0 - t * t)))
+    add(add(mid, mul(side_of(dir), sk(HALF) * t)), mul(dir, sk(BOW) * (1.0 - t * t)))
 }
 
 /// The wall's line as a polyline (for the blocking test).
@@ -302,11 +304,25 @@ pub fn line(mid: Pt, dir: Pt) -> Vec<Pt> {
     (0..=8).map(|i| along(mid, dir, -1.0 + i as f64 / 4.0)).collect()
 }
 
-/// Where the pieces of wind stand (piece k from the left), and the ground dots.
+/// 从左到右每个位置画第几段风。大地图版墙长 1.3 倍：7 段拉开会露缝，改成 9 段，中间的 4、5 两段各多画一次
+/// （两头的边还是原画的边，只有一个尖，和原来的墙一个样子，只是长；按 1.3 倍重画这张 1x 像素画会大小不均）。
+pub fn piece_order() -> &'static [usize] {
+    if game_places::skill_scale::big() {
+        &BIG_ORDER
+    } else {
+        &SMALL_ORDER
+    }
+}
+
+const SMALL_ORDER: [usize; PIECES] = [0, 1, 2, 3, 4, 5, 6];
+const BIG_ORDER: [usize; 9] = [0, 1, 2, 3, 4, 5, 4, 5, 6];
+
+/// Where the pieces of wind stand (the k-th position from the left shows piece `piece_order()[k]`), and the ground dots.
 pub fn pieces(mid: Pt, dir: Pt) -> (Vec<Pt>, Vec<Pt>) {
-    let n = PIECES as f64;
-    let plumes = (0..PIECES).map(|k| along(mid, dir, -1.0 + (2.0 * k as f64 + 1.0) / n)).collect();
-    let dots = (2.0 * HALF / DOT) as usize + 1;
+    let count = piece_order().len();
+    let n = count as f64;
+    let plumes = (0..count).map(|k| along(mid, dir, -1.0 + (2.0 * k as f64 + 1.0) / n)).collect();
+    let dots = (2.0 * sk(HALF) / DOT) as usize + 1;
     let ground = (0..dots).map(|i| along(mid, dir, -1.0 + 2.0 * i as f64 / (dots - 1) as f64)).collect();
     (plumes, ground)
 }
@@ -371,14 +387,15 @@ impl WallPassive {
         }
         sim.play_view_effect(CAST_PIC, me, &InputTargetV1::target(me), 0, 0, 0);
         let mut shown = 0;
-        for (k, p) in plumes.iter().enumerate() {
+        let order = piece_order();
+        for (p, piece) in plumes.iter().zip(order) {
             let (x, y) = upos(map, *p);
-            shown += sim.play_view_effect(&format!("{PIECE_PIC}{k}"), me, &InputTargetV1::pos(x, y), 0, 0, 0) as usize;
+            shown += sim.play_view_effect(&format!("{PIECE_PIC}{piece}"), me, &InputTargetV1::pos(x, y), 0, 0, 0) as usize;
         }
         self.walls += 1;
         if let Some(k) = tally(sim, "wall") {
-            wlog(format!("{} WALL #{} at ({:.0}, {:.0}) facing ({:.2}, {:.2}): {n} missiles coming, {shown} of {PIECES} pieces \
-                          shown #{k}", head(sim, me), self.walls, mid.0, mid.1, dir.0, dir.1));
+            wlog(format!("{} WALL #{} at ({:.0}, {:.0}) facing ({:.2}, {:.2}): {n} missiles coming, {shown} of {} pieces \
+                          shown #{k}", head(sim, me), self.walls, mid.0, mid.1, dir.0, dir.1, order.len()));
         }
     }
 }
@@ -469,7 +486,7 @@ impl StablePassive for WallPassive {
             if let Some(&(h0, cc0)) = self.seen.get(&id) {
                 let lost = h0.saturating_sub(h);
                 let near = paths.iter().enumerate()
-                    .find(|(i, (a, b, gone))| !(*gone && spent[*i]) && seg_dist(p, *a, *b) <= HIT_R).map(|(i, x)| (i, x.2));
+                    .find(|(i, (a, b, gone))| !(*gone && spent[*i]) && seg_dist(p, *a, *b) <= sk(HIT_R)).map(|(i, x)| (i, x.2));
                 if let (true, Some((i, gone))) = (lost > 0, near) {
                     spent[i] = gone;
                     sim.entity_set_hp(id, (h + lost).min(max));
@@ -494,7 +511,7 @@ impl StablePassive for WallPassive {
             return;
         }
         let guarded: Vec<Guarded> = champs.iter()
-            .filter(|c| c.1 == team && len(sub(c.2, at)) <= GUARD_R)
+            .filter(|c| c.1 == team && len(sub(c.2, at)) <= sk(GUARD_R))
             .map(|c| Guarded { id: c.0, at: c.2, share: c.3 .0 * 1000 / c.3 .1.max(1) })
             .collect();
         let _ = (hp, max);
@@ -586,6 +603,17 @@ mod tests {
         assert!(plumes[0].1 < plumes[6].1 && plumes[3].0 > plumes[0].0); // top to bottom, bowed toward the enemy
         assert!(ground.len() > 20);
         assert!(seg_dist((0.0, 5_000.0), (-1.0, 0.0), (1.0, 0.0)) < 5_001.0);
+    }
+
+    #[test]
+    fn the_big_map_wall_has_more_pieces_with_its_own_edges() {
+        // 测试没有大地图版的标记：画原来的 7 段
+        assert_eq!(piece_order(), &SMALL_ORDER[..]);
+        // 大地图版：段数约是 7 x 1.3，两头还是原画的两条边，每段都是有的图
+        assert_eq!(BIG_ORDER.len(), (PIECES as f64 * 1.3).round() as usize);
+        assert_eq!((BIG_ORDER[0], BIG_ORDER[BIG_ORDER.len() - 1]), (0, PIECES - 1));
+        assert!(BIG_ORDER.iter().all(|&k| k < PIECES));
+        assert!(BIG_ORDER[1..BIG_ORDER.len() - 1].iter().all(|&k| k != 0 && k != PIECES - 1));
     }
 
     #[test]

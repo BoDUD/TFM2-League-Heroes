@@ -31,6 +31,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 技能距离和速度用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 mod souls;
@@ -459,7 +461,8 @@ impl StablePassive for Possess {
             soul_r: g("soul_r", d.soul_r),
             soul_t: g("soul_t", d.soul_t),
             s_range: g("s_range", d.s_range),
-            soul_dash: g("soul_dash", d.soul_dash),
+            // 装着的被动参数里没有 soul_dash，用的是这里的默认值：大地图版自己乘
+            soul_dash: g("soul_dash", sk(d.soul_dash)),
             e_t: g("e_t", d.e_t),
             e_ms: g("e_ms", d.e_ms),
             e_as: g("e_as", d.e_as),
@@ -579,7 +582,7 @@ impl StablePassive for Possess {
         let alive = alive && sim.get_entity(me).is_some_and(|e| e.is_targetable());
         if alive && now >= self.dash_until && self.reachable(mpos).is_none() {
             if let Some((pos, name)) = self.dashable(mpos).map(|s| (s.pos, s.name.clone())) {
-                let ticks = force_move(sim, me, (mpos.0 as f64, mpos.1 as f64), (pos.0 as f64, pos.1 as f64), DASH_SPEED);
+                let ticks = force_move(sim, me, (mpos.0 as f64, mpos.1 as f64), (pos.0 as f64, pos.1 as f64), sk(DASH_SPEED));
                 self.dash_until = now + ticks + 2;
                 wlog(format!("{} DASH to the soul of {name}, {} away, {ticks} ticks", head(sim, me), dist(pos, mpos)));
             }

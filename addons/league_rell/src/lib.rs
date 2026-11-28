@@ -22,6 +22,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod view;
@@ -306,7 +308,7 @@ impl Iron {
         for &(id, at) in &hasted {
             seen.insert(id, at);
             let Some(&was) = self.last.get(&id) else { continue };
-            let near = foes.iter().copied().filter(|f| dist(at, *f) <= TOWARD_R)
+            let near = foes.iter().copied().filter(|f| dist(at, *f) <= sk(TOWARD_R))
                 .min_by(|a, b| dist(at, *a).total_cmp(&dist(at, *b)));
             let partner = hasted.iter().find(|&&(o, _)| o != id).map(|&(_, a)| a);
             let why = if near.is_some_and(|f| heading_to(was, at, f)) {

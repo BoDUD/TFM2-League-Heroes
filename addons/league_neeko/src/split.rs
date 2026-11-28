@@ -28,6 +28,8 @@
 
 use std::sync::LazyLock;
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::{head, on_screen, tally, view, wlog, ID, LOG_PATH};
@@ -171,7 +173,7 @@ impl Hold {
             Hold::Cooldown(n) => format!("on cooldown, {n} ticks left"),
             Hold::Held(k) => format!("she is crowd-controlled ({k:?})"),
             Hold::Ult => "she is in Pop Blossom's charge or leap".to_string(),
-            Hold::Alone => format!("no enemy champion within {W_NEAR:.0}"),
+            Hold::Alone => format!("no enemy champion within {:.0}", sk(W_NEAR)),
         }
     }
 }
@@ -400,14 +402,14 @@ impl Split {
         let (taken, champs) = burst(&self.hits, tick);
         if is_burst(taken, max) {
             let first = !std::mem::replace(&mut self.bursting, true);
-            let foe = nearest_foe(sim, here, team, W_NEAR);
+            let foe = nearest_foe(sim, here, team, sk(W_NEAR));
             let ult = self.ult_at.is_some_and(|u| tick < u + R_BUSY);
             let decision = decide(KNOBS.off, self.open, self.ready, tick, held, ult, foe.is_some());
             if decision.is_ok() || first {
                 let what = format!(
                     "{}% of her max health ({taken} of {max}) in the last {W_WINDOW} ticks, {}% of it from champions; {}",
                     taken * 100 / max.max(1), champs * 100 / taken.max(1),
-                    foe.as_ref().map_or_else(|| format!("no enemy champion within {W_NEAR:.0}"),
+                    foe.as_ref().map_or_else(|| format!("no enemy champion within {:.0}", sk(W_NEAR)),
                                              |f| format!("enemy champion #{} {} {:.0} away", f.0, f.1, f.2)));
                 match decision {
                     Ok(()) => self.cast(sim, me, here, &what),
@@ -636,13 +638,14 @@ fn worn_or_none(screen: bool, name: &str) -> &'static str {
 pub fn register(module: &mut StableMod) {
     wlog(format!(
         "SPLIT: Shapesplitter's active (W) is the add-on's own: {W_BURST}% of her max health lost within {W_WINDOW} ticks with an \
-         enemy champion within {W_NEAR:.0} casts it ({W_CD} ticks cooldown from the clone's end) - she is unseen {W_INVIS} ticks and \
+         enemy champion within {near:.0} casts it ({W_CD} ticks cooldown from the clone's end) - she is unseen {W_INVIS} ticks and \
          +{W_MS}% faster {W_MS_T} ticks, and a clone '{}' (spawn_unit) comes on her for {W_LIFE} ticks, no damage, fading {W_FADE} \
          ticks after it is hurt - {}. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(UNIT_NAME),
         if KNOBS.off { "OFF by the test knobs: no W at all" } else { "ON" },
         LOG_PATH.with_extension("cfg").display(),
-        KNOBS.shown()
+        KNOBS.shown(),
+        near = sk(W_NEAR)
     ));
     module.add_native_effect(fx("split"), SplitFx);
 }

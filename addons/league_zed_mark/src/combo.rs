@@ -31,6 +31,8 @@
 //! 冲刺一直在到爆发，以前落地那一下就爆、`r_on` 跟着没了），第 1 条的 R-W-E-Q 甩影子这才看得到印记；「印记在」现在是 `r_on` 而且
 //! 看得见的敌方英雄里有人带着印记（`mark_holds`）：被标记的人提前死了，`r_on` 还挂到原定的爆发，不该拦着别的起手和影子的 Q。
 
+// 技能距离用的时候套 sk：大地图版跟着乘 1.3（game_places::skill_scale）
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 use super::{counted, head, wlog, ID};
@@ -156,7 +158,7 @@ impl Scene<'_> {
 
     /// 他这边的人：他身边 `CROWD_R` 内的我方英雄，含他。
     fn ours(&self) -> usize {
-        1 + self.allies.iter().filter(|&&a| dist(self.me.at, a) <= CROWD_R).count()
+        1 + self.allies.iter().filter(|&&a| dist(self.me.at, a) <= sk(CROWD_R)).count()
     }
 
     /// 能冲：目标不在敌方塔下，或已经残血。
@@ -230,7 +232,7 @@ pub fn plan(s: &Scene<'_>) -> Vec<Plan> {
     let mut out = Vec::new();
     // 1. the mark's W: on the marked one, outnumbered or not (the R shadow is the way out)
     if me.mark_on && me.w {
-        out.extend(s.pick(W_RANGE, |f| f.marked).into_iter().map(|f| Plan::MarkW(f.id)));
+        out.extend(s.pick(sk(W_RANGE), |f| f.marked).into_iter().map(|f| Plan::MarkW(f.id)));
     }
     let engage = me.hp >= ENGAGE_HP && !me.mark_on;
     // 2. R: a kill or a fight worth the ult, not into a crowd, not under their tower
@@ -238,19 +240,19 @@ pub fn plan(s: &Scene<'_>) -> Vec<Plan> {
         let ours = s.ours();
         let worth = |f: &Foe| (me.w && me.q && f.hp < R_LOW) || f.hp < R_SOLO || (s.fought(f) && (me.w || me.q));
         let ok = |f: &Foe| {
-            s.diveable(f) && s.foes_within(f.at, CROWD_R) <= ours + 1 && worth(f) && !s.away_from(f)
+            s.diveable(f) && s.foes_within(f.at, sk(CROWD_R)) <= ours + 1 && worth(f) && !s.away_from(f)
         };
-        out.extend(s.pick(R_REACH, ok).into_iter().map(|f| Plan::R { target: f.id, full: me.w && me.q }));
+        out.extend(s.pick(sk(R_REACH), ok).into_iter().map(|f| Plan::R { target: f.id, full: me.w && me.q }));
     }
     // 3. W-E-Q: league_ult_press's rule (not outnumbered where it lands)
     if me.w && me.q && engage {
         let ours = s.ours();
-        let ok = |f: &Foe| s.diveable(f) && s.foes_within(f.at, CROWD_R) <= ours && !s.away_from(f);
-        out.extend(s.pick(W_REACH, ok).into_iter().map(|f| Plan::Open(f.id)));
+        let ok = |f: &Foe| s.diveable(f) && s.foes_within(f.at, sk(CROWD_R)) <= ours && !s.away_from(f);
+        out.extend(s.pick(sk(W_REACH), ok).into_iter().map(|f| Plan::Open(f.id)));
     }
     // 4. a shadow standing: Q, the marked one first - never while the mark waits for W
     if me.shadow && me.q && !(me.mark_on && me.w) {
-        let mut v = s.pick(Q_REACH, |_| true);
+        let mut v = s.pick(sk(Q_REACH), |_| true);
         v.sort_by_key(|f| !f.marked);
         out.extend(v.into_iter().map(|f| Plan::Echo(f.id)));
     }

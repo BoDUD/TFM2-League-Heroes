@@ -37,6 +37,8 @@ use std::io::Write;
 use std::path::PathBuf;
 use std::sync::{LazyLock, Mutex};
 
+// 写死的技能距离在大地图版跟着乘 1.3
+use game_places::skill_scale::sk;
 use mod_api_stable::*;
 
 pub mod trickster;
@@ -326,7 +328,7 @@ pub fn clone_spec(stat: &StatV1, max_hp: usize) -> summon::Spec {
         attack: UnitAttackV1 {
             attack_ratio: W_HIT_AD,
             attack: W_HIT,
-            range: W_REACH,
+            range: sk(W_REACH),
             cooltime: W_COOL,
             duration: W_ACT,
             start_timing: W_LANDS,
@@ -425,7 +427,7 @@ fn pulse(sim: &mut StableSim<'_>, me: usize, team: usize, at: Pt, damage: usize,
     // (id, in the air already, not to be knocked up)
     let hit: Vec<(usize, bool, bool)> = (0..sim.entity_count()).filter_map(|i| sim.entity_at(i))
         .filter(|u| u.team() != team && u.is_alive() && u.is_targetable() && summon::hittable(u))
-        .filter(|u| dist(summon::at_of(u), at) <= SPIN_R)
+        .filter(|u| dist(summon::at_of(u), at) <= sk(SPIN_R))
         .map(|u| (u.id(), (0..u.cc_count()).filter_map(|i| u.cc_at(i)).any(|c| c.kind == CcKindV1::Airborne.code()),
                   (0..u.buff_count()).filter_map(|i| u.buff_at(i)).any(|b| b.cc_immune)
                       || matches!(u.kind(), Some(EntityKindV1::Epic | EntityKindV1::Serpen))))
@@ -568,7 +570,8 @@ impl StoneSkin {
             let s = &mut live.spun;
             (s.1, s.2, s.3) = (s.1 + 1, s.2 + hit, s.3 + ups);
             if let Some(k) = tally(sim, "unit pulse") {
-                wlog(format!("{} UNIT #{n} PULSE #{k}: {damage} physical to {hit} enemies within {SPIN_R:.0} of it at {}{}",
+                let spin_r = sk(SPIN_R);
+                wlog(format!("{} UNIT #{n} PULSE #{k}: {damage} physical to {hit} enemies within {spin_r:.0} of it at {}{}",
                              head(sim, me), summon::pt(live.unit.at),
                              if first { format!("; the spin's first: knocked up {ups} for {SPIN_UP} ticks, {aloft} in the air already") }
                              else { String::new() }));
@@ -799,10 +802,11 @@ pub fn register(host: &StableHost, module: &mut StableMod) {
         host.abi_level(),
         LOG_PATH.display()
     ));
+    let (w_reach, spin_r) = (sk(W_REACH), sk(SPIN_R));
     wlog(format!(
         "UNIT: Warrior Trickster's clone is a unit ('{}', spawn_unit) - {}; {W_LIFE} ticks where he cast W (move speed {W_SPEED}), \
-         his health then, {W_HIT} + {W_HIT_AD}% of his attack a hit every {W_COOL} ticks within {W_REACH}; it spins with his R: \
-         {SPIN_HIT} + {SPIN_HIT_AD}% of his attack every {SPIN_EVERY} ticks within {SPIN_R:.0}, the first knocking up {SPIN_UP} \
+         his health then, {W_HIT} + {W_HIT_AD}% of his attack a hit every {W_COOL} ticks within {w_reach}; it spins with his R: \
+         {SPIN_HIT} + {SPIN_HIT_AD}% of his attack every {SPIN_EVERY} ticks within {spin_r:.0}, the first knocking up {SPIN_UP} \
          ticks. Test knobs ({}): {}",
         KNOBS.name.as_deref().unwrap_or(UNIT_NAME),
         if KNOBS.off { "OFF by the test knobs: the clone is drawn as before" } else { "ON" },
