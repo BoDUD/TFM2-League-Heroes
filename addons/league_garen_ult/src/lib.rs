@@ -97,7 +97,8 @@ fn read_foe(e: &StableEntity<'_, '_>) -> Foe {
     let (hp, max) = e.hp();
     let mut foe = Foe { id: e.id(), hp, max, shield: e.shield(), ..Foe::default() };
     for b in (0..e.buff_count()).filter_map(|i| e.buff_at(i)) {
-        foe.undying |= holds_execute(b.name(), b.undying);
+        // 不带不死的 buff 不用看名字（holds_execute 那时一律是 false），省掉每个 buff 的名字校验
+        foe.undying |= b.undying && holds_execute(b.name(), true);
         foe.reduce += b.damaged_reduce;
         foe.amplify += b.damaged_amplify;
         foe.skill_reduce += b.skill_damaged_reduce;

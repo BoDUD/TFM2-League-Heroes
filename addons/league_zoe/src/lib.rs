@@ -563,8 +563,12 @@ struct Sparkles {
 }
 
 fn has_buff(sim: &StableSim<'_>, id: usize, name: &str) -> bool {
-    sim.get_entity(id)
-        .map_or(false, |e| (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| b.name() == name))
+    // 直接比原始名字字节（名字字节不是合法 UTF-8 时 name() 是空串，所以只有找空串时才照原来比）
+    sim.get_entity(id).map_or(false, |e| {
+        (0..e.buff_count()).filter_map(|i| e.buff_at(i)).any(|b| {
+            if name.is_empty() { b.name().is_empty() } else { &b.name_buf[..b.name_len.min(b.name_buf.len())] == name.as_bytes() }
+        })
+    })
 }
 
 /// 他身上的控制：`种类代码:剩余 tick`（日志用）。

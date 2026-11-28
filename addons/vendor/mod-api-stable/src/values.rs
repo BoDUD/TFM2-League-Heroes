@@ -876,7 +876,13 @@ impl BuffV1 {
 
     pub fn name(&self) -> &str {
         let len = self.name_len.min(BUFF_NAME_CAP);
-        std::str::from_utf8(&self.name_buf[..len]).unwrap_or("")
+        let bytes = &self.name_buf[..len];
+        // 名字几乎都是 ASCII，是就直接用（ASCII 一定是合法 UTF-8），不是再照原来校验
+        if bytes.is_ascii() {
+            // SAFETY: 全是 ASCII 字节
+            return unsafe { std::str::from_utf8_unchecked(bytes) };
+        }
+        std::str::from_utf8(bytes).unwrap_or("")
     }
 }
 
